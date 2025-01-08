@@ -1,6 +1,3 @@
-main file is temporarily disabled. you can download it from releases
-
-
 
 ### **Printer Jokers**
 
