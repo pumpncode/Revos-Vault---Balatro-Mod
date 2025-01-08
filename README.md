@@ -1,4 +1,5 @@
 **Download from "Releases" ----->**
+***Latest: 1.4.0***
 
 
 ### **Printer Jokers**
@@ -17,4 +18,4 @@ _you can reach out to me from discord (revoo__.) _for any suggestions or bug rep
 
 **Future Ideas**
 
-_no ideas for now _
+_no ideas for now_
