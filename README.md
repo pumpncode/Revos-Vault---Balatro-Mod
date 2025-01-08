@@ -1,3 +1,7 @@
+main file is temporarily disabled. you can download it from releases
+
+
+
 ### **Printer Jokers**
 
 **This mod introduces a fun and unique experience by adding Printer Jokers. Printer Jokers are a special type of joker that, when played, allow players to "print" the joker it represents.**
