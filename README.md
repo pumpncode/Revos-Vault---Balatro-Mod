@@ -13,3 +13,8 @@
 
 
 _you can reach out to me from discord (revoo__.) _for any suggestions or bug reports_
+
+
+**Future Ideas**
+
+_no ideas for now _
