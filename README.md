@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: 1.4.0***
+***Latest: 1.5.0***
 
 
 ### **Printer Jokers**
@@ -10,7 +10,7 @@
 **Along with the new jokers, the mod includes a variety of decks which lets you test out every Printer Joker.**
 
 
-**Currently there are 12 printer jokers with their own decks, 1 normal joker, 1 new enhancement, 1 new tarot card and a new consumable type(currently 1 consumable available)**
+**Currently there are 13 printer jokers with their own decks, 1 normal joker, 1 new enhancement, 1 new tarot card and a new consumable types!**
 
 
 
