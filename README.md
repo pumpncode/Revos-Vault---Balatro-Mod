@@ -20,6 +20,9 @@ _you can reach out to me from discord (revoo__.) _for any suggestions or bug rep
 **Future Ideas**
 
 Dirtinator9999
+
 Metal Printer
+
 Gold Printer
+
 More Possible Indie game Printers
