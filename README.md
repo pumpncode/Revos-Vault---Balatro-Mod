@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: 1.5.0***
+***Latest: Holy Banana***
 
 
 ### **Printer Jokers**
