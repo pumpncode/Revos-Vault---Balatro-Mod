@@ -1,6 +1,9 @@
 **Download from "Releases" ----->**
 
-***Latest: Holy Banana***
+***Latest: 1.6.0***
+
+***Known Issues***
+Some textures are broken and new deck for the latest joker is not available
 
 
 ### **Printer Jokers**
@@ -10,7 +13,7 @@
 **Along with the new jokers, the mod includes a variety of decks which lets you test out every Printer Joker.**
 
 
-**Currently there are 13 printer jokers with their own decks, 1 normal joker, 1 new enhancement, 1 new tarot card and a new consumable types!**
+**Currently there are 14 printer jokers with their own decks, 1 normal joker, 4 new enhancements, 1 new tarot card and a 2 new consumable types!**
 
 
 
