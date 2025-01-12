@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: Patch 1.7.0***
+***Latest: 1.7.0***
 
 
 ### **Printer Jokers**
