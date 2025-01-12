@@ -1,9 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: 1.6.0***
-
-***Known Issues***
-Some textures are broken and new deck for the latest joker is not available
+***Latest: Patch 1.6.1***
 
 
 ### **Printer Jokers**
@@ -29,3 +26,5 @@ Metal Printer
 Gold Printer
 
 More Possible Indie game Printers
+
+Chaotic and unbalanced stuff soon
