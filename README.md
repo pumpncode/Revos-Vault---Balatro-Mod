@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: 1.7.0***
+***Latest: 1.8.0***
 
 
 ### **Printer Jokers**
@@ -9,8 +9,10 @@
 
 **Along with the new jokers, the mod includes a variety of decks which lets you test out every Printer Joker.**
 
+**Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
 
-**Currently there are 14 printer jokers with their own decks ,3 chaotic jokers, 1 normal joker, 4 new enhancements, 1 new tarot, 1 new spectral card and a 2 new consumable types!**
+
+**Currently there are 19 printer jokers with their own decks ,4 chaotic jokers, 2 normal jokers, 7 new enhancements, 2 new tarots, 1 new spectral card and a 2 new consumable types!**
 
 
 
