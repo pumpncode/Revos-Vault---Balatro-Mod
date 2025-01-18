@@ -2,6 +2,7 @@
 
 ***Latest: Pedro (1.9.5)***
 
+**Known issues: Voucher "Tier Upgrade 2" wont check if "Tier Upgrade" has been redeemed to spawn. This causes it to spawn even though it shouldnt**
 
 ### **Printer Jokers**
 
