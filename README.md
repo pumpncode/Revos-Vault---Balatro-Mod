@@ -12,7 +12,7 @@
 **Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
 
 
-**Currently there are 20 printer jokers with their own decks ,4 chaos jokers, 3 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card, 2 vouchers and 2 new consumable types!**
+**Currently there are 19 printer jokers with their own decks ,4 chaos jokers, 3 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card, 2 vouchers and 2 new consumable types!**
 
 
 
