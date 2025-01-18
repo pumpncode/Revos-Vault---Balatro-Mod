@@ -1,8 +1,8 @@
 **Download from "Releases" ----->**
 
-***Latest: Pedro (1.9.5)***
+***Latest: Hotfix 1.9.6***
 
-**Known issues: Voucher "Tier Upgrade 2" wont check if "Tier Upgrade" has been redeemed to spawn. This causes it to spawn even though it shouldnt**
+**Known issues: none for now
 
 ### **Printer Jokers**
 
