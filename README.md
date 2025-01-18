@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: 1.9.0***
+***Latest: Pedro (1.9.5)***
 
 
 ### **Printer Jokers**
@@ -12,7 +12,7 @@
 **Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
 
 
-**Currently there are 20 printer jokers with their own decks ,4 chaotic jokers, 2 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card, 2 vouchers and 2 new consumable types!**
+**Currently there are 20 printer jokers with their own decks ,4 chaos jokers, 3 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card, 2 vouchers and 2 new consumable types!**
 
 
 
@@ -21,6 +21,6 @@ _you can reach out to me from discord (revoo__.) _for any suggestions or bug rep
 
 **Future Ideas**
 
-Adding a config which allows to disable decks
+More banana releated jokers
 
 atleast 40 jokers.
