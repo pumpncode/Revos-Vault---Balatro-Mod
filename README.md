@@ -2,7 +2,7 @@
 
 ***Latest: Hotfix 1.9.6***
 
-**Known issues: none for now
+**Known issues: none for now**
 
 ### **Printer Jokers**
 
