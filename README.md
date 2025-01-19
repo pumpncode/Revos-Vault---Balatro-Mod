@@ -1,4 +1,3 @@
-**Download from "Releases" ----->**
 
 ***Latest: Release 2.1.0: Going Bananas!***
 
