@@ -1,5 +1,6 @@
+**Download from "Releases" ----->**
 
-***Latest: Release 2.1.0: Going Bananas!***
+***Latest: Release 2.2.0: Going Bananas Part 2!***
 
 **Known issues: none for now**
 
@@ -12,7 +13,7 @@
 **Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
 
 
-**Currently there are 19 printer jokers with their own decks ,4 chaos jokers, 9 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card and 2 new consumable types!**
+**Currently there are 19 printer jokers with their own decks ,4 chaos jokers, 13 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card and 2 new consumable types!**
 
 
 
