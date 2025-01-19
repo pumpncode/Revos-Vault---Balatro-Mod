@@ -2371,7 +2371,7 @@ end,
                     loc_txt = { 
                         name = 'Gros Vine',
                         text = {
-                          'Creates a {C:attention}Gros Michel up to',
+                          'Creates a {C:attention}Gros Michel{} up to',
                           '3 times when blind is selected.',
                           '{C:mult}Self Destructs'
                         },
@@ -2386,7 +2386,7 @@ end,
                     eternal_compat = true, 
                     perishable_compat = true, 
                     pos = {x = 1, y = 1},
-                    config = { extra = { timer = 3} },
+                    config = { extra = { timer = 0} },
                     loc_vars = function(self, info_queue, card)
                       return { vars = { card.ability.extra.timer } }
                     end,
@@ -2433,33 +2433,29 @@ end,
                         loc_txt = { 
                             name = 'Plain Banana',
                             text = {
-                              'This joker gains {C:money}$1 sell value',
-                              'everytime a hand is played'
+                              'This joker gains {C:money}+$15{} sell value and',
+                              'has a {C:green}#2# in #3#{} chance to go extinct.',
+                              'everytime a blind is selected',
+
                             },
                             
                         },
                         atlas = 'gban', 
-                        rarity = 2, 
-                        cost = 5, 
+                        rarity = 3, 
+                        cost = 6, 
                         unlocked = true, 
                         discovered = true, 
                         blueprint_compat = true,
                         eternal_compat = true, 
                         perishable_compat = true, 
-                        pos = {x = 1, y = 1},
-                        config = { extra = { selfvalue = 3, selfvalueg = 1} },
+                        pos = {x = 2, y = 1},
+                        config = { extra = { extra_value = 3, odds = 2} },
                         loc_vars = function(self, info_queue, card)
-                          return { vars = { card.ability.extra.selfvalue,card.ability.extra.selfvalueg } }
+                          return { vars = { card.ability.extra.extra_value,(G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
                         end,
                         calculate = function(self, card, context)
-                           if context.setting_blind then
-                            if card.ability.extra.timer < 3 then
-                                card.ability.extra.timer = card.ability.extra.timer + 1
-                            local new_card = create_card('Gros Michel', G.jokers, nil,nil,nil,nil,'j_gros_michel')
-                                 new_card:add_to_deck()
-                                G.jokers:emplace(new_card)
-                        end
-                         if context.setting_blind and (card.ability.extra.timer == 3) then
+                         if context.setting_blind then 
+                            if pseudorandom('plainb') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.blueprint then
                                 G.E_MANAGER:add_event(Event({
                                     func = function()
                                       play_sound('tarot1')
@@ -2476,18 +2472,132 @@ end,
                                           card:remove()
                                           card = nil
                                           return true;
+                                        end,
+                                        
+                                  }))
+                                  return true
+                                end
+                              }))
+                              G.GAME.pool_flags.plainb_extinct = true
+                              return {
+                                message = 'Extinct!', 
+                                delay(0.6)
+                              }
+                            else
+                                card.ability.extra_value = card.ability.extra_value + 15
+                                card:set_cost()
+                                return { 
+                                    message = 'Value Up!',
+                                    delay(0.6)
+                                }
+                            end
+                        end
+                        end
+                          } 
+
+                          SMODS.Joker{
+                            key = 'tickingb', 
+                            loc_txt = { 
+                                name = 'Ticking Banana',
+                                text = {
+                                  'Gives {X:mult,C:white}X#1#{} Mult',
+                                  'After 3 rounds have passed',
+                                  '{C:mult}Self destructs',
+                                  '{C:inactive}(#2#/3 Rounds have passed)'
+                                },
+                                
+                            },
+                            atlas = 'gban', 
+                            rarity = 2, 
+                            cost = 6, 
+                            unlocked = true, 
+                            discovered = true, 
+                            blueprint_compat = true,
+                            eternal_compat = true, 
+                            perishable_compat = true, 
+                            pos = {x = 1, y = 2},
+                            config = { extra = { xmult = 15, timer = 0} },
+                            loc_vars = function(self, info_queue, card)
+                              return { vars = { card.ability.extra.xmult,card.ability.extra.timer } }
+                            end,
+                            calculate = function(self, card, context)
+                                if context.end_of_round and not context.repetition and not context.individual and not (card.ability.extra.timer == 3) then
+                                    card.ability.extra.timer = card.ability.extra.timer + 1
+                                end
+                             if context.joker_main then
+                                if (card.ability.extra.timer == 3) then
+                                    return {
+                                        x_mult = card.ability.extra.xmult,
+                                    },
+                                    G.E_MANAGER:add_event(Event({
+                                        func = function()
+                                          play_sound('tarot1')
+                                          card.T.r = -0.2
+                                          card:juice_up(0.3, 0.4)
+                                          card.states.drag.is = true
+                                          card.children.center.pinch.x = true
+                                          -- This part destroys the card.
+                                          G.E_MANAGER:add_event(Event({
+                                            trigger = 'after',
+                                            delay = 1.5,
+                                            blockable = false,
+                                            func = function()
+                                              G.jokers:remove_card(card)
+                                              card:remove()
+                                              card = nil
+                                              return true;
+                                            end
+                                          }))
+                                          return true
                                         end
                                       }))
-                                      return true
+
                                     end
-                                  }))
-                                  return {
-                                    message = 'Out of Bananas!'
-                                  }
                                 end
-                              end
                             end
-                          } 
+                            
+                              } 
+        local rkeys = { '1','2','3','4'}
+        SMODS.Joker {
+        key = 'uneasyb',
+        loc_txt = {
+          name = 'Uneasy Banana',
+          text = {
+            "{X:mult,C:white}X#1#{} Mult",
+            '{C:green}1 in 4{} Chance to',
+            '{C:mult}Restart your game',
+            'when blind is selected',
+            '{C:inactive}(Dice wont affect the chances)'
+        },},
+        config = { extra = { xmult = 2.5, } },
+        rarity = 2,
+        atlas = 'gban',
+        blueprint_compat = true,
+        discovered = true,
+        pos = { x = 0, y = 2},
+        cost = 4,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.xmult, } }
+        end,
+        calculate = function(self, card, context)
+        if context.joker_main then
+              return {
+                x_mult = card.ability.extra.xmult,
+              }
+            end
+            if context.setting_blind then 
+                local random_key = rkeys[math.random(#rkeys)]
+            if (random_key == '1') and not context.repetition and not context.individual then
+                SMODS.restart_game()
+            end
+
+        end
+    end,
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
     
     
             
