@@ -2371,8 +2371,9 @@ end,
                     loc_txt = { 
                         name = 'Gros Vine',
                         text = {
-                          'Creates a {C:attention}Gros Michel{} up to',
-                          '3 times when blind is selected.',
+                          'Creates a {C:attention}Gros Michel{} every time',
+                          'a blind is selected.',
+                          'After {C:attention}3 Gros Michel{} spawns, the joker',
                           '{C:mult}Self Destructs'
                         },
                         

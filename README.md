@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: Release 2.2.0: Going Bananas Part 2!***
+***Latest: Release 2.2.1: GBP2 Hotfix***
 
 **Known issues: none for now**
 
