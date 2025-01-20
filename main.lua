@@ -1,6 +1,42 @@
 
 -------------MOD CODE-------------
 
+SMODS.Joker {
+    key = 'revoo_.',
+    loc_txt = {
+      name = 'The Ace',
+      text = {
+        "Each scored {C:attention}Ace{}",
+        'Gives {X:mult,C:white}X#1#{} Mult'
+
+      }
+    },
+    config = { extra = { xmult = 3.5 } },
+    rarity = 3,
+    atlas = 'rev',
+    blueprint_compat = true,
+    discovered = true,
+    pos = { x = 0, y = 0 },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+      return { vars = {  card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+        if context.other_card:get_id() == 14 then
+          return {
+            xmult = card.ability.extra.xmult,
+            card = card.other_card
+          }
+        end
+    end
+end,
+
+          in_pool = function(self, wawa, wawa2)
+            return true
+        end
+  }
+
 
 
 
@@ -140,6 +176,13 @@ end
 
 
 --atlas--
+
+SMODS.Atlas{
+    key = 'rev', 
+    path = 'rev.png', 
+    px = 71, 
+    py = 95 
+}
 
 
 
@@ -593,8 +636,45 @@ end
                     end
                 end
             }
-            
 
+            SMODS.Enhancement{
+                key = "blessedcard",
+                atlas = 'enh',
+                pos = {x = 0, y = 1},
+                discovered = true,
+                unlocked = true,
+                loc_txt = { 
+                    name = 'Blessed',
+                    text = {
+                        '{C:green}#1# in #4#{} chance for {C:chips}+#8# {}Chips',
+                        '{C:green}#1# in #3#{} chance for {C:mult}+#7#{{} Mult',
+                        '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#6#{} Mult',
+                        '{C:green}#1# in #5#{} chance to win {C:money}$30{}',
+                        '{C:inactive}(All can trigger on the same turn)'
+                    }},
+                replace_base_card = false,
+                no_rank = false,
+                no_suit = false,
+                overrides_base_rank = false,
+                any_suit = false,
+                always_scores = false,
+                weight = 0,
+                config = {extra = { odds = 5, odds2 = 3, odds3 = 2, odds4 = 10, xmult = 3, mult = 25, chips = 100, money = 30}
+                },
+                loc_vars = function(self, info_queue, card)
+                    return { vars = {(G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.odds2, card.ability.extra.odds3, card.ability.extra.odds4, card.ability.extra.xmult,card.ability.extra.mult,
+                card.ability.extra.chips }} 
+                  end,
+                  calculate = function(self, card, context, effect)
+                    local effect = {}
+                    if pseudorandom('blessedcard') < G.GAME.probabilities.normal / card.ability.extra.odds2 and context.main_scoring and context.cardarea == G.play  then effect.mult = card.ability.extra.mult end
+                    if pseudorandom('blessedcard') < G.GAME.probabilities.normal / card.ability.extra.odds and context.main_scoring and context.cardarea == G.play  then effect.x_mult = card.ability.extra.xmult end
+                    if pseudorandom('blessedcard') < G.GAME.probabilities.normal / card.ability.extra.odds3 and context.main_scoring and context.cardarea == G.play  then effect.chips = card.ability.extra.chips end
+                    if pseudorandom('blessedcard') < G.GAME.probabilities.normal / card.ability.extra.odds4 and context.main_scoring and context.cardarea == G.play  then effect.dollars = card.ability.extra.money end
+                    return effect
+                  end
+            
+                    }
 
 
 ---------------CONSUMEABLES-----------------
@@ -722,7 +802,7 @@ SMODS.Consumable{
 
 
 local printer_keys = {'j_crv_printer','j_crv_rustyprinter','j_crv_jimboprinter','j_crv_grossprinter','j_crv_obeliskprinter','j_crv_moneyprinter','j_crv_brokenprinter','j_crv_faxprinter','j_crv_spectralprinter',
-'j_crv_glassprinter','j_crv_lpm','j_crv_devilishprinter','j_crv_steelprinter','j_crv_tierp'}
+'j_crv_glassprinter','j_crv_lpm','j_crv_devilishprinter','j_crv_steelprinter','j_crv_tierp','j_crv_luckyprinter'}
 
 SMODS.Consumable{
     key = 'ink&intuition', 
@@ -1081,6 +1161,49 @@ SMODS.Consumable{
                     end
             end
         }
+
+        SMODS.Consumable{
+            key = 'luckydocument', --key
+            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            discovered = true,
+            atlas = 'documents', --atlas
+            pos = {x = 2, y = 0}, --position in atlas
+            loc_txt = {
+                name = 'Lucky Document', --name of card
+                text = { --text of card
+                    'Turns #1# card into a{C:attention}Lucky Card',
+                    '{C:green} #2# in #3#{} chance for it to be a',
+                    '{C:dark_edition} Blessed Card{}'
+                }
+            },
+            config = {
+                extra = {
+                    cards = 1, odds = 4}
+            },
+            loc_vars = function(self, info_queue, card)
+                return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+              end,
+            can_use = function(self,card)
+                if G and G.hand then
+                    if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                        return true
+                    end
+                end
+                return false
+            end,
+            use = function(self,card,area,copier)
+                if pseudorandom('luckydocument') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    for i, card in pairs(G.hand.highlighted) do
+                        card:set_ability(G.P_CENTERS["m_crv_blessedcard"])
+                    end
+            else 
+                for i, card in pairs(G.hand.highlighted) do
+                    card:set_ability(G.P_CENTERS["m_lucky"])
+            end
+             end
+            end,
+        }
+
     
         
     
@@ -2501,9 +2624,9 @@ end,
                             loc_txt = { 
                                 name = 'Ticking Banana',
                                 text = {
-                                  'Gives {X:mult,C:white}X#1#{} Mult',
-                                  'After 3 rounds have passed',
-                                  '{C:mult}Self destructs',
+                                  'After 3 rounds have passed,',
+                                  'gives {X:mult,C:white}X#1#{} Mult and',
+                                  '{C:mult}self-destructs',
                                   '{C:inactive}(#2#/3 Rounds have passed)'
                                 },
                                 
@@ -2537,7 +2660,6 @@ end,
                                           card:juice_up(0.3, 0.4)
                                           card.states.drag.is = true
                                           card.children.center.pinch.x = true
-                                          -- This part destroys the card.
                                           G.E_MANAGER:add_event(Event({
                                             trigger = 'after',
                                             delay = 1.5,
@@ -2599,7 +2721,93 @@ end,
                 return true
             end
       }
+
+      SMODS.Joker{
+        key = 'luckyprinter', 
+        loc_txt = { 
+            name = 'Lucky Printer',
+            text = {
+                'Prints {C:attention}Lucky Document{}',
+                'When blind is selected,',
+                '{C:green}#1# in #2#{} Chance to print',
+                '{C:attention}2{} Documents instead of 1',
+              }
+        },
+        atlas = 'Jokers2', 
+        rarity = 'crv_p', 
+        cost = 30, 
+        unlocked = true, 
+        discovered = true, 
+        blueprint_compat = true,
+        eternal_compat = true, 
+        perishable_compat = false, 
+        pos = {x = 0, y = 1},
+        config = { extra = { odds = 4 }, }, 
+          loc_vars = function(self, info_queue, card)
+            return { vars = { (G.GAME.probabilities.normal or 1),card.ability.extra.odds } }
+          end,
+        calculate = function(self,card,context)
+            if context.setting_blind then
+                if pseudorandom('luckyprinter') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    local new_card = create_card('Lucky Document', G.consumeables, nil,nil,nil,nil,'c_crv_luckydocument')
+                    new_card:add_to_deck()
+                    G.consumeables:emplace(new_card) 
+                    local new_card2 = create_card('Lucky Document', G.consumeables, nil,nil,nil,nil,'c_crv_luckydocument')
+                    new_card2:add_to_deck()
+                    G.consumeables:emplace(new_card2) 
+                else
+                    local new_card = create_card('Lucky Document', G.consumeables, nil,nil,nil,nil,'c_crv_luckydocument')
+                    new_card:add_to_deck()
+                    G.consumeables:emplace(new_card) 
+                end
+            end
+        end,
+        in_pool = function(self,wawa,wawa2)
+            return false
+        end
+    }
     
+    local planet_keys = {'c_ceres', 'c_earth', 'c_eris', 'c_jupiter', 'c_mars', 'c_mercury', 'c_neptune', 'c_planet_x', 'c_pluto', 'c_saturn', 'c_uranus', 'c_venus', 
+}
+
+      SMODS.Joker{
+        key = 'celestialprinter', 
+        loc_txt = { 
+            name = 'Celestial Printer',
+            text = {
+              'When Blind is selected,',
+              'print a Random',
+              '{C:dark_edition} Negative {C:attention}Planet{}',
+              '{C:attention}Card{}',
+            },
+        },
+        atlas = 'Jokers2', 
+        rarity = 'crv_p', 
+        cost = 30, 
+        unlocked = true, 
+        discovered = true, 
+        blueprint_compat = true,
+        eternal_compat = true, 
+        perishable_compat = false, 
+        pos = {x = 1, y = 1}, 
+        config = { 
+          extra = {
+          }
+        },
+        calculate = function(self, card, context)
+            if context.setting_blind then
+                local random_key = planet_keys[math.random(#planet_keys)]
+                local new_card = create_card(random_key, G.consumeables, nil, nil, nil, nil, random_key)
+                new_card:set_edition({negative = true}, true)
+                new_card:add_to_deck()
+                G.consumeables:emplace(new_card)
+             end
+        end,
+        in_pool = function(self, wawa, wawa2)
+           
+            return false
+        end,
+      }
     
             
     ----------------DECKS----------------
@@ -3068,6 +3276,63 @@ end,
             }))
         end
     }
+    SMODS.Back{
+        name = "Lucky Pot",
+        key = 'lp',
+        atlas = 'Decks2',
+        pos = {x = 0, y = 1},
+        loc_txt = {
+            name = "Lucky Pot",
+            text = {
+                'Start with an',
+                'Eternal{C:attention} Lucky Printer{}.'
+            },
+        },
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_luckyprinter')
+
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
+
+    SMODS.Back{
+        name = "Celestial Forge",
+        key = 'cf',
+        atlas = 'Decks2',
+        pos = {x = 1, y = 1},
+        loc_txt = {
+            name = "Celestial Forge",
+            text = {
+                'Start with an',
+                'Eternal{C:attention} Celestial Printer{}.'
+            },
+        },
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_celestialprinter')
+
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
 
     --VOUCHERS--
 
@@ -3270,7 +3535,7 @@ end,
         pools = {}, 
     }
 
-    local chaos_keys = {'j_crv_chaoticprintermachine','j_crv_thefaxprinter','j_crv_dirtinator9999'}
+    local chaos_keys = {'j_crv_chaoticprintermachine','j_crv_thefaxprinter','j_crv_dirtinator9999','j_crv_holyprinter'}
 
 SMODS.Consumable{
     key = "Printer's Soul", 
@@ -3393,6 +3658,12 @@ SMODS.Consumable{
                 new_card:add_to_deck()
                 G.jokers:emplace(new_card)
                 local new_card = create_card('Advanced Printer', G.jokers, nil,nil,nil,nil,'j_crv_tierp')
+                new_card:add_to_deck()
+                G.jokers:emplace(new_card)
+                local new_card = create_card('Lucky Printer', G.jokers, nil,nil,nil,nil,'j_crv_luckyprinter')
+                new_card:add_to_deck()
+                G.jokers:emplace(new_card)
+                local new_card = create_card('Celestial Printer', G.jokers, nil,nil,nil,nil,'j_crv_celestialprinter')
                 new_card:add_to_deck()
                 G.jokers:emplace(new_card)
             end
@@ -3571,3 +3842,43 @@ SMODS.Consumable{
             end
           end
         }
+
+        SMODS.Joker{
+            key = 'holyprinter', 
+            loc_txt = { 
+                name = '{C:green}Holy Printer',
+                text = {
+                  'When Blind is selected,',
+                  'Print a {C:green}Holy Banana',
+                },
+                
+            },
+            atlas = 'chaosa', 
+            rarity = 'crv_chaos', 
+            cost = 30, 
+            unlocked = true, 
+            discovered = true, 
+            blueprint_compat = false,
+            eternal_compat = true, 
+            perishable_compat = false, 
+            pos = {x = 0, y = 2},
+            config = { 
+              extra = { 
+        
+              }
+            },
+            loc_vars = function(self, info_queue, card)
+                return { vars = {  } }
+              end, 
+            calculate = function(self,card,context)
+                
+                if context.setting_blind then
+                    local new_card = create_card('Blueprinter', G.jokers, nil,nil,nil,nil,'j_crv_holybanana')
+                    new_card:add_to_deck()
+                    G.jokers:emplace(new_card)
+                end
+            end,
+            in_pool = function(self,wawa,wawa2)
+                return false
+            end,
+           }
