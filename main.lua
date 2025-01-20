@@ -3125,6 +3125,7 @@ end,
     
     
                     joker_add('j_crv_smile!')
+                    joker_add('j_joker')
     
     
                     return true
@@ -3540,8 +3541,9 @@ end,
 SMODS.Consumable{
     key = "Printer's Soul", 
     set = 'Spectral',
+    hidden = true,
     soul_set = 'Spectral',
-        soul_rate = 0.003,
+        soul_rate = 0.0001,
         can_repeat_soul = false,
     loc_txt = { 
         name = "Printer's Soul",
