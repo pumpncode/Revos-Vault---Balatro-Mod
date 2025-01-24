@@ -82,8 +82,8 @@ SMODS.Joker {
     loc_txt = {
       name = '{C:uncommon}Holy Banana',
       text = {
-        'Gives{X:mult,C:white} X#1# {} Mult',
-        'and {C:chips}+#2#{} Chips',
+        'Gives {X:mult,C:white}X#1# {} Mult',
+        'and {C:chips}+#2#{} Chips.',
         '{C:green}#3# in #4#{} chance to get',
         'Sacrificed to the Divine',
 
@@ -342,7 +342,7 @@ SMODS.Enhancement{
     loc_txt = { 
         name = 'Bulletproof Glass',
         text = {
-            '{X:mult,C:white}X#1#{} Mult',
+            '{X:mult,C:white}X#1#{} Mult.',
             '{C:green}#2# in #3# {}chance to',
             'turn into {C:attention}Glass',
         }},
@@ -425,7 +425,7 @@ SMODS.Enhancement{
     loc_txt = { 
         name = 'Soul Card',
         text = {
-            "{X:mult,C:white}Don't Deal With The Devil",
+            "{C:mult}Don't Deal With The Devil",
         }},
     replace_base_card = true,
     no_rank = true,
@@ -1141,7 +1141,7 @@ SMODS.Consumable{
                 name = 'Tier 3 Document', --name of card
                 text = { --text of card
                     'Turns up to #1# card into a',
-                    '{C:attention}Tier 2 Card',
+                    '{C:attention}Tier 3 Card',
                 }
             },
             loc_vars = function(self, info_queue, card)
@@ -1171,7 +1171,7 @@ SMODS.Consumable{
             loc_txt = {
                 name = 'Lucky Document', --name of card
                 text = { --text of card
-                    'Turns #1# card into a{C:attention}Lucky Card',
+                    'Turns #1# card into a{C:attention} Lucky Card',
                     '{C:green} #2# in #3#{} chance for it to be a',
                     '{C:dark_edition} Blessed Card{}'
                 }
@@ -1706,7 +1706,7 @@ end,
             name = 'Legendary Printer',
             text = {
               "{C:green}#1# in #2#{} chance this",
-              "card prints a random {C:dark_edition}Temporary",
+              "card prints a random {C:dark_edition}Perishable",
               "{C:dark_edition}Negative{C:attention} Legendary Joker"
             },
             
@@ -1976,7 +1976,7 @@ end,
         loc_txt = { 
             name = 'Left Side of the Mega Printer',
             text = {
-              'Gives {C:mult}+#1#{} Mult',
+              'Gives {C:mult}+#1#{} Mult.',
               'If all 3 parts of the mega printer',
               'are present, print an {C:attention}Mega Document'
             },
@@ -2016,7 +2016,7 @@ end,
         loc_txt = { 
             name = 'Middle of the Mega Printer',
             text = {
-              'Gives {C:mult}+#1#{} Mult',
+              'Gives {C:mult}+#1#{} Mult.',
               'If all 3 parts of the mega printer',
               'are present, print an {C:attention}Mega Document'
             },
@@ -2056,7 +2056,7 @@ end,
         loc_txt = { 
             name = 'Right Side of the Mega Printer',
             text = {
-              'Gives {C:mult}+#1#{} Mult',
+              'Gives {C:mult}+#1#{} Mult.',
               'If all 3 parts of the mega printer',
               'is present, print an {C:attention}Mega Document'
             },
@@ -2236,7 +2236,7 @@ end,
             text = {
               'This Joker gives {X:mult,C:white}X#2#{} Mult and',
               'has {C:green}#3# in #4#{} chance to go extinct',
-              'After 3 rounds have passed',
+              'after 3 rounds have passed',
               '{C:inactive}(#1#/3 Rounds have passed)'
             },
             
@@ -2385,7 +2385,7 @@ end,
                 text = {
                   '{C:chips}+#1#{} Chips',
                   '{C:green}#2# in #3#{} Chance to go',
-                  'Extinct',
+                  'extinct',
                   '{C:chips}+#4# Chips{} for every round',
                   'without a {C:attention}Gros Michel'
                 },
@@ -3581,7 +3581,7 @@ SMODS.Consumable{
             name = '{C:dark_edition}Chaotic Printer',
             text = {
               'When Blind is selected,',
-              '{C:green}#1# in #2# to',
+              '{C:green}#1# in #2#{} chance to',
               'create all of the {C:attention}Printers',
               '{C:inactive}(Trust me, limiting this by luck',
               '{C:inactive}is needed.)'
@@ -3850,8 +3850,8 @@ SMODS.Consumable{
             loc_txt = { 
                 name = '{C:green}Holy Printer',
                 text = {
-                  'When Blind is selected,',
-                  'Print a {C:green}Holy Banana',
+                  'When Blind is selected',
+                  'print a {C:green}Holy Banana',
                 },
                 
             },
