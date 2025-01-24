@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: Release 2.3.0:***
+***Latest: Patch 2.3.2:***
 
 **Known issues: none for now**
 
@@ -21,5 +21,3 @@ _you can reach out to me from discord (revoo__.) _for any suggestions or bug rep
 
 
 **Future Ideas**
-
-atleast 40 jokers.
