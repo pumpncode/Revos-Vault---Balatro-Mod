@@ -1,6 +1,6 @@
 **Download from "Releases" ----->**
 
-***Latest: Release 2.3.0:***
+***Latest: Patch 2.3.3:***
 
 **Known issues: none for now**
 

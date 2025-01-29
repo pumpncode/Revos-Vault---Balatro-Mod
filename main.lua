@@ -2242,6 +2242,7 @@ end,
             
         },
         atlas = 'gban', 
+        no_pool_flag = 'pex',
         rarity = 2, 
         cost = 6, 
         unlocked = true, 
@@ -2291,7 +2292,7 @@ end,
                       return true
                     end
                   }))
-                  G.GAME.pool_flags.redbanana_extinct = true
+                  G.GAME.pool_flags.pex = true
                   return {
                     message = 'Extinct!', 
                     delay(0.6)
@@ -2321,6 +2322,7 @@ end,
             
         },
         atlas = 'gban', 
+        no_pool_flag = 'rex',
         rarity = 2, 
         cost = 6, 
         unlocked = true, 
@@ -2363,7 +2365,7 @@ end,
                     return true
                   end
                 }))
-                G.GAME.pool_flags.redbanana_extinct = true
+                G.GAME.pool_flags.rex = true
                 return {
                   message = 'Extinct!', 
                   delay(0.6)
@@ -2391,7 +2393,8 @@ end,
                 },
                 
             },
-            atlas = 'gban', 
+            atlas = 'gban',
+            no_pool_flag = 'lex', 
             rarity = 2, 
             cost = 5, 
             unlocked = true, 
@@ -2418,6 +2421,42 @@ end,
                         card = card
                     }
                 end
+                if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
+                    if pseudorandom('tundan') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.blueprint then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                              play_sound('tarot1')
+                              card.T.r = -0.2
+                              card:juice_up(0.3, 0.4)
+                              card.states.drag.is = true
+                              card.children.center.pinch.x = true
+                              G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.3,
+                                blockable = false,
+                                func = function()
+                                  G.jokers:remove_card(card)
+                                  card:remove()
+                                  card = nil
+                                  return true;
+                                end,
+                                
+                          }))
+                          return true
+                        end
+                      }))
+                      G.GAME.pool_flags.lex = true
+                      return {
+                        message = 'Extinct!', 
+                        delay(0.6)
+                      }
+                    else
+                        return {
+                            message = 'Safe!', 
+                            delay(0.6)
+                        }
+              end
+          end
             end
             }
 
@@ -2433,6 +2472,7 @@ end,
                     
                 },
                 atlas = 'gban', 
+                no_pool_flag = 'bex',
                 rarity = 2, 
                 cost = 5, 
                 unlocked = true, 
@@ -2481,6 +2521,7 @@ end,
                               return true
                             end
                           }))
+                          G.GAME.pool_flags.bex = true
                           return {
                             message = 'Eaten!'
                           }
@@ -2502,6 +2543,7 @@ end,
                         
                     },
                     atlas = 'gban', 
+                    no_pool_flag = 'gex',
                     rarity = 2, 
                     cost = 5, 
                     unlocked = true, 
@@ -2544,6 +2586,7 @@ end,
                                   return true
                                 end
                               }))
+                              G.GAME.pool_flags.gex = true
                               return {
                                 message = 'Out of Bananas!'
                               }
@@ -2565,6 +2608,7 @@ end,
                             
                         },
                         atlas = 'gban', 
+                        no_pool_flag = 'pex2',
                         rarity = 3, 
                         cost = 6, 
                         unlocked = true, 
@@ -2602,7 +2646,7 @@ end,
                                   return true
                                 end
                               }))
-                              G.GAME.pool_flags.plainb_extinct = true
+                              G.GAME.pool_flags.pex2 = true
                               return {
                                 message = 'Extinct!', 
                                 delay(0.6)
@@ -2631,7 +2675,8 @@ end,
                                 },
                                 
                             },
-                            atlas = 'gban', 
+                            atlas = 'gban',
+                            no_pool_flag = 'tex', 
                             rarity = 2, 
                             cost = 6, 
                             unlocked = true, 
@@ -2671,6 +2716,7 @@ end,
                                               return true;
                                             end
                                           }))
+                                          G.GAME.pool_flags.tex = true
                                           return true
                                         end
                                       }))
