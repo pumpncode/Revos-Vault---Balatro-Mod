@@ -7,7 +7,11 @@
 	"prefix": "crv",
 	"main_file": "main.lua",
 	"priority": 1,
+<<<<<<< HEAD
 	"version": "2.3.3",
+=======
+	"version": "2.3.2",
+>>>>>>> 75a636ba68f4eb99c285a00bde45167ab558832d
 	"dependencies": ["Steamodded (>=1.0.0~ALPHA-1311d)"],
 	"badge_colour": "A01EC8",
 	"badge_text_colour": "FFFFFF"
