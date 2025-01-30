@@ -711,6 +711,8 @@ SMODS.Consumable{
         end
     end,
     key = 'horn', --key
+    discovered = true,
+    unlocked = true,
     set = 'scrap', --the set of the card: corresponds to a consumable type
     atlas = 'scrapss', --atlas
     cost = 0,
@@ -744,6 +746,8 @@ SMODS.Consumable{
             end
         end,
         key = 'pickles', --key
+        discovered = true,
+        unlocked = true,
         set = 'scrap', --the set of the card: corresponds to a consumable type
         atlas = 'scrapss', --atlas
         cost = 0,
@@ -775,6 +779,8 @@ SMODS.Consumable{
                 end
             end,
             key = 'mp', --key
+            discovered = true,
+            unlocked = true,
             set = 'scrap', --the set of the card: corresponds to a consumable type
             atlas = 'scrapss', --atlas
             cost = 0,
@@ -1591,6 +1597,8 @@ end,
           }
         },
         config = { extra = { odds = 4 } },
+        discovered = true,
+        unlocked = true,
         rarity = 'crv_p',
         atlas = 'Jokers',
         blueprint_compat = true,
@@ -3732,6 +3740,8 @@ SMODS.Consumable{
           }
         },
         config = { extra = {  } },
+        discovered = true,
+        unlocked = true,
         rarity = "crv_chaos",
         atlas = 'chaosa',
         blueprint_compat = true,
