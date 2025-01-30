@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 181be8223afbe3481fd15992b0b40bcc4eb02c58
 ***Latest: Patch 2.3.3:***
 
 **Known issues: none for now**
