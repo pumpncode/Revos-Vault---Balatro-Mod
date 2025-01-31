@@ -1,6 +1,11 @@
 
 -------------MOD CODE-------------
---
+SMODS.Atlas{
+    key = 'modicon', 
+    path = 'modicon.png', 
+    px = 34, 
+    py = 34 
+}
 SMODS.Joker {
     key = 'revoo_.',
     loc_txt = {
@@ -15,7 +20,7 @@ SMODS.Joker {
     rarity = 3,
     atlas = 'rev',
     blueprint_compat = true,
-    discovered = true,
+    discovered = false,
     pos = { x = 0, y = 0 },
     cost = 7,
     loc_vars = function(self, info_queue, card)
@@ -93,7 +98,7 @@ SMODS.Joker {
     rarity = 'crv_holy',
     atlas = 'holybanana',
     blueprint_compat = true,
-    discovered = true,
+    discovered = false,
     pos = { x = 0, y = 0 },
     cost = 6,
     loc_vars = function(self, info_queue, card)
@@ -158,7 +163,7 @@ SMODS.Joker {
     rarity = 'crv_pedro',
     atlas = 'pedro',
     blueprint_compat = true,
-    discovered = true,
+    discovered = false,
     pos = { x = 0, y = 0 },
     cost = 6,
     loc_vars = function(self, info_queue, card)
@@ -425,7 +430,7 @@ SMODS.Enhancement{
     loc_txt = { 
         name = 'Soul Card',
         text = {
-            "{C:mult}Don't Deal With The Devil",
+            "{C:chips}A wandering soul",
         }},
     replace_base_card = true,
     no_rank = true,
@@ -1266,6 +1271,7 @@ end
 
 
 
+
 -------JOKERS------
 
 
@@ -1283,7 +1289,7 @@ SMODS.Joker{
     rarity = 'crv_p', 
     cost = 30, 
     unlocked = true, 
-    discovered = true, 
+    discovered = false, 
     blueprint_compat = false,
     eternal_compat = true, 
     perishable_compat = false, 
@@ -1321,7 +1327,7 @@ SMODS.Joker{
     rarity = 'crv_p', 
     cost = 30, 
     unlocked = true, 
-    discovered = true, 
+    discovered = false, 
     blueprint_compat = false, 
     eternal_compat = true, 
     perishable_compat = false, 
@@ -1360,7 +1366,7 @@ SMODS.Joker{
         rarity = 'crv_p',
         cost = 30, 
         unlocked = true,
-        discovered = true,
+        discovered = false,
         blueprint_compat = false,
         eternal_compat = true,
         perishable_compat = false,
@@ -1411,7 +1417,7 @@ SMODS.Joker{
     
     cost = 30, 
     unlocked = true, 
-    discovered = true, 
+    discovered = false, 
     blueprint_compat = true, 
     eternal_compat = true, 
     perishable_compat = false, 
@@ -1468,7 +1474,7 @@ end,
  
     cost = 20, 
     unlocked = true, 
-    discovered = true, 
+    discovered = false, 
     blueprint_compat = true,
     eternal_compat = true, 
     perishable_compat = false, 
@@ -1505,7 +1511,7 @@ end,
  
     cost = 40, 
     unlocked = true, 
-    discovered = true, 
+    discovered = false, 
     blueprint_compat = true,
     eternal_compat = true, 
     perishable_compat = false, 
@@ -1561,7 +1567,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1597,7 +1603,7 @@ end,
           }
         },
         config = { extra = { odds = 4 } },
-        discovered = true,
+        discovered = false,
         unlocked = true,
         rarity = 'crv_p',
         atlas = 'Jokers',
@@ -1641,7 +1647,7 @@ end,
         rarity = 2,
         atlas = 'Jokers',
         blueprint_compat = true,
-        discovered = true,
+        discovered = false,
         pos = { x = 2, y = 2 },
         cost = 6,
         loc_vars = function(self, info_queue, card)
@@ -1682,7 +1688,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1723,7 +1729,7 @@ end,
         rarity = 4, 
         cost = 35, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1768,7 +1774,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1827,7 +1833,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1869,7 +1875,7 @@ end,
         rarity = 'crv_p', 
         cost = 25, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1908,7 +1914,7 @@ end,
         rarity = 'crv_p', 
         cost = 25, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1957,7 +1963,7 @@ end,
         rarity = 'crv_p', 
         cost = 25, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -1994,7 +2000,7 @@ end,
         rarity = 'crv_p', 
         cost = 25, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = false,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -2034,7 +2040,7 @@ end,
         rarity = 'crv_p', 
         cost = 25, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = false,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -2074,7 +2080,7 @@ end,
         rarity = 'crv_p', 
         cost = 25, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = false,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -2120,7 +2126,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -2170,7 +2176,7 @@ end,
         rarity = 2, 
         cost = 4, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = true, 
@@ -2212,7 +2218,7 @@ end,
         rarity = 1, 
         cost = 1, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = true, 
@@ -2254,7 +2260,7 @@ end,
         rarity = 2, 
         cost = 6, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = true, 
@@ -2334,7 +2340,7 @@ end,
         rarity = 2, 
         cost = 6, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = true, 
@@ -2406,7 +2412,7 @@ end,
             rarity = 2, 
             cost = 5, 
             unlocked = true, 
-            discovered = true, 
+            discovered = false, 
             blueprint_compat = true,
             eternal_compat = true, 
             perishable_compat = true, 
@@ -2484,7 +2490,7 @@ end,
                 rarity = 2, 
                 cost = 5, 
                 unlocked = true, 
-                discovered = true, 
+                discovered = false, 
                 blueprint_compat = true,
                 eternal_compat = true, 
                 perishable_compat = true, 
@@ -2555,7 +2561,7 @@ end,
                     rarity = 2, 
                     cost = 5, 
                     unlocked = true, 
-                    discovered = true, 
+                    discovered = false, 
                     blueprint_compat = true,
                     eternal_compat = true, 
                     perishable_compat = true, 
@@ -2620,7 +2626,7 @@ end,
                         rarity = 3, 
                         cost = 6, 
                         unlocked = true, 
-                        discovered = true, 
+                        discovered = false, 
                         blueprint_compat = true,
                         eternal_compat = true, 
                         perishable_compat = true, 
@@ -2688,7 +2694,7 @@ end,
                             rarity = 2, 
                             cost = 6, 
                             unlocked = true, 
-                            discovered = true, 
+                            discovered = false, 
                             blueprint_compat = true,
                             eternal_compat = true, 
                             perishable_compat = true, 
@@ -2750,7 +2756,7 @@ end,
         rarity = 2,
         atlas = 'gban',
         blueprint_compat = true,
-        discovered = true,
+        discovered = false,
         pos = { x = 0, y = 2},
         cost = 4,
         loc_vars = function(self, info_queue, card)
@@ -2791,7 +2797,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -2839,7 +2845,7 @@ end,
         rarity = 'crv_p', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -2865,6 +2871,37 @@ end,
     
             
     ----------------DECKS----------------
+
+    SMODS.Back{
+        name = 'Machinery',
+        key = 'mach',
+        atlas = 'Decks',
+        pos = {x = 0, y = 0},
+        loc_txt = {
+            name = 'Machinery',
+            text = {
+                'Start with an',
+                'Eternal {C:attention}Blueprinter{}'
+            },
+        },
+        
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_printer')
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
+
+    
     SMODS.Back{
         name = 'Old Scroll',
         key = 'os',
@@ -2893,33 +2930,6 @@ end,
         end
     }
     
-    SMODS.Back{
-        name = 'Machinery',
-        key = 'mach',
-        atlas = 'Decks',
-        pos = {x = 0, y = 0},
-        loc_txt = {
-            name = 'Machinery',
-            text = {
-                'Start with an',
-                'Eternal {C:attention}Blueprinter{}'
-            },
-        },
-        apply = function ()
-    
-            G.E_MANAGER:add_event(Event({
-    
-                func = function ()
-    
-    
-                    joker_add('j_crv_printer')
-    
-    
-                    return true
-                end
-            }))
-        end
-    }
     
     SMODS.Back{
         name = 'Gold Mayhem',
@@ -3430,6 +3440,338 @@ end,
 
     ---WIP---
 
+    SMODS.Joker {
+        key = 'bpj',
+        loc_txt = {
+          name = 'Bulletproof Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Bulletproof Glass",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.4, bfg_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 0, y = 2 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.bfg_cards, card.ability.extra.x_gain, card.ability.extra.bfg_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.bfg_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_bulletproofglass then
+                        card.ability.extra.bfg_cards = card.ability.extra.bfg_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.bfg_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.bfg_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.bfg_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_bulletproofglass then
+                            card.ability.extra.bfg_cards = card.ability.extra.bfg_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'dcj',
+        loc_txt = {
+          name = 'Diamond Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Diamond Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.3, dcj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 2, y = 2 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.dcj_cards, card.ability.extra.x_gain, card.ability.extra.dcj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.dcj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_diamondcard then
+                        card.ability.extra.dcj_cards = card.ability.extra.dcj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.dcj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.dcj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.dcj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_diamondcard then
+                            card.ability.extra.dcj_cards = card.ability.extra.dcj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'mgj',
+        loc_txt = {
+          name = 'Mugged Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Mugged Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.2, mgj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 1, y = 3 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.mgj_cards, card.ability.extra.x_gain, card.ability.extra.mgj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.mgj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_mugged then
+                        card.ability.extra.mgj_cards = card.ability.extra.mgj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.mgj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.mgj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.mgj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_mugged then
+                            card.ability.extra.mgj_cards = card.ability.extra.mgj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'amj',
+        loc_txt = {
+          name = 'Aflame Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Aflame Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.2, amj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 1, y = 2 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.amj_cards, card.ability.extra.x_gain, card.ability.extra.amj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.amj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_flame then
+                        card.ability.extra.amj_cards = card.ability.extra.amj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.amj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.amj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.amj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_aflame then
+                            card.ability.extra.amj_cards = card.ability.extra.amj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      
+
+
+      SMODS.Joker {
+        key = 'mj',
+        loc_txt = {
+          name = 'Mega Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Mega Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.4, mj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 2, y = 1 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.mj_cards, card.ability.extra.x_gain, card.ability.extra.mj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.mj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_mega then
+                        card.ability.extra.mj_cards = card.ability.extra.mj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.mj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.mj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.mj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_mega then
+                            card.ability.extra.mj_cards = card.ability.extra.mj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'bj',
+        loc_txt = {
+          name = 'Blessed Joker',
+          text = {
+            "Gives {C:chips}+#5#{} Chips, {C:mult}+#4#{} Mult and {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Blessed Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {C:chips}+#6#{} {C:inactive}Chips{}, {C:mult}+#7#{} {C:inactive}Mult and {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.4, bj_cards = 0, mult = 5, chips = 10,} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 0, y = 3 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.bj_cards, card.ability.extra.x_gain, card.ability.extra.bj_cards, card.ability.extra.mult,card.ability.extra.chips,
+          card.ability.extra.chips*card.ability.extra.bj_cards,card.ability.extra.mult*card.ability.extra.bj_cards} }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.bj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_blessedcard then
+                        card.ability.extra.bj_cards = card.ability.extra.bj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.bj_cards > 0 then
+                    return {
+                        chips = card.ability.extra.bj_cards * card.ability.extra.chips,
+                        mult = card.ability.extra.bj_cards * card.ability.extra.mult,
+                        x_mult = card.ability.extra.bj_cards * card.ability.extra.x_gain,
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.bj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_blessedcard then
+                            card.ability.extra.bj_cards = card.ability.extra.bj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+
+
+
    
     
    
@@ -3614,7 +3956,7 @@ SMODS.Consumable{
     atlas = 'printersoul',
     cost = 3,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     can_use = function(self,card)
         return true
         end,
@@ -3646,7 +3988,7 @@ SMODS.Consumable{
         rarity = 'crv_chaos', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = false,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -3740,7 +4082,7 @@ SMODS.Consumable{
           }
         },
         config = { extra = {  } },
-        discovered = true,
+        discovered = false,
         unlocked = true,
         rarity = "crv_chaos",
         atlas = 'chaosa',
@@ -3779,7 +4121,7 @@ SMODS.Consumable{
         rarity = 'crv_chaos',
         atlas = 'chaosa',
         blueprint_compat = true,
-        discovered = true,
+        discovered = false,
         pos = { x = 0, y = 0 },
         cost = 6,
         loc_vars = function(self, info_queue, card)
@@ -3814,7 +4156,7 @@ SMODS.Consumable{
         rarity = 'crv_chaos', 
         cost = 30, 
         unlocked = true, 
-        discovered = true, 
+        discovered = false, 
         blueprint_compat = true,
         eternal_compat = true, 
         perishable_compat = false, 
@@ -3915,7 +4257,7 @@ SMODS.Consumable{
             rarity = 'crv_chaos', 
             cost = 30, 
             unlocked = true, 
-            discovered = true, 
+            discovered = false, 
             blueprint_compat = false,
             eternal_compat = true, 
             perishable_compat = false, 

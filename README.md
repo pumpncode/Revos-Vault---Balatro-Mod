@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 181be8223afbe3481fd15992b0b40bcc4eb02c58
-***Latest: Patch 2.3.3:***
+***Latest: Release 2.4.0:***
 
 **Known issues: none for now**
 
@@ -15,7 +12,7 @@
 **Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
 
 
-**Currently there are 21 printer jokers with their own decks ,5 chaos jokers, 14 normal jokers, 10 new enhancements, 2 new tarots, 1 new spectral card and 2 new consumable types!**
+**Currently there are 21 printer jokers with their own decks ,5 chaos jokers, 20 normal jokers, 11 new enhancements, 2 new tarots, 1 new spectral card and 2 new consumable types!**
 
 
 
@@ -24,4 +21,4 @@ _you can reach out to me from discord (revoo__.) _for any suggestions or bug rep
 
 **Future Ideas**
 
-atleast 40 jokers.
+46/53 Jokers
