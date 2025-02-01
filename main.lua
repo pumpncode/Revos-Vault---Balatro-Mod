@@ -1734,6 +1734,7 @@ end,
         eternal_compat = true, 
         perishable_compat = false, 
         pos = {x = 1, y = 3},
+        soul_pos = {x = 3, y = 3},
         config = { 
           extra = { odds = 3 }
           },
@@ -2868,6 +2869,335 @@ end,
             return false
         end,
       }
+
+      SMODS.Joker {
+        key = 'bpj',
+        loc_txt = {
+          name = 'Bulletproof Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Bulletproof Glass",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.4, bfg_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 0, y = 2 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.bfg_cards, card.ability.extra.x_gain, card.ability.extra.bfg_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.bfg_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_bulletproofglass then
+                        card.ability.extra.bfg_cards = card.ability.extra.bfg_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.bfg_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.bfg_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.bfg_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_bulletproofglass then
+                            card.ability.extra.bfg_cards = card.ability.extra.bfg_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'dcj',
+        loc_txt = {
+          name = 'Diamond Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Diamond Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.3, dcj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 2, y = 2 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.dcj_cards, card.ability.extra.x_gain, card.ability.extra.dcj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.dcj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_diamondcard then
+                        card.ability.extra.dcj_cards = card.ability.extra.dcj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.dcj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.dcj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.dcj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_diamondcard then
+                            card.ability.extra.dcj_cards = card.ability.extra.dcj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'mgj',
+        loc_txt = {
+          name = 'Mugged Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Mugged Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.2, mgj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 1, y = 3 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.mgj_cards, card.ability.extra.x_gain, card.ability.extra.mgj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.mgj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_mugged then
+                        card.ability.extra.mgj_cards = card.ability.extra.mgj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.mgj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.mgj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.mgj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_mugged then
+                            card.ability.extra.mgj_cards = card.ability.extra.mgj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'amj',
+        loc_txt = {
+          name = 'Aflame Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Aflame Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.2, amj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 1, y = 2 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.amj_cards, card.ability.extra.x_gain, card.ability.extra.amj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.amj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_flame then
+                        card.ability.extra.amj_cards = card.ability.extra.amj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.amj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.amj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.amj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_aflame then
+                            card.ability.extra.amj_cards = card.ability.extra.amj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      
+
+
+      SMODS.Joker {
+        key = 'mj',
+        loc_txt = {
+          name = 'Mega Joker',
+          text = {
+            "Gives {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Mega Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.4, mj_cards = 0} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 2, y = 1 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.mj_cards, card.ability.extra.x_gain, card.ability.extra.mj_cards } }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.mj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_mega then
+                        card.ability.extra.mj_cards = card.ability.extra.mj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.mj_cards > 0 then
+                    return {
+                        x_mult = card.ability.extra.mj_cards * card.ability.extra.x_gain
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.mj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_mega then
+                            card.ability.extra.mj_cards = card.ability.extra.mj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
+
+      SMODS.Joker {
+        key = 'bj',
+        loc_txt = {
+          name = 'Blessed Joker',
+          text = {
+            "Gives {C:chips}+#5#{} Chips, {C:mult}+#4#{} Mult and {X:mult,C:white}X#2#{} Mult",
+            "for each {C:attention}Blessed Card",
+            "in your {C:attention}full deck{}",
+            "{C:inactive}(Currently {C:chips}+#6#{} {C:inactive}Chips{}, {C:mult}+#7#{} {C:inactive}Mult and {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+          }
+        },
+        config = { extra = {  x_gain = 0.4, bj_cards = 0, mult = 5, chips = 10,} },
+        rarity = 2,
+        atlas = 'Jokers2',
+        blueprint_compat = true,
+        discovered = false,
+        pos = { x = 0, y = 3 },
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+          return { vars = { card.ability.extra.x_gain*card.ability.extra.bj_cards, card.ability.extra.x_gain, card.ability.extra.bj_cards, card.ability.extra.mult,card.ability.extra.chips,
+          card.ability.extra.chips*card.ability.extra.bj_cards,card.ability.extra.mult*card.ability.extra.bj_cards} }
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                card.ability.extra.bj_cards = 0
+                for k, v in pairs(G.playing_cards) do
+                    if v.config.center == G.P_CENTERS.m_crv_blessedcard then
+                        card.ability.extra.bj_cards = card.ability.extra.bj_cards + 1
+                    end
+                end
+            end
+            if context.joker_main then
+                if card.ability.extra.bj_cards > 0 then
+                    return {
+                        chips = card.ability.extra.bj_cards * card.ability.extra.chips,
+                        mult = card.ability.extra.bj_cards * card.ability.extra.mult,
+                        x_mult = card.ability.extra.bj_cards * card.ability.extra.x_gain,
+                    }
+                end
+            end
+                if context.ending_shop then 
+                    card.ability.extra.bj_cards = 0
+                    for k, v in pairs(G.playing_cards) do
+                        if v.config.center == G.P_CENTERS.m_crv_blessedcard then
+                            card.ability.extra.bj_cards = card.ability.extra.bj_cards + 1
+                        end
+                    end
+                end
+                
+            end,
+
+              in_pool = function(self, wawa, wawa2)
+                return true
+            end
+      }
     
             
     ----------------DECKS----------------
@@ -3370,6 +3700,7 @@ end,
         end
     }
 
+    
     SMODS.Back{
         name = "Celestial Forge",
         key = 'cf',
@@ -3398,6 +3729,123 @@ end,
             }))
         end
     }
+
+    SMODS.Back{
+        name = "Polychrome Deck",
+        key = 'pd',
+        atlas = 'Decks2',
+        pos = {x = 2, y = 2},
+        loc_txt = {
+            name = "Polychrome Deck",
+            text = {
+                'Start with an',
+                'Eternal{C:attention} Polychrome Printer{}.'
+            },
+        },
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_pcp')
+
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
+
+    SMODS.Back{
+        name = "Foil Deck",
+        key = 'fd',
+        atlas = 'Decks2',
+        pos = {x = 0, y = 2},
+        loc_txt = {
+            name = "Foil Deck",
+            text = {
+                'Start with an',
+                'Eternal{C:attention} Foil Printer{}.'
+            },
+        },
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_fcp')
+
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
+
+    SMODS.Back{
+        name = "Holographic Deck",
+        key = 'hd',
+        atlas = 'Decks2',
+        pos = {x = 1, y = 2},
+        loc_txt = {
+            name = "Holographic Deck",
+            text = {
+                'Start with an',
+                'Eternal{C:attention} Holographic Printer{}.'
+            },
+        },
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_hcp')
+
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
+
+    SMODS.Back{
+        name = "Negative Deck",
+        key = 'nd',
+        atlas = 'Decks2',
+        pos = {x = 3, y = 2},
+        loc_txt = {
+            name = "Negative Deck",
+            text = {
+                'Start with an',
+                'Eternal{C:attention} Negative Printer{}.'
+            },
+        },
+        apply = function ()
+    
+            G.E_MANAGER:add_event(Event({
+    
+                func = function ()
+    
+    
+                    joker_add('j_crv_ncp')
+
+    
+    
+                    return true
+                end
+            }))
+        end
+    }
+
 
     --VOUCHERS--
 
@@ -3440,334 +3888,342 @@ end,
 
     ---WIP---
 
-    SMODS.Joker {
-        key = 'bpj',
-        loc_txt = {
-          name = 'Bulletproof Joker',
-          text = {
-            "Gives {X:mult,C:white}X#2#{} Mult",
-            "for each {C:attention}Bulletproof Glass",
-            "in your {C:attention}full deck{}",
-            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+    SMODS.Joker{
+        key = 'pcp', 
+        loc_txt = { 
+            name = 'Polychrome Printer',
+            text = {
+              "Gives {X:mult,C:white}X#1#{} Mult.",
+              'When Blind is selected,',
+              'prints a {C:dark_edition}Polychrome Document',
+              
+            },
+            
+        },
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.xmult } }
+          end, 
+        atlas = 'Jokers2', 
+        rarity = 'crv_p', 
+        cost = 30, 
+        unlocked = true, 
+        discovered = false, 
+        blueprint_compat = false,
+        eternal_compat = true, 
+        perishable_compat = false, 
+        pos = {x = 2, y = 4},
+        config = { 
+          extra = {
+            xmult = 1.5
           }
         },
-        config = { extra = {  x_gain = 0.4, bfg_cards = 0} },
-        rarity = 2,
-        atlas = 'Jokers2',
-        blueprint_compat = true,
-        discovered = false,
-        pos = { x = 0, y = 2 },
-        cost = 6,
-        loc_vars = function(self, info_queue, card)
-          return { vars = { card.ability.extra.x_gain*card.ability.extra.bfg_cards, card.ability.extra.x_gain, card.ability.extra.bfg_cards } }
+    
+        calculate = function(self,card,context)
+            
+            if context.setting_blind then
+                local new_card = create_card('Polychrome Document', G.consumeables, nil,nil,nil,nil,'c_crv_polydoc')
+                new_card:add_to_deck()
+                new_card:set_edition({polychrome = true},true)
+                G.consumeables:emplace(new_card)
+            end
+        if context.joker_main then 
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+        end
+    end,
+        in_pool = function(self,wawa,wawa2)
+            return false
         end,
-        calculate = function(self, card, context)
-            if context.before then
-                card.ability.extra.bfg_cards = 0
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center == G.P_CENTERS.m_crv_bulletproofglass then
-                        card.ability.extra.bfg_cards = card.ability.extra.bfg_cards + 1
-                    end
-                end
-            end
-            if context.joker_main then
-                if card.ability.extra.bfg_cards > 0 then
-                    return {
-                        x_mult = card.ability.extra.bfg_cards * card.ability.extra.x_gain
-                    }
-                end
-            end
-                if context.ending_shop then 
-                    card.ability.extra.bfg_cards = 0
-                    for k, v in pairs(G.playing_cards) do
-                        if v.config.center == G.P_CENTERS.m_crv_bulletproofglass then
-                            card.ability.extra.bfg_cards = card.ability.extra.bfg_cards + 1
-                        end
-                    end
-                end
-                
-            end,
+       }
 
-
-              in_pool = function(self, wawa, wawa2)
-                return true
-            end
-      }
-
-      SMODS.Joker {
-        key = 'dcj',
-        loc_txt = {
-          name = 'Diamond Joker',
-          text = {
-            "Gives {X:mult,C:white}X#2#{} Mult",
-            "for each {C:attention}Diamond Card",
-            "in your {C:attention}full deck{}",
-            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+       SMODS.Joker{
+        key = 'fcp', 
+        loc_txt = { 
+            name = 'Foil Printer',
+            text = {
+              "Gives {C:chips}+#1#{} Chips.",
+              'When Blind is selected,',
+              'prints a {C:dark_edition}Foil Document',
+              
+            },
+            
+        },
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.chips } }
+          end, 
+        atlas = 'Jokers2', 
+        rarity = 'crv_p', 
+        cost = 30, 
+        unlocked = true, 
+        discovered = false, 
+        blueprint_compat = false,
+        eternal_compat = true, 
+        perishable_compat = false, 
+        pos = {x = 0, y = 4},
+        config = { 
+          extra = {
+            chips = 50
           }
         },
-        config = { extra = {  x_gain = 0.3, dcj_cards = 0} },
-        rarity = 2,
-        atlas = 'Jokers2',
-        blueprint_compat = true,
-        discovered = false,
-        pos = { x = 2, y = 2 },
-        cost = 6,
-        loc_vars = function(self, info_queue, card)
-          return { vars = { card.ability.extra.x_gain*card.ability.extra.dcj_cards, card.ability.extra.x_gain, card.ability.extra.dcj_cards } }
+    
+        calculate = function(self,card,context)
+            
+            if context.setting_blind then
+                local new_card = create_card('Foil Document', G.consumeables, nil,nil,nil,nil,'c_crv_foildoc')
+                new_card:add_to_deck()
+                new_card:set_edition({foil = true},true)
+                G.consumeables:emplace(new_card)
+            end
+        if context.joker_main then 
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end,
+        in_pool = function(self,wawa,wawa2)
+            return false
         end,
-        calculate = function(self, card, context)
-            if context.before then
-                card.ability.extra.dcj_cards = 0
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center == G.P_CENTERS.m_crv_diamondcard then
-                        card.ability.extra.dcj_cards = card.ability.extra.dcj_cards + 1
-                    end
-                end
-            end
-            if context.joker_main then
-                if card.ability.extra.dcj_cards > 0 then
-                    return {
-                        x_mult = card.ability.extra.dcj_cards * card.ability.extra.x_gain
-                    }
-                end
-            end
-                if context.ending_shop then 
-                    card.ability.extra.dcj_cards = 0
-                    for k, v in pairs(G.playing_cards) do
-                        if v.config.center == G.P_CENTERS.m_crv_diamondcard then
-                            card.ability.extra.dcj_cards = card.ability.extra.dcj_cards + 1
-                        end
-                    end
-                end
-                
-            end,
+       }
 
-
-              in_pool = function(self, wawa, wawa2)
-                return true
-            end
-      }
-
-      SMODS.Joker {
-        key = 'mgj',
-        loc_txt = {
-          name = 'Mugged Joker',
-          text = {
-            "Gives {X:mult,C:white}X#2#{} Mult",
-            "for each {C:attention}Mugged Card",
-            "in your {C:attention}full deck{}",
-            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+       SMODS.Joker{
+        key = 'hcp', 
+        loc_txt = { 
+            name = 'Holographic Printer',
+            text = {
+              "Gives {C:mult}+#1#{} Mult.",
+              'When Blind is selected,',
+              'prints a {C:dark_edition}Holographic Document',
+              
+            },
+            
+        },
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.mult } }
+          end, 
+        atlas = 'Jokers2', 
+        rarity = 'crv_p', 
+        cost = 30, 
+        unlocked = true, 
+        discovered = false, 
+        blueprint_compat = false,
+        eternal_compat = true, 
+        perishable_compat = false, 
+        pos = {x = 1, y = 4},
+        config = { 
+          extra = {
+            mult = 50
           }
         },
-        config = { extra = {  x_gain = 0.2, mgj_cards = 0} },
-        rarity = 2,
-        atlas = 'Jokers2',
-        blueprint_compat = true,
-        discovered = false,
-        pos = { x = 1, y = 3 },
-        cost = 6,
-        loc_vars = function(self, info_queue, card)
-          return { vars = { card.ability.extra.x_gain*card.ability.extra.mgj_cards, card.ability.extra.x_gain, card.ability.extra.mgj_cards } }
+    
+        calculate = function(self,card,context)
+            
+            if context.setting_blind then
+                local new_card = create_card('Holographic Document', G.consumeables, nil,nil,nil,nil,'c_crv_holdoc')
+                new_card:add_to_deck()
+                new_card:set_edition({holo = true},true)
+                G.consumeables:emplace(new_card)
+            end
+        if context.joker_main then 
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end,
+        in_pool = function(self,wawa,wawa2)
+            return false
         end,
-        calculate = function(self, card, context)
-            if context.before then
-                card.ability.extra.mgj_cards = 0
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center == G.P_CENTERS.m_crv_mugged then
-                        card.ability.extra.mgj_cards = card.ability.extra.mgj_cards + 1
-                    end
-                end
-            end
-            if context.joker_main then
-                if card.ability.extra.mgj_cards > 0 then
-                    return {
-                        x_mult = card.ability.extra.mgj_cards * card.ability.extra.x_gain
-                    }
-                end
-            end
-                if context.ending_shop then 
-                    card.ability.extra.mgj_cards = 0
-                    for k, v in pairs(G.playing_cards) do
-                        if v.config.center == G.P_CENTERS.m_crv_mugged then
-                            card.ability.extra.mgj_cards = card.ability.extra.mgj_cards + 1
-                        end
-                    end
-                end
-                
-            end,
+       }
 
-
-              in_pool = function(self, wawa, wawa2)
-                return true
-            end
-      }
-
-      SMODS.Joker {
-        key = 'amj',
-        loc_txt = {
-          name = 'Aflame Joker',
-          text = {
-            "Gives {X:mult,C:white}X#2#{} Mult",
-            "for each {C:attention}Aflame Card",
-            "in your {C:attention}full deck{}",
-            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+       SMODS.Joker{
+        key = 'ncp', 
+        loc_txt = { 
+            name = 'Negative Printer',
+            text = {
+              "{C:attention}+1 Joker Slot.",
+              'When Blind is selected,',
+              'prints a {C:dark_edition}Negative Document',
+              
+            },
+            
+        },
+        loc_vars = function(self, info_queue, card)
+            return { vars = { } }
+          end, 
+        atlas = 'Jokers2', 
+        rarity = 'crv_p', 
+        cost = 30, 
+        unlocked = true, 
+        discovered = false, 
+        blueprint_compat = false,
+        eternal_compat = true, 
+        perishable_compat = false, 
+        pos = {x = 3, y = 4},
+        config = { 
+          extra = { counter = 1
           }
         },
-        config = { extra = {  x_gain = 0.2, amj_cards = 0} },
-        rarity = 2,
-        atlas = 'Jokers2',
-        blueprint_compat = true,
-        discovered = false,
-        pos = { x = 1, y = 2 },
-        cost = 6,
-        loc_vars = function(self, info_queue, card)
-          return { vars = { card.ability.extra.x_gain*card.ability.extra.amj_cards, card.ability.extra.x_gain, card.ability.extra.amj_cards } }
+    
+        calculate = function(self,card,context)
+            
+            if context.setting_blind then
+                local new_card = create_card('Negative Document', G.consumeables, nil,nil,nil,nil,'c_crv_negdoc')
+                new_card:add_to_deck()
+                new_card:set_edition({negative = true},true)
+                G.consumeables:emplace(new_card)
+            end
+            if (#SMODS.find_card('j_crv_ncp') > 0) and card.ability.extra.counter == 1 and not context.repetition and not context.individual and not context.blueprint then
+                G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                card.ability.extra.counter = card.ability.extra.counter + 1
+            end
+            if context.selling_self then
+                G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+            end
+end,
+        in_pool = function(self,wawa,wawa2)
+            return false
         end,
-        calculate = function(self, card, context)
-            if context.before then
-                card.ability.extra.amj_cards = 0
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center == G.P_CENTERS.m_crv_flame then
-                        card.ability.extra.amj_cards = card.ability.extra.amj_cards + 1
-                    end
-                end
-            end
-            if context.joker_main then
-                if card.ability.extra.amj_cards > 0 then
-                    return {
-                        x_mult = card.ability.extra.amj_cards * card.ability.extra.x_gain
-                    }
-                end
-            end
-                if context.ending_shop then 
-                    card.ability.extra.amj_cards = 0
-                    for k, v in pairs(G.playing_cards) do
-                        if v.config.center == G.P_CENTERS.m_crv_aflame then
-                            card.ability.extra.amj_cards = card.ability.extra.amj_cards + 1
-                        end
-                    end
-                end
-                
-            end,
+       }
 
-
-              in_pool = function(self, wawa, wawa2)
-                return true
-            end
-      }
-
-      
-
-
-      SMODS.Joker {
-        key = 'mj',
+       SMODS.Consumable{
+        key = 'polydoc', --key
+        set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+        discovered = true,
+        atlas = 'documents', --atlas
+        pos = {x = 2, y = 1}, --position in atlas
         loc_txt = {
-          name = 'Mega Joker',
-          text = {
-            "Gives {X:mult,C:white}X#2#{} Mult",
-            "for each {C:attention}Mega Card",
-            "in your {C:attention}full deck{}",
-            "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
-          }
+            name = 'Polychrome Document', --name of card
+            text = { --text of card
+                'Turns #1# card into {C:dark_edition}Polychrome',
+            }
         },
-        config = { extra = {  x_gain = 0.4, mj_cards = 0} },
-        rarity = 2,
-        atlas = 'Jokers2',
-        blueprint_compat = true,
-        discovered = false,
-        pos = { x = 2, y = 1 },
-        cost = 6,
+        config = {
+            extra = {
+                cards = 1,}
+        },
         loc_vars = function(self, info_queue, card)
-          return { vars = { card.ability.extra.x_gain*card.ability.extra.mj_cards, card.ability.extra.x_gain, card.ability.extra.mj_cards } }
+            return { vars = { card.ability.extra.cards} }
+          end,
+        can_use = function(self,card)
+            if G and G.hand then
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                    return true
+                end
+            end
+            return false
         end,
-        calculate = function(self, card, context)
-            if context.before then
-                card.ability.extra.mj_cards = 0
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center == G.P_CENTERS.m_crv_mega then
-                        card.ability.extra.mj_cards = card.ability.extra.mj_cards + 1
-                    end
+        use = function(self,card,area,copier)
+                for i, card in pairs(G.hand.highlighted) do
+                    card:set_edition({polychrome = true}, true)
                 end
             end
-            if context.joker_main then
-                if card.ability.extra.mj_cards > 0 then
-                    return {
-                        x_mult = card.ability.extra.mj_cards * card.ability.extra.x_gain
-                    }
-                end
-            end
-                if context.ending_shop then 
-                    card.ability.extra.mj_cards = 0
-                    for k, v in pairs(G.playing_cards) do
-                        if v.config.center == G.P_CENTERS.m_crv_mega then
-                            card.ability.extra.mj_cards = card.ability.extra.mj_cards + 1
-                        end
-                    end
-                end
-                
-            end,
+ }
 
-
-              in_pool = function(self, wawa, wawa2)
+ SMODS.Consumable{
+    key = 'foildoc', --key
+    set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+    discovered = true,
+    atlas = 'documents', --atlas
+    pos = {x = 0, y = 1}, --position in atlas
+    loc_txt = {
+        name = 'Foil Document', --name of card
+        text = { --text of card
+            'Turns #1# card into {C:dark_edition}Foil',
+        }
+    },
+    config = {
+        extra = {
+            cards = 1,}
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cards} }
+      end,
+    can_use = function(self,card)
+        if G and G.hand then
+            if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
                 return true
             end
-      }
-
-      SMODS.Joker {
-        key = 'bj',
-        loc_txt = {
-          name = 'Blessed Joker',
-          text = {
-            "Gives {C:chips}+#5#{} Chips, {C:mult}+#4#{} Mult and {X:mult,C:white}X#2#{} Mult",
-            "for each {C:attention}Blessed Card",
-            "in your {C:attention}full deck{}",
-            "{C:inactive}(Currently {C:chips}+#6#{} {C:inactive}Chips{}, {C:mult}+#7#{} {C:inactive}Mult and {X:mult,C:white}X#1#{} {C:inactive}Mult)"
-          }
-        },
-        config = { extra = {  x_gain = 0.4, bj_cards = 0, mult = 5, chips = 10,} },
-        rarity = 2,
-        atlas = 'Jokers2',
-        blueprint_compat = true,
-        discovered = false,
-        pos = { x = 0, y = 3 },
-        cost = 6,
-        loc_vars = function(self, info_queue, card)
-          return { vars = { card.ability.extra.x_gain*card.ability.extra.bj_cards, card.ability.extra.x_gain, card.ability.extra.bj_cards, card.ability.extra.mult,card.ability.extra.chips,
-          card.ability.extra.chips*card.ability.extra.bj_cards,card.ability.extra.mult*card.ability.extra.bj_cards} }
-        end,
-        calculate = function(self, card, context)
-            if context.before then
-                card.ability.extra.bj_cards = 0
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center == G.P_CENTERS.m_crv_blessedcard then
-                        card.ability.extra.bj_cards = card.ability.extra.bj_cards + 1
-                    end
-                end
+        end
+        return false
+    end,
+    use = function(self,card,area,copier)
+            for i, card in pairs(G.hand.highlighted) do
+                card:set_edition({foil = true}, true)
             end
-            if context.joker_main then
-                if card.ability.extra.bj_cards > 0 then
-                    return {
-                        chips = card.ability.extra.bj_cards * card.ability.extra.chips,
-                        mult = card.ability.extra.bj_cards * card.ability.extra.mult,
-                        x_mult = card.ability.extra.bj_cards * card.ability.extra.x_gain,
-                    }
-                end
-            end
-                if context.ending_shop then 
-                    card.ability.extra.bj_cards = 0
-                    for k, v in pairs(G.playing_cards) do
-                        if v.config.center == G.P_CENTERS.m_crv_blessedcard then
-                            card.ability.extra.bj_cards = card.ability.extra.bj_cards + 1
-                        end
-                    end
-                end
-                
-            end,
+        end
+}
 
-              in_pool = function(self, wawa, wawa2)
+SMODS.Consumable{
+    key = 'holdoc', --key
+    set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+    discovered = true,
+    atlas = 'documents', --atlas
+    pos = {x = 1, y = 1}, --position in atlas
+    loc_txt = {
+        name = 'Holographic Document', --name of card
+        text = { --text of card
+            'Turns #1# card into {C:dark_edition}Holographic',
+        }
+    },
+    config = {
+        extra = {
+            cards = 1,}
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cards} }
+      end,
+    can_use = function(self,card)
+        if G and G.hand then
+            if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
                 return true
             end
-      }
+        end
+        return false
+    end,
+    use = function(self,card,area,copier)
+            for i, card in pairs(G.hand.highlighted) do
+                card:set_edition({holo = true}, true)
+            end
+        end
+}
+
+SMODS.Consumable{
+    key = 'negdoc', --key
+    set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+    discovered = true,
+    atlas = 'documents', --atlas
+    pos = {x = 3, y = 1}, --position in atlas
+    loc_txt = {
+        name = 'Negative Document', --name of card
+        text = { --text of card
+            'Turns #1# card into {C:dark_edition}Negative',
+        }
+    },
+    config = {
+        extra = {
+            cards = 1,}
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cards} }
+      end,
+    can_use = function(self,card)
+        if G and G.hand then
+            if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self,card,area,copier)
+            for i, card in pairs(G.hand.highlighted) do
+                card:set_edition({negative = true}, true)
+            end
+        end
+}
+
+
+
+  
 
 
 
@@ -3953,6 +4409,7 @@ SMODS.Consumable{
         return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
       end, 
     pos = { x = 0, y = 0 },
+    soul_pos = { x = 1, y = 0},
     atlas = 'printersoul',
     cost = 3,
     unlocked = true,
