@@ -1,5 +1,5 @@
 
-***Latest: Release 2.5.0:***
+***Latest: Release 2.6.0:***
 
 **Known issues: none for now**
 
@@ -12,7 +12,7 @@
 **Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
 
 
-**Currently there are 25 printer jokers with their own decks ,5 chaos jokers, 20 normal jokers, 11 new enhancements, 2 new tarots, 1 new spectral card and 2 new consumable types!**
+**Currently there are 25 printer jokers with their own decks ,5 chaos jokers, 23 normal jokers, 12 new enhancements, 2 new tarots, 1 new spectral card and 2 new consumable types!**
 
 
 
