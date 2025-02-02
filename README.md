@@ -21,4 +21,4 @@ _you can reach out to me from discord (revoo__.) _for any suggestions or bug rep
 
 **Future Ideas**
 
-50/53 Jokers
+53/53 Jokers
