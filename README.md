@@ -19,4 +19,8 @@
 _you can reach out to me from discord (revoo__.) _for any suggestions or bug reports_
 
 
+<<<<<<< HEAD
 **Future Ideas**
+=======
+**Future Ideas**
+>>>>>>> 8334db8fd286f069fa2c0e5e92fd7190c3ac4ccf
