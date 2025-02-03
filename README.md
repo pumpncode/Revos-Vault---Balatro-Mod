@@ -1,5 +1,5 @@
 
-***Latest: Release 2.7.0:***
+***Latest: Hotfix 2.7.1:***
 
 **Known issues: none for now**
 
