@@ -908,6 +908,8 @@ SMODS.Consumable{
     end
         }
 
+        local machine_keys = {"j_crv_head","j_crv_body","j_crv_back"}
+
 
         SMODS.Consumable{
             key = 'dreams&desires', 
