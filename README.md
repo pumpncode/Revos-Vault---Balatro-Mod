@@ -1,18 +1,12 @@
 
-***Latest: Release 2.7.0:***
+***Latest: Release 2.8.0:***
 
-**Known issues: none for now**
+### **Revo's Vault**
 
-### **Printer Jokers**
-
-**This mod introduces a fun and unique experience by adding Printer Jokers. Printer Jokers are a special type of joker that, when played, allow players to "print" the joker it represents.**
-
-**Along with the new jokers, the mod includes a variety of decks which lets you test out every Printer Joker.**
-
-**Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
+**Of course, it adds a lot of different ideas of mine as well, instead of strictly sticking to Printer Jokers**
 
 
-**Currently there are 25 printer jokers with their own decks ,5 chaos jokers, 24 normal jokers, 13 new enhancements, 2 new tarots, 2 new spectral cards, 1 new seal and 2 new consumable types!**
+**Currently there are 3 new rarities (Printer,Chaos,Vaulted), 25 printer jokers with their own decks ,5 chaos jokers, 1 vaulted joker, 27 normal jokers, 13 new enhancements, 2 new tarots, 3 new spectral cards, 1 new seal, 1 new tag and 2 new consumable types with a total of 19 custom consumables!**
 
 
 
