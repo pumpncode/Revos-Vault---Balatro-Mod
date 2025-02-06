@@ -1,19 +1,35 @@
+### Release 2.8.0
 
-***Latest: Hotfix 2.7.1:***
+**New Rarity**
 
-**Known issues: none for now**
+Vaulted
 
-### **Printer Jokers**
+**New Jokers**
 
-**This mod introduces a fun and unique experience by adding Printer Jokers. Printer Jokers are a special type of joker that, when played, allow players to "print" the joker it represents.**
+-Vaulted Jimbo (Vaulted)
+-Oops! Vaulted! (Vaulted)
+-Unregistered Printer (Printer) with its own deck 
+-Fly Trap (Uncommon)
+-Daily News Joker (Common)
 
-**Along with the new jokers, the mod includes a variety of decks which lets you test out every Printer Joker.**
+**New Consumables**
 
-**Of course, it adds a few original ideas of mine, instead of strictly sticking to "printing the joker it represents"**
+-Apparatus (Scrap)
+-Duck (Scrap)
+-Key (Spectral)
+
+**New Tag**
+
+-Cartridge Tag
+
+**Other**
+
+-Now "Ink & Intuition" will say "Nope!" if it fails 
+-Jokers with the "Printer" rarity now will appear in the shop!
+-Changed how boosted cards work
+-Fixed an issue with blueprint/brainstorm and Advanced Printer
+-Fixed sprite issues
+-Changed the mod's name from "Printer Jokers" to "Revo's Vault"
+-Changed how "Edition Jokers" look
 
 
-**Currently there are 25 printer jokers with their own decks ,5 chaos jokers, 24 normal jokers, 13 new enhancements, 2 new tarots, 2 new spectral cards, 1 new seal and 2 new consumable types!**
-
-
-
-_you can reach out to me from discord (revoo__.) _for any suggestions or bug reports_
