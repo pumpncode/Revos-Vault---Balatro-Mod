@@ -5454,7 +5454,9 @@ SMODS.Joker{
             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
             local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
             _card:add_to_deck()
+            if context.full_hand[1].ability.effect == "Base" then
             _card:set_ability(pseudorandom_element(vdnaenh, pseudoseed("vdna")))
+            end
             G.deck.config.card_limit = G.deck.config.card_limit + 1
             table.insert(G.playing_cards, _card)
             G.hand:emplace(_card)
@@ -5473,6 +5475,13 @@ SMODS.Joker{
                 playing_cards_created = {true}
             }
         end
+    end 
+end,
+in_pool = function(self,wawa,wawa2)
+    if G.GAME.consumable_uses < 1 then
+    return false
+    elseif G.GAME.consumable_uses >= 1 then
+        return true
     end
 end
             }
