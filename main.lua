@@ -1,5 +1,7 @@
 
 -------------MOD CODE-------------
+
+
 SMODS.Atlas{
     key = 'modicon', 
     path = 'modicon.png', 
@@ -1884,6 +1886,8 @@ function vvs()
 
 
 -------JOKERS------
+
+to_big = to_big or function(x) return x end
 
 
 SMODS.Joker{
@@ -4516,6 +4520,293 @@ end,
                    end
                 }
 
+                SMODS.Joker{
+                    key = 'vrev',
+                    loc_txt = {
+                        name = 'Russian Roulette',
+                        text = { "When {C:attention}Blind{} is selected,",
+                        "permanently add {C:attention}x1.5",
+                        "the sell value of the leftmost joker to this {X:mult,C:white}XMult{}.",
+                        "However, has a {C:green}#1# in #2#{} chance of destroying the leftmost joker.",
+                        "Chances are reduced if the leftmost joker is not destroyed.",
+                        "Will {C:red}self-destruct{} if theres nothing on the left side or the leftmost joker has eternal.",
+                        "Chances will {C:attention}reset{} if it hits {C:attention}1{} or the leftmost joker is {C:red}destroyed",
+                        "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
+                                },
+                    },
+                    atlas = 'Jokers2',
+                    pos = { x = 4, y = 2 },
+                    rarity = 3,
+                    cost = 5, 
+                    unlocked = true,
+                    discovered = false,
+                    blueprint_compat = true,
+                    eternal_compat = true,
+                    config  = { extra = {odds = 6,mult = 1,} },
+                    loc_vars = function(self, info_queue, card)
+                        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds,card.ability.extra.mult} }
+                      end, 
+                    calculate = function(self,card,context)
+                        if (card.ability.extra.odds == 1) then
+                            card.ability.extra.odds = 6
+                        end
+                        if context.setting_blind and not context.blueprint then
+                            if G.jokers.cards[1] == card or G.jokers.cards[1].ability.eternal then
+                                          G.E_MANAGER:add_event(Event({
+                                            trigger = 'after',
+                                            delay = 0.3,
+                                            blockable = false,
+                                            func = function()
+                                              G.jokers:remove_card(card)
+                                              card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                                              card = nil
+                                              return true;
+                                            end
+                                          }))
+                                        end
+        
+                            if not card.getting_sliced and not G.jokers.cards[1].ability.eternal and not G.jokers.cards[1].getting_sliced then
+                                if G.jokers.cards[1] ~= card then 
+                                if pseudorandom('vrev') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                                    local sliced_card = G.jokers.cards[1]
+                                    sliced_card.getting_sliced = true
+                                    G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                                    G.E_MANAGER:add_event(Event({func = function()
+                                        G.GAME.joker_buffer = 0
+                                        card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost*1.5
+                                        card.ability.extra.odds = 6
+                                        card:juice_up(0.8, 0.8)
+                                        sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                                    return true end }))
+                                    return {
+                                        message = 'Hit!',
+                                        delay(0.6)
+                                    }
+                                else
+                                    local sliced_card = G.jokers.cards[1]
+                                    card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost*1.5
+                                    card.ability.extra.odds = card.ability.extra.odds - 1
+                                    return {
+                                        message = "Miss!"
+                                    }
+                                end
+                            end
+                        end
+                    end
+                    if context.joker_main then
+                        return {
+                            x_mult = card.ability.extra.mult
+                        }
+                    end
+                end,
+            }
+
+
+
+SMODS.Joker{
+    key = 'ut', 
+         loc_txt = { 
+         name = 'Red Utopia',
+          text = {
+             "{X:red,C:white} X#1# {} Mult if all",
+             "cards held in hand",
+             "are between {C:attention}2{} and {C:attention}6{}",
+             },
+                  
+         },
+         atlas = 'Jokers2', 
+        rarity = 2, 
+        cost = 5, 
+        unlocked = true, 
+        discovered = false, 
+        blueprint_compat = true,
+         eternal_compat = true, 
+         perishable_compat = false, 
+         pos = {x = 4, y = 0},
+         config = { 
+           extra = { xmult = 3
+  
+           }
+         },
+         loc_vars = function(self, info_queue, card)
+             return { vars = { card.ability.extra.xmult} }
+           end, 
+  
+         calculate = function(self,card,context)
+            if context.joker_main then
+            local numbers, all_cards = 0, 0
+            for k, v in ipairs(G.hand.cards) do
+                all_cards = all_cards + 1
+                if v:get_id() >= 2 and v:get_id() <= 6 then
+                    numbers = numbers + 1
+                end
+            end
+            if numbers == all_cards then 
+                return {
+                    x_mult = card.ability.extra.xmult
+                }
+            end
+        end
+    end,
+        in_pool = function(self,wawa,wawa2)
+            return true
+         end
+           }
+
+
+local suits = {1,2,3,4}
+SMODS.Joker{
+    key = 'smbj', 
+         loc_txt = { 
+         name = 'Whiteboard',
+          text = {
+            "{X:red,C:white} X#2# {} Mult if all",
+             "cards held in hand are",
+            "{C:attention}#3#{}",
+            "{s:0.8}suit changes at end of round",
+             },
+                  
+         },
+         atlas = 'Jokers2', 
+        rarity = 2, 
+        cost = 5, 
+        unlocked = true, 
+        discovered = false, 
+        blueprint_compat = true,
+         eternal_compat = true, 
+         perishable_compat = false, 
+         pos = {x = 5, y = 0},
+         config = { 
+           extra = { xmult = 3,randomsuit = 2,setsuit = "Spades"
+  
+           }
+         },
+         loc_vars = function(self, info_queue, card)
+             return { vars = { card.ability.extra.randomsuit,card.ability.extra.xmult,card.ability.extra.setsuit} }
+           end, 
+    
+           calculate = function(self,card,context)
+            if context.end_of_round and not context.blueprint then
+                card.ability.extra.randomsuit = (pseudorandom_element(suits, pseudoseed("ptm")))
+                if card.ability.extra.randomsuit == 1 then card.ability.extra.setsuit = 'Clubs'
+                elseif card.ability.extra.randomsuit == 2 then card.ability.extra.setsuit = 'Spades'
+                elseif card.ability.extra.randomsuit == 3 then card.ability.extra.setsuit = 'Diamonds'
+                elseif card.ability.extra.randomsuit == 4 then  card.ability.extra.setsuit = 'Hearts'
+                end
+            end
+            --all cards calc
+            if context.joker_main and not context.blueprint and not context.repetition then 
+            local all_cards = 0
+           for k, v in ipairs(G.hand.cards) do
+               all_cards = all_cards + 1
+               card.ability.extra.allcards = all_cards
+           end
+        end
+
+            --checks for clubs
+            if context.joker_main and card.ability.extra.randomsuit == 1 then
+                print('a')
+           local blackc_suits= 0
+           for k, v in ipairs(G.hand.cards) do
+               if v:is_suit('Clubs', nil, true) then
+                   blackc_suits = blackc_suits + 1
+               end
+           end
+           if blackc_suits == card.ability.extra.allcards then 
+               return {
+                   x_mult = card.ability.extra.xmult
+               }
+           end
+        --checks for spades
+        elseif context.joker_main and card.ability.extra.randomsuit == 2 then 
+            print('a')
+
+           local blacks_suits = 0
+           for k, v in ipairs(G.hand.cards) do
+               if v:is_suit('Spades', nil, true) then
+                blacks_suits = blacks_suits + 1
+               end
+           end
+           if blacks_suits == card.ability.extra.allcards then 
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+           end
+           --checks for diamonds
+        elseif context.joker_main and card.ability.extra.randomsuit == 3 then 
+            print('a')
+           local redd_suits= 0
+           for k, v in ipairs(G.hand.cards) do
+               if v:is_suit('Diamonds', nil, true) then
+                redd_suits = redd_suits + 1
+               end
+           end
+           if redd_suits == card.ability.extra.allcards then 
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+           end
+           --check for hearts
+        elseif context.joker_main and card.ability.extra.randomsuit == 4 then 
+            print('a')
+           local redh_suits= 0
+           for k, v in ipairs(G.hand.cards) do
+               if v:is_suit('Hearts', nil, true) then
+                redh_suits = redh_suits + 1
+               end
+           end
+           if redh_suits == card.ability.extra.allcards then 
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+           end
+       end
+    end
+           }
+
+
+
+SMODS.Joker{
+    key = 'checkpoint', 
+    loc_txt = { 
+        name = 'Checkpoint',
+        text = {
+          "When sold, gives back {C:attention}All {C:blue}Hands",
+          "and {C:red}Discards{} used but {C:attention}Halves {}your total score",
+        },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 2, 
+    cost = 5, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = false,
+    eternal_compat = true, 
+    perishable_compat = false, 
+    pos = {x = 5, y = 1},
+    config = { 
+      extra = {
+
+      }
+    },
+
+    calculate = function(self,card,context)
+        
+      if context.selling_self then
+        G.GAME.chips = G.GAME.chips/2
+        G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + G.GAME.current_round.hands_played 
+        G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + G.GAME.current_round.discards_used
+      end
+        end,
+    in_pool = function(self,wawa,wawa2)
+        return true
+    end,
+   }
+
+
+
+
 
       
     
@@ -5277,176 +5568,152 @@ SMODS.Tag{
 
 }
 ---WIP---
-SMODS.Joker{
-    key = 'ut', 
-         loc_txt = { 
-         name = 'Red Utopia',
-          text = {
-             "{X:red,C:white} X#1# {} Mult if all",
-             "cards held in hand",
-             "are between {C:attention}2{} and {C:attention}6{}",
-             },
-                  
-         },
-         atlas = 'Jokers2', 
-        rarity = 2, 
-        cost = 5, 
-        unlocked = true, 
-        discovered = false, 
-        blueprint_compat = true,
-         eternal_compat = true, 
-         perishable_compat = false, 
-         pos = {x = 4, y = 0},
-         config = { 
-           extra = { xmult = 3
-  
-           }
-         },
-         loc_vars = function(self, info_queue, card)
-             return { vars = { card.ability.extra.xmult} }
-           end, 
-  
-         calculate = function(self,card,context)
-            if context.joker_main then
-            local numbers, all_cards = 0, 0
-            for k, v in ipairs(G.hand.cards) do
-                all_cards = all_cards + 1
-                if v:get_id() >= 2 and v:get_id() <= 6 then
-                    numbers = numbers + 1
-                end
-            end
-            if numbers == all_cards then 
-                return {
-                    x_mult = card.ability.extra.xmult
-                }
-            end
-        end
-    end,
-        in_pool = function(self,wawa,wawa2)
-            return true
-         end
-           }
 
 
-local suits = {1,2,3,4}
-SMODS.Joker{
-    key = 'smbj', 
-         loc_txt = { 
-         name = 'Whiteboard',
-          text = {
-            "{X:red,C:white} X#2# {} Mult if all",
-             "cards held in hand are",
-            "{C:attention}#3#{}",
-            "{s:0.8}suit changes at end of round",
-             },
-                  
-         },
-         atlas = 'Jokers2', 
-        rarity = 2, 
-        cost = 5, 
-        unlocked = true, 
-        discovered = false, 
-        blueprint_compat = true,
-         eternal_compat = true, 
-         perishable_compat = false, 
-         pos = {x = 5, y = 0},
-         config = { 
-           extra = { xmult = 3,randomsuit = 2,setsuit = "Spades"
-  
-           }
-         },
-         loc_vars = function(self, info_queue, card)
-             return { vars = { card.ability.extra.randomsuit,card.ability.extra.xmult,card.ability.extra.setsuit} }
-           end, 
-    
-           calculate = function(self,card,context)
-            if context.end_of_round and not context.blueprint then
-                card.ability.extra.randomsuit = (pseudorandom_element(suits, pseudoseed("ptm")))
-                if card.ability.extra.randomsuit == 1 then card.ability.extra.setsuit = 'Clubs'
-                elseif card.ability.extra.randomsuit == 2 then card.ability.extra.setsuit = 'Spades'
-                elseif card.ability.extra.randomsuit == 3 then card.ability.extra.setsuit = 'Diamonds'
-                elseif card.ability.extra.randomsuit == 4 then  card.ability.extra.setsuit = 'Hearts'
-                end
-            end
-            --all cards calc
-            if context.joker_main and not context.blueprint and not context.repetition then 
-            local all_cards = 0
-           for k, v in ipairs(G.hand.cards) do
-               all_cards = all_cards + 1
-               card.ability.extra.allcards = all_cards
-           end
-        end
-
-            --checks for clubs
-            if context.joker_main and card.ability.extra.randomsuit == 1 then
-                print('a')
-           local blackc_suits= 0
-           for k, v in ipairs(G.hand.cards) do
-               if v:is_suit('Clubs', nil, true) then
-                   blackc_suits = blackc_suits + 1
-               end
-           end
-           if blackc_suits == card.ability.extra.allcards then 
-               return {
-                   x_mult = card.ability.extra.xmult
-               }
-           end
-        --checks for spades
-        elseif context.joker_main and card.ability.extra.randomsuit == 2 then 
-            print('a')
-
-           local blacks_suits = 0
-           for k, v in ipairs(G.hand.cards) do
-               if v:is_suit('Spades', nil, true) then
-                blacks_suits = blacks_suits + 1
-               end
-           end
-           if blacks_suits == card.ability.extra.allcards then 
-            return {
-                x_mult = card.ability.extra.xmult
-            }
-           end
-           --checks for diamonds
-        elseif context.joker_main and card.ability.extra.randomsuit == 3 then 
-            print('a')
-           local redd_suits= 0
-           for k, v in ipairs(G.hand.cards) do
-               if v:is_suit('Diamonds', nil, true) then
-                redd_suits = redd_suits + 1
-               end
-           end
-           if redd_suits == card.ability.extra.allcards then 
-            return {
-                x_mult = card.ability.extra.xmult
-            }
-           end
-           --check for hearts
-        elseif context.joker_main and card.ability.extra.randomsuit == 4 then 
-            print('a')
-           local redh_suits= 0
-           for k, v in ipairs(G.hand.cards) do
-               if v:is_suit('Hearts', nil, true) then
-                redh_suits = redh_suits + 1
-               end
-           end
-           if redh_suits == card.ability.extra.allcards then 
-            return {
-                x_mult = card.ability.extra.xmult
-            }
-           end
-       end
-    end
-           }
-
-
-
-SMODS.Joker{
-    key = 'checkpoint', 
+   SMODS.Joker{
+    key = 'goldenshark', 
     loc_txt = { 
-        name = 'Checkpoint',
+        name = 'Golden Shark',
         text = {
-          "When sold, gives back {C:attention}All {C:blue}Hands",
-          "and {C:red}Discards{} used but {C:attention}Halves {}your total score",
+          'After {C:attention}3 rounds{} have passed, trigger a {C:gold}"Gold Rush",',
+          'turning {C:attention}every scored card{} without an',
+          "enhancement to {C:gold}Gold{}",
+          '{C:inactive}(#2#)'
+        },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 2, 
+    cost = 6, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = true,
+    eternal_compat = true, 
+    perishable_compat = true, 
+    pos = {x = 5, y = 2},
+    config = { 
+      extra = { timer = 0 ,status = 'Not Ready'},
+      
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.timer,card.ability.extra.status} }
+      end, 
+    calculate = function(self,card,context)
+        if context.end_of_round and not context.repetition and not context.individual and not (card.ability.extra.timer == 3) then
+                card.ability.extra.timer = card.ability.extra.timer + 1
+        end
+        
+            if card.ability.extra.timer == 3 then
+                card.ability.extra.status = 'Ready'
+                    if context.cardarea == G.play then
+                        for k, v in ipairs(context.scoring_hand) do 
+                            if context.other_card.ability.effect == "Base" then
+                                context.other_card:set_ability(G.P_CENTERS.m_gold)
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        return true
+                                    end
+                                })) 
+                            end
+                end
+        end
+    end
+    if card.ability.extra.timer == 3 and context.final_scoring_step then
+        card.ability.extra.timer = 0
+        card.ability.extra.status = 'Not Ready'
+    end
+end,
+                     in_pool = function(self, wawa, wawa2)
+                       return true
+                   end
+             }
+
+
+
+SMODS.Joker{
+    key = 'sfj', 
+    loc_txt = { 
+        name = 'Save File',
+        text = {
+          'Saves the {C:attention}half{} of your first',
+          'scored chips and returns it as {C:chips}+Chips.',
+          "{C:red}resets{} at the end of a round",
+          "{C:inactive}({C:chips}+#1# {C:inactive}Stored Chips)",
+        },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 2, 
+    cost = 6, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = true,
+    eternal_compat = true, 
+    perishable_compat = true, 
+    pos = {x = 5,y = 3},
+    config = { 
+      extra = { one = 0,chips = 0,ok = 0},
+      
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.one,card.ability.extra.chips,card.ability.extra.ok} }
+      end, 
+
+
+    calculate = function(self,card,context)
+
+     if context.joker_main and next(SMODS.find_mod("Talisman")) and card.ability.extra.one == 0 and card.ability.extra.one == 0 and not context.blueprint and not context.repetition then
+        card.ability.extra.ok = card.ability.extra.ok +1
+        local chips = hand_chips
+        card.ability.extra.chips = chips
+        card.ability.extra.one = to_number(card.ability.extra.chips/2)
+        return{
+            message = 'Stored!'
+        }
+     elseif context.joker_main and card.ability.extra.one == 0 and card.ability.extra.one == 0 and card.ability.extra.one == 0 and not context.blueprint and not context.repetition then
+        card.ability.extra.ok = card.ability.extra.ok + 1
+        local chips = hand_chips
+        card.ability.extra.chips = chips
+        card.ability.extra.one = card.ability.extra.chips/2
+        return{
+            message = 'Stored!'
+        }
+    end
+    if context.joker_main and next(SMODS.find_mod("Talisman")) and card.ability.extra.ok > 0 then
+        return {
+            chips = to_number(card.ability.extra.one)
+        }
+    elseif context.joker_main and card.ability.extra.ok > 0 then
+        return {
+            chips = card.ability.extra.one
+        }
+    end
+    if context.end_of_round and not context.repetition and not context.blueprint and not context.individual then
+        card.ability.extra.ok = 0
+        card.ability.extra.one = 0
+        return{
+            message = 'Cleaning file...',
+        }
+    end
+end,
+                     in_pool = function(self, wawa, wawa2)
+                       return true
+                   end
+             }
+
+            
+local chances = {1,2,3,4,5,6,7,8}
+
+
+SMODS.Joker{
+    key = 'btls', 
+    loc_txt = { 
+        name = 'Cubes United',
+        text = {
+          "Has a {C:green}1 in 8{} chance to ",
+          "cause played cards to {C:purple}overscore",
+          '{C:inactive}(Chances are not affected by',
+          '{C:inactive}"Oops! All 6s" or anything similar)'
         },
         
     },
@@ -5458,30 +5725,254 @@ SMODS.Joker{
     blueprint_compat = false,
     eternal_compat = true, 
     perishable_compat = false, 
-    pos = {x = 5, y = 1},
+    pos = {x = 6, y = 0},
     config = { 
-      extra = {
+      extra = { 
 
       }
     },
 
     calculate = function(self,card,context)
+
+        if context.joker_main and next(SMODS.find_mod("Talisman")) and not context.blueprint and not context.repetition then
+            local cc = (pseudorandom_element(chances, pseudoseed("btls")))
+            if cc == 1 then
+            return {
+                chip_mod = to_number(G.GAME.blind.chips*4),
+                message = 'Overscore!',
+                colour = G.C.MULT
+                
+            }
+        end
+        elseif context.joker_main and not context.blueprint and not context.repetition then
+            local cc = (pseudorandom_element(chances, pseudoseed("btls")))
+            if cc == 1 then
+            return {
+                chip_mod = G.GAME.blind.chips*4,
+                message = 'Overscore!',
+                colour = G.C.MULT
+            }
+        end
+    end
+end,
+                         in_pool = function(self, wawa, wawa2)
+                           return true
+                       end
+                 }
+
+
+
+SMODS.Joker{
+    key = 'psy', 
+    loc_txt = { 
+        name = 'Pinpoint System',
+        text = {
+          "{X:mult,C:white}X#1#{} Mult",
+          "if you have exactly {C:blue}2 hands{} and {C:red}discards{} remaining",
+          "and played hand {C:attention}only{} contains {C:attention}two cards"
+        },
         
-      if context.selling_self then
-        G.GAME.chips = G.GAME.chips/2
-        G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + G.GAME.current_round.hands_played 
-        G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + G.GAME.current_round.discards_used
-      end
-        end,
-    in_pool = function(self,wawa,wawa2)
-        return true
-    end,
-   }
+    },
+    atlas = 'Jokers2', 
+    rarity = 3, 
+    cost = 5, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = false,
+    eternal_compat = true, 
+    perishable_compat = false, 
+    pos = {x = 6, y = 1},
+    config = { 
+      extra = { xmult = 22
+
+      }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult} }
+      end,
+
+    calculate = function(self,card,context)
+    if context.cardarea == G.jokers and context.joker_main and G.GAME.current_round.hands_left == 2 and  G.GAME.current_round.discards_left == 2 then
+        if #context.full_hand == 2 then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+    
+            end
+        end
+    end
+        
+                 }
+
+
+SMODS.Joker{
+    key = 'psy', 
+    loc_txt = { 
+        name = 'Pinpoint System',
+        text = {
+          "{X:mult,C:white}X#1#{} Mult",
+          "if you have exactly {C:blue}2 hands{} and {C:red}discards{} remaining,",
+          "and played hand {C:attention}only{} contains {C:attention}two cards"
+        },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 3, 
+    cost = 5, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = false,
+    eternal_compat = true, 
+    perishable_compat = false, 
+    pos = {x = 6, y = 1},
+    config = { 
+      extra = { xmult = 22
+
+      }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult} }
+      end,
+
+    calculate = function(self,card,context)
+    if context.cardarea == G.jokers and context.joker_main and G.GAME.current_round.hands_left == 2 and  G.GAME.current_round.discards_left == 2 then
+        if #context.full_hand == 2 then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+    
+            end
+        end
+    end
+        
+                 } 
+
+
+
+SMODS.Joker{
+    key = 'psy', 
+    loc_txt = { 
+        name = 'Pinpoint System',
+        text = {
+          "{X:mult,C:white}X#1#{} Mult",
+          "if you have exactly {C:blue}2 hands{} and {C:red}discards{} remaining,",
+          "and played hand {C:attention}only{} contains {C:attention}two cards"
+        },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 3, 
+    cost = 5, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = false,
+    eternal_compat = true, 
+    perishable_compat = false, 
+    pos = {x = 6, y = 1},
+    config = { 
+      extra = { xmult = 22
+
+      }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult} }
+      end,
+
+    calculate = function(self,card,context)
+    if context.cardarea == G.jokers and context.joker_main and G.GAME.current_round.hands_left == 2 and  G.GAME.current_round.discards_left == 2 then
+        if #context.full_hand == 2 then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+    
+            end
+        end
+    end
+        
+                 }
 
 
 
 
+SMODS.Joker{
+    key = 'mj4', 
+    loc_txt = { 
+        name = 'Majestic 4',
+        text = {
+          "{X:mult,C:white}X#1#{} Mult if played",
+          "hand contains a {C:attention}Four of a Kind.",
+          
+        },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 3, 
+    cost = 5, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = false,
+    eternal_compat = true, 
+    perishable_compat = false, 
+    pos = {x = 6, y = 2},
+    config = { 
+      extra = { xmult = 4.4
 
+      }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult} }
+      end,
+
+    calculate = function(self,card,context)
+       if context.joker_main and next(context.poker_hands['Four of a Kind']) then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+    
+            end
+        end
+        
+                 }
+
+
+SMODS.Joker{
+    key = 'tp3', 
+    loc_txt = { 
+        name = 'The Perfect 3',
+        text = {
+            "{X:mult,C:white}X#1#{} Mult if played",
+            "hand contains a {C:attention}Three of a Kind.",
+          },
+        
+    },
+    atlas = 'Jokers2', 
+    rarity = 3, 
+    cost = 5, 
+    unlocked = true, 
+    discovered = false, 
+    blueprint_compat = false,
+    eternal_compat = true, 
+    perishable_compat = false, 
+    pos = {x = 6, y = 3},
+    config = { 
+      extra = { xmult = 3.3
+
+      }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult} }
+      end,
+
+    calculate = function(self,card,context)
+       if context.joker_main and next(context.poker_hands['Three of a Kind']) then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+    
+            end
+        end
+        
+                 }
 
            
            
@@ -6132,86 +6623,7 @@ end
           
           
 
-           SMODS.Joker{
-            key = 'vrev',
-            loc_txt = {
-                name = 'Russian Roulette',
-                text = { "When {C:attention}Blind{} is selected,",
-                "permanently add {C:attention}x1.5",
-                "the sell value of the leftmost joker to this {X:mult,C:white}XMult{}.",
-                "However, has a {C:green}#1# in #2#{} chance of destroying the leftmost joker.",
-                "Chances are reduced if the leftmost joker is not destroyed.",
-                "Will {C:red}self-destruct{} if theres nothing on the left side or the leftmost joker has eternal.",
-                "Chances will {C:attention}reset{} if it hits {C:attention}1{} or the leftmost joker is {C:red}destroyed",
-                "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
-                        },
-            },
-            atlas = 'Jokers2',
-            pos = { x = 4, y = 2 },
-            rarity = 3,
-            cost = 5, 
-            unlocked = true,
-            discovered = false,
-            blueprint_compat = true,
-            eternal_compat = true,
-            config  = { extra = {odds = 6,mult = 1,} },
-            loc_vars = function(self, info_queue, card)
-                return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds,card.ability.extra.mult} }
-              end, 
-            calculate = function(self,card,context)
-                if (card.ability.extra.odds == 1) then
-                    card.ability.extra.odds = 6
-                end
-                if context.setting_blind and not context.blueprint then
-                    if G.jokers.cards[1] == card or G.jokers.cards[1].ability.eternal then
-                                  G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.3,
-                                    blockable = false,
-                                    func = function()
-                                      G.jokers:remove_card(card)
-                                      card:start_dissolve({HEX("57ecab")}, nil, 1.6)
-                                      card = nil
-                                      return true;
-                                    end
-                                  }))
-                                end
-
-                    if not card.getting_sliced and not G.jokers.cards[1].ability.eternal and not G.jokers.cards[1].getting_sliced then
-                        if G.jokers.cards[1] ~= card then 
-                        if pseudorandom('vrev') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                            local sliced_card = G.jokers.cards[1]
-                            sliced_card.getting_sliced = true
-                            G.GAME.joker_buffer = G.GAME.joker_buffer - 1
-                            G.E_MANAGER:add_event(Event({func = function()
-                                G.GAME.joker_buffer = 0
-                                card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost*1.5
-                                card.ability.extra.odds = 6
-                                card:juice_up(0.8, 0.8)
-                                sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
-                            return true end }))
-                            return {
-                                message = 'Hit!',
-                                delay(0.6)
-                            }
-                        else
-                            local sliced_card = G.jokers.cards[1]
-                            card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost*1.5
-                            card.ability.extra.odds = card.ability.extra.odds - 1
-                            return {
-                                message = "Miss!"
-                            }
-                        end
-                    end
-                end
-            end
-            if context.joker_main then
-                return {
-                    x_mult = card.ability.extra.mult
-                }
-            end
-        end,
-    }
+          
 
     ---WIP---
 
@@ -6246,25 +6658,25 @@ end
         pools = {}, 
     }
 
-    local chaos_keys = {'j_crv_chaoticprintermachine','j_crv_thefaxprinter','j_crv_dirtinator9999','j_crv_holyprinter'}
+    local chaos_keys = {'j_crv_chaoticprintermachine','j_crv_thefaxprinter','j_crv_dirtinator9999','j_crv_holyprinter','j_crv_hfj'}
 
 SMODS.Consumable{
-    key = "Printer's Soul", 
+    key = "chaoticsol", 
     set = 'Spectral',
     hidden = true,
     soul_set = 'Spectral',
         soul_rate = 0.003,
         can_repeat_soul = false,
     loc_txt = { 
-        name = "Printer's Soul",
+        name = "Chaotic Soul",
         text = {
             'Creates a random',
-            '{C:dark_edition}Chaos Printer',
+            '{C:dark_edition}Chaos Joker',
         },
     },
-    config = { extra = { odds = 3 }},
+    config = { extra = {  }},
     loc_vars = function(self, info_queue, card)
-        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+        return { vars = { } }
       end, 
     pos = { x = 0, y = 0 },
     soul_pos = { x = 1, y = 0},
@@ -6617,6 +7029,78 @@ SMODS.Consumable{
                 return false
             end,
            }
+
+           SMODS.Joker{
+            key = 'hfj', 
+            loc_txt = { 
+                name = '{C:green}Hacked File',
+                text = {
+                  'Saves the {C:green}4{} times the ammount of your first',
+                  'scored chips and returns it as {X:mult,C:white}XMult{}.',
+                  "{C:red}resets{} at the end of a round",
+                  "{C:inactive}({C:attention}#1# {C:inactive}Stored)",
+                },
+                
+            },
+            atlas = 'Jokers2', 
+            rarity = 'crv_chaos', 
+            cost = 6, 
+            unlocked = true, 
+            discovered = false, 
+            blueprint_compat = true,
+            eternal_compat = true, 
+            perishable_compat = true, 
+            pos = {x = 5,y = 4},
+            config = { 
+              extra = { one = 0,chips = 0,ok = 0},
+              
+            },
+            loc_vars = function(self, info_queue, card)
+                return { vars = { card.ability.extra.one,card.ability.extra.chips,card.ability.extra.ok} }
+              end, 
+        
+        
+            calculate = function(self,card,context)
+        
+             if context.joker_main and next(SMODS.find_mod("Talisman")) and card.ability.extra.one == 0 and not context.blueprint and not context.repetition then
+                card.ability.extra.ok = card.ability.extra.ok +1
+                local chips = hand_chips
+                card.ability.extra.chips = chips
+                card.ability.extra.one = to_number(card.ability.extra.chips*4)
+                return{
+                    message = 'ERROR!'
+                }
+             elseif context.joker_main and card.ability.extra.one == 0 and card.ability.extra.one == 0 and not context.blueprint and not context.repetition then
+                card.ability.extra.ok = card.ability.extra.ok + 1
+                local chips = hand_chips
+                card.ability.extra.chips = chips
+                card.ability.extra.one = card.ability.extra.chips*4
+                return{
+                    message = 'ERROR!'
+                }
+            end
+            if context.joker_main and next(SMODS.find_mod("Talisman")) and card.ability.extra.ok > 0 then
+                return {
+                    x_mult = to_number(card.ability.extra.one)
+                }
+            elseif context.joker_main and card.ability.extra.ok > 0 then
+                return {
+                    x_mult = card.ability.extra.one
+                }
+            end
+            if context.end_of_round and not context.repetition and not context.blueprint and not context.individual then
+                card.ability.extra.ok = 0
+                card.ability.extra.one = 0
+                return{
+                    message = 'Cleaning file...',
+                }
+            end
+        end,
+                             in_pool = function(self, wawa, wawa2)
+                               return false
+                           end
+                     }
+        
 
 
            ---the vault--- (things that are mostly working but not sure if i should add them or not)
