@@ -1,3 +1,4 @@
+
 SMODS.Rarity{
   key = "va",
  badge_colour = G.C.PURPLE,

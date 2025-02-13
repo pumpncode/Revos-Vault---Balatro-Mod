@@ -1,3 +1,4 @@
+
 SMODS.Enhancement{
     key = "bulletproofglass",
     atlas = 'enh',

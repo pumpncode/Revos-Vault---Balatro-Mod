@@ -1,4 +1,4 @@
-### Latest: Release 3.2.0:
+### Latest: Version 3.2.1:
 
 **Revo's Vault**
 

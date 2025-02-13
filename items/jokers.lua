@@ -1,4 +1,5 @@
 
+
 SMODS.Rarity{
   key = "p",
  badge_colour = G.C.RARITY[3],
