@@ -5,13 +5,6 @@ SMODS.Enhancement{
     pos = {x = 0, y = 0},
     discovered = true,
     unlocked = true,
-    loc_txt = { 
-        name = 'Bulletproof Glass',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult.',
-            '{C:green}#2# in #3# {}chance to',
-            'turn into {C:attention}Glass',
-        }},
     replace_base_card = false,
     no_rank = false,
     no_suit = false,
@@ -54,13 +47,6 @@ SMODS.Enhancement{
     pos = {x = 2, y = 0},
     discovered = true,
     unlocked = true,
-    loc_txt = { 
-        name = 'Diamond Card',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            'while this card', 
-            'stays in hand',
-        }},
     replace_base_card = false,
     no_rank = false,
     no_suit = false,
@@ -88,11 +74,6 @@ SMODS.Enhancement{
     pos = {x = 0, y = 0},
     discovered = true,
     unlocked = true,
-    loc_txt = { 
-        name = 'Soul Card',
-        text = {
-            "{C:chips}A wandering soul",
-        }},
     replace_base_card = true,
     no_rank = true,
     no_suit = true,
@@ -111,12 +92,6 @@ SMODS.Enhancement{
     pos = {x = 1, y = 1},
     discovered = true,
     unlocked = true,
-    loc_txt = { 
-        name = 'Mugged',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            'if played hand contains a {C:attention}Flush',
-        }},
     replace_base_card = false,
     no_rank = false,
     no_suit = false,
@@ -144,12 +119,6 @@ end
         pos = {x = 1, y = 0},
         discovered = true,
         unlocked = true,
-        loc_txt = { 
-            name = 'Aflame',
-            text = {
-                '{X:mult,C:white}X#1#{} Mult',
-                'if played hand contains a {C:attention}Full House',
-            }},
         replace_base_card = false,
         no_rank = false,
         no_suit = false,
@@ -177,11 +146,6 @@ end
             pos = {x = 0, y = 0},
             discovered = true,
             unlocked = true,
-            loc_txt = { 
-                name = 'Mega',
-                text = {
-                    '{X:mult,C:white}X#1#{} Mult when scored'
-                }},
             replace_base_card = false,
             no_rank = false,
             no_suit = false,
@@ -209,12 +173,6 @@ end
                 pos = {x = 0, y = 0},
                 discovered = true,
                 unlocked = true,
-                loc_txt = { 
-                    name = 'Tier 1 Card',
-                    text = {
-                        '{C:chips}+#1#{} Chips',
-                        'when scored'
-                    }},
                 replace_base_card = false,
                 no_rank = false,
                 no_suit = false,
@@ -242,13 +200,6 @@ end
                 pos = {x = 1, y = 0},
                 discovered = true,
                 unlocked = true,
-                loc_txt = { 
-                    name = 'Tier 2 Card',
-                    text = {
-                        '{C:chips}+#1#{} Chips and',
-                        '{C:mult}+#2#{} Mult',
-                        'when scored'
-                    }},
                 replace_base_card = false,
                 no_rank = false,
                 no_suit = false,
@@ -277,13 +228,6 @@ end
                 pos = {x = 2, y = 0},
                 discovered = true,
                 unlocked = true,
-                loc_txt = { 
-                    name = 'Tier 3 Card',
-                    text = {
-                        '{C:chips}+#1#{} Chips and',
-                        '{X:mult,C:white}X#2#{} Mult',
-                        'when scored'
-                    }},
                 replace_base_card = false,
                 no_rank = false,
                 no_suit = false,
@@ -312,16 +256,6 @@ end
                 pos = {x = 3, y = 0},
                 discovered = true,
                 unlocked = true,
-                loc_txt = { 
-                    name = 'Boosted',
-                    text = {
-                        '{C:chips}+#1#{} Chips and',
-                        '{X:mult,C:white}X#2#{} Mult',
-                        'when scored',
-                        'turns into a {C:attention}Tier 3 Card{}',
-                        "after 3 times played",
-                        '{C:inactive}(#3#/3)'
-                    }},
                 replace_base_card = false,
                 no_rank = false,
                 no_suit = false,
@@ -364,15 +298,6 @@ end
                 pos = {x = 0, y = 1},
                 discovered = true,
                 unlocked = true,
-                loc_txt = { 
-                    name = 'Blessed',
-                    text = {
-                        '{C:green}#1# in #4#{} chance for {C:chips}+#8# {}Chips',
-                        '{C:green}#1# in #3#{} chance for {C:mult}+#7#{{} Mult',
-                        '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#6#{} Mult',
-                        '{C:green}#1# in #5#{} chance to win {C:money}$30{}',
-                        '{C:inactive}(All can trigger on the same turn)'
-                    }},
                 replace_base_card = false,
                 no_rank = false,
                 no_suit = false,
@@ -403,12 +328,6 @@ end
                         pos = {x = 0, y = 2},
                         discovered = true,
                         unlocked = true,
-                        loc_txt = { 
-                            name = 'Target',
-                            text = {
-                                'Needs to go down!',
-                                '{C:inactive} art by gmoonfucker'
-                            }},
                         replace_base_card = true,
                         no_rank = true,
                         no_suit = true,

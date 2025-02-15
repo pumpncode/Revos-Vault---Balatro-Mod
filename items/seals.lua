@@ -1,16 +1,6 @@
 
 SMODS.Seal{
     key = 'ps',
-    loc_txt = {
-        name = "Printer's Seal",
-        text = {"When scored, adds a copy",
-                "of the card to hand",
-                "{C:inactive}(Removes the seal from",
-                '{C:inactive}the copied card)'
-            
-            },
-            label = "Printer's Seal"
-    },
     atlas = "enh",
     pos = {x = 2, y = 1},
     discovered = true,
@@ -44,15 +34,6 @@ end
 SMODS.Consumable{
     key = 'brush', 
     set = 'Spectral',
-    loc_txt = { 
-        name = 'Brush',
-        text = {
-            "Add a {C:purple}Printer's Seal",
-            "to {C:attention}1{} selected",
-            'card in your hand'
-
-        },
-    },
     config = { extra = { cards = 1}},
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.cards} }

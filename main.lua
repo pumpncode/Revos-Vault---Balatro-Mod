@@ -6,10 +6,11 @@ SMODS.load_file('items/jokers.lua')()
 SMODS.load_file('items/decks.lua')()
 SMODS.load_file('items/tags.lua')()
 SMODS.load_file('items/seals.lua')()
+SMODS.load_file('items/enh.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
 SMODS.load_file('items/cons.lua')()
-SMODS.load_file('items/enh.lua')()
+SMODS.load_file('items/booster.lua')()
 
 
 
@@ -18,6 +19,12 @@ SMODS.Atlas{
     path = 'modicon.png', 
     px = 34, 
     py = 34 
+}
+SMODS.Atlas{
+    key = 'booster', 
+    path = 'boosters.png', 
+    px = 71, 
+    py = 95 
 }
 
 SMODS.Atlas{

@@ -1,11 +1,7 @@
 
 SMODS.Tag{
     key = 'pst',
-    loc_txt = {
-        name = 'Cartridge Tag',
-        text = { "Next shop has a free", 
-                 "{C:red}Printer Joker"}
-    },
+
     atlas = 'tags',
     pos = { x = 0, y = 0},
     apply = function(self, tag, context)

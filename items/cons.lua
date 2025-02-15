@@ -3,16 +3,8 @@ local printer_keys = {'j_crv_printer','j_crv_rustyprinter','j_crv_jimboprinter',
 'j_crv_glassprinter','j_crv_lpm','j_crv_devilishprinter','j_crv_steelprinter','j_crv_tierp','j_crv_luckyprinter','j_crv_celestialprinter','j_crv_fcp','j_crv_pcp','j_crv_hcp','j_crv_ngp','j_crv_urp'}
 
 SMODS.Consumable{
-    key = 'ink&intuition', 
+    key = 'inkintuition', 
     set = 'Tarot',
-    loc_txt = { 
-        name = 'Ink & Intuition',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'create a {C:attention}Printer',
-            '{C:inactive}(Must have room)',
-        },
-    },
     config = { extra = { odds = 2 }},
     loc_vars = function(self, info_queue, card)
         return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
@@ -28,7 +20,7 @@ SMODS.Consumable{
         end
     end,
     use = function(self,card)
-        if pseudorandom('ink&intuition') < G.GAME.probabilities.normal / card.ability.extra.odds then   
+        if pseudorandom('inkintuition') < G.GAME.probabilities.normal / card.ability.extra.odds then   
             local random_key = printer_keys[math.random(#printer_keys)]
                 local new_card = create_card(random_key, G.jokers, nil, nil, nil, nil, random_key)
                 new_card:add_to_deck()
@@ -59,15 +51,8 @@ SMODS.Consumable{
 
 
         SMODS.Consumable{
-            key = 'dreams&desires', 
+            key = 'dreamsdesires', 
             set = 'Tarot',
-            loc_txt = { 
-                name = 'Dreams & Desires',
-                text = {
-                    'Creates one of the three {C:attention}Machine Parts,',
-                    "{C:inactive}(Must have room)",
-                },
-            },
             config = { extra = {}},
             loc_vars = function(self, info_queue, card)
                 return { vars = {} }
@@ -130,15 +115,6 @@ SMODS.Consumable{
     atlas = 'scrapss', 
     cost = 0,
     pos = {x = 2, y = 0}, 
-    loc_txt = {
-        name = 'Horn', 
-        text = { 
-            'Gives{C:money} 30$'
-        },
-        in_pool = function(self,wawa,wawa2)
-            return false
-        end,
-    },
     can_use = function(self,card)
                 return true
             end,
@@ -165,15 +141,6 @@ SMODS.Consumable{
         atlas = 'scrapss', 
         cost = 0,
         pos = {x = 0, y = 0}, 
-        loc_txt = {
-            name = 'Pickles', 
-            text = { 
-                'Gives{C:money} 25$'
-            },
-            in_pool = function(self,wawa,wawa2)
-                return false
-            end,
-        },
         can_use = function(self,card)
                     return true
                 end,
@@ -198,15 +165,6 @@ SMODS.Consumable{
             atlas = 'scrapss', 
             cost = 0,
             pos = {x = 1, y = 0}, 
-            loc_txt = {
-                name = 'Metal Piece', 
-                text = { 
-                    'Gives{C:money} 20$'
-                },
-                in_pool = function(self,wawa,wawa2)
-                    return false
-                end,
-            },
             can_use = function(self,card)
                         return true
                     end,
@@ -234,15 +192,6 @@ SMODS.Consumable{
     atlas = 'scrapss', 
     cost = 0,
     pos = {x = 3, y = 0}, 
-    loc_txt = {
-        name = 'Apparatus',
-        text = {
-            'Gives{C:money} 35$'
-        },
-        in_pool = function(self,wawa,wawa2)
-            return false
-        end,
-    },
     can_use = function(self,card)
                 return true
             end,
@@ -268,15 +217,6 @@ SMODS.Consumable{
     atlas = 'scrapss', 
     cost = 0,
     pos = {x = 4, y = 0}, 
-    loc_txt = {
-        name = 'Duck', 
-        text = { 
-            'Gives{C:money} 15$'
-        },
-        in_pool = function(self,wawa,wawa2)
-            return false
-        end,
-    },
     can_use = function(self,card)
                 return true
             end,
@@ -321,14 +261,6 @@ SMODS.Consumable{
             discovered = true,
             atlas = 'documents', 
             pos = {x = 0, y = 0}, 
-            loc_txt = {
-                name = 'Glass Contract',
-                text = { 
-                    'Turns #1# card into {C:attention}Glass',
-                    '{C:green} #2# in #3#{} chance for it to be a',
-                    '{C:dark_edition} Bulletproof Glass{}'
-                }
-            },
             config = {
                 extra = {
                     cards = 1, odds = 4}
@@ -369,14 +301,6 @@ SMODS.Consumable{
             discovered = true,
             atlas = 'documents', 
             pos = {x = 3, y = 0}, 
-            loc_txt = {
-                name = 'Steel Contract', 
-                text = { 
-                    'Turns #1# card into {C:attention}Steel',
-                    '{C:green} #2# in #3#{} chance for it to be',
-                    '{C:dark_edition} Diamond{}'
-                }
-            },
             config = {
                 extra = {
                     cards = 1, odds = 4}
@@ -412,19 +336,11 @@ SMODS.Consumable{
         local imsofckntired = {'m_crv_aflame','m_crv_mugged'}
 
         SMODS.Consumable{
-            key = 'devilscontract', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 'devilscontract', 
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 'documents', --atlas
-            pos = {x = 1, y = 0}, --position in atlas
-            loc_txt = {
-                name = "Devil's Contract", --name of card
-                text = { --text of card
-                    'Turns #1# card into {C:attention}Aflame or Mugged{}',
-                    '{C:green} #2# in #3#{} chance for it to be a',
-                    '{C:dark_edition} Soul Card{}'
-                }
-            },
+            atlas = 'documents',
+            pos = {x = 1, y = 0}, 
             config = {
                 extra = { cards = 1, odds = 4 }},
             loc_vars = function(self, info_queue, card)
@@ -457,17 +373,11 @@ SMODS.Consumable{
         }
         
         SMODS.Consumable{
-            key = 'megadoc', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 'megadoc', 
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 'megaenh', --atlas
-            pos = {x = 1, y = 0}, --position in atlas
-            loc_txt = {
-                name = 'Mega Contract', --name of card
-                text = { --text of card
-                    'Turns #1# card into {C:attention}Mega'
-                }
-            },
+            atlas = 'megaenh',
+            pos = {x = 1, y = 0}, 
             config = {
                 extra = {
                     cards = 1,}
@@ -493,14 +403,14 @@ SMODS.Consumable{
         }
 
         SMODS.Consumable{
-            key = 't1doc', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 't1doc', 
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 't', --atlas
-            pos = {x = 0, y = 1}, --position in atlas
+            atlas = 't', 
+            pos = {x = 0, y = 1}, 
             config = {extra ={ cards = 1}},
             loc_txt = {
-                name = 'Tier 1 Contract', --name of card
+                name = 'Tier 1 Contract', 
                 text = { 
                     'Turns #1# card into a',
                     '{C:attention}Tier 1 Card',
@@ -526,19 +436,12 @@ SMODS.Consumable{
             end
         }
         SMODS.Consumable{
-            key = 't2doc', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 't2doc', 
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 't', --atlas
+            atlas = 't', 
             pos = {x = 1, y = 1},
-            config = {extra ={ cards = 2}}, --position in atlas
-            loc_txt = {
-                name = 'Tier 2 Contract', --name of card
-                text = { --text of card
-                    'Turns up to #1# cards into a',
-                    '{C:attention}Tier 2 Card',
-                }
-            },
+            config = {extra ={ cards = 2}},
             loc_vars = function(self, info_queue, card)
                 return { vars = { card.ability.extra.cards,} }
               end,
@@ -565,13 +468,6 @@ SMODS.Consumable{
             atlas = 't', --atlas
             pos = {x = 2, y = 1},
             config = {extra = { cards = 3}}, --position in atlas
-            loc_txt = {
-                name = 'Tier 3 Contract', --name of card
-                text = { --text of card
-                    'Turns up to #1# card into a',
-                    '{C:attention}Tier 3 Card',
-                }
-            },
             loc_vars = function(self, info_queue, card)
                 return { vars = { card.ability.extra.cards,} }
               end,
@@ -593,19 +489,12 @@ SMODS.Consumable{
         }
 
         SMODS.Consumable{
-            key = 'boostdoc', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 'boostdoc', 
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 't', --atlas
+            atlas = 't', 
             pos = {x = 3, y = 1},
-            config = {extra = { cards = 1}}, --position in atlas
-            loc_txt = {
-                name = 'Boosted Contract', --name of card
-                text = { --text of card
-                    'Turns #1# card into a',
-                    '{C:attention}Boosted Card',
-                }
-            },
+            config = {extra = { cards = 1}}, 
             loc_vars = function(self, info_queue, card)
                 return { vars = { card.ability.extra.cards,} }
               end,
@@ -627,19 +516,11 @@ SMODS.Consumable{
         }
 
         SMODS.Consumable{
-            key = 'luckydocument', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 'luckydocument', 
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 'documents', --atlas
-            pos = {x = 2, y = 0}, --position in atlas
-            loc_txt = {
-                name = 'Lucky Contract', --name of card
-                text = { --text of card
-                    'Turns #1# card into a{C:attention} Lucky Card',
-                    '{C:green} #2# in #3#{} chance for it to be a',
-                    '{C:dark_edition} Blessed Card{}'
-                }
-            },
+            atlas = 'documents',
+            pos = {x = 2, y = 0}, 
             config = {
                 extra = {
                     cards = 1, odds = 4}
@@ -673,17 +554,11 @@ SMODS.Consumable{
         }
 
         SMODS.Consumable{
-            key = 'polydoc', --key
-            set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+            key = 'polydoc',
+            set = 'EnchancedDocuments', 
             discovered = true,
-            atlas = 'documents', --atlas
-            pos = {x = 2, y = 1}, --position in atlas
-            loc_txt = {
-                name = 'Polychrome Contract', --name of card
-                text = { --text of card
-                    'Turns #1# card into {C:dark_edition}Polychrome',
-                }
-            },
+            atlas = 'documents',
+            pos = {x = 2, y = 1}, 
             config = {
                 extra = {
                     cards = 1,}
@@ -714,12 +589,6 @@ SMODS.Consumable{
         discovered = true,
         atlas = 'documents', --atlas
         pos = {x = 0, y = 1}, --position in atlas
-        loc_txt = {
-            name = 'Foil Contract', --name of card
-            text = { --text of card
-                'Turns #1# card into {C:dark_edition}Foil',
-            }
-        },
         config = {
             extra = {
                 cards = 1,}
@@ -750,12 +619,6 @@ SMODS.Consumable{
         discovered = true,
         atlas = 'documents', --atlas
         pos = {x = 1, y = 1}, --position in atlas
-        loc_txt = {
-            name = 'Holographic Contract', --name of card
-            text = { --text of card
-                'Turns #1# card into {C:dark_edition}Holographic',
-            }
-        },
         config = {
             extra = {
                 cards = 1,}
@@ -786,12 +649,6 @@ SMODS.Consumable{
         discovered = true,
         atlas = 'documents', --atlas
         pos = {x = 3, y = 1}, --position in atlas
-        loc_txt = {
-            name = 'Negative Contract', --name of card
-            text = { --text of card
-                'Turns #1# card into {C:dark_edition}Negative',
-            }
-        },
         config = {
             extra = {
                 cards = 1,}

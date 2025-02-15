@@ -34,13 +34,6 @@ SMODS.Consumable{
     soul_set = 'Spectral',
         soul_rate = 0.003,
         can_repeat_soul = false,
-    loc_txt = { 
-        name = "Chaotic Soul",
-        text = {
-            'Creates a random',
-            '{C:dark_edition}Chaos Joker',
-        },
-    },
     config = { extra = {  }},
     loc_vars = function(self, info_queue, card)
         return { vars = { } }
@@ -67,17 +60,6 @@ SMODS.Consumable{
             
     SMODS.Joker{
         key = 'chaoticprintermachine', 
-        loc_txt = { 
-            name = '{C:dark_edition}Chaotic Printer',
-            text = {
-              'When Blind is selected,',
-              '{C:green}#1# in #2#{} chance to',
-              'create all of the {C:attention}Printers',
-              '{C:inactive}(Trust me, limiting this by luck',
-              '{C:inactive}is needed.)'
-            },
-            
-        },
         atlas = 'chaosa', 
         rarity = 'crv_chaos', 
         cost = 30, 
@@ -182,13 +164,6 @@ SMODS.Consumable{
 
        SMODS.Joker {
         key = 'thefaxprinter',
-        loc_txt = {
-          name = '{C:money}THE Fax Printer',
-          text = {
-            'When blind is selected,',
-            "prints a{C:attention} Promotion",
-          }
-        },
         config = { extra = {  } },
         discovered = false,
         unlocked = true,
@@ -199,6 +174,7 @@ SMODS.Consumable{
         cost = 30,
         eternal_compat = true,
         loc_vars = function(self, info_queue, card)
+          info_queue[#info_queue+1] = G.P_CENTERS.j_crv_promotion
           return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
         end,
         calculate = function(self, card, context)
@@ -217,14 +193,6 @@ SMODS.Consumable{
     
     SMODS.Joker {
         key = 'promotion',
-        loc_txt = {
-          name = '{C:money}Promotion',
-          text = {
-            "All {C:attention}Royal Cards {}and {C:attention}Aces",
-            "give {C:chips}+#1#{} Chips and",
-            "{X:mult,C:white}X#2#{} Mult when scored",
-          }
-        },
         config = { extra = { chips = 36286368, xmult = 4153211351420 } },
         rarity = 'crv_chaos',
         atlas = 'chaosa',
@@ -254,13 +222,6 @@ SMODS.Consumable{
 
       SMODS.Joker{
         key = 'dirtinator9999', 
-        loc_txt = { 
-            name = '{C:green}Dirtinator9999',
-            text = {
-                'Prints a{C:green} Dirt Contract{}',
-                'When blind is selected,',
-              }
-        },
         atlas = 'chaosa', 
         rarity = 'crv_chaos', 
         cost = 30, 
@@ -272,6 +233,7 @@ SMODS.Consumable{
         pos = {x = 2, y = 0},
         config = { extra = {  }, }, 
           loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue+1] = G.P_CENTERS.c_crv_dirtdocument
             return { vars = { card.ability.extra.xmult } }
           end,
         calculate = function(self,card,context)
@@ -293,7 +255,7 @@ SMODS.Consumable{
         pos = {x = 2, y = 1}, --position in atlas
         discovered = true,
         loc_txt = {
-            name = '{C:green}Dirt Contract', --name of card
+            name = 'Dirt Contract', --name of card
             text = { --text of card
                 'Turns #1# cards into {C:green}Dirt'
             }
@@ -359,14 +321,6 @@ SMODS.Consumable{
 
         SMODS.Joker{
             key = 'holyprinter', 
-            loc_txt = { 
-                name = '{C:green}Holy Printer',
-                text = {
-                  'When Blind is selected',
-                  'prints a {C:green}Holy Banana',
-                },
-                
-            },
             atlas = 'chaosa', 
             rarity = 'crv_chaos', 
             cost = 30, 
@@ -382,6 +336,7 @@ SMODS.Consumable{
               }
             },
             loc_vars = function(self, info_queue, card)
+              info_queue[#info_queue+1] = G.P_CENTERS.j_crv_holybanana
                 return { vars = {  } }
               end, 
             calculate = function(self,card,context)
@@ -399,16 +354,6 @@ SMODS.Consumable{
 
            SMODS.Joker{
             key = 'hfj', 
-            loc_txt = { 
-                name = '{C:green}Hacked File',
-                text = {
-                  'Saves the {C:green}4{} times the ammount of your first',
-                  'scored chips and returns it as {X:mult,C:white}XMult{}.',
-                  "{C:red}resets{} at the end of a round",
-                  "{C:inactive}({C:attention}#1# {C:inactive}Stored)",
-                },
-                
-            },
             atlas = 'Jokers2', 
             rarity = 'crv_chaos', 
             cost = 6, 
@@ -435,7 +380,7 @@ SMODS.Consumable{
                 card.ability.extra.chips = chips
                 card.ability.extra.one = to_number(card.ability.extra.chips*4)
                 return{
-                    message = 'ERROR!'
+                    message = localize('k_crv_error')
                 }
              elseif context.joker_main and card.ability.extra.one == 0 and card.ability.extra.one == 0 and not context.blueprint and not context.repetition then
                 card.ability.extra.ok = card.ability.extra.ok + 1
@@ -443,7 +388,7 @@ SMODS.Consumable{
                 card.ability.extra.chips = chips
                 card.ability.extra.one = card.ability.extra.chips*4
                 return{
-                    message = 'ERROR!'
+                    message = localize('k_crv_error')
                 }
             end
             if context.joker_main and next(SMODS.find_mod("Talisman")) and card.ability.extra.ok > 0 then
@@ -459,7 +404,7 @@ SMODS.Consumable{
                 card.ability.extra.ok = 0
                 card.ability.extra.one = 0
                 return{
-                    message = 'Cleaning file...',
+                    message = localize('k_crv_cleaning')
                 }
             end
         end,
