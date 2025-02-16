@@ -2,9 +2,6 @@
 SMODS.Rarity{
   key = "va",
  badge_colour = G.C.PURPLE,
- loc_txt = {
-      name = 'Vaulted', -- used on rarity badge
-  },
   pools = {
       ["Joker"] = { rate = 0.01 },
   }, 
@@ -33,7 +30,7 @@ SMODS.Consumable{
         if not (G.GAME.consumable_uses >= 1) then
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             attention_text({
-                text = localize('k_crv_va'),
+                text = localize('k_crv_vaa'),
                 scale = 1.3, 
                 hold = 1.4,
                 major = card,

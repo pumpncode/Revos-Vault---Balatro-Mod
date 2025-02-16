@@ -1069,6 +1069,31 @@ return {
           "{C:inactive}({C:attention}#1# {C:inactive}Stored)",
         },
       },
+      j_crv_jimp={
+        name = 'Jimpress',
+        text = {
+          "If this joker has {C:red}nothing{} to it's {C:attention}right",
+          "or {C:attention}left, {X:mult,C:white}X#1#{} Mult.",
+          "If both sides are {C:attention}closed{}, {X:mult,C:white}X#2#{} Mult "
+        },
+      },
+      j_crv_jarden={
+        name = 'Jarden',
+        text = {
+          "This card gains {X:mult,C:white}X#2#{} Mult",
+          "for every {C:attention}consecutive{} round without {C:attention}selling a card.",
+          "{C:red}Resets{} if a card is sold.",
+          "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+        },
+      },
+      j_crv_kit={
+        name = "King's Impact",
+        text = {
+          "Upgrades any played card up to {C:attention}King",
+          "And will decrase any played {C:attention}Ace",
+          "down to {C:attention}King"
+        },
+      },
       
     },
     Tarot={
@@ -1263,7 +1288,8 @@ return {
 },
 misc={
     labels={
-        crv_ps_seal="Printer's Seal"
+        crv_ps_seal="Printer's Seal",
+        crv_p="Printer",
     },
     dictionary={
         k_crv_pbstg="Printer Pack",
@@ -1284,10 +1310,17 @@ misc={
         k_crv_double="Double!",
         k_crv_nothing="Nothing!",
         k_crv_dept="In Dept!",
-        k_crv_va="Opened Vault!",
+        k_crv_vaa="Opened Vault!",
         k_crv_vaoff="Already Open!",
         k_crv_error="ERROR!",
         k_crv_yum="Yummy!",
+        k_crv_p="Printer",
+        k_crv_holy="Holy Banana",
+        k_crv_pedro="Pedro",
+        k_crv_tit="Titan",
+        k_crv_chaos="Chaos",
+        k_crv_va="Vaulted"
+
     }
 }
 }

@@ -21,10 +21,7 @@ SMODS.Consumable{
     end,
     use = function(self,card)
         if pseudorandom('inkintuition') < G.GAME.probabilities.normal / card.ability.extra.odds then   
-            local random_key = printer_keys[math.random(#printer_keys)]
-                local new_card = create_card(random_key, G.jokers, nil, nil, nil, nil, random_key)
-                new_card:add_to_deck()
-                G.jokers:emplace(new_card)
+            SMODS.add_card({set = "Joker",area = G.jokers,rarity = 'crv_p'})
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 attention_text({
@@ -68,7 +65,7 @@ SMODS.Consumable{
                 end
             end,
             use = function(self,card) 
-                    local random_key = machine_keys[math.random(#machine_keys)]
+                    local random_key = (pseudorandom_element(machine_keys, pseudoseed("dreamsdesires")))
                         local new_card = create_card(random_key, G.jokers, nil, nil, nil, nil, random_key)
                         new_card:add_to_deck()
                         G.jokers:emplace(new_card)

@@ -3,9 +3,6 @@
 SMODS.Rarity{
   key = "chaos",
  badge_colour = G.C.DARK_EDITION,
- loc_txt = {
-      name = 'Chaos',
-  },
   pools = {}, 
 }
 

@@ -149,6 +149,7 @@ SMODS.Back{
     name = 'Speaking Fax',
     key = 'spx',
     atlas = 'Decks',
+    pos = {x=0,y=2},
     apply = function ()
 
         G.E_MANAGER:add_event(Event({
