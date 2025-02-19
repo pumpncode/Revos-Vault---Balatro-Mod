@@ -990,7 +990,7 @@ return {
            '{X:mult,C:white}X#1#{} Mult but has a',
            '{C:green}#3# in #2#{} Chance to',
            '{X:mult,C:white}X(-#1#){}',
-           '{C:red}Less discards, {C:attention}better chances'
+           '{C:red}Less discards, {C:attention}better chances',
            },
       },
       j_crv_vsix={
@@ -1261,8 +1261,8 @@ return {
         c_crv_VaultKey={
             name = 'Vault Key', 
             text = { 
-                'Allows for {C:purple}Vaulted Jokers{} to',
-                'appear in the shop',
+                'Spawns a random',
+                "{C:purple}Vaulted{} Joker"
             }
         },
         c_crv_brush={

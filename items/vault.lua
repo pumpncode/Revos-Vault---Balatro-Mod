@@ -1,11 +1,15 @@
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+    local ret = igo(self)
+    ret.consumable_uses = 0
+    return ret
+end
+
 
 SMODS.Rarity{
   key = "va",
  badge_colour = G.C.PURPLE,
-  pools = {
-      ["Joker"] = { rate = 0.01 },
-  }, 
-  default_weight = 0.01,
+  pools = {}, 
 }
 
 
@@ -14,6 +18,7 @@ SMODS.Consumable{
     set = 'Spectral', 
     discovered = true,
     atlas = 'spec',
+    hidden = true,
     soul_set = 'Spectral',
     soul_rate = 0.03,
     can_repeat_soul = false,
@@ -27,61 +32,14 @@ SMODS.Consumable{
                 return true
     end,
     use = function(self,card,area,copier)
-        if not (G.GAME.consumable_uses >= 1) then
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_crv_vaa'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.DARK_EDITION,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-        return true end }))
-
-        G.GAME.consumable_uses = G.GAME.consumable_uses + 1
-                else 
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        attention_text({
-                            text = localize('k_crv_vaoff'),
-                            scale = 1.3, 
-                            hold = 1.4,
-                            major = card,
-                            backdrop_colour = G.C.DARK_EDITION,
-                            align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                            offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                            silent = true
-                            })
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                            play_sound('tarot2', 0.76, 0.4);return true end}))
-                            play_sound('tarot2', 1, 0.4)
-                            card:juice_up(0.3, 0.5)
-                    return true end }))
-    end
-    delay(0.6)
+        SMODS.add_card({set = "Joker",area = G.jokers,rarity = 'crv_va'})
 end,
     in_pool = function(self,wawa,wawa2)
-        if G.GAME.consumable_uses < 1 then
-        return true
-        elseif G.GAME.consumable_uses >= 1 then
-            return false
+            return true
         end
-    end,
     
 }
 
-local igo = Game.init_game_object
-Game.init_game_object = function(self)
-    local ret = igo(self)
-    ret.consumable_uses = 0
-    return ret
-end
 
 SMODS.Joker{
     key = 'vjim', 
@@ -95,7 +53,7 @@ SMODS.Joker{
          perishable_compat = false, 
          pos = {x = 3, y = 3},
          config = { 
-           extra = { odds = 4, xmult = 6, discards = 'N/A'
+           extra = { odds = 4, xmult = 6, discards = 'N/A',
   
            }
          },
@@ -121,12 +79,8 @@ SMODS.Joker{
              end
          end,
          in_pool = function(self,wawa,wawa2)
-            if G.GAME.consumable_uses < 1 then
-            return false
-            elseif G.GAME.consumable_uses >= 1 then
                 return true
             end
-        end,
            }
 
 
@@ -176,12 +130,8 @@ SMODS.Joker{
                     end
                 end,
                     in_pool = function(self,wawa,wawa2)
-                        if G.GAME.consumable_uses < 1 then
-                        return false
-                        elseif G.GAME.consumable_uses >= 1 then
                             return true
                         end
-                end
                    }
 
 local vdnaenh = {
@@ -241,12 +191,8 @@ SMODS.Joker{
     end 
 end,
 in_pool = function(self,wawa,wawa2)
-    if G.GAME.consumable_uses < 1 then
-    return false
-    elseif G.GAME.consumable_uses >= 1 then
         return true
     end
-end
             }
 
 
@@ -296,12 +242,8 @@ end
                     end
                 end,
                 in_pool = function(self,wawa,wawa2)
-                    if G.GAME.consumable_uses < 1 then
-                    return false
-                    elseif G.GAME.consumable_uses >= 1 then
                         return true
                     end
-                end
                }
 
           

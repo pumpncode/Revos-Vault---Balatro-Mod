@@ -4498,58 +4498,6 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = 'jarden',
-    atlas = 'Jokers2',
-    rarity = 3,
-    cost = 10,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = false,
-    pos = {
-        x = 7,
-        y = 0
-    },
-    config = {
-        extra = {
-            xmult = 1,
-            xmult2 = 0.5
-        }
-    },
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {card.ability.extra.xmult, card.ability.extra.xmult2}
-        }
-    end,
-
-    calculate = function(self, card, context)
-        if context.selling_card and not context.repetition and not context.blueprint then
-            card.ability.extra.xmult = 1
-            return {
-                message = localize('k_reset'),
-                colour = G.C.MULT
-            }
-        end
-        if context.end_of_round and context.main_eval and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult2
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.MULT
-            }
-        end
-        if context.joker_main then
-            return {
-                x_mult = card.ability.extra.xmult
-            }
-        end
-    end,
-    in_pool = function(self, wawa, wawa2)
-        return true
-    end
-}
-
-SMODS.Joker {
     key = 'kit',
     atlas = 'Jokers2',
     rarity = 3,
