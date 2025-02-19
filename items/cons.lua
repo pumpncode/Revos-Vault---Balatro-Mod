@@ -87,7 +87,6 @@ SMODS.ConsumableType{
             text = {'???'} 
         },
     },
-    shop_rate = 1,
 }
 
 SMODS.UndiscoveredSprite{
@@ -99,11 +98,7 @@ SMODS.UndiscoveredSprite{
 
 SMODS.Consumable{
     in_pool = function(self,wawa,wawa2)
-        if (#SMODS.find_card('j_crv_lpm') > 0) or (#SMODS.find_card('j_crv_adæm_') > 0) then
-        return true
-        elseif (#SMODS.find_card('j_crv_lpm') == 0) or (#SMODS.find_card('j_crv_adæm_') == 0) then
             return false
-        end
     end,
     key = 'horn', 
     discovered = true,
@@ -125,12 +120,8 @@ SMODS.Consumable{
 
     SMODS.Consumable{
         in_pool = function(self,wawa,wawa2)
-            if (#SMODS.find_card('j_crv_lpm') > 0) or (#SMODS.find_card('j_crv_adæm_') > 0) then
-            return true
-            elseif (#SMODS.find_card('j_crv_lpm') == 0) or (#SMODS.find_card('j_crv_adæm_') == 0) then
-                return false
-            end
-        end,
+            return false
+    end,
         key = 'pickles', 
         discovered = true,
         unlocked = true,
@@ -149,11 +140,7 @@ SMODS.Consumable{
     }
         SMODS.Consumable{
             in_pool = function(self,wawa,wawa2)
-                if (#SMODS.find_card('j_crv_lpm') > 0) or (#SMODS.find_card('j_crv_adæm_') > 0) then
-                return true
-                elseif (#SMODS.find_card('j_crv_lpm') == 0) or (#SMODS.find_card('j_crv_adæm_') == 0) then
                     return false
-                end
             end,
             key = 'mp', 
             discovered = true,
@@ -176,12 +163,8 @@ SMODS.Consumable{
 
 SMODS.Consumable{
     in_pool = function(self,wawa,wawa2)
-        if (#SMODS.find_card('j_crv_lpm') > 0) or (#SMODS.find_card('j_crv_adæm_') > 0) then
-        return true
-        elseif (#SMODS.find_card('j_crv_lpm') == 0) or (#SMODS.find_card('j_crv_adæm_') == 0) then
-            return false
-        end
-    end,
+        return false
+end,
     key = 'ap',
     discovered = true,
     unlocked = true,
@@ -201,12 +184,8 @@ SMODS.Consumable{
 
 SMODS.Consumable{
     in_pool = function(self,wawa,wawa2)
-        if (#SMODS.find_card('j_crv_lpm') > 0) or (#SMODS.find_card('j_crv_adæm_') > 0) then
-        return true
-        elseif (#SMODS.find_card('j_crv_lpm') == 0) or (#SMODS.find_card('j_crv_adæm_') == 0) then
-            return false
-        end
-    end,
+        return false
+end,
     key = 'dc', 
     discovered = true,
     unlocked = true,
@@ -241,7 +220,6 @@ SMODS.Consumable{
                     text = {'???'} 
                 }
             },
-            shop_rate = 0, 
         }
     
         SMODS.UndiscoveredSprite{

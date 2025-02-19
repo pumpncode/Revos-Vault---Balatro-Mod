@@ -10,7 +10,7 @@ SMODS.Booster{
     config = {extra = 2,choose = 1},
     group_key = 'k_crv_pbstg',
     cost = 4,
-    weight = 1,
+    weight = 0.03,
     create_card = function(self, card, i)
         return create_card("Printers", G.pack_cards, nil, nil, true,  true, pseudorandom_element(cc, pseudoseed('pbst')))
     end,

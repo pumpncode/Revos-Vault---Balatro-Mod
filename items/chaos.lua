@@ -17,7 +17,7 @@ SMODS.Atlas{
   key = 'printersoul', 
   path = 'Printer_Soul.png', 
   px = 71, 
-  py = 105 
+  py = 95
 }
 
 

@@ -7,10 +7,10 @@ SMODS.load_file('items/decks.lua')()
 SMODS.load_file('items/tags.lua')()
 SMODS.load_file('items/seals.lua')()
 SMODS.load_file('items/enh.lua')()
-SMODS.load_file('items/vault.lua')()
-SMODS.load_file('items/chaos.lua')()
 SMODS.load_file('items/cons.lua')()
 SMODS.load_file('items/booster.lua')()
+SMODS.load_file('items/vault.lua')()
+SMODS.load_file('items/chaos.lua')()
 
 
 
@@ -243,7 +243,7 @@ function joker_add_per(jKey)
 
     end
 end
---i dont remember why i put this here but im leaving it in
+--i dont remember why i put this here but im leaving it in for fun
 function vvs()
     local vv = 0
     return vv

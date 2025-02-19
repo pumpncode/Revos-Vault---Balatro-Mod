@@ -24,9 +24,7 @@ SMODS.Rarity {
 SMODS.Rarity {
     key = "tit",
     badge_colour = G.C.RARITY[4],
-    loc_txt = {
-        name = 'Titan'
-    },
+
     pools = {}
 }
 
@@ -146,6 +144,9 @@ SMODS.Joker {
         return true
     end
 }
+local scraps = {"c_crv_horn","c_crv_mp","c_crv_pickles","c_crv_ap","c_crv_dc"}
+local adamc = {1,2,3}
+local lpmc = {1,2,3,4}
 
 SMODS.Joker {
     key = 'adam_',
@@ -153,7 +154,7 @@ SMODS.Joker {
         extra = {
             xmult = 1,
             xmultg = 0.5,
-            scrapc = 0
+            scrapc = 0,
         }
     },
     rarity = 4,
@@ -166,15 +167,25 @@ SMODS.Joker {
     },
     soul_pos = {
         x = 0,
-        y = 2
+        y = 2,
     },
     cost = 7,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult, card.ability.extra.xmultg, card.ability.extra.scrapc}
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultg, card.ability.extra.scrapc,}
         }
     end,
     calculate = function(self, card, context)
+        if context.reroll_shop then
+            local adamcc = pseudorandom_element(adamc, pseudoseed('adam_'))
+            if adamcc == 1 then
+                local scrap = pseudorandom_element(scraps, pseudoseed('adam_'))
+                SMODS.add_card({
+                    area = G.consumeables,
+                    key = scrap
+                }) 
+            end
+        end
         if context.using_consumeable and context.consumeable.config.center.key == 'c_crv_mp' and not context.blueprint or
             context.using_consumeable and context.consumeable.config.center.key == 'c_crv_pickles' and
             not context.blueprint or context.using_consumeable and context.consumeable.config.center.key == 'c_crv_horn' and
@@ -190,7 +201,7 @@ SMODS.Joker {
             }
         end
         if (card.ability.extra.scrapc == 5) then
-            card.ability.extra.scrapc = 0
+            card.ability.extra.scrapc = 0 
             SMODS.add_card({
                 set = "Spectral",
                 area = G.consumeables,
@@ -283,10 +294,10 @@ SMODS.Joker {
         if context.setting_blind and context.main_eval and not context.blueprint then
             card.ability.extra.timer = card.ability.extra.timer + 1
         end
-        if (card.ability.extra.timer > 3) then
-            card.ability.extra.timer = 3
+        if (card.ability.extra.timer > 5) then
+            card.ability.extra.timer = 5
         end
-        if context.joker_main and G.GAME.current_round.hands_left == 1 and card.ability.extra.timer == 3 then
+        if context.joker_main and G.GAME.current_round.hands_left == 1 and card.ability.extra.timer == 5 then
             card.ability.extra.timer = 0
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
@@ -1050,7 +1061,7 @@ SMODS.Joker {
     config = {
         extra = {
             mult = 0,
-            mult_gain = 15
+            mult_gain = 15,
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -1059,6 +1070,16 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
+        if context.reroll_shop then
+            local lpmcc = pseudorandom_element(lpmc, pseudoseed('lpm'))
+            if lpmcc == 1 then
+                local scrap = pseudorandom_element(scraps, pseudoseed('lpm'))
+                SMODS.add_card({
+                    area = G.consumeables,
+                    key = scrap
+                }) 
+            end
+        end
         if context.joker_main then
             return {
                 mult_mod = card.ability.extra.mult,
@@ -3559,6 +3580,8 @@ SMODS.Joker {
 
 }
 
+
+
 SMODS.Joker {
     key = 'mj4',
     atlas = 'Jokers2',
@@ -3575,7 +3598,7 @@ SMODS.Joker {
     },
     config = {
         extra = {
-            xmult = 4.4
+            xmult = 4.4,
 
         }
     },
@@ -3590,7 +3613,6 @@ SMODS.Joker {
             return {
                 x_mult = card.ability.extra.xmult
             }
-
         end
     end
 
@@ -4575,6 +4597,90 @@ SMODS.Joker {
         end  
     end
 end,
+    in_pool = function(self, wawa, wawa2)
+        return true
+    end
+}
+
+SMODS.Joker {
+    key = 'kon',
+    config = {
+        extra = {
+            chips = 25
+        }
+    },
+    rarity = 3,
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    pos = {
+        x = 7,
+        y = 2
+    },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.chips}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() >= 7 then
+
+                context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
+                context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
+                return {
+                    message = localize('k_upgrade_ex')
+                }
+            elseif context.destroy_card and context.cardarea == G.play and context.destroy_card:get_id() < 7 then
+
+                        return { remove = true }
+                    end
+                end,
+    in_pool = function(self, wawa, wawa2)
+        return true
+    end
+}
+
+SMODS.Joker {
+    key = 'onj',
+    config = {
+        extra = { xmult = 1,multg = 0.25
+        }
+    },
+    rarity = 3,
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    pos = {
+        x = 7,
+        y = 3
+    },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+        return {
+            vars = {card.ability.extra.xmult,card.ability.extra.multg}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.cardarea and not context.blueprint and not context.repetition and not context.individual then
+                for k, v in ipairs(context.scoring_hand) do
+                    if v.ability.effect == "Base" then
+                        v:set_ability("m_stone")
+                       v:juice_up(0.3,0.4)
+                        elseif v.ability.effect == "Stone Card" then
+                            v:set_ability("c_base")
+                            v:juice_up(0.3,0.4)
+                                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.multg 
+                    end
+                end
+            end
+            if context.joker_main then
+                return {
+                    x_mult = card.ability.extra.xmult
+                }
+            end
+        end,
     in_pool = function(self, wawa, wawa2)
         return true
     end

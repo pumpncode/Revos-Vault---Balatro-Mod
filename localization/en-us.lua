@@ -292,10 +292,12 @@ return {
       j_crv_adam_={
         name = 'Pandik',
         text = {
-        "Allows {C:attention}Scrap{} to spawn in shop," ,
+        "When re-rolling, Has a" ,
+        '{C:green}1 in 3{} chance to spawn {C:attention}Scrap',
         "Gains {X:mult,C:white}x#2#{} Mult for each scrap used", 
         "after every {C:attention}5 Scraps{}, spawns a {C:dark_edition}Negative {C:attention}Spectral Card",
-        "{C:inactive}(Currently #3#/5 Scrap and {X:mult,C:white}X#1#{C:inactive} Mult)"
+        "{C:inactive}(Currently #3#/5 Scrap and {X:mult,C:white}X#1#{C:inactive} Mult)",
+        '{C:inactive}(Items like "Oops! All 6s" wont affect the changes)'
       }
       },
       j_crv_chainsawm={
@@ -312,7 +314,7 @@ return {
         "{X:mult,C:white}X#1#{} Mult.",
         "Transforms into {C:attention}Titan{} if ready",
         "and there is a {C:attention}single hand{} remaining",
-        "{C:inactive}(#2#/3 Rounds to be ready)"
+        "{C:inactive}(#2#/5 Rounds to be ready)"
       }
       },
       j_crv_snayn32={
@@ -463,11 +465,11 @@ return {
       j_crv_lpm={
         name = 'Lethal Press Machine',
         text = {
-            'When in inventory',
-            'Has a chance to spawn {C:attention}Scrap',
-            'in shop.',
+            "When re-rolling, Has a" ,
+            '{C:green}1 in 4{} chance to spawn {C:attention}Scrap',
             'Gains {C:mult}+#2# {}Mult for every {C:attention}Scrap used',
-            '{C:inactive}(Currently{C:mult} +#1#{C:inactive} Mult)'
+            '{C:inactive}(Currently{C:mult} +#1#{C:inactive} Mult)',
+            '{C:inactive}(Items like "Oops! All 6s" wont affect the changes)'
           },
       },
       j_crv_devilishprinter={
@@ -1092,6 +1094,24 @@ return {
           "Upgrades any played card up to {C:attention}King",
           "And will decrase any played {C:attention}Ace",
           "down to {C:attention}King"
+        },
+      },
+      j_crv_kon={
+        name = "White Fox",
+        text = {
+          "If played card's rank is {C:attention}above or equal",
+          "to {C:attention}7{}, permanently add {C:chips}+#1#{} Chips",
+          "as extra chips. {C:red}Destroy{} if otherwise",
+        },
+      },
+      j_crv_onj={
+        name = "Onion Joker",
+        text = {
+          "Turns any scored card", 
+          "{C:attention}without{} an enhancement to {C:attention}stone.",
+          "If a {C:attention}Stone Card {}is scored, {C:red}removes{} the",
+          "Enhancement and gains {X:mult,C:white}X#2#{} Mult.",
+          "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         },
       },
       
