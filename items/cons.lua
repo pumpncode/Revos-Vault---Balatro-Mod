@@ -79,14 +79,6 @@ SMODS.ConsumableType{
     collection_rows = {4,5}, 
     primary_colour = G.C.RED,
     secondary_colour = G.C.RED ,
-    loc_txt = {
-        collection = 'Scraps', 
-        name = 'Scraps',
-        undiscovered = {
-            name = '???', 
-            text = {'???'} 
-        },
-    },
 }
 
 SMODS.UndiscoveredSprite{
@@ -212,14 +204,6 @@ end,
             collection_rows = {4,5}, 
             primary_colour = G.C.WHITE, 
             secondary_colour = G.C.BLACK, 
-            loc_txt = {
-                collection = 'Contracts', 
-                name = 'Contract', 
-                undiscovered = {
-                    name = '???',
-                    text = {'???'} 
-                }
-            },
         }
     
         SMODS.UndiscoveredSprite{
@@ -384,13 +368,6 @@ end,
             atlas = 't', 
             pos = {x = 0, y = 1}, 
             config = {extra ={ cards = 1}},
-            loc_txt = {
-                name = 'Tier 1 Contract', 
-                text = { 
-                    'Turns #1# card into a',
-                    '{C:attention}Tier 1 Card',
-                }
-            },
             loc_vars = function(self, info_queue, card)
                 return { vars = { card.ability.extra.cards,} }
               end,

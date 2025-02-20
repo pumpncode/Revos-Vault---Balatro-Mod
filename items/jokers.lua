@@ -291,7 +291,7 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             card.ability.extra.timer = card.ability.extra.timer + 1
         end
         if (card.ability.extra.timer > 5) then
@@ -2074,7 +2074,7 @@ SMODS.Joker {
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     pos = {
@@ -3032,23 +3032,20 @@ SMODS.Joker {
     cost = 6,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult, card.ability.extra.tf}
+            vars = {card.ability.extra.xmult}
         }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 3 then
-                card.ability.extra.tf = 'true'
+        if context.joker_main then
+            for k, v in ipairs(context.scoring_hand) do
+                if v:get_id() == 3 then
+                    return {
+                        x_mult = card.ability.extra.xmult
+                    }
+                end
             end
         end
-        if context.joker_main and (card.ability.extra.tf == 'true') then
-            card.ability.extra.tf = 'false'
-            return {
-                x_mult = card.ability.extra.xmult
-            }
-        end
     end,
-
     in_pool = function(self, wawa, wawa2)
         return true
     end
@@ -4631,5 +4628,205 @@ SMODS.Joker {
         end,
     in_pool = function(self, wawa, wawa2)
         return true
+    end
+}
+
+local rabbits = {"j_crv_rabf","j_crv_rabflush","j_crv_rabhigh"}
+
+SMODS.Joker {
+    key = 'rab',
+    config = {
+        extra = {xmult = 1.50, xmultgain = 0.50, stage = 0,
+        }
+    },
+    rarity = 3,
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    pos = {
+        x = 7,
+        y = 5
+    },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.xmult,card.ability.extra.xmultgain,card.ability.extra.stage}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+        end
+        if context.end_of_round and G.GAME.blind.boss and context.main_eval and not context.blueprint then
+            local rr = nil
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i] == card then
+                        rr = i;
+                        break
+                    end
+                end
+            if G.jokers.cards[rr + 1] == nil or G.jokers.cards[rr - 1] == nil and context.main_eval then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 1,
+                    blockable = false,
+                    func = function()
+                        G.jokers:remove_card(card)
+                        card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                        card = nil
+                        return true;
+                    end
+                }))
+                return {
+                    message = localize('k_crv_rain'),
+                    message_card = card
+                }
+
+            elseif G.jokers.cards[rr + 1] ~= nil and G.jokers.cards[rr - 1] ~= nil and G.GAME.blind.boss and context.main_eval then
+                card.ability.extra.stage = card.ability.extra.stage + 1
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmultgain
+                return {
+                    message = localize('k_crv_rain2'),
+                    message_card = card
+                }
+            end 
+        end
+        if card.ability.extra.stage >= 5 and not context.repetition and not context.individual and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                blockable = false,
+                func = function()
+                    G.jokers:remove_card(card)
+                    card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                    card = nil
+                    return true;
+                end
+            }))
+                local rabs = pseudorandom_element(rabbits, pseudoseed('rab'))
+                SMODS.add_card({
+                    area = G.jokers,
+                    key = rabs
+                }) 
+            end
+        end,
+    in_pool = function(self, wawa, wawa2)
+        return true
+    end
+}
+
+SMODS.Joker {
+    key = 'rabf',
+    config = {
+        extra = {xmult = 4,xmultf = 2
+        }
+    },
+    rarity = "crv_tit",
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    no_collection = true,
+    pos = {
+        x = 2,
+        y = 6
+    },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.xmult,card.ability.extra.xmultf}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+        end
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:is_face() then
+                return {
+                    x_mult = card.ability.extra.xmultf,
+                }
+            end
+        end
+    end,
+    in_pool = function(self, wawa, wawa2)
+        return false
+    end
+}
+
+SMODS.Joker {
+    key = 'rabflush',
+    config = {
+        extra = {xmult = 4,xmultex = 6
+        }
+    },
+    rarity = "crv_tit",
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    no_collection = true,
+    pos = {
+        x = 0,
+        y = 6
+    },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.xmult,card.ability.extra.xmultex}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands['Flush']) then
+            return {
+                x_mult = card.ability.extra.xmultex
+            }
+        elseif context.joker_main then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+        end
+    end,
+    in_pool = function(self, wawa, wawa2)
+        return false
+    end
+}
+
+SMODS.Joker {
+    key = 'rabhigh',
+    config = {
+        extra = {xmult = 4,xmultex = 6
+        }
+    },
+    rarity = "crv_tit",
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    no_collection = true,
+    pos = {
+        x = 1,
+        y = 6
+    },
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.xmult,card.ability.extra.xmultex}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands['Full House']) then
+            return {
+                x_mult = card.ability.extra.xmultex
+            }
+        elseif context.joker_main then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+        end
+    end,
+    in_pool = function(self, wawa, wawa2)
+        return false
     end
 }

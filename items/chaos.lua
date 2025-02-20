@@ -251,12 +251,6 @@ SMODS.Consumable{
         atlas = 'chaosa', --atlas
         pos = {x = 2, y = 1}, --position in atlas
         discovered = true,
-        loc_txt = {
-            name = 'Dirt Contract', --name of card
-            text = { --text of card
-                'Turns #1# cards into {C:green}Dirt'
-            }
-        },
         config = {
             extra = {
                 cards = 10,}
@@ -287,11 +281,6 @@ SMODS.Consumable{
         pos = {x = 1, y = 1},
         discovered = true,
         unlocked = true,
-        loc_txt = { 
-            name = 'DIRT',
-            text = {
-                '{C:green}Contains the power of Mother Nature'
-            }},
         replace_base_card = true,
         no_rank = true,
         no_suit = true,

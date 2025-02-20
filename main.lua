@@ -11,6 +11,9 @@ SMODS.load_file('items/cons.lua')()
 SMODS.load_file('items/booster.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
+SMODS.load_file('items/sleeves.lua')()
+
+
 
 
 
@@ -190,6 +193,13 @@ SMODS.Atlas{
     key = 'mm', 
     path = 'mm.png', 
     px = 71, 
+    py = 95 
+}
+
+SMODS.Atlas{
+    key = 'sleeves', 
+    path = 'sleeves.png', 
+    px = 73, 
     py = 95 
 }
 

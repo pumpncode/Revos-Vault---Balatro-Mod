@@ -1,5 +1,6 @@
 return {
     descriptions = {
+    
         Back={
             b_crv_mach={
                 name ='Machinery',
@@ -113,8 +114,14 @@ return {
                 text = {
                     'Start with an',
                     'Eternal{C:attention,T:j_crv_steelprinter} Steel Printer{}.'
-                },
+                }, 
             },
+            b_crv_up={
+              name = "Upgrade!",
+              text = {'Start with an', 
+                      'Eternal{C:attention,T:j_crv_tierp} Advanced Printer{}.'
+            }
+          },
             b_crv_lp={
                 name = "Lucky Pot",
                 text = {
@@ -171,6 +178,75 @@ return {
             },    
         }
     },
+    Sleeve = {
+      sleeve_crv_machinerys={
+        name = "Machinery Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_printer}Blueprinter{}',
+        }
+      },
+      sleeve_crv_machinerys_alt={
+        name = "Machinery Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_printer}Blueprinter{}',
+          "{C:red}#1#{} Discards and {C:blue}#2#{} Hand"
+        }
+      },
+      sleeve_crv_oldscrolls={
+        name = "Old Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_rustyprinter}Rusty Printer{}',
+        }
+      },
+      sleeve_crv_oldscrolls_alt={
+        name = "Old Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_rustyprinter}Rusty Printer{}',
+          "{C:red}#1#{} Discards and {C:blue}#2#{} Hand"
+        }
+      },
+      sleeve_crv_goldms={
+        name = "Gold Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_moneyprinter}Money Printer{}',
+        }
+      },
+      sleeve_crv_goldms_alt={
+        name = "Gold Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_moneyprinter}Money Printer{}',
+          "Start with an extra {C:money}10$"
+        }
+      },
+      sleeve_crv_rpds={
+        name = "Ripped Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_brokenprinter}Broken Printer{}',
+        }
+      },
+      sleeve_crv_jims={
+        name = "Jimbo Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_jimboprinter}Jimbo Printer{}',
+        }
+      },
+      sleeve_crv_grossl={
+        name = "Gross Sleeve",
+        text = {
+          'Start with an',
+          'Eternal {C:attention,T:j_crv_grossprinter}Gross Printer{}',
+        }
+      },
+      
+    },
     Enhanced={
         m_crv_bulletproofglass={
             name = 'Bulletproof Glass',
@@ -195,7 +271,7 @@ return {
             }
         },
         m_crv_mugged={
-            name = 'Mugged',
+            name = 'Stained',
             text = {
                 '{X:mult,C:white}X#1#{} Mult',
                 'if played hand contains a {C:attention}Flush',
@@ -265,6 +341,12 @@ return {
                 '{C:inactive} art by gmoonfucker'
             }
         },
+        m_crv_dirt={
+          name = 'DIRT',
+          text = {
+              '{C:green}Contains the power of Mother Nature'
+          }
+      },
     },
     Joker={
         j_crv_revoo_={
@@ -681,10 +763,10 @@ return {
         }
       },
       j_crv_mgj={
-        name = 'Mugged Joker',
+        name = 'Stained Joker',
         text = {
           "Gives {X:mult,C:white}X#2#{} Mult",
-          "for each {C:attention}Mugged Card",
+          "for each {C:attention}Stained Card",
           "in your {C:attention}full deck{}",
           "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
         }
@@ -1114,6 +1196,46 @@ return {
           "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         },
       },
+      j_crv_vprint={
+        name = "Blindprint",
+        text = {
+          "Copies a {C:attention}Random{} joker's ability"
+        },
+      },
+      j_crv_rab={
+        name = "Rain Rabbit",
+        text = {
+          "If there is {C:attention}nothing{} to the {C:attention}right or the left{} of this joker",
+          "after a {C:attention}boss blind{} it {C:red}self-destructs.", 
+          "If there are, will gain {X:mult,C:white}X#2#{} Mult.", 
+          "After X4 Mult, {C:green}Evolve{} into a random form",
+          "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+        },
+      },
+        j_crv_rabf={
+          name = "Rain Rabbit (Face Form)",
+          text = {
+            "{X:mult,C:white}X#1#{} Mult.",
+            "Each scored {C:attention}Face Card{}",
+            "will give an additional {X:mult,C:white}X#2#{} Mult"
+          },
+        },
+          j_crv_rabflush={
+            name = "Rain Rabbit (Flush Form)",
+            text = {
+              "{X:mult,C:white}X#1#{} Mult.",
+              "If scored hand contains a {C:attention}Flush",
+              "{X:mult,C:white}X#2#{} Mult instead of X#1#"
+            },
+          },
+            j_crv_rabhigh={
+              name = "Rain Rabbit (Full House Form)",
+              text = {
+                "{X:mult,C:white}X#1#{} Mult.",
+                "If scored hand contains a {C:attention}Full House",
+                "{X:mult,C:white}X#2#{} Mult instead of X#1#"
+              },
+      },
       
     },
     Tarot={
@@ -1185,7 +1307,7 @@ return {
         c_crv_devilscontract={
             name = "Devil's Contract",
             text = { 
-                'Turns #1# card into {C:attention}Aflame or Mugged{}',
+                'Turns #1# card into {C:attention}Aflame or Stained{}',
                 '{C:green} #2# in #3#{} chance for it to be a',
                 '{C:dark_edition} Soul Card{}'
             }
@@ -1256,6 +1378,12 @@ return {
                 'Turns #1# card into {C:dark_edition}Negative',
             }
         },
+        c_crv_dirtdocument={
+          name = 'Dirt Contract', 
+          text = { 
+              'Turns #1# cards into {C:green}Dirt'
+          }
+      },
     },
     Spectral={
         c_crv_VaultKey={
@@ -1296,6 +1424,18 @@ return {
             name = 'Printer Pack',
             text = {"Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:red} Printers{}",},
+        },
+        undiscovered_scrap={
+          undiscovered = {
+            name = '???', 
+            text = {'???'} 
+        },
+        },
+        undiscovered_enchanceddocuments={
+          undiscovered = {
+            name = '???', 
+            text = {'???'} 
+        },
         }
     },
     Tag={
@@ -1310,6 +1450,8 @@ misc={
     labels={
         crv_ps_seal="Printer's Seal",
         crv_p="Printer",
+        scrap="Scraps",
+        enchanceddocuments="Contracts"
     },
     dictionary={
         k_crv_pbstg="Printer Pack",
@@ -1337,9 +1479,15 @@ misc={
         k_crv_p="Printer",
         k_crv_holy="Holy Banana",
         k_crv_pedro="Pedro",
-        k_crv_tit="Titan",
+        k_crv_tit="Evolution",
         k_crv_chaos="Chaos",
-        k_crv_va="Vaulted"
+        k_crv_va="Vaulted",
+        k_crv_rain="Drowned!",
+        k_crv_rain2="A new day awaits..",
+        k_scrap="Scrap",
+        b_scrap_cards="Scrap",
+        k_enchanceddocuments="Contract",
+        b_enchanceddocuments_cards="Contract"
 
     }
 }
