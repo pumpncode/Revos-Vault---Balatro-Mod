@@ -76,8 +76,6 @@ SMODS.Joker {
     end
 }
 
-local ss = {G.P_CENTERS.m_bonus, G.P_CENTERS.m_mult, G.P_CENTERS.m_wild, G.P_CENTERS.m_glass, G.P_CENTERS.m_steel,
-            G.P_CENTERS.m_stone, G.P_CENTERS.m_gold, G.P_CENTERS.m_lucky}
 
 SMODS.Joker {
     key = 'spuzzypp',
@@ -112,7 +110,7 @@ SMODS.Joker {
                                                              card.ability.extra.chips
                 for k, v in ipairs(context.scoring_hand) do
                     if context.other_card.ability.effect == "Base" then
-                        context.other_card:set_ability(pseudorandom_element(ss, pseudoseed("spuzzypp")))
+                        context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 return true
@@ -1627,6 +1625,46 @@ SMODS.Joker {
     in_pool = function(self, wawa, wawa2)
         return true
     end
+}
+
+SMODS.Joker {
+    key = 'ucp',
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_uedoc
+        return {
+            vars = {}
+        }
+    end,
+    atlas = 'Jokers2',
+    rarity = 'crv_p',
+    cost = 10,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 4,
+        y = 6
+    },
+    config = {
+        extra = {
+        }
+    },
+
+    calculate = function(self, card, context)
+
+        if context.setting_blind then
+            SMODS.add_card({
+                area = G.consumeables,
+                key = 'c_crv_uedoc'
+            }) 
+        end
+    end,
+    draw = function(self, card, layer)
+        card.children.center:draw_shader('polychrome', nil, card.ARGS.send_to_shader)
+        card.children.center:draw_shader('negative_shine', nil, card.ARGS.send_to_shader)
+    end,
 }
 
 SMODS.Joker {
@@ -3945,7 +3983,7 @@ SMODS.Joker {
             if context.cardarea == G.play then
                 for k, v in ipairs(context.scoring_hand) do
                     if context.other_card.ability.effect == "Base" then
-                        context.other_card:set_ability(pseudorandom_element(ss, pseudoseed("inga")))
+                        context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 return true
@@ -4367,7 +4405,7 @@ SMODS.Joker {
                 if context.cardarea == G.play then
                     for k, v in ipairs(context.scoring_hand) do
                         if context.other_card.ability.effect == "Base" then
-                            context.other_card:set_ability(pseudorandom_element(ss, pseudoseed("spuzzypp")))
+                            context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     return true

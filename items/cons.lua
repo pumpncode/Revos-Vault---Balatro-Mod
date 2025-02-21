@@ -536,11 +536,11 @@ end,
      }
     
      SMODS.Consumable{
-        key = 'foildoc', --key
-        set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+        key = 'foildoc', 
+        set = 'EnchancedDocuments',
         discovered = true,
-        atlas = 'documents', --atlas
-        pos = {x = 0, y = 1}, --position in atlas
+        atlas = 'documents', 
+        pos = {x = 0, y = 1}, 
         config = {
             extra = {
                 cards = 1,}
@@ -550,7 +550,7 @@ end,
           end,
         can_use = function(self,card)
             if G and G.hand then
-                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
                     return true
                 end
             end
@@ -596,11 +596,11 @@ end,
     }
     
     SMODS.Consumable{
-        key = 'negdoc', --key
-        set = 'EnchancedDocuments', --the set of the card: corresponds to a consumable type
+        key = 'negdoc', 
+        set = 'EnchancedDocuments', 
         discovered = true,
-        atlas = 'documents', --atlas
-        pos = {x = 3, y = 1}, --position in atlas
+        atlas = 'documents', 
+        pos = {x = 3, y = 1}, 
         config = {
             extra = {
                 cards = 1,}
@@ -610,7 +610,7 @@ end,
           end,
         can_use = function(self,card)
             if G and G.hand then
-                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
                     return true
                 end
             end
@@ -619,6 +619,36 @@ end,
         use = function(self,card,area,copier)
                 for i, card in pairs(G.hand.highlighted) do
                     card:set_edition({negative = true}, true)
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+                    delay(0.5)
+                end
+            end
+    }
+
+    SMODS.Consumable{
+        key = 'uedoc', 
+        set = 'EnchancedDocuments', 
+        discovered = true,
+        atlas = 'documents', 
+        pos = {x = 0, y = 2}, 
+        config = {
+            extra = {
+                cards = 1,}
+        },
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.cards} }
+          end,
+        can_use = function(self,card)
+            if G and G.hand then
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
+                    return true
+                end
+            end
+            return false
+        end,
+        use = function(self,card,area,copier)
+                for i, card in pairs(G.hand.highlighted) do
+                    card:set_edition(poll_edition(pseudorandom('uedoc'), nil, true, true,{{name = 'e_foil', weight = 1}, {name = 'e_holo', weight = 1},{name = 'e_polychrome', weight = 1}}))
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
                     delay(0.5)
                 end

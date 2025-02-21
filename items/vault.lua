@@ -155,8 +155,6 @@ SMODS.Joker {
     end
 }
 
-local vdnaenh = {G.P_CENTERS.m_bonus, G.P_CENTERS.m_mult, G.P_CENTERS.m_wild, G.P_CENTERS.m_glass, G.P_CENTERS.m_steel,
-                 G.P_CENTERS.m_stone, G.P_CENTERS.m_gold, G.P_CENTERS.m_lucky}
 
 SMODS.Joker {
     key = 'vdna',
@@ -189,7 +187,7 @@ SMODS.Joker {
                 local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
                 _card:add_to_deck()
                 if context.full_hand[1].ability.effect == "Base" then
-                    _card:set_ability(pseudorandom_element(vdnaenh, pseudoseed("vdna")))
+                    _card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
                 end
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
                 table.insert(G.playing_cards, _card)
@@ -330,6 +328,50 @@ SMODS.Joker {
         end
     end
 end,
+    in_pool = function(self, wawa, wawa2)
+        return true
+    end
+}
+SMODS.Joker {
+    key = 'vmichel',
+    atlas = 'Jokers2',
+    rarity = 'crv_va',
+    cost = 10,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 3,
+        y = 6
+    },
+    config = {
+        extra = { xmult = 30, odds = 12
+
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {crv.xmult,crv.odds,(G.GAME.probabilities.normal or 1)}
+        }
+    end,
+
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if context.setting_blind and pseudorandom('vmichel') < G.GAME.probabilities.normal / crv.odds and not context.repetition and not context.individual and not context.blueprint then
+            local _first_dissolve = nil
+                for k, v in pairs(G.jokers.cards) do
+                    if (not v.ability.eternal) then v:start_dissolve(nil, _first_dissolve);_first_dissolve = true end
+                end
+            end
+        if context.joker_main then
+            return {
+                x_mult = crv.xmult
+            }
+        end
+    end,
     in_pool = function(self, wawa, wawa2)
         return true
     end

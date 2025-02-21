@@ -155,7 +155,7 @@ SMODS.Back {
     key = 'spx',
     atlas = 'Decks',
     pos = {
-        x = 0,
+        x = 1,
         y = 2
     },
     apply = function()
@@ -247,7 +247,7 @@ SMODS.Back {
 
             func = function()
 
-                joker_add('j_crv_smile!')
+                joker_add('j_crv_smile')
                 joker_add('j_joker')
 
                 return true
@@ -493,6 +493,28 @@ SMODS.Back {
             func = function()
 
                 joker_add('j_crv_ncp')
+
+                return true
+            end
+        }))
+    end
+}
+
+SMODS.Back {
+    name = "Ultimate Deck",
+    key = 'ued',
+    atlas = 'Decks2',
+    pos = {
+        x = 2,
+        y = 1
+    },
+    apply = function()
+
+        G.E_MANAGER:add_event(Event({
+
+            func = function()
+
+                joker_add('j_crv_ucp')
 
                 return true
             end
