@@ -520,7 +520,9 @@ end,
               end,
             can_use = function(self,card)
                 if G and G.hand then
-                    if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                    if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards and #G.jokers.highlighted == 0 then
+                        return true
+                    elseif #G.jokers.highlighted ~= 0 and #G.jokers.highlighted <= card.ability.extra.cards and #G.hand.highlighted == 0 then
                         return true
                     end
                 end
@@ -528,6 +530,11 @@ end,
             end,
             use = function(self,card,area,copier)
                     for i, card in pairs(G.hand.highlighted) do
+                        card:set_edition({polychrome = true}, true)
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+                        delay(0.5)
+                    end
+                    for i, card in pairs(G.jokers.highlighted) do
                         card:set_edition({polychrome = true}, true)
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
                         delay(0.5)
@@ -550,7 +557,9 @@ end,
           end,
         can_use = function(self,card)
             if G and G.hand then
-                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards and #G.jokers.highlighted == 0 then
+                    return true
+                elseif #G.jokers.highlighted ~= 0 and #G.jokers.highlighted <= card.ability.extra.cards and #G.hand.highlighted == 0 then
                     return true
                 end
             end
@@ -558,6 +567,11 @@ end,
         end,
         use = function(self,card,area,copier)
                 for i, card in pairs(G.hand.highlighted) do
+                    card:set_edition({foil = true}, true)
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+                    delay(0.5)
+                end
+                for i, card in pairs(G.jokers.highlighted) do
                     card:set_edition({foil = true}, true)
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
                     delay(0.5)
@@ -580,7 +594,9 @@ end,
           end,
         can_use = function(self,card)
             if G and G.hand then
-                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards and #G.jokers.highlighted == 0 then
+                    return true
+                elseif #G.jokers.highlighted ~= 0 and #G.jokers.highlighted <= card.ability.extra.cards and #G.hand.highlighted == 0 then
                     return true
                 end
             end
@@ -588,6 +604,11 @@ end,
         end,
         use = function(self,card,area,copier)
                 for i, card in pairs(G.hand.highlighted) do
+                    card:set_edition({holo = true}, true)
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+                    delay(0.5)
+                end
+                for i, card in pairs(G.jokers.highlighted) do
                     card:set_edition({holo = true}, true)
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
                     delay(0.5)
@@ -610,7 +631,9 @@ end,
           end,
         can_use = function(self,card)
             if G and G.hand then
-                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards and #G.jokers.highlighted == 0 then
+                    return true
+                elseif #G.jokers.highlighted ~= 0 and #G.jokers.highlighted <= card.ability.extra.cards and #G.hand.highlighted == 0 then
                     return true
                 end
             end
@@ -618,6 +641,11 @@ end,
         end,
         use = function(self,card,area,copier)
                 for i, card in pairs(G.hand.highlighted) do
+                    card:set_edition({negative = true}, true)
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+                    delay(0.5)
+                end
+                for i, card in pairs(G.jokers.highlighted) do
                     card:set_edition({negative = true}, true)
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
                     delay(0.5)
@@ -640,7 +668,9 @@ end,
           end,
         can_use = function(self,card)
             if G and G.hand then
-                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
+                if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards and #G.jokers.highlighted == 0 then
+                    return true
+                elseif #G.jokers.highlighted ~= 0 and #G.jokers.highlighted <= card.ability.extra.cards and #G.hand.highlighted == 0 then
                     return true
                 end
             end
@@ -648,6 +678,11 @@ end,
         end,
         use = function(self,card,area,copier)
                 for i, card in pairs(G.hand.highlighted) do
+                    card:set_edition(poll_edition(pseudorandom('uedoc'), nil, true, true,{{name = 'e_foil', weight = 1}, {name = 'e_holo', weight = 1},{name = 'e_polychrome', weight = 1}}))
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+                    delay(0.5)
+                end
+                for i, card in pairs(G.jokers.highlighted) do
                     card:set_edition(poll_edition(pseudorandom('uedoc'), nil, true, true,{{name = 'e_foil', weight = 1}, {name = 'e_holo', weight = 1},{name = 'e_polychrome', weight = 1}}))
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
                     delay(0.5)

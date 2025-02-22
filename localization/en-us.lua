@@ -893,19 +893,19 @@ return {
             },
             c_crv_polydoc = {
                 name = 'Polychrome Contract',
-                text = {'Turns #1# card into {C:dark_edition}Polychrome'}
+                text = {'Turns #1# card or joker into', '{C:dark_edition}Polychrome'}
             },
             c_crv_foildoc = {
                 name = 'Foil Contract',
-                text = {'Turns #1# card into {C:dark_edition}Foil'}
+                text = {'Turns #1# card or joker into', '{C:dark_edition}Foil'}
             },
             c_crv_holdoc = {
                 name = 'Holographic Contract',
-                text = {'Turns #1# card into {C:dark_edition}Holographic'}
+                text = {'Turns #1# card or joker into','{C:dark_edition}Holographic'}
             },
             c_crv_negdoc = {
                 name = 'Negative Contract',
-                text = {'Turns #1# card into {C:dark_edition}Negative'}
+                text = {'Turns #1# card or joker into', '{C:dark_edition}Negative'}
             },
             c_crv_dirtdocument = {
                 name = 'Dirt Contract',
@@ -913,7 +913,7 @@ return {
             },
             c_crv_uedoc = {
                 name = 'Ultimate Edition Contract',
-                text = {'Turns #1# cards into',
+                text = {'Turns #1# card or joker into',
                         '{C:dark_edition}Foil{},{C:dark_edition} Holographic{} or {C:dark_edition}Polychrome'}
             }
         },
