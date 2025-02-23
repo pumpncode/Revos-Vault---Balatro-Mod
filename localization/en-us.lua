@@ -814,9 +814,22 @@ return {
             j_crv_ucp = {
                 name = "Ultimate Edition Printer",
                 text = {'When Blind is selected,', 'prints an {C:dark_edition}Ultimate Edition Contract'}
+            },
+            j_crv_brj = {
+                name = "The Dealer",
+                text = {
+                    "When the {C:attention}first hand is drawn{}, the selected target is shot.",
+                    "There is a {C:green}1 in #5#{} chance to land a shot.",
+                    "If a shot is landed, the target {C:red}loses {C:green}1 HP{},the chances reset and the turn changes", 
+                    "If missed, chances are {C:red}reduced by {C:attention}1",
+                    "If the player or target {Cred}shoots {C:attention}self{} and miss, it is their turn {C:attention}again.",
+                    "The target cannot be changed if it's the joker's turn.", 
+                    "If the player's {C:green}HP{} reaches 0, the game is {C:red}lost.",
+                    "If the joker's {C:green}HP{} reaches 0, it {C:red}disappears{} and spawns {C:attention}2 {C:dark_edition}Negative {C:purple}Legendary{} Jokers.",
+                    "{C:inactive}(Player HP: {C:green}#2#{C:inactive},Joker {C:green}HP: #1#{C:inactive}, Target: {C:attention}#3#{C:inactive}, Turn: {C:attention}#4#{C:inactive})"
             }
-
         },
+    },
         Tarot = {
             c_crv_inkintuition = {
                 name = 'Ink & Intuition',
@@ -952,7 +965,7 @@ return {
                     name = '???',
                     text = {'???'}
                 }
-            }
+            },
         },
         Tag = {
             tag_crv_pst = {
@@ -1002,8 +1015,14 @@ return {
             k_scrap = "Scrap",
             b_scrap_cards = "Scrap",
             k_enchanceddocuments = "Contract",
-            b_enchanceddocuments_cards = "Contract"
-
-        }
+            b_enchanceddocuments_cards = "Contract",
+            crv_mode='Change',
+            crv_mode2='Target',
+            k_crv_92="2-9",
+            k_crv_fa="Faces and Aces",
+            k_crv_face="Face",
+            crv_full="Full House",
+            crv_flush="Flush"
+        },
     }
 }

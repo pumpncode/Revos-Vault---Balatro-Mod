@@ -1,6 +1,7 @@
 
 
 -------------MOD CODE-------------
+RevosVault = SMODS.current_mod
 
 SMODS.load_file('items/jokers.lua')()
 SMODS.load_file('items/decks.lua')()
@@ -11,7 +12,12 @@ SMODS.load_file('items/cons.lua')()
 SMODS.load_file('items/booster.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
+if CardSleeves then
 SMODS.load_file('items/sleeves.lua')()
+end
+if JokerDisplay then
+    SMODS.load_file('items/display.lua')()
+end
 
 
 

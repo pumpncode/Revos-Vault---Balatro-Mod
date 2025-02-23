@@ -76,7 +76,6 @@ SMODS.Joker {
     end
 }
 
-
 SMODS.Joker {
     key = 'spuzzypp',
     config = {
@@ -110,7 +109,9 @@ SMODS.Joker {
                                                              card.ability.extra.chips
                 for k, v in ipairs(context.scoring_hand) do
                     if context.other_card.ability.effect == "Base" then
-                        context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
+                        context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({
+                            guaranteed = true
+                        })], true, false)
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 return true
@@ -142,9 +143,9 @@ SMODS.Joker {
         return true
     end
 }
-local scraps = {"c_crv_horn","c_crv_mp","c_crv_pickles","c_crv_ap","c_crv_dc"}
-local adamc = {1,2,3}
-local lpmc = {1,2,3,4}
+local scraps = {"c_crv_horn", "c_crv_mp", "c_crv_pickles", "c_crv_ap", "c_crv_dc"}
+local adamc = {1, 2, 3}
+local lpmc = {1, 2, 3, 4}
 
 SMODS.Joker {
     key = 'adam_',
@@ -152,7 +153,7 @@ SMODS.Joker {
         extra = {
             xmult = 1,
             xmultg = 0.5,
-            scrapc = 0,
+            scrapc = 0
         }
     },
     rarity = 4,
@@ -165,12 +166,12 @@ SMODS.Joker {
     },
     soul_pos = {
         x = 0,
-        y = 2,
+        y = 2
     },
     cost = 7,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult, card.ability.extra.xmultg, card.ability.extra.scrapc,}
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultg, card.ability.extra.scrapc}
         }
     end,
     calculate = function(self, card, context)
@@ -181,7 +182,7 @@ SMODS.Joker {
                 SMODS.add_card({
                     area = G.consumeables,
                     key = scrap
-                }) 
+                })
             end
         end
         if context.using_consumeable and context.consumeable.config.center.key == 'c_crv_mp' and not context.blueprint or
@@ -199,7 +200,7 @@ SMODS.Joker {
             }
         end
         if (card.ability.extra.scrapc == 5) then
-            card.ability.extra.scrapc = 0 
+            card.ability.extra.scrapc = 0
             SMODS.add_card({
                 set = "Spectral",
                 area = G.consumeables,
@@ -1059,7 +1060,7 @@ SMODS.Joker {
     config = {
         extra = {
             mult = 0,
-            mult_gain = 15,
+            mult_gain = 15
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -1075,7 +1076,7 @@ SMODS.Joker {
                 SMODS.add_card({
                     area = G.consumeables,
                     key = scrap
-                }) 
+                })
             end
         end
         if context.joker_main then
@@ -1648,8 +1649,7 @@ SMODS.Joker {
         y = 6
     },
     config = {
-        extra = {
-        }
+        extra = {}
     },
 
     calculate = function(self, card, context)
@@ -1658,13 +1658,13 @@ SMODS.Joker {
             SMODS.add_card({
                 area = G.consumeables,
                 key = 'c_crv_uedoc'
-            }) 
+            })
         end
     end,
     draw = function(self, card, layer)
         card.children.center:draw_shader('polychrome', nil, card.ARGS.send_to_shader)
         card.children.center:draw_shader('negative_shine', nil, card.ARGS.send_to_shader)
-    end,
+    end
 }
 
 SMODS.Joker {
@@ -3056,7 +3056,6 @@ SMODS.Joker {
     config = {
         extra = {
             xmult = 3.14,
-            tf = 'N/A'
         }
     },
     rarity = 3,
@@ -3615,8 +3614,6 @@ SMODS.Joker {
 
 }
 
-
-
 SMODS.Joker {
     key = 'mj4',
     atlas = 'Jokers2',
@@ -3633,7 +3630,7 @@ SMODS.Joker {
     },
     config = {
         extra = {
-            xmult = 4.4,
+            xmult = 4.4
 
         }
     },
@@ -3863,6 +3860,8 @@ SMODS.Joker {
     end
 }
 
+
+--find a way to localize this mess (im hopeless send help)
 local quests = {"Play a Full House", "Use blueprint or brainstorm to copy this joker once", "Use a strength tarot card",
                 "Score a stone card", "Use an uranus card"}
 local questsr = {1, 2, 3, 4, 5}
@@ -3983,7 +3982,9 @@ SMODS.Joker {
             if context.cardarea == G.play then
                 for k, v in ipairs(context.scoring_hand) do
                     if context.other_card.ability.effect == "Base" then
-                        context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
+                        context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({
+                            guaranteed = true
+                        })], true, false)
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 return true
@@ -4405,7 +4406,9 @@ SMODS.Joker {
                 if context.cardarea == G.play then
                     for k, v in ipairs(context.scoring_hand) do
                         if context.other_card.ability.effect == "Base" then
-                            context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true,})], true, false)
+                            context.other_card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({
+                                guaranteed = true
+                            })], true, false)
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     return true
@@ -4559,27 +4562,42 @@ SMODS.Joker {
         if context.final_scoring_step then
             if context.cardarea then
                 for k, v in ipairs(context.scoring_hand) do
-            G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.5,func = function()
-                local rank_suffix = v.base.id == 13 and 13 or math.min(v.base.id+1, 13)
-                if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
-                elseif rank_suffix == 10 then rank_suffix = '10'
-                elseif rank_suffix == 11 then rank_suffix = 'Jack'
-                elseif rank_suffix == 12 then rank_suffix = 'Queen'
-                elseif rank_suffix == 13 then rank_suffix = 'King'
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 0.5,
+                        func = function()
+                            local rank_suffix = v.base.id == 13 and 13 or math.min(v.base.id + 1, 13)
+                            if rank_suffix < 10 then
+                                rank_suffix = tostring(rank_suffix)
+                            elseif rank_suffix == 10 then
+                                rank_suffix = '10'
+                            elseif rank_suffix == 11 then
+                                rank_suffix = 'Jack'
+                            elseif rank_suffix == 12 then
+                                rank_suffix = 'Queen'
+                            elseif rank_suffix == 13 then
+                                rank_suffix = 'King'
+                            end
+                            v:flip();
+                            play_sound('card1');
+                            v:juice_up(0.3, 0.4);
+                            SMODS.change_base(v, nil, rank_suffix);
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 1,
+                        func = function()
+                            v:flip();
+                            v:juice_up(0.3, 0.4);
+                            return true
+                        end
+                    }))
                 end
-                v:flip();
-                play_sound('card1');
-                v:juice_up(0.3,0.4);
-                SMODS.change_base(v, nil, rank_suffix);
-            return true end }))
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 1,func = function()
-                v:flip();
-                v:juice_up(0.3,0.4);
-            return true end }))
             end
-        end  
-    end
-end,
+        end
+    end,
     in_pool = function(self, wawa, wawa2)
         return true
     end
@@ -4609,16 +4627,18 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:get_id() >= 7 then
 
-                context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
-                context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
-                return {
-                    message = localize('k_upgrade_ex')
-                }
-            elseif context.destroy_card and context.cardarea == G.play and context.destroy_card:get_id() < 7 then
+            context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
+            context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
+            return {
+                message = localize('k_upgrade_ex')
+            }
+        elseif context.destroy_card and context.cardarea == G.play and context.destroy_card:get_id() < 7 then
 
-                        return { remove = true }
-                    end
-                end,
+            return {
+                remove = true
+            }
+        end
+    end,
     in_pool = function(self, wawa, wawa2)
         return true
     end
@@ -4627,7 +4647,9 @@ SMODS.Joker {
 SMODS.Joker {
     key = 'onj',
     config = {
-        extra = { xmult = 1,multg = 0.25
+        extra = {
+            xmult = 1,
+            multg = 0.25
         }
     },
     rarity = 3,
@@ -4642,39 +4664,43 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
         return {
-            vars = {card.ability.extra.xmult,card.ability.extra.multg}
+            vars = {card.ability.extra.xmult, card.ability.extra.multg}
         }
     end,
     calculate = function(self, card, context)
-        if context.before and context.cardarea and not context.blueprint and not context.repetition and not context.individual then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v.ability.effect == "Base" then
-                        v:set_ability("m_stone")
-                       v:juice_up(0.3,0.4)
-                        elseif v.ability.effect == "Stone Card" then
-                            v:set_ability("c_base")
-                            v:juice_up(0.3,0.4)
-                                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.multg 
-                    end
+        if context.before and context.cardarea and not context.blueprint and not context.repetition and
+            not context.individual then
+            for k, v in ipairs(context.scoring_hand) do
+                if v.ability.effect == "Base" then
+                    v:set_ability("m_stone")
+                    v:juice_up(0.3, 0.4)
+                elseif v.ability.effect == "Stone Card" then
+                    v:set_ability("c_base")
+                    v:juice_up(0.3, 0.4)
+                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.multg
                 end
             end
-            if context.joker_main then
-                return {
-                    x_mult = card.ability.extra.xmult
-                }
-            end
-        end,
+        end
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.xmult
+            }
+        end
+    end,
     in_pool = function(self, wawa, wawa2)
         return true
     end
 }
 
-local rabbits = {"j_crv_rabf","j_crv_rabflush","j_crv_rabhigh"}
+local rabbits = {"j_crv_rabf", "j_crv_rabflush", "j_crv_rabhigh"}
 
 SMODS.Joker {
     key = 'rab',
     config = {
-        extra = {xmult = 1.50, xmultgain = 0.50, stage = 0,
+        extra = {
+            xmult = 1.50,
+            xmultgain = 0.50,
+            stage = 0
         }
     },
     rarity = 3,
@@ -4688,7 +4714,7 @@ SMODS.Joker {
     cost = 7,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult,card.ability.extra.xmultgain,card.ability.extra.stage}
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultgain, card.ability.extra.stage}
         }
     end,
     calculate = function(self, card, context)
@@ -4699,12 +4725,12 @@ SMODS.Joker {
         end
         if context.end_of_round and G.GAME.blind.boss and context.main_eval and not context.blueprint then
             local rr = nil
-                for i = 1, #G.jokers.cards do
-                    if G.jokers.cards[i] == card then
-                        rr = i;
-                        break
-                    end
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then
+                    rr = i;
+                    break
                 end
+            end
             if G.jokers.cards[rr + 1] == nil or G.jokers.cards[rr - 1] == nil and context.main_eval then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
@@ -4722,14 +4748,15 @@ SMODS.Joker {
                     message_card = card
                 }
 
-            elseif G.jokers.cards[rr + 1] ~= nil and G.jokers.cards[rr - 1] ~= nil and G.GAME.blind.boss and context.main_eval then
+            elseif G.jokers.cards[rr + 1] ~= nil and G.jokers.cards[rr - 1] ~= nil and G.GAME.blind.boss and
+                context.main_eval then
                 card.ability.extra.stage = card.ability.extra.stage + 1
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmultgain
                 return {
                     message = localize('k_crv_rain2'),
                     message_card = card
                 }
-            end 
+            end
         end
         if card.ability.extra.stage >= 5 and not context.repetition and not context.individual and not context.blueprint then
             G.E_MANAGER:add_event(Event({
@@ -4743,13 +4770,13 @@ SMODS.Joker {
                     return true;
                 end
             }))
-                local rabs = pseudorandom_element(rabbits, pseudoseed('rab'))
-                SMODS.add_card({
-                    area = G.jokers,
-                    key = rabs
-                }) 
-            end
-        end,
+            local rabs = pseudorandom_element(rabbits, pseudoseed('rab'))
+            SMODS.add_card({
+                area = G.jokers,
+                key = rabs
+            })
+        end
+    end,
     in_pool = function(self, wawa, wawa2)
         return true
     end
@@ -4758,7 +4785,9 @@ SMODS.Joker {
 SMODS.Joker {
     key = 'rabf',
     config = {
-        extra = {xmult = 4,xmultf = 2
+        extra = {
+            xmult = 4,
+            xmultf = 2
         }
     },
     rarity = "crv_tit",
@@ -4773,7 +4802,7 @@ SMODS.Joker {
     cost = 7,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult,card.ability.extra.xmultf}
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultf}
         }
     end,
     calculate = function(self, card, context)
@@ -4785,7 +4814,7 @@ SMODS.Joker {
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_face() then
                 return {
-                    x_mult = card.ability.extra.xmultf,
+                    x_mult = card.ability.extra.xmultf
                 }
             end
         end
@@ -4798,7 +4827,9 @@ SMODS.Joker {
 SMODS.Joker {
     key = 'rabflush',
     config = {
-        extra = {xmult = 4,xmultex = 6
+        extra = {
+            xmult = 4,
+            xmultex = 6
         }
     },
     rarity = "crv_tit",
@@ -4813,7 +4844,7 @@ SMODS.Joker {
     cost = 7,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult,card.ability.extra.xmultex}
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultex}
         }
     end,
     calculate = function(self, card, context)
@@ -4835,7 +4866,9 @@ SMODS.Joker {
 SMODS.Joker {
     key = 'rabhigh',
     config = {
-        extra = {xmult = 4,xmultex = 6
+        extra = {
+            xmult = 4,
+            xmultex = 6
         }
     },
     rarity = "crv_tit",
@@ -4850,7 +4883,7 @@ SMODS.Joker {
     cost = 7,
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.xmult,card.ability.extra.xmultex}
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultex}
         }
     end,
     calculate = function(self, card, context)
@@ -4868,3 +4901,386 @@ SMODS.Joker {
         return false
     end
 }
+
+local card_highlighted_ref = Card.highlight
+function Card:highlight(is_highlighted)
+    self.highlighted = is_highlighted
+    if self.highlighted and string.find(self.ability.name, "j_crv_brj") then
+
+        if self.children.use_button then
+            self.children.use_button:remove()
+            self.children.use_button = nil
+        end
+
+        self.children.use_button = UIBox {
+            definition = RevosVault.create_sell_and_switch_buttons(self, {
+                sell = true,
+                use = true
+            }),
+            config = {
+                align = "cr",
+                offset = {
+                    x = -0.4,
+                    y = 0
+                },
+                parent = self
+            }
+        }
+    else
+        card_highlighted_ref(self, is_highlighted)
+    end
+end
+
+RevosVault.create_sell_and_switch_buttons = function(card, args)
+    local args = args or {}
+    local sell = nil
+    local use = nil
+
+    if args.sell then
+
+        sell = {
+            n = G.UIT.C,
+            config = {
+                align = "cr"
+            },
+            nodes = {{
+                n = G.UIT.C,
+                config = {
+                    ref_table = card,
+                    align = "cr",
+                    padding = 0.1,
+                    r = 0.08,
+                    minw = 1.25,
+                    hover = true,
+                    shadow = true,
+                    colour = G.C.UI.BACKGROUND_INACTIVE,
+                    one_press = true,
+                    button = 'sell_card',
+                    func = 'can_sell_card'
+                },
+                nodes = {{
+                    n = G.UIT.B,
+                    config = {
+                        w = 0.1,
+                        h = 0.6
+                    }
+                }, {
+                    n = G.UIT.C,
+                    config = {
+                        align = "tm"
+                    },
+                    nodes = {{
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm",
+                            maxw = 1.25
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('b_sell'),
+                                colour = G.C.UI.TEXT_LIGHT,
+                                scale = 0.4,
+                                shadow = true
+                            }
+                        }}
+                    }, {
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm"
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('$'),
+                                colour = G.C.WHITE,
+                                scale = 0.4,
+                                shadow = true
+                            }
+                        }, {
+                            n = G.UIT.T,
+                            config = {
+                                ref_table = card,
+                                ref_value = 'sell_cost_label',
+                                colour = G.C.WHITE,
+                                scale = 0.55,
+                                shadow = true
+                            }
+                        }}
+                    }}
+                }}
+            }}
+        }
+    end
+
+    if args.use then
+
+        use = {
+            n = G.UIT.C,
+            config = {
+                align = "cr"
+            },
+            nodes = {{
+                n = G.UIT.C,
+                config = {
+                    ref_table = card,
+                    align = "cr",
+                    maxw = 1.25,
+                    padding = 0.1,
+                    r = 0.08,
+                    minw = 1.25,
+                    minh = 0,
+                    hover = true,
+                    shadow = true,
+                    colour = G.C.RED,
+                    button = 'crv_modee'
+                },
+                nodes = {{
+                    n = G.UIT.B,
+                    config = {
+                        w = 0.1,
+                        h = 0.6
+                    }
+                }, {
+                    n = G.UIT.C,
+                    config = {
+                        align = "tm"
+                    },
+                    nodes = {{
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm",
+                            maxw = 1.25
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('crv_mode'),
+                                colour = G.C.UI.TEXT_LIGHT,
+                                scale = 0.4,
+                                shadow = true
+                            }
+                        }}
+                    }, {
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm"
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('crv_mode2'),
+                                colour = G.C.UI.TEXT_LIGHT,
+                                scale = 0.5,
+                                shadow = true
+                            }
+                        }}
+                    }}
+                }}
+            }}
+        }
+    end
+
+    return {
+        n = G.UIT.ROOT,
+        config = {
+            align = "cr",
+            padding = 0,
+            colour = G.C.CLEAR
+        },
+        nodes = {{
+            n = G.UIT.C,
+            config = {
+                padding = 0.15,
+                align = 'cl'
+            },
+            nodes = {sell and {
+                n = G.UIT.R,
+                config = {
+                    align = 'cl'
+                },
+                nodes = {sell}
+            } or nil, use and {
+                n = G.UIT.R,
+                config = {
+                    align = 'cl'
+                },
+                nodes = {use}
+            } or nil}
+        }}
+    }
+end
+
+G.FUNCS.crv_modee = function(e)
+    local card = e.config.ref_table
+    if card.ability.extra["turn"] == "Player" then
+        if card.ability.extra["mode"] == 'Joker' then
+            card.ability.extra["mode"] = 'Self'
+        elseif card.ability.extra["mode"] == 'Self' then
+            card.ability.extra["mode"] = 'Joker'
+        end
+    end
+end
+
+
+--find a way to localize this shit
+local brjk2 = {"Self", "Joker"}
+SMODS.Joker {
+    key = 'brj',
+    config = {
+        extra = {
+            cardhp = 3,
+            playerhp = 3,
+            mode = 'Joker',
+            turn = "Player",
+            odds2 = 3
+        }
+    },
+    rarity = 3,
+    atlas = 'Jokers2',
+    blueprint_compat = true,
+    discovered = false,
+    no_collection = false,
+    pos = {
+        x = 5,
+        y = 6
+    },
+    cost = 10,
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {crv.cardhp, crv.playerhp, crv.mode, crv.turn,crv.odds2}
+        }
+    end,
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if context.first_hand_drawn and not context.repetition and not context.individual and not context.blueprint and
+            crv.turn == "Player" then
+            if crv.mode == "Self" and pseudorandom('brj') >= 1 / crv.odds2 then
+                crv.odds2 = crv.odds2 - 1
+                crv.turn = "Player"
+                return {
+                    message = "Miss, Go again!"
+                }
+            elseif crv.mode == "Self" and pseudorandom('brj') < 1 / crv.odds2 then 
+                crv.odds2 = 3
+                crv.turn = "Joker"
+                crv.playerhp = crv.playerhp - 1
+                return {
+                    message = "Ouch!"
+                }
+            elseif crv.mode == "Joker" and pseudorandom('brj') < 1 / crv.odds2 then 
+                crv.odds2 = 3
+                crv.turn = "Joker"
+                crv.cardhp = crv.cardhp - 1
+                return {
+                    message = "Hit!"
+                }
+            elseif crv.mode == "Joker" and pseudorandom('brj') >= 1 / crv.odds2 then
+                crv.odds2 = crv.odds2 - 1
+                crv.turn = "Joker"
+                return {
+                    message = "Miss, Changing turns!"
+                }
+            elseif crv.mode == "Self" then
+                crv.turn = "Player"
+                crv.odds2 = crv.odds2 - 1
+                return {
+                    message = "Miss, Go again!"
+                }
+            elseif crv.mode == "Joker" then
+                crv.turn = "Enemy"
+                crv.odds2 = crv.odds2 - 1
+                crv.turn = "Joker"
+                return {
+                    message = "Miss, Changing turns!"
+                }
+            end
+        elseif context.first_hand_drawn and not context.repetition and not context.individual and not context.blueprint and
+            crv.turn == "Joker" and crv.odds2 > 1 then
+            crv.mode = pseudorandom_element(brjk2, pseudoseed('brj'))
+            if crv.mode == "Self" and pseudorandom('brj') > 1 / crv.odds2 then
+                crv.odds2 = crv.odds2 - 1
+                crv.turn = "Player"
+                return {
+                    message = "Safe, your turn!"
+                }
+            elseif crv.mode == "Self" and pseudorandom('brj') < 1 / crv.odds2 then
+                crv.odds2 = 3
+                crv.turn = "Player"
+                crv.playerhp = crv.playerhp - 1
+                return {
+                    message = "Ouch!"
+                }
+            elseif crv.mode == "Joker" and pseudorandom('brj') < 1 / crv.odds2 then
+                crv.odds2 = 3
+                crv.turn = "Player"
+                crv.cardhp = crv.cardhp - 1
+                return {
+                    message = "Hit!"
+                }
+            elseif crv.mode == "Joker" and pseudorandom('brj') > 1 / crv.odds2 then
+                crv.odds2 = crv.odds2 - 1
+                crv.turn = "Joker"
+                return {
+                    message = "Miss, waiting!"
+                }
+            elseif crv.mode == "Self" then
+                crv.turn = "Player"
+                crv.odds2 = crv.odds2 - 1
+                return {
+                    message = "Miss, your turn!"
+                }
+            elseif crv.mode == "Joker" then
+                crv.turn = "Enemy"
+                crv.odds2 = crv.odds2 - 1
+                crv.turn = "Joker"
+                return {
+                    message = "Miss, waiting!"
+                }
+            end
+        elseif context.first_hand_drawn and not context.repetition and not context.individual and not context.blueprint and
+        crv.turn == "Joker" and crv.odds2 == 1 then
+            crv.odds2 = 3
+            crv.turn = "Player"
+            crv.playerhp = crv.playerhp - 1
+            return {
+                message = "Hit!"
+            }
+        end
+        if crv.playerhp == 0 then
+            G.STATE = G.STATES.GAME_OVER
+            G.STATE_COMPLETE = false
+        end
+        if crv.cardhp == 0 and not context.blueprint and not context.repetition and not context.individual then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                blockable = false,
+                func = function()
+                    SMODS.add_card({
+                        set = "Joker",
+                        area = G.jokers,
+                        legendary = true,
+                        edition = "e_negative",
+                    })
+                    SMODS.add_card({
+                        set = "Joker",
+                        area = G.jokers,
+                        legendary = true,
+                        edition = "e_negative",
+                    })
+                    G.jokers:remove_card(card)
+                    card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                    card = nil
+                    return true;
+                end
+            }))
+        end
+    end,
+
+    in_pool = function(self, wawa, wawa2)
+        return false
+    end
+}
+

@@ -107,7 +107,7 @@ SMODS.Consumable{
                 local new_card = create_card('Glass Printer', G.jokers, nil,nil,nil,nil,'j_crv_glassprinter')
                 new_card:add_to_deck()
                 G.jokers:emplace(new_card)
-                local new_card = create_card('Camera', G.jokers, nil,nil,nil,nil,'j_crv_smile!')
+                local new_card = create_card('Camera', G.jokers, nil,nil,nil,nil,'j_crv_smile')
                 new_card:add_to_deck()
                 G.jokers:emplace(new_card)
                 local new_card = create_card('Lethal Press Machine', G.jokers, nil,nil,nil,nil,'j_crv_lpm')

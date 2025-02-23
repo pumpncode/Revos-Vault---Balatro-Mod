@@ -1,4 +1,4 @@
-if CardSleeves then
+
 CardSleeves.Sleeve {
     key = "machinerys",
     atlas = "sleeves",
@@ -327,4 +327,3 @@ CardSleeves.Sleeve {
         }))
     end
 }
-end
