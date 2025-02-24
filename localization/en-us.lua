@@ -829,6 +829,18 @@ return {
                     "{C:inactive}(Player HP: {C:green}#2#{C:inactive},Joker {C:green}HP: #1#{C:inactive}, Target: {C:attention}#3#{C:inactive}, Turn: {C:attention}#4#{C:inactive})"
             }
         },
+        crv_printorium = {
+            name = "Printorium",
+            text = {'When Blind is selected,', "{C:green}#1# in #2#{} Chance to create","an {C:cry_exotic}Exotic{} Joker"}
+        },
+        crv_mrinter = {
+            name = "Mrinter",
+            text = {'When Blind is selected,', "Prints an {C:legendary}M Joker"}
+        },
+        crv_glprinter = {
+            name = "Glitched Printer",
+            text = {'When Blind is selected,', "Prints a {C:attention}Glitched Contract"}
+        },
     },
         Tarot = {
             c_crv_inkintuition = {
@@ -928,6 +940,11 @@ return {
                 name = 'Ultimate Edition Contract',
                 text = {'Turns #1# card or joker into',
                         '{C:dark_edition}Foil{},{C:dark_edition} Holographic{} or {C:dark_edition}Polychrome'}
+            },
+            crv_gldoc = {
+                name = 'Glitched Contract',
+                text = {'Turns #1# card or joker into',
+                        '{C:dark_edition}Glitched{}'}
             }
         },
         Spectral = {

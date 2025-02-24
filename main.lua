@@ -18,6 +18,8 @@ end
 if JokerDisplay then
     SMODS.load_file('items/display.lua')()
 end
+SMODS.load_file('Cryptid/items.lua')()
+
 
 
 
@@ -207,6 +209,13 @@ SMODS.Atlas{
     path = 'sleeves.png', 
     px = 73, 
     py = 95 
+}
+
+SMODS.Atlas{
+    key = 'cryp', 
+    path = 'cryp.png', 
+    px = 71, 
+    py = 95
 }
 
 

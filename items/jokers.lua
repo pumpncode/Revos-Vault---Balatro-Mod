@@ -1439,7 +1439,7 @@ SMODS.Joker {
     cost = 10,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -1489,7 +1489,7 @@ SMODS.Joker {
     cost = 10,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -1539,7 +1539,7 @@ SMODS.Joker {
     cost = 10,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -1589,7 +1589,7 @@ SMODS.Joker {
     cost = 10,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -2265,7 +2265,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual and
-            not (card.ability.extra.timer == 3) then
+            not (card.ability.extra.timer == 3) and not context.blueprint then
             card.ability.extra.timer = card.ability.extra.timer + 1
         end
         if context.joker_main then
@@ -2992,7 +2992,7 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:is_suit('Clubs', true) then
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit('Clubs', true) and not context.blueprint then
             card.ability.extra.chip = card.ability.extra.chip + card.ability.extra.chipg
         end
 
@@ -3261,7 +3261,7 @@ SMODS.Joker {
             end
         end
         -- all cards calc
-        if context.joker_main and not context.blueprint and not context.repetition then
+        if context.joker_main then
             local all_cards = 0
             for k, v in ipairs(G.hand.cards) do
                 all_cards = all_cards + 1
@@ -3581,7 +3581,7 @@ SMODS.Joker {
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -3621,7 +3621,7 @@ SMODS.Joker {
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -3657,7 +3657,7 @@ SMODS.Joker {
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     pos = {
@@ -5138,7 +5138,7 @@ SMODS.Joker {
     },
     rarity = 3,
     atlas = 'Jokers2',
-    blueprint_compat = true,
+    blueprint_compat = false,
     discovered = false,
     no_collection = false,
     pos = {
