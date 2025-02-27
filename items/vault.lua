@@ -1,10 +1,4 @@
 
-local igo = Game.init_game_object
-Game.init_game_object = function(self)
-    local ret = igo(self)
-    ret.consumable_uses = 0
-    return ret
-end
 
 SMODS.Rarity {
     key = "va",
@@ -19,7 +13,7 @@ SMODS.Consumable {
     atlas = 'spec',
     hidden = true,
     soul_set = 'Spectral',
-    soul_rate = 0.03,
+    soul_rate = 0.3,
     can_repeat_soul = false,
     pos = {
         x = 1,

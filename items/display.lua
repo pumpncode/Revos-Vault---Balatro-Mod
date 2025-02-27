@@ -64,6 +64,33 @@ c_def["j_crv_snayn32"] = {
         }
     },
 }
+c_def["j_crv__pease"] = { 
+    text = {
+        {
+        border_nodes = {
+        { text = "X"},
+        { ref_table = "card.joker_display_values", ref_value = "xmult",retrigger_type = "mult" }
+        }
+    }
+    },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" }
+    },
+    calc_function = function(card)
+        local xmult = 1
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if scoring_card:get_id() == 13 then
+                    local retriggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                    xmult = xmult * card.ability.extra.xmult * retriggers
+                end
+            end
+        end
+        card.joker_display_values.xmult = xmult
+        card.joker_display_values.localized_text = "[" .. localize("k_crv_king") .. "]"
+    end
+}
 c_def["j_crv_holybanana"] = {
 text = {
     { text = "+",colour = G.C.CHIPS },

@@ -33,3 +33,31 @@ SMODS.Tag{
     end,
 
 }
+
+SMODS.Tag{
+    key = 'reintag',
+    atlas = 'tags',
+    pos = { x = 1, y = 0},
+    apply = function(self, tag, context)
+        if context.type == "store_joker_create" then
+            local prs_in_posession = { 0 }
+            local card
+            if #G.P_JOKER_RARITY_POOLS.crv_p > prs_in_posession[1] then
+                card = create_card("Joker", context.area, nil, nil, nil, nil, "j_crv_rein")
+                create_shop_card_ui(card, "Joker", context.area)
+                card.states.visible = false
+                tag:yep("+", G.C.RARITY.crv_p, function()
+                    card:start_materialize()
+                    card.ability.couponed = true
+                    card:set_cost()
+                    return true
+                end)
+            else
+                tag:nope()
+            end
+            tag.triggered = true
+            return card
+        end
+    end,
+
+}

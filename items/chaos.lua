@@ -29,7 +29,7 @@ SMODS.Consumable{
     set = 'Spectral',
     hidden = true,
     soul_set = 'Spectral',
-        soul_rate = 0.003,
+        soul_rate = 0.03,
         can_repeat_soul = false,
     config = { extra = {  }},
     loc_vars = function(self, info_queue, card)

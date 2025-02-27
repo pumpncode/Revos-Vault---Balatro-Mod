@@ -102,10 +102,10 @@ return {
 
             },
             b_crv_ued = {
-              name = "Ultimate Deck",
-              text = {'Start with an', 'Eternal{C:attention,T:j_crv_ucp} Ultimate Edition Printer{}.'}
+                name = "Ultimate Deck",
+                text = {'Start with an', 'Eternal{C:attention,T:j_crv_ucp} Ultimate Edition Printer{}.'}
 
-          },
+            },
             b_crv_und = {
                 name = "Unregistered Deck",
                 text = {'Start with an', 'Eternal{C:attention,T:j_crv_urp} Unregistered Printer{}.'}
@@ -292,6 +292,12 @@ return {
             j_crv_snayn32 = {
                 name = 'Titan',
                 text = {"{X:mult,C:white}X#1#{} Mult", "Transforms back to {C:attention}Eren", "when the round ends"}
+            },
+            j_crv__pease = {
+                name = 'Maliketh',
+                text = {"Gives {X:mult,C:white}X#1#{} Mult for each scored",
+                        "{C:attention}King{} and enhances them into {C:attention}Glass.",
+                        "Destroys any other face card and gains {X:mult,C:white}X#2#", "Mult each destroyed card"}
             },
             j_crv_holybanana = {
                 name = 'Holy Banana',
@@ -817,31 +823,55 @@ return {
             },
             j_crv_brj = {
                 name = "The Dealer",
-                text = {
-                    "When the {C:attention}first hand is drawn{}, the selected target is shot.",
-                    "There is a {C:green}1 in #5#{} chance to land a shot.",
-                    "If a shot is landed, the target {C:red}loses {C:green}1 HP{},the chances reset and the turn changes", 
-                    "If missed, chances are {C:red}reduced by {C:attention}1",
-                    "If the player or target {Cred}shoots {C:attention}self{} and miss, it is their turn {C:attention}again.",
-                    "The target cannot be changed if it's the joker's turn.", 
-                    "If the player's {C:green}HP{} reaches 0, the game is {C:red}lost.",
-                    "If the joker's {C:green}HP{} reaches 0, it {C:red}disappears{} and spawns {C:attention}2 {C:dark_edition}Negative {C:purple}Legendary{} Jokers.",
-                    "{C:inactive}(Player HP: {C:green}#2#{C:inactive},Joker {C:green}HP: #1#{C:inactive}, Target: {C:attention}#3#{C:inactive}, Turn: {C:attention}#4#{C:inactive})"
-            }
+                text = {"When the {C:attention}first hand is drawn{}, the selected target is shot.",
+                        "There is a {C:green}1 in #5#{} chance to land a shot.",
+                        "If a shot is landed, the target {C:red}loses {C:green}1 HP{},the chances reset and the turn changes",
+                        "If missed, chances are {C:red}reduced by {C:attention}1",
+                        "If the player or target {Cred}shoots {C:attention}self{} and miss, it is their turn {C:attention}again.",
+                        "The target cannot be changed if it's the joker's turn.",
+                        "If the player's {C:green}HP{} reaches 0, the game is {C:red}lost.",
+                        "If the joker's {C:green}HP{} reaches 0, it {C:red}disappears{} and spawns {C:attention}2 {C:dark_edition}Negative {C:purple}Legendary{} Jokers.",
+                        "{C:inactive}(Player HP: {C:green}#2#{C:inactive},Joker {C:green}HP: #1#{C:inactive}, Target: {C:attention}#3#{C:inactive}, Turn: {C:attention}#4#{C:inactive})"}
+            },
+            j_crv_jimshow = {
+                name = "The Jimbo Show",
+                text = {"Gains {X:mult,C:white}X#2#{} Mult", "when triggered.",
+                        "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult))"}
+            },
+            j_crv_rein = {
+                name = "Reincarnated Jimbo",
+                text = {"Gives {X:mult,C:white} X#1# {} Mult.", "If {C:red}destroyed{} by another joker,",
+                        "becomes {C:attention}stronger.", "When destroyed, has a {C:green}#4# in #3#",
+                        "chance to create a {C:attention}Reincarnation Tag.", "{C:inactive}(Reincarnated #2# Times)"}
+            },
+            j_crv_clicker = {
+                name = "Clicker Simulator",
+                text = {"Gains {C:chips}+#3#{} Chips for each click {C:inactive}(#1#).",
+                        "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"}
+            },
+            j_crv_hand = {
+                name = "The Hand",
+                text = {"{C:red}Destroy{} the joker to the {C:attention}right",
+                        "no matter what"}
+            },
+            j_crv_giftbox = {
+                name = "Gift Box",
+                text = {"If sold {C:attention}3 {C:inactive}(#1#){} rounds after buying", "creates a {C:attention}Random {C:dark_edition}Eternal {C:common}Common{} and {C:legendary}Legendary{} joker"}
+            },
+            crv_printorium = {
+                name = "Printorium",
+                text = {'When Blind is selected,', "{C:green}#1# in #2#{} Chance to create",
+                        "an {C:cry_exotic}Exotic{} Joker"}
+            },
+            crv_mrinter = {
+                name = "Mrinter",
+                text = {'When Blind is selected,', "Prints an {C:legendary}M Joker"}
+            },
+            crv_glprinter = {
+                name = "Glitched Printer",
+                text = {'When Blind is selected,', "Prints a {C:attention}Glitched Contract"}
+            },
         },
-        crv_printorium = {
-            name = "Printorium",
-            text = {'When Blind is selected,', "{C:green}#1# in #2#{} Chance to create","an {C:cry_exotic}Exotic{} Joker"}
-        },
-        crv_mrinter = {
-            name = "Mrinter",
-            text = {'When Blind is selected,', "Prints an {C:legendary}M Joker"}
-        },
-        crv_glprinter = {
-            name = "Glitched Printer",
-            text = {'When Blind is selected,', "Prints a {C:attention}Glitched Contract"}
-        },
-    },
         Tarot = {
             c_crv_inkintuition = {
                 name = 'Ink & Intuition',
@@ -926,7 +956,7 @@ return {
             },
             c_crv_holdoc = {
                 name = 'Holographic Contract',
-                text = {'Turns #1# card or joker into','{C:dark_edition}Holographic'}
+                text = {'Turns #1# card or joker into', '{C:dark_edition}Holographic'}
             },
             c_crv_negdoc = {
                 name = 'Negative Contract',
@@ -943,8 +973,7 @@ return {
             },
             crv_gldoc = {
                 name = 'Glitched Contract',
-                text = {'Turns #1# card or joker into',
-                        '{C:dark_edition}Glitched{}'}
+                text = {'Turns #1# card or joker into', '{C:dark_edition}Glitched{}'}
             }
         },
         Spectral = {
@@ -982,12 +1011,16 @@ return {
                     name = '???',
                     text = {'???'}
                 }
-            },
+            }
         },
         Tag = {
             tag_crv_pst = {
                 name = 'Cartridge Tag',
                 text = {"Next shop has a free", "{C:red}Printer Joker"}
+            },
+            tag_crv_reintag = {
+                name = 'Reincarnation Tag',
+                text = {"Next shop has a free", "{C:attention}Reincarnated Jimbo"}
             }
         }
     },
@@ -1033,13 +1066,16 @@ return {
             b_scrap_cards = "Scrap",
             k_enchanceddocuments = "Contract",
             b_enchanceddocuments_cards = "Contract",
-            crv_mode='Change',
-            crv_mode2='Target',
-            k_crv_92="2-9",
-            k_crv_fa="Faces and Aces",
-            k_crv_face="Face",
-            crv_full="Full House",
-            crv_flush="Flush"
-        },
+            crv_mode = 'Change',
+            crv_mode2 = 'Target',
+            k_crv_92 = "2-9",
+            k_crv_fa = "Faces and Aces",
+            k_crv_king = "Kings",
+            k_crv_face = "Face",
+            crv_full = "Full House",
+            crv_flush = "Flush",
+            crv_click = "Click"
+
+        }
     }
 }

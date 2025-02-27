@@ -48,7 +48,7 @@ SMODS.Joker {
         x = 0,
         y = 0
     },
-    cost = 7,
+    cost = 20,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {card.ability.extra.xmult, card.ability.extra.xmultg}
@@ -95,7 +95,7 @@ SMODS.Joker {
         x = 0,
         y = 1
     },
-    cost = 7,
+    cost = 20,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {card.ability.extra.chips}
@@ -168,7 +168,7 @@ SMODS.Joker {
         x = 0,
         y = 2
     },
-    cost = 7,
+    cost = 20,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {card.ability.extra.xmult, card.ability.extra.xmultg, card.ability.extra.scrapc}
@@ -234,7 +234,7 @@ SMODS.Joker {
         x = 0,
         y = 3
     },
-    cost = 7,
+    cost = 20,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {card.ability.extra.xmult, card.ability.extra.xmultg}
@@ -283,7 +283,7 @@ SMODS.Joker {
         x = 0,
         y = 4
     },
-    cost = 7,
+    cost = 20,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {card.ability.extra.xmult, card.ability.extra.timer}
@@ -342,7 +342,7 @@ SMODS.Joker {
         x = 0,
         y = 5
     },
-    cost = 7,
+    cost = 25,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {card.ability.extra.xmult}
@@ -371,6 +371,60 @@ SMODS.Joker {
             G.jokers:emplace(new_card)
         end
     end
+
+}
+
+SMODS.Joker {
+    key = '_pease',
+    config = {
+        extra = {
+            xmult = 1.5,
+            xmultg = 0.5
+        }
+    },
+    rarity = 4,
+    atlas = 'rev',
+    blueprint_compat = true,
+    discovered = false,
+    no_collection = false,
+    pos = {
+        x = 3,
+        y = 0
+    },
+    soul_pos = {
+        x = 2,
+        y = 0
+    },
+    cost = 20,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.xmult,card.ability.extra.xmultg}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 13 then
+                if context.other_card.ability.effect == "Base" then
+                context.other_card:set_ability(G.P_CENTERS["m_glass"])
+                end
+            return {
+                x_mult = card.ability.extra.xmult ,
+                card = card.other_card
+                }
+            end
+        end
+        if context.destroy_card and context.cardarea == G.play then
+            if context.destroy_card:get_id() ~= 13 then
+                if context.destroy_card:is_face() then
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmultg
+                return {
+                    remove = true,
+                    message = localize("k_upgrade_ex")
+                }
+            end
+        end
+    end
+end
 
 }
 
@@ -4902,6 +4956,9 @@ SMODS.Joker {
     end
 }
 
+
+--thanks to bepisfever on discord for helping with this part :D
+
 local card_highlighted_ref = Card.highlight
 function Card:highlight(is_highlighted)
     self.highlighted = is_highlighted
@@ -5123,7 +5180,7 @@ G.FUNCS.crv_modee = function(e)
 end
 
 
---find a way to localize this shit
+--find a way to localize this
 local brjk2 = {"Self", "Joker"}
 SMODS.Joker {
     key = 'brj',
@@ -5280,7 +5337,434 @@ SMODS.Joker {
     end,
 
     in_pool = function(self, wawa, wawa2)
-        return false
+        return true
     end
 }
 
+SMODS.Joker {
+    key = 'jimshow',
+    atlas = 'Jokers2',
+    rarity = 3,
+    cost = 5,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 6,
+        y = 6
+    },
+    config = {
+        extra = {
+            xmult = 1,
+            xmultg = 0.5
+
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {card.ability.extra.xmult, card.ability.extra.xmultg}
+        }
+    end,
+
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if context.joker_main then
+            crv.xmult = crv.xmult + crv.xmultg
+            return {
+                xmult = card.ability.extra.xmult,
+            }
+        end
+        end
+
+}
+
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+    local ret = igo(self)
+    ret.reincarnation = 1
+    return ret
+end
+
+SMODS.Joker {
+    key = 'rein',
+    atlas = 'Jokers2',
+    rarity = 3,
+    cost = 5,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 7,
+        y = 6
+    },
+    config = {
+        extra = {
+            xmult = 2,
+            odds = 4
+
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {crv.xmult*G.GAME.reincarnation,G.GAME.reincarnation,crv.odds,G.GAME.probabilities.normal}
+        }
+    end,
+
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if card.getting_sliced and not context.repetition and not context.individual and not context.blueprint then
+            G.GAME.reincarnation = G.GAME.reincarnation + 1
+            if pseudorandom('rein') < G.GAME.probabilities.normal / crv.odds then
+            add_tag(Tag('tag_crv_reintag'))
+            end
+    end
+        if context.joker_main then
+            return {
+                xmult = crv.xmult * G.GAME.reincarnation
+            }
+        end
+        end
+
+}
+
+
+local card_highlighted_ref = Card.highlight
+function Card:highlight(is_highlighted)
+    self.highlighted = is_highlighted
+    if self.highlighted and string.find(self.ability.name, "j_crv_clicker") then
+
+        if self.children.use_button then
+            self.children.use_button:remove()
+            self.children.use_button = nil
+        end
+
+        self.children.use_button = UIBox {
+            definition = RevosVault.clicker(self, {
+                sell = true,
+                use = true
+            }),
+            config = {
+                align = "cr",
+                offset = {
+                    x = -0.4,
+                    y = 0
+                },
+                parent = self
+            }
+        }
+    else
+        card_highlighted_ref(self, is_highlighted)
+    end
+end
+
+RevosVault.clicker = function(card, args)
+    local args = args or {}
+    local sell = nil
+    local use = nil
+
+    if args.sell then
+
+        sell = {
+            n = G.UIT.C,
+            config = {
+                align = "cr"
+            },
+            nodes = {{
+                n = G.UIT.C,
+                config = {
+                    ref_table = card,
+                    align = "cr",
+                    padding = 0.1,
+                    r = 0.08,
+                    minw = 1.25,
+                    hover = true,
+                    shadow = true,
+                    colour = G.C.UI.BACKGROUND_INACTIVE,
+                    one_press = true,
+                    button = 'sell_card',
+                    func = 'can_sell_card'
+                },
+                nodes = {{
+                    n = G.UIT.B,
+                    config = {
+                        w = 0.1,
+                        h = 0.6
+                    }
+                }, {
+                    n = G.UIT.C,
+                    config = {
+                        align = "tm"
+                    },
+                    nodes = {{
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm",
+                            maxw = 1.25
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('b_sell'),
+                                colour = G.C.UI.TEXT_LIGHT,
+                                scale = 0.4,
+                                shadow = true
+                            }
+                        }}
+                    }, {
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm"
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('$'),
+                                colour = G.C.WHITE,
+                                scale = 0.4,
+                                shadow = true
+                            }
+                        }, {
+                            n = G.UIT.T,
+                            config = {
+                                ref_table = card,
+                                ref_value = 'sell_cost_label',
+                                colour = G.C.WHITE,
+                                scale = 0.55,
+                                shadow = true
+                            }
+                        }}
+                    }}
+                }}
+            }}
+        }
+    end
+
+    if args.use then
+
+        use = {
+            n = G.UIT.C,
+            config = {
+                align = "cr"
+            },
+            nodes = {{
+                n = G.UIT.C,
+                config = {
+                    ref_table = card,
+                    align = "cr",
+                    maxw = 1.25,
+                    padding = 0.1,
+                    r = 0.08,
+                    minw = 1.25,
+                    minh = 0,
+                    hover = true,
+                    shadow = true,
+                    colour = G.C.RED,
+                    button = 'crv_clicked'
+                },
+                nodes = {{
+                    n = G.UIT.B,
+                    config = {
+                        w = 0.1,
+                        h = 0.6
+                    }
+                }, {
+                    n = G.UIT.C,
+                    config = {
+                        align = "tm"
+                    },
+                    nodes = {{
+                        n = G.UIT.R,
+                        config = {
+                            align = "cm",
+                            maxw = 1.25
+                        },
+                        nodes = {{
+                            n = G.UIT.T,
+                            config = {
+                                text = localize('crv_click'),
+                                colour = G.C.UI.TEXT_LIGHT,
+                                scale = 0.8,
+                                shadow = true
+                            }
+                        }}
+                    }}
+                }}
+            }}
+        }
+    end
+
+    return {
+        n = G.UIT.ROOT,
+        config = {
+            align = "cr",
+            padding = 0,
+            colour = G.C.CLEAR
+        },
+        nodes = {{
+            n = G.UIT.C,
+            config = {
+                padding = 0.15,
+                align = 'cl'
+            },
+            nodes = {sell and {
+                n = G.UIT.R,
+                config = {
+                    align = 'cl'
+                },
+                nodes = {sell}
+            } or nil, use and {
+                n = G.UIT.R,
+                config = {
+                    align = 'cl'
+                },
+                nodes = {use}
+            } or nil}
+        }}
+    }
+end
+
+G.FUNCS.crv_clicked = function(e)
+    local card = e.config.ref_table
+            card.ability.extra["clicks"] = card.ability.extra["clicks"] + 1
+            card.ability.extra["chips"] = card.ability.extra["chips"] + card.ability.extra["chipgain"]
+        end
+
+
+SMODS.Joker {
+    key = 'clicker',
+    config = {
+        extra = {
+            clicks = 0,
+            chips = 0,
+            chipgain = 0.1
+        }
+    },
+    rarity = 3,
+    atlas = 'Jokers2',
+    blueprint_compat = false,
+    discovered = false,
+    no_collection = false,
+    pos = {
+        x = 0,
+        y = 7
+    },
+    cost = 10,
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {crv.clicks,crv.chips,crv.chipgain}
+        }
+    end,
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if context.joker_main then
+            return {
+                chips = crv.chips
+            }
+        end
+    end,
+
+    in_pool = function(self, wawa, wawa2)
+        return true
+    end
+}
+
+SMODS.Joker {
+    key = 'hand',
+    atlas = 'Jokers2',
+    rarity = 2,
+    cost = 5,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 1,
+        y = 7
+    },
+    config = {
+        extra = {
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {}
+        }
+    end,
+
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+            if context.setting_blind then
+            local my_pos = nil
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i] == card then my_pos = i; break end
+                end
+                if my_pos and G.jokers.cards[my_pos+1] and not G.jokers.cards[my_pos+1].getting_sliced then 
+                    local sliced_card = G.jokers.cards[my_pos+1]
+                    sliced_card.getting_sliced = true
+                    G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                    G.E_MANAGER:add_event(Event({func = function()
+                        G.GAME.joker_buffer = 0
+                        card:juice_up(0.8, 0.8)
+                        sliced_card:start_dissolve({HEX("57ecab")}, nil, 0.1)
+                    return true end }))
+                end
+end
+        end
+
+}
+
+SMODS.Joker {
+    key = 'giftbox',
+    atlas = 'Jokers2',
+    rarity = 3,
+    cost = 5,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 2,
+        y = 7
+    },
+    config = {
+        extra = { timer = 0
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {crv.timer}
+        }
+    end,
+
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if context.end_of_round and context.main_eval and not context.blueprint then
+            crv.timer = crv.timer + 1
+        end
+            if context.selling_self then
+                SMODS.add_card({
+                    set = "Joker",
+                    area = G.jokers,
+                    rarity = 0,
+                    stickers = {"eternal"}
+                })
+                SMODS.add_card({
+                    set = "Joker",
+                    area = G.jokers,
+                    legendary = true,
+                    stickers = {"eternal"}
+                })
+            end
+        end
+
+}
