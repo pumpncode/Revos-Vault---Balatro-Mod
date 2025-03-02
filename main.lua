@@ -10,8 +10,12 @@ SMODS.load_file('items/seals.lua')()
 SMODS.load_file('items/enh.lua')()
 SMODS.load_file('items/cons.lua')()
 SMODS.load_file('items/booster.lua')()
+SMODS.load_file('items/vouchers.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
+
+--cross mod content--
+
 if CardSleeves then
 SMODS.load_file('items/sleeves.lua')()
 end
@@ -67,14 +71,6 @@ SMODS.Atlas{
     px = 71, 
     py = 95 
 }
-
-SMODS.Atlas{
-    key = 'v', 
-    path = 'v.png', 
-    px = 71, 
-    py = 95 
-}
-
 
 SMODS.Atlas{
     key = 'megaprinter', 
@@ -191,6 +187,13 @@ SMODS.Atlas{
 }
 
 SMODS.Atlas{
+    key = 'vouch', 
+    path = 'voucher.png', 
+    px = 71, 
+    py = 95 
+}
+
+SMODS.Atlas{
     key = 'tags', 
     path = 'tags.png', 
     px = 34, 
@@ -217,7 +220,6 @@ SMODS.Atlas{
     px = 71, 
     py = 95
 }
-
 
 
 

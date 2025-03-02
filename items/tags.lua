@@ -59,5 +59,8 @@ SMODS.Tag{
             return card
         end
     end,
+        in_pool = function(self,wawa,wawa2)
+            return false
+        end
 
 }

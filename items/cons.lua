@@ -690,42 +690,6 @@ end,
             end
     }
 
-   --[[ SMODS.Consumable{
-        key = 'chaos', 
-        set = 'Spectral',
-        config = { extra = {}},
-        loc_vars = function(self, info_queue, card)
-            return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
-          end, 
-        pos = { x = 0, y = 0 },
-        atlas = 'wip',
-        cost = 3,
-        unlocked = true,
-        discovered = true,
-        can_use = function(self, card)
-            if G.STATE == G.STATES.SELECTING_HAND then
-                return true
-        end
-    end,
-        use = function(self,card,area,copier)
-            G.E_MANAGER:add_event(Event({
-                trigger = "immediate",
-                    func = function()
-                        if G.STATE ~= G.STATES.SELECTING_HAND then
-                            return false
-                        end
-                        G.GAME.chips = G.GAME.blind.chips
-                        G.STATE = G.STATES.HAND_PLAYED
-                        G.STATE_COMPLETE = true
-                        end_round()
-                        return true
-                    end,
-                }))
-            end
-            }
-            i suck at coding omg
-        ]]
-
     
         
     

@@ -372,3 +372,64 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = 'vriffraff',
+    atlas = 'Jokers2',
+    rarity = 'crv_va',
+    cost = 10,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pos = {
+        x = 7,
+        y = 7
+    },
+    config = {
+        extra = { ammount = 2
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local crv = card.ability.extra
+        return {
+            vars = {crv.ammount}
+        }
+    end,
+    calculate = function(self, card, context)
+        local crv = card.ability.extra
+        if context.setting_blind and #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+            local jokers = {}
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= card then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
+			end
+			if #jokers >= crv.ammount then
+					local chosen_joker = pseudorandom_element(jokers, pseudoseed("ml"))
+                    local jokers2 = {}
+                    for i = 1, #G.jokers.cards do
+                        if G.jokers.cards[i] ~= card and G.jokers.cards[i] ~= chosen_joker then
+                            jokers2[#jokers2 + 1] = G.jokers.cards[i]
+                        end
+                    end
+                    local chosen_joker2 =  pseudorandom_element(jokers2, pseudoseed("ml"))
+                    chosen_joker:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+					chosen_joker = nil
+                    chosen_joker2:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+					chosen_joker2 = nil
+                    for i = 1, crv.ammount do
+                        SMODS.add_card{
+                            set = "Joker",
+                            legendary = true,
+                        }
+                    end
+            end 
+        end
+end,
+    in_pool = function(self, wawa, wawa2)
+        return true
+    end
+}
+
+
