@@ -568,9 +568,11 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.jokers:emplace(new_card)
 			else
-				local new_card = create_card("Blueprint", G.jokers, nil, nil, nil, nil, "j_blueprint")
-				new_card:add_to_deck()
-				G.jokers:emplace(new_card)
+				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					local new_card = create_card("Blueprint", G.jokers, nil, nil, nil, nil, "j_blueprint")
+					new_card:add_to_deck()
+					G.jokers:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -607,9 +609,11 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.jokers:emplace(new_card)
 			else
-				local new_card = create_card("Brainstorm", G.jokers, nil, nil, nil, nil, "j_brainstorm")
-				new_card:add_to_deck()
-				G.jokers:emplace(new_card)
+				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					local new_card = create_card("Brainstorm", G.jokers, nil, nil, nil, nil, "j_brainstorm")
+					new_card:add_to_deck()
+					G.jokers:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -649,9 +653,11 @@ SMODS.Joker({
 				new_card:add_to_deck()
 				G.jokers:emplace(new_card)
 			else
-				local new_card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_joker")
-				new_card:add_to_deck()
-				G.jokers:emplace(new_card)
+				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					local new_card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_joker")
+					new_card:add_to_deck()
+					G.jokers:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -704,7 +710,9 @@ SMODS.Joker({
 			G.jokers:emplace(new_card)
 		elseif
 			context.setting_blind
-			and pseudorandom("grossprinter") < G.GAME.probabilities.normal / card.ability.extra.odds
+				and pseudorandom("grossprinter") < G.GAME.probabilities.normal / card.ability.extra.odds
+				and #G.jokers.cards < G.jokers.config.card_limit
+			or self.area == G.jokers
 		then
 			local new_card = create_card("Cavendish", G.jokers, nil, nil, nil, nil, "j_cavendish")
 			new_card:add_to_deck()
@@ -714,7 +722,7 @@ SMODS.Joker({
 			new_card:add_to_deck()
 			new_card:set_edition({ negative = true }, true)
 			G.jokers:emplace(new_card)
-		elseif context.setting_blind then
+		elseif context.setting_blind and #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
 			local new_card = create_card("Gros Michel", G.jokers, nil, nil, nil, nil, "j_gros_michel")
 			new_card:add_to_deck()
 			G.jokers:emplace(new_card)
@@ -730,7 +738,9 @@ SMODS.Joker({
 			G.jokers:emplace(new_card)
 		elseif
 			context.setting_blind
-			and pseudorandom("grossprinter") < G.GAME.probabilities.normal / card.ability.extra.odds2
+				and pseudorandom("grossprinter") < G.GAME.probabilities.normal / card.ability.extra.odds2
+				and #G.jokers.cards < G.jokers.config.card_limit
+			or self.area == G.jokers
 		then
 			local new_card = create_card("Holy Banana", G.jokers, nil, nil, nil, nil, "j_crv_holybanana")
 			new_card:add_to_deck()
@@ -790,7 +800,7 @@ SMODS.Joker({
 			}, true)
 			new_card:add_to_deck()
 			G.jokers:emplace(new_card)
-		elseif context.setting_blind then
+		elseif context.setting_blind and #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
 			local new_card = create_card("Obelisk", G.jokers, nil, nil, nil, nil, "j_obelisk")
 			new_card:add_to_deck()
 			G.jokers:emplace(new_card)
@@ -855,10 +865,12 @@ SMODS.Joker({
 					edition = "e_negative",
 				})
 			else
-				SMODS.add_card({
-					set = "Joker",
-					area = G.jokers,
-				})
+				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					SMODS.add_card({
+						set = "Joker",
+						area = G.jokers,
+					})
+				end
 			end
 		end
 	end,
@@ -901,9 +913,11 @@ SMODS.Joker({
 					new_card:set_edition({ negative = true }, true)
 					G.jokers:emplace(new_card)
 				else
-					local new_card = create_card("Paper Work", G.jokers, nil, nil, nil, nil, "j_crv_pprwork")
-					new_card:add_to_deck()
-					G.jokers:emplace(new_card)
+					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+						local new_card = create_card("Paper Work", G.jokers, nil, nil, nil, nil, "j_crv_pprwork")
+						new_card:add_to_deck()
+						G.jokers:emplace(new_card)
+					end
 				end
 			end
 		end
@@ -979,10 +993,12 @@ SMODS.Joker({
 					edition = "e_negative",
 				})
 			else
-				SMODS.add_card({
-					set = "Spectral",
-					area = G.consumeables,
-				})
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					SMODS.add_card({
+						set = "Spectral",
+						area = G.consumeables,
+					})
+				end
 			end
 		end
 	end,
@@ -1090,7 +1106,11 @@ SMODS.Joker({
 						return true
 					end,
 				}))
-			elseif pseudorandom("glassprinter") < G.GAME.probabilities.normal / card.ability.extra.odds then
+			elseif
+				pseudorandom("glassprinter") < G.GAME.probabilities.normal / card.ability.extra.odds
+					and #G.consumeables.cards < G.consumeables.config.card_limit
+				or self.area == G.consumeables
+			then
 				local new_card =
 					create_card("Glass Document", G.consumeables, nil, nil, nil, nil, "c_crv_glassdocument")
 				new_card:add_to_deck()
@@ -1102,10 +1122,12 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.consumeables:emplace(new_card)
 			else
-				local new_card =
-					create_card("Glass Document", G.consumeables, nil, nil, nil, nil, "c_crv_glassdocument")
-				new_card:add_to_deck()
-				G.consumeables:emplace(new_card)
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					local new_card =
+						create_card("Glass Document", G.consumeables, nil, nil, nil, nil, "c_crv_glassdocument")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -1149,10 +1171,12 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.consumeables:emplace(new_card)
 			else
-				local new_card =
-					create_card("Steel Document", G.consumeables, nil, nil, nil, nil, "c_crv_steeldocument")
-				new_card:add_to_deck()
-				G.consumeables:emplace(new_card)
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					local new_card =
+						create_card("Steel Document", G.consumeables, nil, nil, nil, nil, "c_crv_steeldocument")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+				end
 			end
 		end
 		if context.joker_main then
@@ -1203,9 +1227,11 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.jokers:emplace(new_card)
 			else
-				local new_card = create_card("Photograph", G.jokers, nil, nil, nil, nil, "j_photograph")
-				new_card:add_to_deck()
-				G.jokers:emplace(new_card)
+				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					local new_card = create_card("Photograph", G.jokers, nil, nil, nil, nil, "j_photograph")
+					new_card:add_to_deck()
+					G.jokers:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -1251,11 +1277,13 @@ SMODS.Joker({
 						edition = "e_negative",
 					})
 				else
-					local scrap = pseudorandom_element(scraps, pseudoseed("lpm"))
-					SMODS.add_card({
-						area = G.consumeables,
-						key = scrap,
-					})
+					if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+						local scrap = pseudorandom_element(scraps, pseudoseed("lpm"))
+						SMODS.add_card({
+							area = G.consumeables,
+							key = scrap,
+						})
+					end
 				end
 			end
 		end
@@ -1329,10 +1357,12 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.consumeables:emplace(new_card)
 			else
-				local new_card =
-					create_card("Devil's Contract", G.consumeables, nil, nil, nil, nil, "c_crv_devilscontract")
-				new_card:add_to_deck()
-				G.consumeables:emplace(new_card)
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					local new_card =
+						create_card("Devil's Contract", G.consumeables, nil, nil, nil, nil, "c_crv_devilscontract")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -1468,9 +1498,11 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.consumeables:emplace(new_card)
 			else
-				local new_card = create_card("Mega", G.consumeables, nil, nil, nil, nil, "c_crv_megadoc")
-				new_card:add_to_deck()
-				G.consumeables:emplace(new_card)
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					local new_card = create_card("Mega", G.consumeables, nil, nil, nil, nil, "c_crv_megadoc")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+				end
 			end
 		end
 	end,
@@ -1516,9 +1548,11 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.consumeables:emplace(new_card)
 			else
-				local new_card = create_card("Tier 3 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t3doc")
-				new_card:add_to_deck()
-				G.consumeables:emplace(new_card)
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					local new_card = create_card("Tier 3 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t3doc")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+				end
 			end
 		elseif context.setting_blind and (card.ability.extra.timer >= 5) and not (card.ability.extra.timer == 15) then
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -1527,9 +1561,11 @@ SMODS.Joker({
 				new_card:set_edition({ negative = true }, true)
 				G.consumeables:emplace(new_card)
 			else
-				local new_card = create_card("Tier 2 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t2doc")
-				new_card:add_to_deck()
-				G.consumeables:emplace(new_card)
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					local new_card = create_card("Tier 2 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t2doc")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+				end
 			end
 		else
 			if context.setting_blind and not (card.ability.extra.timer > 4) then
@@ -1539,9 +1575,12 @@ SMODS.Joker({
 					new_card:set_edition({ negative = true }, true)
 					G.consumeables:emplace(new_card)
 				else
-					local new_card = create_card("Tier 1 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t1doc")
-					new_card:add_to_deck()
-					G.consumeables:emplace(new_card)
+					if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+						local new_card =
+							create_card("Tier 1 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t1doc")
+						new_card:add_to_deck()
+						G.consumeables:emplace(new_card)
+					end
 				end
 			end
 		end
@@ -1616,14 +1655,16 @@ SMODS.Joker({
 					new_card2:set_edition({ negative = true }, true)
 					G.consumeables:emplace(new_card2)
 				else
-					local new_card =
-						create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
-					new_card:add_to_deck()
-					G.consumeables:emplace(new_card)
-					local new_card2 =
-						create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
-					new_card2:add_to_deck()
-					G.consumeables:emplace(new_card2)
+					if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+						local new_card =
+							create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
+						new_card:add_to_deck()
+						G.consumeables:emplace(new_card)
+						local new_card2 =
+							create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
+						new_card2:add_to_deck()
+						G.consumeables:emplace(new_card2)
+					end
 				end
 			else
 				if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -1633,10 +1674,12 @@ SMODS.Joker({
 					new_card:set_edition({ negative = true }, true)
 					G.consumeables:emplace(new_card)
 				else
-					local new_card =
-						create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
-					new_card:add_to_deck()
-					G.consumeables:emplace(new_card)
+					if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+						local new_card =
+							create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
+						new_card:add_to_deck()
+						G.consumeables:emplace(new_card)
+					end
 				end
 			end
 		end
@@ -1672,10 +1715,12 @@ SMODS.Joker({
 					edition = "e_negative",
 				})
 			else
-				SMODS.add_card({
-					set = "Planet",
-					area = G.consumeables,
-				})
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					SMODS.add_card({
+						set = "Planet",
+						area = G.consumeables,
+					})
+				end
 			end
 		end
 	end,
@@ -1711,7 +1756,10 @@ SMODS.Joker({
 	},
 
 	calculate = function(self, card, context)
-		if context.setting_blind then
+		if
+			context.setting_blind and #G.consumeables.cards < G.consumeables.config.card_limit
+			or self.area == G.consumeables
+		then
 			local new_card = create_card("Polychrome Document", G.consumeables, nil, nil, nil, nil, "c_crv_polydoc")
 			new_card:add_to_deck()
 			new_card:set_edition({
@@ -1760,7 +1808,10 @@ SMODS.Joker({
 	},
 
 	calculate = function(self, card, context)
-		if context.setting_blind then
+		if
+			context.setting_blind and #G.consumeables.cards < G.consumeables.config.card_limit
+			or self.area == G.consumeables
+		then
 			local new_card = create_card("Foil Document", G.consumeables, nil, nil, nil, nil, "c_crv_foildoc")
 			new_card:add_to_deck()
 			new_card:set_edition({
@@ -1809,7 +1860,10 @@ SMODS.Joker({
 	},
 
 	calculate = function(self, card, context)
-		if context.setting_blind then
+		if
+			context.setting_blind and #G.consumeables.cards < G.consumeables.config.card_limit
+			or self.area == G.consumeables
+		then
 			local new_card = create_card("Holographic Document", G.consumeables, nil, nil, nil, nil, "c_crv_holdoc")
 			new_card:add_to_deck()
 			new_card:set_edition({
@@ -1915,10 +1969,12 @@ SMODS.Joker({
 					edition = "e_negative",
 				})
 			else
-				SMODS.add_card({
-					area = G.consumeables,
-					key = "c_crv_uedoc",
-				})
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					SMODS.add_card({
+						area = G.consumeables,
+						key = "c_crv_uedoc",
+					})
+				end
 			end
 		end
 	end,
@@ -1970,14 +2026,16 @@ SMODS.Joker({
 						end,
 					}))
 				else
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							local card2 = copy_card(G.jokers.cards[rr + 1], nil, nil, G.jokers.cards[i] == card)
-							card2:add_to_deck()
-							G.jokers:emplace(card2)
-							return true
-						end,
-					}))
+					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								local card2 = copy_card(G.jokers.cards[rr + 1], nil, nil, G.jokers.cards[i] == card)
+								card2:add_to_deck()
+								G.jokers:emplace(card2)
+								return true
+							end,
+						}))
+					end
 				end
 
 				if rr and G.jokers.cards[rr + 1] then
@@ -3763,11 +3821,15 @@ SMODS.Joker({
 			vars = { card.ability.extra.one, card.ability.extra.chips, card.ability.extra.ok },
 		}
 	end,
-
+	add_to_deck = function(self, card, from_debuff)
+		if G.GAME.talisman == 0 and next(SMODS.find_mod("Talisman")) then
+			G.GAME.talisman = 1
+		end
+	end,
 	calculate = function(self, card, context)
 		if
 			context.joker_main
-			and next(SMODS.find_mod("Talisman"))
+			and G.GAME.talisman == 1
 			and card.ability.extra.one == 0
 			and card.ability.extra.one == 0
 			and not context.blueprint
@@ -3796,7 +3858,7 @@ SMODS.Joker({
 				message = localize("k_crv_stored"),
 			}
 		end
-		if context.joker_main and next(SMODS.find_mod("Talisman")) and card.ability.extra.ok > 0 then
+		if context.joker_main and G.GAME.talisman == 1 and card.ability.extra.ok > 0 then
 			if #SMODS.find_card("j_crv_upgr") == 0 then
 				return {
 					chips = to_number(card.ability.extra.one),
@@ -3877,14 +3939,13 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
-
+	add_to_deck = function(self, card, from_debuff)
+		if G.GAME.talisman == 0 and next(SMODS.find_mod("Talisman")) then
+			G.GAME.talisman = 1
+		end
+	end,
 	calculate = function(self, card, context)
-		if
-			context.joker_main
-			and next(SMODS.find_mod("Talisman"))
-			and not context.blueprint
-			and not context.repetition
-		then
+		if context.joker_main and G.GAME.talisman == 1 and not context.blueprint and not context.repetition then
 			local cc = (pseudorandom_element(chances, pseudoseed("btls")))
 			if cc == 1 then
 				return {
@@ -4147,7 +4208,11 @@ SMODS.Joker({
 			vars = { card.ability.extra.odds, (G.GAME.probabilities.normal or 1) },
 		}
 	end,
-
+	add_to_deck = function(self, card, from_debuff)
+		if G.GAME.talisman == 0 and next(SMODS.find_mod("Talisman")) then
+			G.GAME.talisman = 1
+		end
+	end,
 	calculate = function(self, card, context)
 		if context.joker_main and not context.blueprint and not context.repetition and not context.individual then
 			local rr = nil
@@ -4159,14 +4224,14 @@ SMODS.Joker({
 			end
 			if
 				G.jokers.cards[rr + 1] == nil
-				and next(SMODS.find_mod("Talisman"))
+				and G.GAME.talisman == 1
 				and pseudorandom("dont") < G.GAME.probabilities.normal / card.ability.extra.odds
 			then
 				return {
 					chip_mod = to_number(G.GAME.blind.chips * 2),
 					message = localize("k_crv_double"),
 				}
-			elseif G.jokers.cards[rr + 1] == nil and next(SMODS.find_mod("Talisman")) then
+			elseif G.jokers.cards[rr + 1] == nil and G.GAME.talisman == 1 then
 				return {
 					x_mult = to_number(G.GAME.blind.chips * 0),
 					message = localize("k_crv_nothing"),
@@ -5777,14 +5842,6 @@ SMODS.Joker({
 	end,
 })
 
-local igo = Game.init_game_object
-Game.init_game_object = function(self)
-	local ret = igo(self)
-	ret.reincarnation = 1
-	ret.henchmans = 0
-	return ret
-end
-
 SMODS.Joker({
 	key = "rein",
 	atlas = "Jokers2",
@@ -6362,20 +6419,20 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			chips = 40
+			chips = 40,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = { crv.chips},
+			vars = { crv.chips },
 		}
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.joker_main then
 			return {
-				chips = crv.chips
+				chips = crv.chips,
 			}
 		end
 	end,
@@ -6398,21 +6455,279 @@ SMODS.Joker({
 	config = {
 		extra = {
 			mult = 0,
-			multg = 0.5
+			multg = 0.5,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = { crv.mult,crv.multg},
+			vars = { crv.mult, crv.multg },
 		}
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.buying_card and not context.blueprint then
-					crv.mult = crv.mult + crv.multg
-					print(crv.mult)
+			crv.mult = crv.mult + crv.multg
 		end
-	end
+	end,
 })
 
+SMODS.Joker({
+	key = "loveletter",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 8,
+		y = 2,
+	},
+	config = {
+		extra = {
+			multg = 1,
+			mult = 0,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.multg, card.ability.extra.mult },
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if
+			context.individual
+			and context.cardarea == G.play
+			and context.other_card:is_suit("Hearts", true)
+			and not context.blueprint
+		then
+			card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.multg
+		end
+
+		if context.joker_main then
+			return {
+				mult = card.ability.extra.mult,
+			}
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+function stickercheck()
+	local st = 0
+	if G and G.jokers and G.jokers.cards then
+		for _, v in pairs(G.jokers.cards) do
+			if v.ability.perishable then
+				st = st + 1
+			end
+		end
+		return st
+	end
+	return 0
+end
+
+SMODS.Joker({
+	key = "kq",
+	atlas = "Jokers2",
+	rarity = 3,
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 8,
+		y = 3,
+	},
+	config = {
+		extra = {
+			xmult = 1.5,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.xmult * stickercheck() + 1, card.ability.extra.xmult },
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.setting_blind and not context.blueprint then
+			local rr = nil
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					rr = i
+					break
+				end
+			end
+			if G.jokers.cards[rr + 1] ~= nil then
+				SMODS.Stickers["perishable"]:apply(G.jokers.cards[rr + 1], true)
+			end
+		end
+		if context.joker_main then
+			return {
+				xmult = card.ability.extra.xmult * stickercheck() + 1,
+			}
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "ccat",
+	atlas = "Jokers2",
+	rarity = 3,
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 8,
+		y = 4,
+	},
+	config = {
+		extra = {
+			ammount = 3,
+			rankdis = "N/A",
+			suitdis = "N/A",
+			rank = "N/A",
+			suit = "N/A",
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.ammount, card.ability.extra.rankdis, card.ability.extra.suitdis },
+		}
+	end,
+
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if
+			context.before
+			and context.cardarea
+			and not context.repetition
+			and not context.individual
+			and not context.blueprint
+		then
+			if card.ability.extra.rank == "N/A" then
+				card.ability.extra.rank = G.play.cards[1].base.id
+				local _rank_suffix = card.ability.extra.rank
+				if _rank_suffix < 10 then
+					_rank_suffix = tostring(_rank_suffix)
+				elseif _rank_suffix == 10 then
+					_rank_suffix = "10"
+				elseif _rank_suffix == 11 then
+					_rank_suffix = "Jack"
+				elseif _rank_suffix == 12 then
+					_rank_suffix = "Queen"
+				elseif _rank_suffix == 13 then
+					_rank_suffix = "King"
+				elseif _rank_suffix == 14 then
+					_rank_suffix = "Ace"
+				end
+				crv.rankdis = _rank_suffix
+			elseif card.ability.extra.suit == "N/A" then
+				card.ability.extra.suit = G.play.cards[1].base.suit
+				local _suit_suffix = tostring(card.ability.extra.suit)
+				crv.suitdis = _suit_suffix
+			elseif card.ability.extra.rank ~= "N/A" and card.ability.extra.suit ~= "N/A" then
+				local rank_suffix = card.ability.extra.rank
+				if rank_suffix < 10 then
+					rank_suffix = tostring(rank_suffix)
+				elseif rank_suffix == 10 then
+					rank_suffix = "10"
+				elseif rank_suffix == 11 then
+					rank_suffix = "Jack"
+				elseif rank_suffix == 12 then
+					rank_suffix = "Queen"
+				elseif rank_suffix == 13 then
+					rank_suffix = "King"
+				elseif rank_suffix == 14 then
+					rank_suffix = "Ace"
+				end
+				local suit_suffix = tostring(card.ability.extra.suit)
+				for i = 1, 3 do
+					local acard = create_playing_card(
+						{
+							front = G.P_CARDS[card.ability.extra.suit .. "_" .. card.ability.extra.rank],
+							center = G.P_CENTERS.c_base,
+						},
+						G.hand,
+						nil,
+						nil,
+						{ G.C.SECONDARY_SET.Enhanced }
+					)
+					SMODS.change_base(acard, suit_suffix, rank_suffix)
+				end
+				card.ability.extra.rank = "N/A"
+				card.ability.extra.suit = "N/A"
+				crv.rankdis = "N/A"
+				crv.suitdis = "N/A"
+			end
+		end
+		if card.ability.extra.rank ~= "N/A" and card.ability.extra.suit ~= "N/A" then
+			local eval = function()
+				return card.ability.extra.rank ~= "N/A" and card.ability.extra.suit ~= "N/A"
+			end
+			juice_card_until(card, eval, true)
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "mcycle",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 8,
+		y = 5,
+	},
+	config = {
+		extra = {
+			plus = 1,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = { crv.plus },
+		}
+	end,
+
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.individual then
+			if context.cardarea == G.play then
+				context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
+				context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + crv.plus
+				return {
+					message = localize("k_upgrade_ex"),
+					colour = G.C.MULT,
+					message_card = context.other_card
+				}
+			end
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})

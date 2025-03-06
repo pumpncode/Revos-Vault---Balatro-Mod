@@ -1114,6 +1114,121 @@ c_def["j_crv_vmichel"]= {
             }
         },
     }
+    c_def["j_crv_loveletter"] = {
+        text = {
+            
+                    { text = "+"},
+                    { ref_table = "card.ability.extra", ref_value = "mult",retrigger_type = "mult" },
+        
+        },
+        text_config = { colour = G.C.MULT },
+    }
+    c_def["j_crv_clicker"] = {
+        text = {
+            
+                    { text = "+"},
+                    { ref_table = "card.ability.extra", ref_value = "chips",retrigger_type = "mult" },
+        
+        },
+        text_config = { colour = G.C.CHIPS },
+    }
+    c_def["j_crv_jjoker"] = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.joker_display_values", ref_value = "mult",retrigger_type = "mult" }
+                }
+            }
+        },
+        calc_function = function(card)
+            if card.ability.extra.mult * G.GAME.henchmans == 0 then
+            card.joker_display_values.mult = 1
+            else 
+            card.joker_display_values.mult = card.ability.extra.mult * G.GAME.henchmans
+            end
+        end
+    }
+    c_def["j_crv_henchman"] = {
+        text = {
+            
+                    { text = "+" },
+                    { ref_table = "card.ability.extra", ref_value = "mult",retrigger_type = "mult" }
+                
+            
+        },
+        text_config = { colour = G.C.MULT },
+    }
+    c_def["j_crv_jnx"] = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "xchips",retrigger_type = "mult" }
+                },
+                border_colour = G.C.CHIPS
+            }
+        },
+    }
+    c_def["j_crv_jimshow"] = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "xmult",retrigger_type = "mult" }
+                },
+            }
+        },
+    }
+    c_def["j_crv_jimbojam"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "chips",retrigger_type = "mult" }
+            },
+        }
+    },
+}
+    c_def["j_crv_rekoj"] = {
+        text = {
+            
+                    { text = "+" },
+                    { ref_table = "card.ability.extra", ref_value = "chips",retrigger_type = "mult" }
+                
+            
+        },
+        text_config = { colour = G.C.CHIPS },
+    }
+    c_def["j_crv_collector"] = {
+        text = {
+            
+                    { text = "+" },
+                    { ref_table = "card.ability.extra", ref_value = "mult",retrigger_type = "mult" }
+                
+            
+        },
+        text_config = { colour = G.C.MULT },
+    }
+    c_def["j_crv_kq"] = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+                }
+            }
+        },
+        calc_function = function(card)
+           card.joker_display_values.xmult = card.ability.extra.xmult * stickercheck() + 1
+        end
+    }
+    c_def["j_crv_giftbox"] = {
+        reminder_text = {
+            { ref_table = "card.ability.extra", ref_value = "timer", },
+            {text = "/3"}
+        },
+    }
 
 
 

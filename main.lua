@@ -270,12 +270,16 @@ function joker_add_per(jKey)
 
     end
 end
---i dont remember why i put this here but im leaving it in for fun
-function vvs()
-    local vv = 0
-    return vv
-            end
 
+
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+	local ret = igo(self)
+	ret.reincarnation = 1
+	ret.henchmans = 0
+	ret.talisman = 0
+	return ret
+end
 
 
     

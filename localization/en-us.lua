@@ -357,15 +357,15 @@ return {
 			},
 			j_crv_printer = {
 				name = "Blueprinter",
-				text = { "When Blind is selected,", "print a {C:attention}Blueprint{} Joker" },
+				text = { "When Blind is selected,", "print a {C:attention}Blueprint{} Joker","{C:inactive}(Must have room)" },
 			},
 			j_crv_rustyprinter = {
 				name = "Rusty Printer",
-				text = { "When Blind is selected,", "print a {C:attention}Brainstorm{} Joker" },
+				text = { "When Blind is selected,", "print a {C:attention}Brainstorm{} Joker","{C:inactive}(Must have room)" },
 			},
 			j_crv_jimboprinter = {
 				name = "Jimbo Printer",
-				text = { "When Blind is selected,", "print a {C:attention}Joker{}" },
+				text = { "When Blind is selected,", "print a {C:attention}Joker{}","{C:inactive}(Must have room)" },
 			},
 			j_crv_grossprinter = {
 				name = "Gross Printer",
@@ -379,12 +379,12 @@ return {
 					"if somehow the {C:uncommon}Holy Banana{} gets",
 					"Sacrified to the Divine, spawns {C:rare}Pedro{}",
 					"when blind is selected",
-					"{C:inactive}(Only 1 Pedro can be held at the same time)",
+					"{C:inactive}(Only 1 Pedro can be held at the same time)","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_obeliskprinter = {
 				name = "Obelisk Printer",
-				text = { "When Blind is selected,", "print a {C:attention}Obelisk{} Joker" },
+				text = { "When Blind is selected,", "print a {C:attention}Obelisk{} Joker","{C:inactive}(Must have room)" },
 			},
 			j_crv_moneyprinter = {
 				name = "Money Printer",
@@ -392,7 +392,7 @@ return {
 			},
 			j_crv_brokenprinter = {
 				name = "Broken Printer",
-				text = { "When Blind is selected,", "print a {C:attention}Random Joker{}" },
+				text = { "When Blind is selected,", "print a {C:attention}Random Joker{}","{C:inactive}(Must have room)" },
 			},
 			j_crv_faxprinter = {
 				name = "Fax Printer",
@@ -400,7 +400,7 @@ return {
 					"When blind is selected,",
 					"{C:green}#1# in #2#{} chance this",
 					"card prints",
-					"{C:attention} Paperwork",
+					"{C:attention} Paperwork","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_pprwork = {
@@ -417,7 +417,7 @@ return {
 				text = {
 					"When Blind is selected,",
 					"print a Random",
-					"{C:attention}Spectral Card{}",
+					"{C:attention}Spectral Card{}","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_legendaryprinter = {
@@ -425,7 +425,7 @@ return {
 				text = {
 					"{C:green}#1# in #2#{} chance this",
 					"card prints a random {C:dark_edition}Perishable",
-					"{C:dark_edition}Negative{C:attention} Legendary Joker",
+					"{C:dark_edition}Negative{C:attention} Legendary Joker"
 				},
 			},
 			j_crv_glassprinter = {
@@ -434,7 +434,7 @@ return {
 					"When blind is selected,",
 					"Prints {C:attention}Glass Contract{} and{}",
 					"has a {C:green}#1# in #2#{} chance to",
-					"get destroyed",
+					"get destroyed","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_steelprinter = {
@@ -442,7 +442,7 @@ return {
 				text = {
 					"When blind is selected,",
 					"Prints {C:attention}Steel Contract.{}",
-					"{X:mult,C:white}X#1#{} Mult",
+					"{X:mult,C:white}X#1#{} Mult","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_smile = {
@@ -451,7 +451,7 @@ return {
 					"If you have a {C:attention}Joker{} in hand,",
 					"{C:green}#1# in #2#{} chance to create a",
 					"{C:attention}Photograph{} when blind is",
-					"selected",
+					"selected","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_lpm = {
@@ -461,7 +461,7 @@ return {
 					"{C:green}1 in 4{} chance to spawn {C:attention}Scrap",
 					"Gains {C:mult}+#2# {}Mult for every {C:attention}Scrap used",
 					"{C:inactive}(Currently{C:mult} +#1#{C:inactive} Mult)",
-					'{C:inactive}(Items like "Oops! All 6s" wont affect the changes)',
+					'{C:inactive}(Items like "Oops! All 6s" wont affect the changes)',"{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_devilishprinter = {
@@ -469,7 +469,7 @@ return {
 				text = {
 					"When blind is selected,",
 					"{C:green}#1# in #2# {}chance to",
-					"Print a {C:attention}Devil's Contract",
+					"Print a {C:attention}Devil's Contract","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_head = {
@@ -477,7 +477,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"are present, print an {C:attention}Mega Contract.",
-					"Gives {C:mult}+#1#{} Mult.",
+					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_body = {
@@ -485,7 +485,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"are present, print an {C:attention}Mega Contract.",
-					"Gives {C:mult}+#1#{} Mult.",
+					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_back = {
@@ -493,7 +493,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"is present, print an {C:attention}Mega Contract.",
-					"Gives {C:mult}+#1#{} Mult.",
+					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_tierp = {
@@ -506,7 +506,7 @@ return {
 					"After 15 Rounds have passed, prints a {C:attention}Boosted Contract",
 					"after every {C:attention}5 Rounds{} instead of a T3 Contract",
 					"{C:inactive}(#1#/15 Rounds have passed)",
-					"{C:inactive}(#2#/5 Rounds until the next {C:attention}Boosted Contract)",
+					"{C:inactive}(#2#/5 Rounds until the next {C:attention}Boosted Contract)","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_luckyprinter = {
@@ -515,19 +515,19 @@ return {
 					"Prints {C:attention}Lucky Contract{}",
 					"When blind is selected,",
 					"{C:green}#1# in #2#{} Chance to print",
-					"{C:attention}2{} Contracts instead of 1",
+					"{C:attention}2{} Contracts instead of 1","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_celestialprinter = {
 				name = "Celestial Printer",
-				text = { "When Blind is selected,", "print a Random", "{C:attention}Planet {C:attention}Card{}" },
+				text = { "When Blind is selected,", "print a Random", "{C:attention}Planet {C:attention}Card{}","{C:inactive}(Must have room)" },
 			},
 			j_crv_pcp = {
 				name = "Polychrome Printer",
 				text = {
 					"When Blind is selected,",
 					"prints a {C:dark_edition}Polychrome Contract",
-					"Gives {X:mult,C:white}X#1#{} Mult.",
+					"Gives {X:mult,C:white}X#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_fcp = {
@@ -535,7 +535,7 @@ return {
 				text = {
 					"When Blind is selected,",
 					"prints a {C:dark_edition}Foil Contract",
-					"Gives {C:chips}+#1#{} Chips.",
+					"Gives {C:chips}+#1#{} Chips.","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_hcp = {
@@ -543,7 +543,7 @@ return {
 				text = {
 					"When Blind is selected,",
 					"prints a {C:dark_edition}Holographic Contract",
-					"Gives {C:mult}+#1#{} Mult.",
+					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
 			j_crv_ncp = {
@@ -556,7 +556,7 @@ return {
 			},
 			j_crv_urp = {
 				name = "Unregistered Printer",
-				text = { "{C:attention}Prints{} the Joker", "to the right." },
+				text = { "{C:attention}Prints{} the Joker", "to the right.","{C:inactive}(Must have room)" },
 			},
 			j_crv_ghostbanana = {
 				name = "Ghost Banana",
@@ -729,7 +729,7 @@ return {
 			j_crv_flytrap = {
 				name = "Fly Trap",
 				text = {
-					"Each time a {C:clubs}Club{} card is,",
+					"Each time a {C:clubs}Club{} card is",
 					"scored, gain {C:chips}+#1#{} Chips.",
 					"{C:inactive}(Currently {C:chips}+#2# {C:inactive}Chips)",
 				},
@@ -1113,7 +1113,7 @@ return {
 			},
 			j_crv_ucp = {
 				name = "Ultimate Edition Printer",
-				text = { "When Blind is selected,", "prints an {C:dark_edition}Ultimate Edition Contract" },
+				text = { "When Blind is selected,", "prints an {C:dark_edition}Ultimate Edition Contract","{C:inactive}(Must have room)" },
 			},
 			j_crv_brj = {
 				name = "The Dealer",
@@ -1175,7 +1175,7 @@ return {
 			},
 			j_crv_jjoker = {
 				name = "The Boss",
-				text = { "{X:mult,C:white}X#1#{} Mult for", "each {C:attention}Henchman{} in hand", "#2#" },
+				text = { "{X:mult,C:white}X#1#{} Mult for", "each {C:attention}Henchman{} in hand", "{C:inactive}(#2#)" },
 			},
 			j_crv_jimbojam = {
 				name = "JNX",
@@ -1216,6 +1216,44 @@ return {
 					"for each bought card",
 					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
 				},
+			},
+			j_crv_loveletter = {
+				name = "Love Letter",
+				text = {
+					"Each time a {C:hearts}Heart{} card is",
+					"scored, gain {C:mult}+#1#{} Mult.",
+					"{C:inactive}(Currently {C:mult}+#2# {C:inactive}Mult)",
+				},
+			},
+			j_crv_kq = {
+				name = "Killer Queen",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"apply {C:attention}Perishable{} to the Joker on the right.",
+					"Gives {X:mult,C:white}X#2#{} Mult",
+					"for each {C:attention}Perishable{} Joker {C:inactive}",
+					"in your {C:attention}hand{}",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)",
+				},	
+			},
+			j_crv_ccat = {
+				name = "Copycat",
+				text = {
+					"Copies the {C:attention}rank{} of the {C:attention}first{} scored card.",
+					 "If a rank is {C:attention}already{} copied,",
+					 "copies the {C:attention}suit{} of the first scored card"
+					 ,"If suit and rank are {C:red}already set{},",
+					 "creates {C:attention}#1#{} copies of the set card",
+					 "{C:inactive}(Current Card: #2# of #3#)"
+				},	
+			},
+			j_crv_mcycle = {
+				name = "Mountain Biker",
+				text = {
+                    "Every played {C:attention}card{}",
+                    "permanently gains",
+                    "{C:mult}+#1#{} Mult when scored",
+				},	
 			},
 			--cryptid below
 			crv_printorium = {
@@ -1411,7 +1449,7 @@ return {
 		Voucher = {
 			v_crv_printerup = {
 				name = "Extra Ink",
-				text = { "Certain printers print {c:dark_edition}negative" },
+				text = { "Allows for certain", "{C:red}Printers{} to print {C:dark_edition}Negative" },
 			},
 		},
 	},
