@@ -279,6 +279,11 @@ return {
 				name = "DIRT",
 				text = { "{C:green}Contains the power of Mother Nature" },
 			},
+			m_crv_honey = {
+				name = "Honey",
+				text = { "Gives {C:attention}+$#1#{}",
+							"when scored" },
+			},
 		},
 		Joker = {
 			j_crv_revoo_ = {
@@ -476,7 +481,8 @@ return {
 				name = "Left Side of the Mega Printer",
 				text = {
 					"If all 3 parts of the mega printer",
-					"are present, print an {C:attention}Mega Contract.",
+					"are present, Fuse into the {C:attention}Mega Printer",
+					"when able to.",
 					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
@@ -484,7 +490,8 @@ return {
 				name = "Middle of the Mega Printer",
 				text = {
 					"If all 3 parts of the mega printer",
-					"are present, print an {C:attention}Mega Contract.",
+					"are present, Fuse into the {C:attention}Mega Printer",
+					"when able to.",
 					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
@@ -492,7 +499,15 @@ return {
 				name = "Right Side of the Mega Printer",
 				text = {
 					"If all 3 parts of the mega printer",
-					"is present, print an {C:attention}Mega Contract.",
+					"is present, Fuse into the {C:attention}Mega Printer",
+					"when able to.",
+					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
+				},
+			},
+			j_crv_full = {
+				name = "Mega Printer",
+				text = {
+					"When {C:attention}Blind{} is selected,","print a {C:attention}Mega Contract.",
 					"Gives {C:mult}+#1#{} Mult.","{C:inactive}(Must have room)"
 				},
 			},
@@ -1239,12 +1254,11 @@ return {
 			j_crv_ccat = {
 				name = "Copycat",
 				text = {
-					"Copies the {C:attention}rank{} of the {C:attention}first{} scored card.",
-					 "If a rank is {C:attention}already{} copied,",
-					 "copies the {C:attention}suit{} of the first scored card"
-					 ,"If suit and rank are {C:red}already set{},",
-					 "creates {C:attention}#1#{} copies of the set card",
-					 "{C:inactive}(Current Card: #2# of #3#)"
+					"Copies the rank of the first scored card,",
+					"or suit if it has already been copied.", 
+					"If there is nothing to copy, create #1#",
+					"copies of the set card.",
+					"{C:inactive}(Current Card: #2# of #3#)"
 				},	
 			},
 			j_crv_mcycle = {
@@ -1255,6 +1269,80 @@ return {
                     "{C:mult}+#1#{} Mult when scored",
 				},	
 			},
+			j_crv_safe = {
+				name = "Safe",
+				text = {
+					"{C:inactive,s:0.75}(Art by kusanehexaku and icyethics)",
+                    "Sets a {C:attention}4{} Digit password",
+					"between {C:attention}2-9{} everytime",
+					"a {C:attention}Blind{} is selected.",
+					"If the played cards match the password,",
+					'{C:green}"Unlock"{} the joker and gain {C:money}+$15{}',
+					"At the end of a round",
+					"{C:inactive}(2 and 9 included)",
+					"{C:inactive}[#1#]"
+				},	
+			},
+			j_crv_banker = {
+				name = "Banker",
+				text = {
+					"{C:inactive,s:0.75}(Art by kusanehexaku)",
+					"{C:inactive,s:0.75}(Main Code by bakshotmaxx)",
+                    "Gain {C:money}+#1#{} When added to deck.",
+					"Lose {C:red}-$#2#{} after every round.",
+					"{C:red}Self-destructs{} when dept is fully paid",
+					"{C:inactive}(Dept Paid: $#3#)",
+					"{C:inactive}(Sell Value is Current Dept)"
+				},	
+			},
+			j_crv_crem = {
+				name = "The Cremator",
+				text = {
+                    "Every played {C:attention}card{}",
+                    "permanently gains",
+                    "{X:mult,C:white}X#1#{} Mult when scored",
+					"Has a {C:green}#2# in #3#{} Chance to destroy them"
+				},	
+			},
+			j_crv_bee = {
+				name = "Bee",
+				text = {
+                    "Gives {C:money}+$#1#{}",
+					"If played hand contains a {C:attention}Honey{} card,",
+					"turns other scored cards", "into {C:attention}Honey{}"
+				},	
+			},
+			j_crv_jimbo = {
+				name = "Old Jimbo",
+				text = {
+                    "Spawns {C:attention}Jimbo's Apple",
+					"when obtained",
+					"{C:inactive}(This joker is {C:purple}Eternal{})"
+				},	
+			},
+				j_crv_adamap = {
+					name = "Jimbo's Apple",
+					text = {
+						"Gives {X:mult,C:white}X#1#{} Mult",
+						"When eaten, {C:red}Destroys{} {C:attention}Adam{} and {C:attention}Self",
+						"If a {C:attention}Blind{} is active, allows you to pass it",
+					},	
+			},
+			j_crv_fuj = {
+				name = "Fujokie",
+				text = {
+					"If played hand contains a ","{C:attention}King{} and a {C:attention}Jack",
+					"gives {X:mult,C:white}X#1#{} Mult.",
+				},
+		},
+		j_crv_tab = {
+			name = "Tab Keeper",
+			text = {
+			"All rerolls are {C:green}free{}",
+			"If this card is {C:red}removed{} from hand,",
+			"pay {C:red}5{} {C:inactive}(#1#){} for each reroll used."
+			},
+	},
 			--cryptid below
 			crv_printorium = {
 				name = "Printorium",
@@ -1504,9 +1592,7 @@ return {
 			crv_full = "Full House",
 			crv_flush = "Flush",
 			crv_click = "Click",
-		},
-		v_dictionary = {
-			a_notactive = "Not Active Yet",
+			crv_eat = "Eat"
 		},
 	},
 }

@@ -80,6 +80,13 @@ SMODS.Atlas{
 }
 
 SMODS.Atlas{
+    key = 'megaprinterc', 
+    path = 'megac.png', 
+    px = 174, 
+    py = 95 
+}
+
+SMODS.Atlas{
     key = 'megaenh', 
     path = 'megaenh.png', 
     px = 71, 

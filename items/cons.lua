@@ -46,6 +46,15 @@ SMODS.Consumable{
 
         local machine_keys = {"j_crv_head","j_crv_body","j_crv_back"}
 
+        SMODS.ObjectType({
+            key = "megaprinter",
+            cards = {
+                ["j_crv_head"] = true,
+                ["j_crv_body"] = true,
+                ["j_crv_back"] = true,
+            }
+        })
+
 
         SMODS.Consumable{
             key = 'dreamsdesires', 
@@ -65,10 +74,7 @@ SMODS.Consumable{
                 end
             end,
             use = function(self,card) 
-                    local random_key = (pseudorandom_element(machine_keys, pseudoseed("dreamsdesires")))
-                        local new_card = create_card(random_key, G.jokers, nil, nil, nil, nil, random_key)
-                        new_card:add_to_deck()
-                        G.jokers:emplace(new_card)
+                SMODS.add_card({set = "megaprinter",area = G.jokers})
                 delay(1.5)
             end
                 }
