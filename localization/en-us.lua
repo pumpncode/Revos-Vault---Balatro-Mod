@@ -1312,7 +1312,7 @@ return {
 					"turns other scored cards", "into {C:attention}Honey{}"
 				},	
 			},
-			j_crv_jimbo = {
+			j_crv_oldjimbo = {
 				name = "Old Jimbo",
 				text = {
                     "Spawns {C:attention}Jimbo's Apple",
