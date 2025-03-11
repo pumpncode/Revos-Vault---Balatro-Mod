@@ -1370,7 +1370,7 @@ return {
 					"into {C:attention}Honey{}",
 				},
 			},
-			j_crv_oldjimbo = {
+			j_crv_oldoldjimbo = {
 				name = "Old Jimbo",
 				text = {
 					"Spawns {C:attention}Jimbo's Apple",
@@ -1382,7 +1382,7 @@ return {
 				name = "Jimbo's Apple",
 				text = {
 					"Gives {X:mult,C:white}X#1#{} Mult",
-					"When eaten, {C:red}Destroys{} {C:attention}Adam{} and {C:attention}Self",
+					"When eaten, {C:red}Destroys{} {C:attention}Old Jimbo{} and {C:attention}Self",
 					"If a {C:attention}Blind{} is active, allows you to pass it",
 				},
 			},
