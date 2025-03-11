@@ -314,9 +314,7 @@ SMODS.Back {
 
             func = function()
 
-                joker_add('j_crv_head')
-                joker_add('j_crv_body')
-                joker_add('j_crv_back')
+                joker_add('j_crv_full')
 
                 return true
             end

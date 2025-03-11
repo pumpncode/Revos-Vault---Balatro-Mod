@@ -284,7 +284,11 @@ Game.init_game_object = function(self)
 	local ret = igo(self)
 	ret.reincarnation = 1
 	ret.henchmans = 0
-	ret.talisman = 0
+    if next(SMODS.find_mod("Talisman")) then
+	ret.talisman = 1
+    else
+        ret.talisman = 0
+    end
 	return ret
 end
 

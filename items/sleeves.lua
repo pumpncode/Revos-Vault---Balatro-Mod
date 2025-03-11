@@ -327,3 +327,48 @@ CardSleeves.Sleeve {
         }))
     end
 }
+CardSleeves.Sleeve {
+    key = "mqs",
+    atlas = "sleeves",
+    unlocked = false,
+    unlock_condition = {deck = "b_crv_rf", stake = "stake_gold"},
+    pos = { x = 4, y = 2 },
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                joker_add('j_crv_full')
+                return true
+            end
+        }))
+    end
+}
+CardSleeves.Sleeve {
+    key = "sbs",
+    atlas = "sleeves",
+    unlocked = false,
+    unlock_condition = {deck = "b_crv_sb", stake = "stake_gold"},
+    pos = { x = 0, y = 3 },
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                joker_add('j_crv_steelprinter')
+                return true
+            end
+        }))
+    end
+}
+CardSleeves.Sleeve {
+    key = "ups",
+    atlas = "sleeves",
+    unlocked = false,
+    unlock_condition = {deck = "b_crv_up", stake = "stake_gold"},
+    pos = { x = 1, y = 3 },
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                joker_add('j_crv_tierp')
+                return true
+            end
+        }))
+    end
+}
