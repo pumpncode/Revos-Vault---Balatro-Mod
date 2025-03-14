@@ -1370,7 +1370,7 @@ return {
 					"into {C:attention}Honey{}",
 				},
 			},
-			j_crv_oldoldjimbo = {
+			j_crv_oldjimbo = {
 				name = "Old Jimbo",
 				text = {
 					"Spawns {C:attention}Jimbo's Apple",
