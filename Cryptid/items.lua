@@ -78,13 +78,13 @@ local glprinter = {
         extra = {}
     },
     loc_vars = function(self, info_queue, center)
-        info_queue[#info_queue + 1] = G.P_CENTERS.crv_gldoc
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_gldoc
     end,
 
     calculate = function(self, card, context)
 
         if context.setting_blind then
-            local card = create_card("Consumable", G.consumeables, nil, nil, nil, nil, "crv_gldoc")
+            local card = create_card("Consumable", G.consumeables, nil, nil, nil, nil, "c_crv_gldoc")
             card:add_to_deck()
             G.consumeables:emplace(card)
         end

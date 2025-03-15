@@ -1631,7 +1631,7 @@ return {
 					"{C:dark_edition}Foil{},{C:dark_edition} Holographic{} or {C:dark_edition}Polychrome",
 				},
 			},
-			crv_gldoc = {
+			c_crv_gldoc = {
 				name = "Glitched Contract",
 				text = { "Turns #1# card or joker into", "{C:dark_edition}Glitched{}" },
 			},

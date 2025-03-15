@@ -1,4 +1,4 @@
-### Latest: Vers 3.8.7a:
+### Latest: Vers 3.8.7b:
 
 **Revo's Vault**
 
