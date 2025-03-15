@@ -7663,6 +7663,7 @@ SMODS.Joker({
 	end,
 })
 
+
 local card_highlighted_ref = Card.highlight
 function Card:highlight(is_highlighted)
 	self.highlighted = is_highlighted
