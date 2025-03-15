@@ -6,7 +6,7 @@
 	"description": "Adds a lot of new things",
 	"prefix": "crv",
 	"main_file": "main.lua",
-	"priority": 2,
+	"priority": 0,
 	"version": "3.8.6a",
 	"dependencies": ["Steamodded (>=1.0.0~ALPHA-0309c)"],
 	"badge_colour": "7E7AFF",

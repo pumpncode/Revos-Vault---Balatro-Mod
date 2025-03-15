@@ -189,10 +189,10 @@ SMODS.Joker({
 })
 
 SMODS.Consumable({
-	key = "dirtdocument", --key
-	set = "EnchancedDocuments", --the set of the card: corresponds to a consumable type
-	atlas = "chaosa", --atlas
-	pos = { x = 2, y = 1 }, --position in atlas
+	key = "dirtdocument", 
+	set = "EnchancedDocuments", 
+	atlas = "chaosa",
+	pos = { x = 2, y = 1 }, 
 	discovered = true,
 	config = {
 		extra = {
@@ -204,7 +204,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
 				return true
 			end
 		end
@@ -223,6 +223,9 @@ SMODS.Consumable({
 			}))
 			delay(0.5)
 		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return false
 	end,
 })
 

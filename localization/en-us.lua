@@ -1370,12 +1370,12 @@ return {
 					"into {C:attention}Honey{}",
 				},
 			},
-			j_crv_oldoldjimbo = {
+			j_crv_oldjimbo = {
 				name = "Old Jimbo",
 				text = {
 					"Spawns {C:attention}Jimbo's Apple",
 					"when obtained",
-					"{C:inactive}(This joker is {C:purple}Eternal{})",
+					"{C:inactive}(This joker is {C:purple}Eternal{C:inactive})",
 				},
 			},
 			j_crv_adamap = {
@@ -1441,25 +1441,75 @@ return {
 				name = "Mr. Bone",
 				text = {
 					"Prevents Death.",
-					"Sets ante to {C:attention}0",
-					"{C:red}-$#1#{} when triggered",
+					"Sets ante to {C:attention}0,",
+					"gives {C:red}-$#1#{} and adds {C:attention}#4#{} {C:attention}Stone",
+					"{C:attention}Cards{} to hand when triggered.",
 					"{C:red}Self-destructs{} after #2# {C:inactive}(#3#){} uses"
 				},
 			},
+			j_crv_invest = {
+				name = "Investor",
+				text = {
+					"Invest {C:attention}%25{} of your {C:money}Money.",
+					"After {C:attention}3{} rounds, create a {C:green}random joker{} depending on{}",
+					"the amount of money invested.",
+					"{C:inactive}(Invested: #4#, Rounds #3#)",
+				},
+			},
+			j_crv_ihavenoidea = {
+				name = "High Stakes",
+				text = {
+					"{C:red}Double{} the requirements", "for the next {C:attention}3{} Boss Blinds.",
+					"After 3 Boss Blinds, {C:red}self-destructs{} and creates",
+					"a {C:attention}Random{} {C:legendary}Legendary Joker",
+				}
+			},
+			j_crv_vsplash = {
+				name = "Vaulted Splash",
+				text = {
+					"{C:red}Temporarily Debuff{} Every scored card after the first.",
+					"Gives {X:mult,C:white}X#1#{} Mult for each debuffed card",
+				}
+			},
+			j_crv_ycard = {
+				name = "Yellow Card",
+				text = {
+                    "This Joker gains",
+                    "{C:chips}+#2#{} Chips for each",
+                    "{C:attention}Boosted Pack{} opened",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
+				}
+			},
+			j_crv_stamp = {
+				name = "Stamp",
+				text = {
+                    "Adds a random {C:attention}Seal{} to",
+					"{C:attention}Scored Cards{} if they don't",
+					"have any"
+				}
+			},
+			--rift raft below
+			j_crv_riftrinter = {
+				name = "Rift Printer",
+				text = {
+					"When Blind is selected,",
+					"print a random {C:riftraft_void}Rift Card{}",
+				}
+			},
 			--cryptid below
-			crv_printorium = {
-				name = "Printorium",
+			j_crv_printorium = {
+				name = "Printorium",	
 				text = {
 					"When Blind is selected,",
 					"{C:green}#1# in #2#{} Chance to create",
 					"an {C:cry_exotic}Exotic{} Joker",
 				},
 			},
-			crv_mrinter = {
+			j_crv_mrinter = {
 				name = "Mrinter",
 				text = { "When Blind is selected,", "Prints an {C:legendary}M Joker" },
 			},
-			crv_glprinter = {
+			j_crv_glprinter = {
 				name = "Glitched Printer",
 				text = { "When Blind is selected,", "Prints a {C:attention}Glitched Contract" },
 			},
@@ -1696,6 +1746,7 @@ return {
 			crv_flush = "Flush",
 			crv_click = "Click",
 			crv_eat = "Eat",
+			crv_invest = "Invest"
 		},
 	},
 }

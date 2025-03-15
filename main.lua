@@ -16,6 +16,10 @@ SMODS.load_file('items/chaos.lua')()
 
 --cross mod content--
 
+if next(SMODS.find_mod("RiftRaft")) then
+    SMODS.load_file('items/riftraft.lua')()
+end
+
 if CardSleeves then
 SMODS.load_file('items/sleeves.lua')()
 end
@@ -224,6 +228,13 @@ SMODS.Atlas{
 SMODS.Atlas{
     key = 'cryp', 
     path = 'cryp.png', 
+    px = 71, 
+    py = 95
+}
+
+SMODS.Atlas{
+    key = 'riftr', 
+    path = 'rift.png', 
     px = 71, 
     py = 95
 }

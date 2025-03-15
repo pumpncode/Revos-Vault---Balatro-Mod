@@ -647,19 +647,28 @@ SMODS.Joker({
 		extra = { 
             dollars = 25,
             chances = 3,
-            used = 0
+            used = 0,
+            stone = 10
             
         },
 	},
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = { crv.dollars,crv.chances,crv.used},
+			vars = { crv.dollars,crv.chances,crv.used,crv.stone},
 		}
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.end_of_round and context.game_over then
+            for i = 1, crv.stone do
+                local acard = create_playing_card({
+                    front = G.P_CARDS["Spade" .. "_" .. "King"],
+                    center = G.P_CENTERS.c_base,
+                }, G.hand, nil, nil, { G.C.SECONDARY_SET.Enhanced })
+                SMODS.change_base(acard, "Spade", "2")
+                acard:set_ability(G.P_CENTERS["m_stone"])
+            end
             crv.used = crv.used + 1
             ease_ante(-G.GAME.round_resets.ante)
             ease_dollars(-crv.dollars)
@@ -671,6 +680,62 @@ SMODS.Joker({
         if crv.used >= crv.chances then
             card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
         end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+
+
+SMODS.Joker({
+	key = "vsplash",
+	atlas = "Jokers2",
+	rarity = "crv_va",
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 7,
+		y = 9,
+	},
+	config = {
+		extra = { 
+			xmult = 2,   
+			cards = 0  
+        },
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.xmult},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if	context.before and
+			context.cardarea
+			and not context.repetition
+			and not context.individual
+			and not context.blueprint
+		then
+			for i = 1, #context.scoring_hand do
+				G.play.cards[i]:set_debuff(true)
+				G.play.cards[1]:set_debuff(false)
+			if i ~= 1 then
+				crv.cards = i-1
+			end
+			end
+		end
+		if context.joker_main and #context.full_hand > 1 then
+			print(crv.cards)
+			return {
+				x_mult = crv.cards*crv.xmult+1
+			}
+		end
 	end,
 	in_pool = function(self, wawa, wawa2)
 		return true

@@ -1447,20 +1447,32 @@ SMODS.Joker({
 				}),
 			}
 		end
-		if context.setting_blind or context.ending_shop or context.end_of_round and context.main_eval or context.buying_card then
-		if (#SMODS.find_card('j_crv_body') > 0) and (#SMODS.find_card('j_crv_head') > 0) and (#SMODS.find_card('j_crv_back') > 0) and not context.repetition and not context.blueprint and not context.individual then
-			for i = 1, #SMODS.find_card('j_crv_body') and #SMODS.find_card('j_crv_head') and #SMODS.find_card('j_crv_back') do
-			SMODS.find_card('j_crv_back')[i]:start_dissolve()
-			SMODS.find_card('j_crv_body')[i]:start_dissolve()
-			SMODS.find_card('j_crv_head')[i]:start_dissolve()
-				SMODS.add_card({
-					area = G.jokers,
-					key = "j_crv_full",
-				})
+		if
+			context.setting_blind
+			or context.ending_shop
+			or context.end_of_round and context.main_eval
+			or context.buying_card
+		then
+			if
+				(#SMODS.find_card("j_crv_body") > 0)
+				and (#SMODS.find_card("j_crv_head") > 0)
+				and (#SMODS.find_card("j_crv_back") > 0)
+				and not context.repetition
+				and not context.blueprint
+				and not context.individual
+			then
+				for i = 1, #SMODS.find_card("j_crv_body") and #SMODS.find_card("j_crv_head") and #SMODS.find_card("j_crv_back") do
+					SMODS.find_card("j_crv_back")[i]:start_dissolve()
+					SMODS.find_card("j_crv_body")[i]:start_dissolve()
+					SMODS.find_card("j_crv_head")[i]:start_dissolve()
+					SMODS.add_card({
+						area = G.jokers,
+						key = "j_crv_full",
+					})
+				end
 			end
 		end
-	end
-end,
+	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
@@ -1520,7 +1532,7 @@ SMODS.Joker({
 	no_collection = true,
 	display_size = {
 		w = 172,
-		h = 95
+		h = 95,
 	},
 	pos = {
 		x = 0,
@@ -6694,16 +6706,10 @@ SMODS.Joker({
 				end
 				local suit_suffix = tostring(card.ability.extra.suit)
 				for i = 1, 3 do
-					local acard = create_playing_card(
-						{
-							front = G.P_CARDS[card.ability.extra.suit .. "_" .. card.ability.extra.rank],
-							center = G.P_CENTERS.c_base,
-						},
-						G.hand,
-						nil,
-						nil,
-						{ G.C.SECONDARY_SET.Enhanced }
-					)
+					local acard = create_playing_card({
+						front = G.P_CARDS[card.ability.extra.suit .. "_" .. card.ability.extra.rank],
+						center = G.P_CENTERS.c_base,
+					}, G.hand, nil, nil, { G.C.SECONDARY_SET.Enhanced })
 					SMODS.change_base(acard, suit_suffix, rank_suffix)
 				end
 				card.ability.extra.rank = "N/A"
@@ -6759,7 +6765,7 @@ SMODS.Joker({
 				return {
 					message = localize("k_upgrade_ex"),
 					colour = G.C.MULT,
-					message_card = context.other_card
+					message_card = context.other_card,
 				}
 			end
 		end
@@ -6768,7 +6774,7 @@ SMODS.Joker({
 		return true
 	end,
 })
-	local numbers = {2,3,4,5,6,7,8,9}
+local numbers = { 2, 3, 4, 5, 6, 7, 8, 9 }
 
 SMODS.Joker({
 	key = "safe",
@@ -6787,13 +6793,13 @@ SMODS.Joker({
 	config = {
 		extra = {
 			unlocked = false,
-			uu = "Locked"
+			uu = "Locked",
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = { crv.uu,crv.d1,crv.d2,crv.d3,crv.d4,crv.unlocked },
+			vars = { crv.uu, crv.d1, crv.d2, crv.d3, crv.d4, crv.unlocked },
 		}
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -6806,7 +6812,7 @@ SMODS.Joker({
 		crv.d2 = digittwo
 		crv.d3 = digitthree
 		crv.d4 = digitfour
-		card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'Password Set!'})
+		card_eval_status_text(card, "extra", nil, nil, nil, { message = "Password Set!" })
 	end,
 
 	calculate = function(self, card, context)
@@ -6820,28 +6826,33 @@ SMODS.Joker({
 			crv.d2 = digittwo
 			crv.d3 = digitthree
 			crv.d4 = digitfour
-			card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'Reset!'})
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = "Reset!" })
 		end
 		if
-		 context.cardarea == G.play
-		and #context.full_hand >= 4
-		and not context.repetition
-		and not context.individual
-		and not context.blueprint
-		and crv.unlocked == false
+			context.cardarea == G.play
+			and #context.full_hand >= 4
+			and not context.repetition
+			and not context.individual
+			and not context.blueprint
+			and crv.unlocked == false
 		then
-			if G.play.cards[1].base.id == crv.d1 and G.play.cards[2].base.id == crv.d2 and G.play.cards[3].base.id == crv.d3 and G.play.cards[4].base.id == crv.d4 then
-			crv.unlocked = true
-			crv.uu = "Unlocked"
+			if
+				G.play.cards[1].base.id == crv.d1
+				and G.play.cards[2].base.id == crv.d2
+				and G.play.cards[3].base.id == crv.d3
+				and G.play.cards[4].base.id == crv.d4
+			then
+				crv.unlocked = true
+				crv.uu = "Unlocked"
 			end
-	end
-end,
-calc_dollar_bonus = function(self, card)
-	local crv = card.ability.extra
-	if crv.unlocked == true then
-	return 25
-	end
-end,
+		end
+	end,
+	calc_dollar_bonus = function(self, card)
+		local crv = card.ability.extra
+		if crv.unlocked == true then
+			return 25
+		end
+	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
@@ -6865,43 +6876,42 @@ SMODS.Joker({
 		extra = {
 			owe = 5,
 			owe_limit = 100,
-			current_dept = 0
-
+			current_dept = 0,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = { crv.owe_limit,crv.owe,crv.current_dept},
+			vars = { crv.owe_limit, crv.owe, crv.current_dept },
 		}
 	end,
-	add_to_deck = function(self,card,from_debuff)
+	add_to_deck = function(self, card, from_debuff)
 		local crv = card.ability.extra
 		card.ability.extra_value = -100 - card.sell_cost
 		card:set_cost()
 		ease_dollars(crv.owe_limit)
 	end,
-	calculate = function(self,card,context)
+	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.end_of_round and context.game_over == false and context.main_eval then
 			card.ability.extra_value = card.ability.extra_value + crv.owe
 			crv.current_dept = crv.current_dept + crv.owe
 			card:set_cost()
 			ease_dollars(-crv.owe)
-			card_eval_status_text(card, 'dollars', -crv.owe)
+			card_eval_status_text(card, "dollars", -crv.owe)
 			if crv.current_dept >= crv.owe_limit then
 				card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
 			end
 		end
-	end
+	end,
 })
 
 SMODS.Joker({
 	key = "crem",
 	config = {
 		extra = {
- 		odds = 4,
-		xmultadd = 0.5
+			odds = 4,
+			xmultadd = 0.5,
 		},
 	},
 	rarity = 3,
@@ -6916,19 +6926,24 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = { crv.xmultadd+1,(G.GAME.probabilities.normal or 1),card.ability.extra.odds },
+			vars = { crv.xmultadd + 1, (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.repetition and not context.blueprint then
 			context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 0
-			context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.xmultadd
+			context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult
+				+ card.ability.extra.xmultadd
 			return {
 				message = localize("k_upgrade_ex"),
 				colour = G.C.MULT,
 			}
 		end
-		if context.destroy_card and context.cardarea == G.play and pseudorandom('crem') < G.GAME.probabilities.normal / card.ability.extra.odds then
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and pseudorandom("crem") < G.GAME.probabilities.normal / card.ability.extra.odds
+		then
 			return {
 				remove = true,
 			}
@@ -6956,13 +6971,13 @@ SMODS.Joker({
 	config = {
 		extra = {
 			a = 1,
-			dollars = 5
+			dollars = 5,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_honey
 		return {
-		vars = {card.ability.extra.dollars}
+			vars = { card.ability.extra.dollars },
 		}
 	end,
 	calculate = function(self, card, context)
@@ -6970,19 +6985,19 @@ SMODS.Joker({
 			if context.cardarea == G.play then
 				for k, v in ipairs(context.scoring_hand) do
 					if SMODS.has_enhancement(v, "m_crv_honey") then
-					if context.other_card.ability.effect == "Base" and card.ability.extra.a == 1 then
-						context.other_card:set_ability(G.P_CENTERS["m_crv_honey"])
+						if context.other_card.ability.effect == "Base" and card.ability.extra.a == 1 then
+							context.other_card:set_ability(G.P_CENTERS["m_crv_honey"])
+						end
 					end
 				end
 			end
 		end
-	end
-	if context.joker_main then
-		return {
-			dollars = card.ability.extra.dollars
-		}
-	end
-end,
+		if context.joker_main then
+			return {
+				dollars = card.ability.extra.dollars,
+			}
+		end
+	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
@@ -7002,27 +7017,25 @@ SMODS.Joker({
 		x = 3,
 		y = 8,
 	},
-	soul_pos= {
+	soul_pos = {
 		x = 4,
-		y = 8
+		y = 8,
 	},
 	config = {
-		extra = {
-		},
+		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_honey
 		return {
-		vars = {card.ability.extra.dollars}
+			vars = { card.ability.extra.dollars },
 		}
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		SMODS.Stickers["eternal"]:apply(card, true)
-		SMODS.add_card{
+		SMODS.add_card({
 			set = "Joker",
 			area = G.jokers,
-			key = "j_crv_adamap"
-		}
+			key = "j_crv_adamap",
+		})
 	end,
 })
 
@@ -7248,9 +7261,9 @@ end
 G.FUNCS.crv_eaten = function(e)
 	local card = e.config.ref_table
 	card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-	if (#SMODS.find_card('j_crv_oldjimbo') > 0) then
-		for i = 1, #SMODS.find_card('j_crv_oldjimbo') do
-		SMODS.find_card('j_crv_oldjimbo')[1]:start_dissolve()
+	if #SMODS.find_card("j_crv_oldjimbo") > 0 then
+		for i = 1, #SMODS.find_card("j_crv_oldjimbo") do
+			SMODS.find_card("j_crv_oldjimbo")[1]:start_dissolve()
 		end
 	end
 	if G.STATE ~= G.STATES.SELECTING_HAND then
@@ -7278,7 +7291,7 @@ SMODS.Joker({
 	},
 	soul_pos = {
 		x = 6,
-		y = 8
+		y = 8,
 	},
 	config = {
 		extra = {
@@ -7287,16 +7300,16 @@ SMODS.Joker({
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-		vars = {card.ability.extra.xmult}
+			vars = { card.ability.extra.xmult },
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
 			return {
-				xmult = card.ability.extra.xmult
+				xmult = card.ability.extra.xmult,
 			}
-end
-end
+		end
+	end,
 })
 
 SMODS.Joker({
@@ -7305,7 +7318,7 @@ SMODS.Joker({
 		extra = {
 			xmult = 8.01,
 			check = 0,
-			check1 = 0
+			check1 = 0,
 		},
 	},
 	rarity = 3,
@@ -7341,9 +7354,9 @@ SMODS.Joker({
 				}
 			end
 		end
-			if context.final_scoring_step then
-				crv.check = 0
-				crv.check1 = 0
+		if context.final_scoring_step then
+			crv.check = 0
+			crv.check1 = 0
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
@@ -7355,7 +7368,7 @@ SMODS.Joker({
 	key = "tab",
 	config = {
 		extra = {
-			stored = 0
+			stored = 0,
 		},
 	},
 	rarity = 2,
@@ -7370,7 +7383,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = {crv.stored},
+			vars = { crv.stored },
 		}
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -7403,7 +7416,7 @@ SMODS.Joker({
 			check = "NXD",
 			xmult2 = 5,
 			xmultg = 2,
-			cardc = 3
+			cardc = 3,
 		},
 	},
 	rarity = 4,
@@ -7416,101 +7429,107 @@ SMODS.Joker({
 	},
 	soul_pos = {
 		x = 1,
-		y = 9
+		y = 9,
 	},
 	cost = 20,
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
-			vars = {crv.xmult,crv.discard,crv.xmult2,crv.xmultg,crv.cardc},
+			vars = { crv.xmult, crv.discard, crv.xmult2, crv.xmultg, crv.cardc },
 		}
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.joker_main and (#SMODS.find_card('j_chicot') > 0) and G.GAME.blind.boss then
+		if context.joker_main and (#SMODS.find_card("j_chicot") > 0) and G.GAME.blind.boss then
 			return {
-				x_mult = crv.xmult
+				x_mult = crv.xmult,
 			}
 		elseif context.joker_main then
-			if (#SMODS.find_card('j_chicot') > 0) or (#SMODS.find_card('j_perkeo') > 0) or (#SMODS.find_card('j_triboulet') > 0) or (#SMODS.find_card('j_yorick') > 0) or (#SMODS.find_card('j_caino') > 0) then
+			if
+				(#SMODS.find_card("j_chicot") > 0)
+				or (#SMODS.find_card("j_perkeo") > 0)
+				or (#SMODS.find_card("j_triboulet") > 0)
+				or (#SMODS.find_card("j_yorick") > 0)
+				or (#SMODS.find_card("j_caino") > 0)
+			then
 				return
 			else
-			return {
-				x_mult = crv.xmult2
-			}
+				return {
+					x_mult = crv.xmult2,
+				}
+			end
 		end
-	end
 		if context.destroy_card and context.cardarea == G.play then
-			if (#SMODS.find_card('j_caino') > 0) then
+			if #SMODS.find_card("j_caino") > 0 then
 				if context.destroy_card:is_face() then
 					return {
 						message = "For Canio!",
 					}
 				end
 			end
-	end
-	if context.ending_shop and (#SMODS.find_card('j_perkeo') > 0) then
-		if G.consumeables.cards[1] then
-			G.E_MANAGER:add_event(Event({
-				func = function() 
-					local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('rkn')), nil)
-					card:set_edition({negative = true}, true)
-					card:add_to_deck()
-					G.consumeables:emplace(card) 
-					return true
-				end}))
-			card_eval_status_text(card, 'extra', nil, nil, nil, {message = "For Perkeo!"})
 		end
-		return
-	end
-	if context.setting_blind and (#SMODS.find_card('j_triboulet') > 0) then
-		local faces = {"Queen","King"}
-		local suits = pseudorandom_element(SMODS.Suits, pseudoseed("rkn"))
-		local suit = tostring(suits)
-		local rank = pseudorandom_element(faces, pseudoseed("rkn"))
-		for i = 1, crv.cardc do
-		local acard = create_playing_card(
-			{
-				front = G.P_CARDS[suit .. "_" .. rank],
-				center = G.P_CENTERS.c_base,
-			},
-			G.hand,
-			nil,
-			nil,
-			{ G.C.SECONDARY_SET.Enhanced }
-		)
-		SMODS.change_base(acard, nil, rank)
-	end
-end
-	if context.setting_blind and (#SMODS.find_card('j_yorick') > 0) then
-		ease_discard(card.ability.extra.discard)
-		crv.check = "EXD"
-	end
-	if context.end_of_round and G.GAME.blind.boss and context.main_eval and (#SMODS.find_card('j_chicot') > 0) then 
-		crv.xmult = crv.xmult + crv.xmultg
-		if crv.check == "EXD" then
-		crv.check = "NXD"
-		G.GAME.round_resets.discards = G.GAME.round_resets.discards 
-		return {
-			message = "Upgrade!"
-		}
+		if context.ending_shop and (#SMODS.find_card("j_perkeo") > 0) then
+			if G.consumeables.cards[1] then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed("rkn")), nil)
+						card:set_edition({ negative = true }, true)
+						card:add_to_deck()
+						G.consumeables:emplace(card)
+						return true
+					end,
+				}))
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = "For Perkeo!" })
+			end
+			return
 		end
-	elseif context.end_of_round and context.main_eval then 
-		if crv.check == "EXD" then
-			crv.check = "NXD"
-			G.GAME.round_resets.discards = G.GAME.round_resets.discards 
+		if context.setting_blind and (#SMODS.find_card("j_triboulet") > 0) then
+			local faces = { "Queen", "King" }
+			local suits = pseudorandom_element(SMODS.Suits, pseudoseed("rkn"))
+			local suit = tostring(suits)
+			local rank = pseudorandom_element(faces, pseudoseed("rkn"))
+			for i = 1, crv.cardc do
+				local acard = create_playing_card({
+					front = G.P_CARDS[suit .. "_" .. rank],
+					center = G.P_CENTERS.c_base,
+				}, G.hand, nil, nil, { G.C.SECONDARY_SET.Enhanced })
+				SMODS.change_base(acard, nil, rank)
 			end
 		end
-end,
+		if context.setting_blind and (#SMODS.find_card("j_yorick") > 0) then
+			ease_discard(card.ability.extra.discard)
+			crv.check = "EXD"
+		end
+		if context.end_of_round and G.GAME.blind.boss and context.main_eval and (#SMODS.find_card("j_chicot") > 0) then
+			crv.xmult = crv.xmult + crv.xmultg
+			if crv.check == "EXD" then
+				crv.check = "NXD"
+				G.GAME.round_resets.discards = G.GAME.round_resets.discards
+				return {
+					message = "Upgrade!",
+				}
+			end
+		elseif context.end_of_round and context.main_eval then
+			if crv.check == "EXD" then
+				crv.check = "NXD"
+				G.GAME.round_resets.discards = G.GAME.round_resets.discards
+			end
+		end
+	end,
 	in_pool = function(self, wawa, wawa2)
-		if (#SMODS.find_card('j_chicot') > 0) or (#SMODS.find_card('j_perkeo') > 0) or (#SMODS.find_card('j_triboulet') > 0) or (#SMODS.find_card('j_yorick') > 0) or (#SMODS.find_card('j_caino') > 0) then
-		return true
+		if
+			(#SMODS.find_card("j_chicot") > 0)
+			or (#SMODS.find_card("j_perkeo") > 0)
+			or (#SMODS.find_card("j_triboulet") > 0)
+			or (#SMODS.find_card("j_yorick") > 0)
+			or (#SMODS.find_card("j_caino") > 0)
+		then
+			return true
 		else
 			return false
 		end
 	end,
 })
-
 
 SMODS.Joker({
 	key = "themoon",
@@ -7527,12 +7546,11 @@ SMODS.Joker({
 		y = 9,
 	},
 	config = {
-		extra = {
-		},
+		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { },
+			vars = {},
 		}
 	end,
 
@@ -7540,21 +7558,19 @@ SMODS.Joker({
 		if context.final_scoring_step then
 			if context.cardarea then
 				for k, v in ipairs(context.scoring_hand) do
-					if v:is_suit("Hearts", true)
-					then
-					v:flip()
-					SMODS.change_base(v, "Spades", nil)
-					v:flip()
+					if v:is_suit("Hearts", true) then
+						v:flip()
+						SMODS.change_base(v, "Spades", nil)
+						v:flip()
 					end
-					if v:is_suit("Diamonds", true)
-					then
-					v:flip()
-					SMODS.change_base(v, "Clubs", nil)
-					v:flip()
+					if v:is_suit("Diamonds", true) then
+						v:flip()
+						SMODS.change_base(v, "Clubs", nil)
+						v:flip()
+					end
+				end
 			end
 		end
-	end
-end
 	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
@@ -7576,12 +7592,11 @@ SMODS.Joker({
 		y = 9,
 	},
 	config = {
-		extra = {
-		},
+		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { },
+			vars = {},
 		}
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -7593,8 +7608,8 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play then
-					context.other_card:flip()
-					context.other_card:flip()
+			context.other_card:flip()
+			context.other_card:flip()
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
@@ -7617,12 +7632,11 @@ SMODS.Joker({
 		y = 9,
 	},
 	config = {
-		extra = {
-		},
+		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { },
+			vars = {},
 		}
 	end,
 
@@ -7630,23 +7644,516 @@ SMODS.Joker({
 		if context.final_scoring_step then
 			if context.cardarea then
 				for k, v in ipairs(context.scoring_hand) do
-					if v:is_suit("Spades", true)
-					then
-					v:flip()
-					SMODS.change_base(v, "Hearts", nil)
-					v:flip()
+					if v:is_suit("Spades", true) then
+						v:flip()
+						SMODS.change_base(v, "Hearts", nil)
+						v:flip()
 					end
-					if v:is_suit("Clubs", true)
-					then
-					v:flip()
-					SMODS.change_base(v, "Diamonds", nil)
-					v:flip()
+					if v:is_suit("Clubs", true) then
+						v:flip()
+						SMODS.change_base(v, "Diamonds", nil)
+						v:flip()
+					end
+				end
 			end
 		end
-	end
-end
 	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
 })
+
+local card_highlighted_ref = Card.highlight
+function Card:highlight(is_highlighted)
+	self.highlighted = is_highlighted
+	if self.highlighted and string.find(self.ability.name, "j_crv_invest") then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = RevosVault.investment(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	else
+		card_highlighted_ref(self, is_highlighted)
+	end
+end
+
+RevosVault.investment = function(card, args)
+	local args = args or {}
+	local sell = nil
+	local use = nil
+
+	if args.sell then
+		sell = {
+			n = G.UIT.C,
+			config = {
+				align = "cr",
+			},
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = {
+						ref_table = card,
+						align = "cr",
+						padding = 0.1,
+						r = 0.08,
+						minw = 1.25,
+						hover = true,
+						shadow = true,
+						colour = G.C.UI.BACKGROUND_INACTIVE,
+						one_press = true,
+						button = "sell_card",
+						func = "can_sell_card",
+					},
+					nodes = {
+						{
+							n = G.UIT.B,
+							config = {
+								w = 0.1,
+								h = 0.6,
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								align = "tm",
+							},
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+										maxw = 1.25,
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("b_sell"),
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+									},
+								},
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("$"),
+												colour = G.C.WHITE,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+										{
+											n = G.UIT.T,
+											config = {
+												ref_table = card,
+												ref_value = "sell_cost_label",
+												colour = G.C.WHITE,
+												scale = 0.55,
+												shadow = true,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end
+
+	if args.use then
+		use = {
+			n = G.UIT.C,
+			config = {
+				align = "cr",
+			},
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = {
+						ref_table = card,
+						align = "cr",
+						maxw = 1.25,
+						padding = 0.1,
+						r = 0.08,
+						minw = 1.25,
+						minh = 0,
+						hover = true,
+						shadow = true,
+						colour = G.C.RED,
+						button = "crv_invest",
+					},
+					nodes = {
+						{
+							n = G.UIT.B,
+							config = {
+								w = 0.1,
+								h = 0.6,
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								align = "tm",
+							},
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+										maxw = 1.25,
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("crv_invest"),
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.6,
+												shadow = true,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end
+
+	return {
+		n = G.UIT.ROOT,
+		config = {
+			align = "cr",
+			padding = 0,
+			colour = G.C.CLEAR,
+		},
+		nodes = {
+			{
+				n = G.UIT.C,
+				config = {
+					padding = 0.15,
+					align = "cl",
+				},
+				nodes = {
+					sell and {
+						n = G.UIT.R,
+						config = {
+							align = "cl",
+						},
+						nodes = { sell },
+					} or nil,
+					use and {
+						n = G.UIT.R,
+						config = {
+							align = "cl",
+						},
+						nodes = { use },
+					} or nil,
+				},
+			},
+		},
+	}
+end
+
+G.FUNCS.crv_invest = function(e)
+	local card = e.config.ref_table
+if card.ability.extra["check"] == false then
+	card.ability.extra["check"] = true 
+	if G.GAME.talisman == 1 then
+	card.ability.extra["invested"] = to_number(G.GAME.dollars/4)
+	else
+	card.ability.extra["invested"] = G.GAME.dollars/4
+	end
+	else
+		print("Can't invest yet")
+end 
+end
+
+SMODS.Joker({
+	key = "invest",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 5,
+		y = 9,
+	},
+	config = {
+		extra = {
+			card = 1,
+			check = false,
+			timer = 0,
+			invested = 0
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.card, crv.check, crv.timer, crv.invested},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+			if crv.check == true then
+
+				if context.end_of_round and context.main_eval and not context.blueprint and crv.timer < 3 then
+					crv.timer = crv.timer + 1
+				
+				elseif context.end_of_round and context.main_eval and not context.blueprint then
+					crv.check = false
+					crv.timer = 0
+					
+					if crv.invested <= 5 then
+						
+						SMODS.add_card({
+							set = "Joker",
+							area = G.jokers,
+							rarity = 0
+						})
+						crv.invested = 0
+					elseif crv.invested > 5 and crv.invested <= 10 then
+					
+						SMODS.add_card({
+							set = "Joker",
+							area = G.jokers,
+							rarity = 0.95
+						})
+						crv.invested = 0
+					elseif crv.invested > 10 and crv.invested <= 15 then
+					
+						SMODS.add_card({
+							set = "Joker",
+							area = G.jokers,
+							rarity = 3
+						})
+						crv.invested = 0
+					elseif crv.invested > 15 and crv.invested <= 20 then
+					
+						SMODS.add_card({
+							set = "Joker",
+							area = G.jokers,
+							legendary = true
+						})
+						crv.invested = 0
+					elseif crv.invested > 20 then
+						
+						SMODS.add_card({
+							set = "Joker",
+							area = G.jokers,
+							legendary = true,
+							edition = "e_negative"
+						})
+						crv.invested = 0
+					end
+				
+				end
+			end
+			if card.ability.extra.timer >= 3 then
+				local eval = function()
+					return card.ability.extra.timer >= 3
+				end
+				juice_card_until(card, eval, true)
+			end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "ihavenoidea",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 6,
+		y = 9,
+	},
+	config = {
+		extra = {
+			requirement = 0,
+
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.requirement},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+			if context.setting_blind and G.GAME.blind.boss then
+				G.GAME.blind.chips = G.GAME.blind.chips*2
+				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+				card:juice_up(0.3, 0.4)
+				return {
+					message = "Blind Doubled",
+				}
+			end
+			if context.end_of_round and context.main_eval and G.GAME.blind.boss and not context.blueprint and crv.requirement < 3 then
+				crv.requirement = crv.requirement + 1
+			elseif context.end_of_round and context.main_eval and not context.blueprint and crv.requirement >= 3 then
+				SMODS.add_card({
+					set = "Joker",
+					area = G.jokers,
+					legendary = true
+				})
+				card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+			end
+			if crv.requirement >= 3 then
+				local eval = function()
+					return crv.requirement >= 3
+				end
+				juice_card_until(card, eval, true)
+			end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "ycard",
+	atlas = "Jokers2",
+	rarity = 1,
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 8,
+		y = 9,
+	},
+	config = {
+		extra = {
+			chips = 0,
+			chipg = 5,
+
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.chips,crv.chipg},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.open_booster then
+			if not context.blueprint then
+				crv.chips = crv.chips + crv.chipg
+								G.E_MANAGER:add_event(Event({
+					func = function() 
+						card_eval_status_text(card, 'extra', nil, nil, nil, {
+							message = localize{type = 'variable', key = 'a_mult', vars = {crv.chipg}},
+							colour = G.C.CHIPS,
+							delay = 0.45, 
+							card = self
+						}) 
+						return true
+					end}))
+			end
+		end
+		if context.joker_main then
+			return {
+				chips = crv.chips
+			}
+		end
+		
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "stamp",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	pos = {
+		x = 9,
+		y = 0,
+	},
+	config = {
+		extra = {
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.individual then
+			if context.cardarea == G.play then
+				for k, v in ipairs(context.scoring_hand) do
+					if context.other_card.ability.seal == nil then
+						context.other_card:juice_up(0.3, 0.4)
+						context.other_card:set_seal(						
+							SMODS.poll_seal({
+							guaranteed = true,
+						}),
+						true,
+						false
+					)
+					end
+				end
+			end
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+
+
