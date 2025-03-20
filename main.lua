@@ -11,6 +11,8 @@ SMODS.load_file('items/enh.lua')()
 SMODS.load_file('items/cons.lua')()
 SMODS.load_file('items/booster.lua')()
 SMODS.load_file('items/vouchers.lua')()
+SMODS.load_file('items/stickers.lua')()
+SMODS.load_file('items/stakes.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
 
@@ -223,6 +225,13 @@ SMODS.Atlas{
     path = 'sleeves.png', 
     px = 73, 
     py = 95 
+}
+
+SMODS.Atlas{
+    key = 'stakes', 
+    path = 'stakes.png', 
+    px = 29, 
+    py = 29 
 }
 
 SMODS.Atlas{

@@ -336,7 +336,7 @@ end,
              end
             end,
         }
-        
+
         SMODS.Consumable{
             key = 'megadoc', 
             set = 'EnchancedDocuments', 

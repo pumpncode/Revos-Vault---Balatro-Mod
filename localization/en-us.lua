@@ -1488,6 +1488,38 @@ return {
 					"have any"
 				}
 			},
+			j_crv_cotn = {
+				name = "Call of The Night",
+				text = {
+                    "When {C:attention}Blind{} is selected,",
+					"Apply {C:red}Vampiric{} To the joker on the right",
+					"and gain {X:mult,C:white}X#1#{} Mult. Gained Mult increases",
+					"by {X:mult,C:white}X0.1{} if played hand contains a {C:hearts}Heart{} Card.",
+					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+				}
+			},
+			j_crv_mon = {
+				name = "Jokepoly",
+				text = {
+                    "If you {C:red}end the round{} with only a {C:attention}single hand played",
+					"This Joker gains {C:attention}+5{} Jokepoly Cash.",
+					"5 Jokepoly Cash = {C:attention}%5 Discount{} on the shop",
+					"{C:inactive}(Currently {C:attention}#1#{C:inactive} Jokepoly Cash)"
+				}
+			},
+			j_crv_kqb = {
+				name = "Killer Queen: Bites the Dust",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"apply {C:attention}Perishable{} to the Joker on the right.",
+					"Gives {X:mult,C:white}X#2#{} Mult",
+					"for each {C:attention}Perishable{} Joker {C:inactive}",
+					"in your {C:attention}hand.{}",
+					"{C:red}!You Cannot Lose!",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)",
+					"{C:inactive,s:0.8}i wanna add a new sticker for this",
+				}
+			},
 			--rift raft below
 			j_crv_riftrinter = {
 				name = "Rift Printer",
@@ -1676,6 +1708,23 @@ return {
 					text = { "???" },
 				},
 			},
+			crv_vamp = {
+				name = "Vampiric",
+				text = {
+					"When setting {C:attention}Blind",
+					"if there is nothing", 
+					"to the right",
+					"or left of this card,",
+					"{C:red}self-destructs"
+				}
+			},
+			crv_bomb = {
+				name = "Bomb",
+				text = {
+					"Destroy the Joker",
+				"On the right, on the left and self",
+			"after #1# Rounds"}
+			}
 		},
 		Tag = {
 			tag_crv_pst = {
@@ -1700,6 +1749,8 @@ return {
 			crv_p = "Printer",
 			scrap = "Scraps",
 			enchanceddocuments = "Contracts",
+			crv_vamp = "Vampiric",
+			crv_bomb = "Bomb"
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",
@@ -1730,6 +1781,7 @@ return {
 			k_crv_tit = "Evolution",
 			k_crv_chaos = "Chaos",
 			k_crv_va = "Vaulted",
+			k_crv_secret = "Secret",
 			k_crv_rain = "Drowned!",
 			k_crv_rain2 = "A new day awaits..",
 			k_scrap = "Scrap",
