@@ -2117,6 +2117,46 @@ SMODS.Joker({
 	end,
 })
 
+local tags = {"tag_buffoon","tag_charm","tag_ethereal","tag_meteor","tag_standard",}
+SMODS.Joker({
+	key = "3dp",
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	atlas = "Jokers2",
+	rarity = "crv_p",
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 9,
+		y = 6,
+	},
+	config = {
+		extra = {},
+	},
+
+	calculate = function(self, card, context)
+		if context.setting_blind then
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							add_tag(Tag(pseudorandom_element(tags, pseudoseed("3dp"))))
+							play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+							play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+							return true
+						end,
+					}))
+			end
+		end,
+})
+
+--printers end here [PEP]
+
 SMODS.Joker({
 	key = "ghostbanana",
 	atlas = "gb",
@@ -8342,3 +8382,167 @@ SMODS.Joker({
 		return true
 	end,
 })
+
+
+
+SMODS.Joker({
+	key = "maz",
+	atlas = "Jokers2",
+	rarity = 3,
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 9,
+		y = 3,
+	},
+	config = {
+		extra = {
+			xmult = 1,
+			xmultg = 1.5
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.xmult,card.ability.extra.xmultg},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.setting_blind and not context.repetition and not context.blueprint then
+			local jokers = {}
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= card and G.jokers.cards[i].debuff == false then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
+			end
+			if #jokers > 0 then
+				if not context.blueprint then
+					local chosen_joker = pseudorandom_element(jokers, pseudoseed("ml"))
+					SMODS.debuff_card(chosen_joker, true, card.config.center.key)
+					crv.xmult = crv.xmult + crv.xmultg
+					return {
+						message = "Painful!",
+					}
+				end
+			end
+		end
+		if context.joker_main then
+			return {
+				x_mult = card.ability.extra.xmult,
+			}
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "bocchi",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 9,
+		y = 4,
+	},
+	config = {
+		extra = {
+			xmult = 1,
+			allcards = 0
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.allcards, card.ability.extra.xmult,},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.joker_main then
+			local all_cards = 0
+			for k, v in ipairs(G.hand.cards) do
+				all_cards = all_cards + 1
+				card.ability.extra.allcards = all_cards
+			end
+			if all_cards > 1 then
+				return {
+					xmult = card.ability.extra.xmult*card.ability.extra.allcards
+				}
+			end
+		end
+	end,
+		in_pool = function(self, wawa, wawa2)
+			return true
+		end,
+	})
+
+
+
+	
+SMODS.Joker({
+	key = "jhaunted",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 9,
+		y = 5,
+	},
+	config = {
+		extra = {
+			cards = 1
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.cards},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.setting_blind then
+			local jokers = {}
+                for i=1, #G.jokers.cards do 
+                    if G.jokers.cards[i] ~= card then
+                        jokers[#jokers+1] = G.jokers.cards[i]
+                    end
+                end
+                if #jokers > 0 then 
+                    if #G.jokers.cards <= G.jokers.config.card_limit then 
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+                        local chosen_joker = pseudorandom_element(jokers, pseudoseed('haunted'))
+                        local card2 = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
+						SMODS.Stickers["crv_haunted"]:apply(card2, true)
+                        card2:add_to_deck()
+                        G.jokers:emplace(card2)
+                    else
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
+                    end
+                else
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_other_jokers')})
+                end
+			end
+	end,
+		in_pool = function(self, wawa, wawa2)
+			return true
+		end,
+	})
+
+
+

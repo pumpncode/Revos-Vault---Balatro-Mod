@@ -9,4 +9,9 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 27 Prin
 
 
 you can reach out to me from discord (revoo_.) for any suggestions or bug reports
-	
+
+
+### Credits
+
+--MilƱMeg4 for great ideas
+--BepisFever for button codes

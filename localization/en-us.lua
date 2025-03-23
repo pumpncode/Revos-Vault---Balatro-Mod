@@ -294,6 +294,23 @@ return {
 				name = "Honey",
 				text = { "Gives {C:attention}+$#1#{}", "when scored" },
 			},
+			--reverse tarot
+			m_crv_quartz = {
+				name = "Quartz",
+				text = {
+					"{X:chips,C:white}X#1#{} Chips.",
+					"{C:green}#2# in #3# {}chance to",
+					"turn into {C:attention}Crystal",
+				},
+			},
+			m_crv_coatedcopper = {
+				name = "Coated Copper",
+				text = {
+					"{X:chips,C:white}X#1#{} Chips",
+						"while this card",
+						"stays in hand",
+				}
+			},
 		},
 		Joker = {
 			j_crv_revoo_ = {
@@ -1520,6 +1537,37 @@ return {
 					"{C:inactive,s:0.8}i wanna add a new sticker for this",
 				}
 			},
+			j_crv_maz = {
+				name = "Mazochist",
+				text = {
+					"{C:red}Permanently Debuff{} a random joker",
+					"when setting {C:attention}Blind.{}",
+					"Gains {X:mult,C:white}X#2#{} Mult after",
+					"Debuffing a card.",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+				}
+			},
+			j_crv_bocchi = {
+				name = "Bocchi the Joker",
+				text = {
+					"{X:mult,C:white}X#2#{} Mult for each","card {C:attention}held in hand"
+				}
+			},
+			j_crv_jhaunted = {
+				name = "Haunted Joker",
+				text = {
+					"When Blind is selected","create a {C:dark_edition}Haunted{} Copy","of a {C:attention}Random Joker{} in hand"
+				}
+			},
+			j_crv_3dp = {
+				name = "3D Printer",
+				text = {
+					"When Blind is selected,",
+					"print a Random",
+					"{C:attention}Booster Tag{}",
+					"{C:inactive,s:0.8}(Only Vanilla)"
+				},
+			},
 			--rift raft below
 			j_crv_riftrinter = {
 				name = "Rift Printer",
@@ -1544,6 +1592,39 @@ return {
 			j_crv_glprinter = {
 				name = "Glitched Printer",
 				text = { "When Blind is selected,", "Prints a {C:attention}Glitched Contract" },
+			},
+			--reverse tarots here
+			j_crv_reverseprinter = {
+				name = "Reverse Printer",
+				text = {
+					"When Blind is selected,",
+					"print a {C:attention}Random{} Reverse Tarot",
+					"{C:inactive}(Must have room)",
+				},
+			},
+			j_crv_zodiacprinter = {
+				name = "Zodiac Printer",
+				text = {
+					"When Blind is selected,",
+					"print a {C:purple}Zodiac{} Card",
+					"{C:inactive}(Must have room)",
+				},
+			},
+			j_crv_quartzprinter = {
+				name = "Crystal Printer",
+				text = {
+					"When Blind is selected,",
+					"print a {C:attention}Crystal Document",
+					"{C:inactive}(Must have room)",
+				},
+			},
+			j_crv_copperprinter = {
+				name = "Copper Printer",
+				text = {
+					"When Blind is selected,",
+					"print a {C:attention}Copper Document",
+					"{C:inactive}(Must have room)",
+				},
 			},
 			--ends here
 		},
@@ -1663,9 +1744,29 @@ return {
 					"{C:dark_edition}Foil{},{C:dark_edition} Holographic{} or {C:dark_edition}Polychrome",
 				},
 			},
+			---cross-mod content below
+
+			--cryptid
 			c_crv_gldoc = {
 				name = "Glitched Contract",
 				text = { "Turns #1# card or joker into", "{C:dark_edition}Glitched{}" },
+			},
+			--reverse tarot
+			c_crv_crystalcontract = {
+				name = "Crystal Contract",
+				text = {
+					"Turns #1# card into a{C:attention} Crystal Card",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Quartz Card{}",
+				},
+			},
+			c_crv_coppercontract = {
+				name = "Copper Contract",
+				text = {
+					"Turns #1# card into a{C:attention} Copper Card",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Coated Copper Card{}",
+				},
 			},
 		},
 		Spectral = {
@@ -1696,6 +1797,18 @@ return {
 				name = "Printer Pack",
 				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:red} Printers{}" },
 			},
+			p_crv_cbst = {
+				name = "Contract Pack",
+				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:attention} Contracts{} to", "use immediately" },
+			},
+			p_crv_cbst2 = {
+				name = "Jumbo Contract  Pack",
+				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:attention} Contracts{} to","use immediately"},
+			},
+			p_crv_cbst3 = {
+				name = "Mega Contract Pack",
+				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:attention} Contracts{} to","use immediately" },
+			},
 			undiscovered_scrap = {
 				undiscovered = {
 					name = "???",
@@ -1718,12 +1831,11 @@ return {
 					"{C:red}self-destructs"
 				}
 			},
-			crv_bomb = {
-				name = "Bomb",
+			crv_haunted = {
+				name = "Haunted",
 				text = {
-					"Destroy the Joker",
-				"On the right, on the left and self",
-			"after #1# Rounds"}
+					"This card is {C:red}destroyed",
+					"at the end of the round"}
 			}
 		},
 		Tag = {
@@ -1734,6 +1846,13 @@ return {
 			tag_crv_reintag = {
 				name = "Reincarnation Tag",
 				text = { "Next shop has a free", "{C:attention}Reincarnated Jimbo" },
+			},
+			tag_crv_packtag = {
+				name = "Archive Tag",
+                text={
+                    "Gives a free",
+                    "{C:attention}Mega Contract Pack",
+                },
 			},
 		},
 		Voucher = {
@@ -1750,10 +1869,11 @@ return {
 			scrap = "Scraps",
 			enchanceddocuments = "Contracts",
 			crv_vamp = "Vampiric",
-			crv_bomb = "Bomb"
+			crv_haunted = "Haunted"
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",
+			k_crv_cbstg = "Contract Pack",
 			k_crv_std_ex = "Sacrified to the Divine!",
 			k_crv_sbg_ex = "Shielded by Grace!",
 			k_crv_cbm_ex = "The Company is Hiring!",

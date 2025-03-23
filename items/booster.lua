@@ -1,7 +1,4 @@
-local cc = {'j_crv_printer','j_crv_rustyprinter','j_crv_jimboprinter','j_crv_obeliskprinter','j_crv_moneyprinter',
-'j_crv_brokenprinter','j_crv_faxprinter','j_crv_spectralprinter','j_crv_glassprinter',
-'j_crv_smile!','j_crv_lpm','j_crv_devilishprinter','j_crv_head','j_crv_body','j_crv_back','j_crv_steelprinter',
-'j_crv_tierp','j_crv_luckyprinter','j_crv_celestialprinter','j_crv_pcp','j_crv_fcp','j_crv_hcp','j_crv_ncp','j_crv_urp'}
+
 
 SMODS.Booster{
     key = 'pbst',
@@ -12,6 +9,76 @@ SMODS.Booster{
     cost = 4,
     weight = 0.03,
     create_card = function(self, card, i)
-        return create_card("Printers", G.pack_cards, nil, nil, true,  true, pseudorandom_element(cc, pseudoseed('pbst')))
+        return SMODS.create_card({
+            set = "Joker",
+            rarity = "crv_p"
+        })
+    end,
+}
+
+
+SMODS.Booster{
+    key = 'cbst',
+    atlas = 'booster',
+    loc_txt = {
+        name = "Cont",
+        text = {"Cont"}
+    },
+    pos= {x=0,y=1},
+    config = {extra = 2,choose = 1},
+    group_key = 'k_crv_cbstg',
+    cost = 4,
+    draw_hand = true,
+    weight = 0.8,
+    kind = "Contract",
+    create_card = function(self, card, i)
+        return SMODS.create_card({
+            set = "EnchancedDocuments",
+            skip_materialize = true
+        })
+    end,
+}
+
+SMODS.Booster{
+    key = 'cbst2',
+    atlas = 'booster',
+    loc_txt = {
+        name = "Cont",
+        text = {"Cont"}
+    },
+    pos= {x=1,y=1},
+    config = {extra = 4,choose = 1},
+    group_key = 'k_crv_cbstg',
+    cost = 6,
+    draw_hand = true,
+    weight = 0.4,
+    kind = "Contract",
+    create_card = function(self, card, i)
+        return SMODS.create_card({
+            set = "EnchancedDocuments",
+            skip_materialize = true
+        })
+    end,
+}
+
+SMODS.Booster{
+    key = 'cbst3',
+    atlas = 'booster',
+    loc_txt = {
+        name = "Cont",
+        text = {"Cont"}
+    },
+    pos= {x=2,y=1},
+    config = {extra = 4,choose = 2},
+    group_key = 'k_crv_cbstg',
+    cost = 8,
+    draw_hand = true,
+    weight = 0.4,
+    kind = "Contract",
+    create_card = function(self, card, i)
+        return SMODS.create_card({
+            set = "EnchancedDocuments",
+            skip_materialize = true
+        })
     end,
 }

@@ -13,6 +13,7 @@ SMODS.load_file('items/booster.lua')()
 SMODS.load_file('items/vouchers.lua')()
 SMODS.load_file('items/stickers.lua')()
 SMODS.load_file('items/stakes.lua')()
+SMODS.load_file('items/challenge.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
 
@@ -20,6 +21,10 @@ SMODS.load_file('items/chaos.lua')()
 
 if next(SMODS.find_mod("RiftRaft")) then
     SMODS.load_file('items/riftraft.lua')()
+end
+
+if next(SMODS.find_mod("reverse_tarot")) then
+    SMODS.load_file('items/reversetarot.lua')()
 end
 
 if CardSleeves then
@@ -248,6 +253,12 @@ SMODS.Atlas{
     py = 95
 }
 
+SMODS.Atlas{
+    key = 'rtarot', 
+    path = 'reversetarot.png', 
+    px = 71, 
+    py = 95
+}
 
 
 

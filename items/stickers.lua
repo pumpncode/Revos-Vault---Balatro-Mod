@@ -20,9 +20,32 @@ SMODS.Sticker{
 					break
 				end
 			end
-			if G.jokers.cards[rr + 1] == nil or G.jokers.cards[rr - 1] == nil then
+			if G.jokers.cards[rr + 1] == nil or G.jokers.cards[rr - 1] == nil and not context.blueprint then
                 card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
             end
         end
     end
 }
+
+SMODS.Sticker{
+    key = "haunted",
+    badge_colour = HEX('232323'),
+    atlas = "enh",
+    pos = {
+        x = 3,
+        y = 2   
+    },
+    sets = {
+        Joker = true
+    },
+    rate = 0.2,
+    needs_enable_flag = true,
+    calculate = function(self,card,context)
+			if context.end_of_round and context.main_eval and not context.blueprint then
+                card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+            end
+        end
+}
+
+
+
