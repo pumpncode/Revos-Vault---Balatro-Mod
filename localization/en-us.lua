@@ -110,6 +110,33 @@ return {
 				text = { "Start with an", "Eternal{C:attention,T:j_crv_urp} Unregistered Printer{}." },
 			},
 		},
+		Blind = {
+            bl_crv_minimalizm={
+                name="Minimalizm",
+                text={
+                    "Must play 3 cards or less",
+                },
+            },
+            bl_crv_rrp={
+                name="Russian Roulette+",
+                text={
+                    "One random joker is destroyed",
+					"after every hand"
+                },
+            },
+			bl_crv_fragile={
+                name="Fragile",
+                text={
+                    "Destroy a random","played card before scoring"
+                },
+            },
+			bl_crv_no={
+                name="The Swarm",
+                text={
+                    "Upon entering blind,","blind requirement is multiplied","by the ammount of your jokers"
+                },
+            },
+		},
 		Sleeve = {
 			sleeve_crv_machinerys = {
 				name = "Machinery Sleeve",
@@ -1568,6 +1595,33 @@ return {
 					"{C:inactive,s:0.8}(Only Vanilla)"
 				},
 			},
+			j_crv_roulj = {
+				name = "Roulette",
+				text = {
+					"At the {C:attention}End of a Round{}, choose randomly Between {C:dark_edition}Black{} and {C:red}Red{}.",
+					"If set Bet is the same as the choosen bet, {C:attention}Double{} your money,",
+					"{C:red}Half{} it if otherwise {C:inactive,s:0.8}(Maximum of {C:money,s:0.8}$#5#{C:inactive,s:0.8}){}. Has a {C:green}#2# in #3#{} Chance to Choose {C:green}Green.",
+					"If won on green, gain {C:money}$#4#{}",
+					"{C:inactive}(Currently betting on #1#)"
+				},
+			},
+			j_crv_nyancat = {
+				name = "Nyan Cat",
+				text = {
+					"Scored cards turn {C:dark_edition}Polychrome{}",
+					"after scoring"
+				},
+			},
+			j_crv_mathness = {
+				name = "Mathness",
+				text = {
+					"When setting blind,",
+					"{C:green}#1# in #2#{} chance to",
+					"apply {C:attention}Absolute{} to jokers",
+					"without it.",
+					"Destroys them otherwise"
+				},
+			},
 			--rift raft below
 			j_crv_riftrinter = {
 				name = "Rift Printer",
@@ -1703,7 +1757,7 @@ return {
 			},
 			c_crv_t3doc = {
 				name = "Tier 3 Contract",
-				text = { "Turns up to #1# card into a", "{C:attention}Tier 3 Card" },
+				text = { "Turns up to #1# cards into a", "{C:attention}Tier 3 Card" },
 			},
 			c_crv_boostdoc = {
 				name = "Boosted Contract",
@@ -1836,7 +1890,20 @@ return {
 				text = {
 					"This card is {C:red}destroyed",
 					"at the end of the round"}
-			}
+			},
+			crv_radioactive = {
+				name = "Radioactive",
+				text = {
+					"At the end of a round, {C:red}randomly",
+					"{C:red}destroy{} the joker on the left or right"}
+			},
+			crv_absolute = {
+				name = "Absolute",
+				text = {
+					"{C:green}1 in 4 chance to",
+					"clone self in base form {C:inactive,s:0.8}(No editions etc.)",
+				"{C:inactive}(Chances are not affected", "{C:inactive}by Oops! All 6s or anything similar)"}
+			},
 		},
 		Tag = {
 			tag_crv_pst = {
@@ -1869,7 +1936,9 @@ return {
 			scrap = "Scraps",
 			enchanceddocuments = "Contracts",
 			crv_vamp = "Vampiric",
-			crv_haunted = "Haunted"
+			crv_haunted = "Haunted",
+			crv_radioactive = "Radioactive",
+			crv_absolute = "Absolute"
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",
@@ -1903,6 +1972,9 @@ return {
 			k_crv_va = "Vaulted",
 			k_crv_secret = "Secret",
 			k_crv_rain = "Drowned!",
+			k_crv_won = "Won!",
+			k_crv_lost = "Lost!",
+			k_crv_jackpot = "Jackpot!",
 			k_crv_rain2 = "A new day awaits..",
 			k_scrap = "Scrap",
 			b_scrap_cards = "Scrap",
@@ -1918,7 +1990,9 @@ return {
 			crv_flush = "Flush",
 			crv_click = "Click",
 			crv_eat = "Eat",
-			crv_invest = "Invest"
+			crv_invest = "Invest",
+			crv_change = "Change",
+			crv_bet = "Bet"
 		},
 	},
 }

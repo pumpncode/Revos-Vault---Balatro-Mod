@@ -249,9 +249,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play then
-			if
-				context.other_card:get_id() >= 2
-				and context.other_card:get_id() < 11
+				if (context.other_card:get_id() >= 0 or context.other_card:get_id() <= 0) and not context.other_card:is_face() and context.other_card:get_id() ~= 14 
 				and not context.blueprint
 				and not context.repetition
 			then
@@ -2117,7 +2115,7 @@ SMODS.Joker({
 	end,
 })
 
-local tags = {"tag_buffoon","tag_charm","tag_ethereal","tag_meteor","tag_standard",}
+local tags = { "tag_buffoon", "tag_charm", "tag_ethereal", "tag_meteor", "tag_standard" }
 SMODS.Joker({
 	key = "3dp",
 	loc_vars = function(self, info_queue, card)
@@ -2143,16 +2141,16 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind then
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							add_tag(Tag(pseudorandom_element(tags, pseudoseed("3dp"))))
-							play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
-							play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
-							return true
-						end,
-					}))
-			end
-		end,
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					add_tag(Tag(pseudorandom_element(tags, pseudoseed("3dp"))))
+					play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+					play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+					return true
+				end,
+			}))
+		end
+	end,
 })
 
 --printers end here [PEP]
@@ -6643,7 +6641,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 1.5,
-			odds = 100
+			odds = 100,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -6678,8 +6676,8 @@ SMODS.Joker({
 					area = G.jokers,
 					key = "j_crv_kqb",
 				})
+			end
 		end
-	end
 	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
@@ -7365,9 +7363,9 @@ SMODS.Joker({
 			}
 		end
 	end,
-	in_pool = function(self,wawa,wawa2)
+	in_pool = function(self, wawa, wawa2)
 		return false
-	end
+	end,
 })
 
 SMODS.Joker({
@@ -8383,8 +8381,6 @@ SMODS.Joker({
 	end,
 })
 
-
-
 SMODS.Joker({
 	key = "maz",
 	atlas = "Jokers2",
@@ -8402,12 +8398,12 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 1,
-			xmultg = 1.5
+			xmultg = 1.5,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { card.ability.extra.xmult,card.ability.extra.xmultg},
+			vars = { card.ability.extra.xmult, card.ability.extra.xmultg },
 		}
 	end,
 
@@ -8459,12 +8455,12 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 1,
-			allcards = 0
+			allcards = 0,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { card.ability.extra.allcards, card.ability.extra.xmult,},
+			vars = { card.ability.extra.allcards, card.ability.extra.xmult },
 		}
 	end,
 
@@ -8477,19 +8473,16 @@ SMODS.Joker({
 			end
 			if all_cards > 1 then
 				return {
-					xmult = card.ability.extra.xmult*card.ability.extra.allcards
+					xmult = card.ability.extra.xmult * card.ability.extra.allcards,
 				}
 			end
 		end
 	end,
-		in_pool = function(self, wawa, wawa2)
-			return true
-		end,
-	})
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
 
-
-
-	
 SMODS.Joker({
 	key = "jhaunted",
 	atlas = "Jokers2",
@@ -8506,43 +8499,505 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			cards = 1
+			cards = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { card.ability.extra.cards},
+			vars = { card.ability.extra.cards },
 		}
 	end,
 
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			local jokers = {}
-                for i=1, #G.jokers.cards do 
-                    if G.jokers.cards[i] ~= card then
-                        jokers[#jokers+1] = G.jokers.cards[i]
-                    end
-                end
-                if #jokers > 0 then 
-                    if #G.jokers.cards <= G.jokers.config.card_limit then 
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
-                        local chosen_joker = pseudorandom_element(jokers, pseudoseed('haunted'))
-                        local card2 = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
-						SMODS.Stickers["crv_haunted"]:apply(card2, true)
-                        card2:add_to_deck()
-                        G.jokers:emplace(card2)
-                    else
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
-                    end
-                else
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_other_jokers')})
-                end
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= card then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
 			end
+			if #jokers > 0 then
+				if #G.jokers.cards <= G.jokers.config.card_limit then
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_duplicated_ex") }
+					)
+					local chosen_joker = pseudorandom_element(jokers, pseudoseed("haunted"))
+					local card2 =
+						copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
+					SMODS.Stickers["crv_haunted"]:apply(card2, true)
+					card2:add_to_deck()
+					G.jokers:emplace(card2)
+				else
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_no_room_ex") }
+					)
+				end
+			else
+				card_eval_status_text(
+					context.blueprint_card or card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_no_other_jokers") }
+				)
+			end
+		end
 	end,
-		in_pool = function(self, wawa, wawa2)
-			return true
-		end,
-	})
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
 
+local card_highlighted_ref = Card.highlight
+function Card:highlight(is_highlighted)
+	self.highlighted = is_highlighted
+	if self.highlighted and string.find(self.ability.name, "j_crv_roulj") and self.area == G.jokers then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
 
+		self.children.use_button = UIBox({
+			definition = RevosVault.betchange(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	else
+		card_highlighted_ref(self, is_highlighted)
+	end
+end
+
+RevosVault.betchange = function(card, args)
+	local args = args or {}
+	local sell = nil
+	local use = nil
+
+	if args.sell then
+		sell = {
+			n = G.UIT.C,
+			config = {
+				align = "cr",
+			},
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = {
+						ref_table = card,
+						align = "cr",
+						padding = 0.1,
+						r = 0.08,
+						minw = 1.25,
+						hover = true,
+						shadow = true,
+						colour = G.C.UI.BACKGROUND_INACTIVE,
+						one_press = true,
+						button = "sell_card",
+						func = "can_sell_card",
+					},
+					nodes = {
+						{
+							n = G.UIT.B,
+							config = {
+								w = 0.1,
+								h = 0.6,
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								align = "tm",
+							},
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+										maxw = 1.25,
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("b_sell"),
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+									},
+								},
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("$"),
+												colour = G.C.WHITE,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+										{
+											n = G.UIT.T,
+											config = {
+												ref_table = card,
+												ref_value = "sell_cost_label",
+												colour = G.C.WHITE,
+												scale = 0.55,
+												shadow = true,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end
+
+	if args.use then
+		use = {
+			n = G.UIT.C,
+			config = {
+				align = "cr",
+			},
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = {
+						ref_table = card,
+						align = "cr",
+						maxw = 1.25,
+						padding = 0.1,
+						r = 0.08,
+						minw = 1.25,
+						minh = 0,
+						hover = true,
+						shadow = true,
+						colour = G.C.RED,
+						button = "crv_changebet",
+					},
+					nodes = {
+						{
+							n = G.UIT.B,
+							config = {
+								w = 0.1,
+								h = 0.6,
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								align = "tm",
+							},
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+										maxw = 1.25,
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("crv_change"),
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+									},
+								},
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("crv_bet"),
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.5,
+												shadow = true,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end
+
+	return {
+		n = G.UIT.ROOT,
+		config = {
+			align = "cr",
+			padding = 0,
+			colour = G.C.CLEAR,
+		},
+		nodes = {
+			{
+				n = G.UIT.C,
+				config = {
+					padding = 0.15,
+					align = "cl",
+				},
+				nodes = {
+					sell and {
+						n = G.UIT.R,
+						config = {
+							align = "cl",
+						},
+						nodes = { sell },
+					} or nil,
+					use and {
+						n = G.UIT.R,
+						config = {
+							align = "cl",
+						},
+						nodes = { use },
+					} or nil,
+				},
+			},
+		},
+	}
+end
+
+G.FUNCS.crv_changebet = function(e)
+	local card = e.config.ref_table
+	if card.ability.extra["bet"] == "Black" then
+		card.ability.extra["bet"] = "Red"
+	elseif card.ability.extra["bet"] == "Red" then
+		card.ability.extra["bet"] = "Green"
+	elseif card.ability.extra["bet"] == "Green" then
+		card.ability.extra["bet"] = "Black"
+	end
+end
+
+-- find a way to localize this
+local bets = {"Black","Green","Red"}
+SMODS.Joker({
+	key = "roulj",
+	config = {
+		extra = {
+			bet = "Black",
+			max = 20,
+			odds = 100,
+			green = 500
+		},
+	},
+	rarity = 3,
+	atlas = "Jokers2",
+	blueprint_compat = false,
+	discovered = false,
+	no_collection = false,
+	pos = {
+		x = 9,
+		y = 7,
+	},
+	cost = 10,
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = { crv.bet,G.GAME.probabilities.normal, crv.odds, crv.green,crv.max },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.end_of_round and context.main_eval and not context.blueprint then
+			if crv.bet == "Green" then
+				if pseudorandom("roulj") < G.GAME.probabilities.normal / card.ability.extra.odds then
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.4,
+				func = function()
+					play_sound("timpani")
+					ease_dollars(crv.green)
+					return true
+				end,
+			}))
+			return {
+				message = localize("k_crv_jackpot")
+			},
+			delay(0.6)
+				else
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 0.4,
+						func = function()
+						play_sound("timpani")
+						ease_dollars(-(math.max(0, math.min(G.GAME.dollars, crv.max))), true)
+						return true
+					end,
+				}))
+				return {
+					message = localize("k_crv_lost")
+				},
+				delay(0.6)
+		    	end
+			end
+			if crv.bet ~= "Green" then
+			local chosenbet = pseudorandom_element(bets, pseudoseed("roulj"))
+			if crv.bet == chosenbet then
+				G.E_MANAGER:add_event(Event({
+					trigger = "after",
+					delay = 0.4,
+					func = function()
+						play_sound("timpani")
+						ease_dollars(math.max(0, math.min(G.GAME.dollars, crv.max)), true)
+						return true
+					end,
+				}))
+				return {
+					message = localize("k_crv_won")
+				},
+				delay(0.6)
+			else
+				G.E_MANAGER:add_event(Event({
+					trigger = "after",
+					delay = 0.4,
+					func = function()
+						play_sound("timpani")
+						ease_dollars(-(math.max(0, math.min(G.GAME.dollars, crv.max))), true)
+						return true
+					end,
+				}))
+				return {
+					message = localize("k_crv_lost")
+				},
+				delay(0.6)
+			end
+		end
+	end
+end,
+
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "nyancat",
+	atlas = "Jokers2",
+	rarity = 3,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 9,
+		y = 8,
+	},
+	config = {
+		extra = {},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.final_scoring_step then
+			if context.cardarea then
+				for k, v in ipairs(context.scoring_hand) do
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							if not v.edition then
+								v:juice_up(0.3, 0.4)
+								v:set_edition({ polychrome = true }, true)
+							return true
+							end
+						end
+					}))
+				end
+			end
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end
+})
+
+SMODS.Joker({
+	key = "mathness",
+	atlas = "Jokers2",
+	rarity = 3,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 10,
+		y = 0,
+	},
+	config = {
+		extra = {
+			odds = 2
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {G.GAME.probabilities.normal,crv.odds},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.setting_blind and not context.blueprint and not G.GAME.blind.boss then
+			local jokers = {}
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.crv_absolute then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
+			end
+			if #jokers > 0 then
+				if not context.blueprint then
+					local chosen_joker = pseudorandom_element(jokers, pseudoseed("mathness"))
+					if pseudorandom("mathness") < G.GAME.probabilities.normal / crv.odds then
+						SMODS.Stickers["crv_absolute"]:apply(chosen_joker, true)
+					else
+						chosen_joker:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+					end
+			end
+		end
+	end
+end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end
+})
 

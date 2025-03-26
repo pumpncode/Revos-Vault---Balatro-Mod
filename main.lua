@@ -14,6 +14,7 @@ SMODS.load_file('items/vouchers.lua')()
 SMODS.load_file('items/stickers.lua')()
 SMODS.load_file('items/stakes.lua')()
 SMODS.load_file('items/challenge.lua')()
+SMODS.load_file('items/blinds.lua')()
 SMODS.load_file('items/vault.lua')()
 SMODS.load_file('items/chaos.lua')()
 
@@ -216,6 +217,15 @@ SMODS.Atlas{
     path = 'tags.png', 
     px = 34, 
     py = 34 
+}
+
+SMODS.Atlas{
+    key = 'blinds', 
+    path = 'blinds.png', 
+    atlas_table = 'ANIMATION_ATLAS',
+    px = 34, 
+    py = 34,
+    frames = 21
 }
 
 SMODS.Atlas{
