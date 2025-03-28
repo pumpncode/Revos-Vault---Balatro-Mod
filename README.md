@@ -8,6 +8,33 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 29 Prin
 ![image](https://github.com/user-attachments/assets/e07fde43-ff72-4b40-b670-67c37747633b)
 
 
+
+ **Cross-Mod Content**
+--
+
+**[Cryptid](https://github.com/MathIsFun0/Cryptid)**
+
+- 3 Jokers
+- 1 Consumable
+
+**[CardSleeves](https://github.com/larswijn/CardSleeves)**
+
+- 17 Sleeves
+
+**[Rift-Raft](https://github.com/vitellaryjr/RiftRaft)**
+
+- 1 Joker
+- 1 Consumable
+
+**[Reverse Tarots](https://github.com/SkywardTARDIS/balatro_reverse_tarots)**
+
+- 5 Jokers
+- 3 Consumables
+- 2 Enhancements
+
+------
+
+
 you can reach out to me from discord (revoo_.) for any suggestions or bug reports
 
 
