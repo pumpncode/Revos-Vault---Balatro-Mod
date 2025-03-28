@@ -25,3 +25,16 @@ SMODS.Challenge{
     }},
 
 }
+
+SMODS.Challenge{
+    key = "absolmath",
+    loc_txt = {
+        name = "Absolute Mathematics",
+    },
+    jokers = {{
+        id = "j_crv_mathness",
+        eternal = true,
+    },
+}
+
+}

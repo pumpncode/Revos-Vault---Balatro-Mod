@@ -312,3 +312,96 @@ SMODS.Consumable{
 	end,
 }
 
+--
+
+SMODS.Joker({
+	key = "omniprinter",
+	atlas = "rtarot",
+	rarity = "crv_p",
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 1,
+		y = 4,
+	},
+	config = {
+		extra = {},
+	},
+	calculate = function(self, card, context)
+		if context.setting_blind then
+			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				SMODS.add_card({
+					area = G.consumeables,
+					edition = "e_negative",
+					key = "c_crv_omnicontract",
+				})
+			else
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
+					SMODS.add_card({
+						area = G.consumeables,
+						key = "c_crv_omnicontract",
+					})
+				end
+			end
+		end
+	end,
+})
+	local omnisuits = {1,2,3,4}
+SMODS.Consumable{
+	key = 'omnicontract', 
+	set = 'EnchancedDocuments', 
+	discovered = true,
+	atlas = 'rtarot', 
+	pos = {x = 2, y = 4}, 
+	config = {
+		extra = {
+			cards = 1, odds = 4}
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+	  end,
+	can_use = function(self,card)
+		if G and G.hand then
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+				return true
+			end
+		end
+		return false
+	end,
+	use = function(self,card,area,copier)
+		if pseudorandom('coppercontract') < G.GAME.probabilities.normal / card.ability.extra.odds then
+			for i, card in pairs(G.hand.highlighted) do
+				card:set_ability(G.P_CENTERS["m_reverse_omnirank"])
+				G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+				delay(0.5)
+			end
+	else 
+		for i, card in pairs(G.hand.highlighted) do
+			local ss = pseudorandom_element(omnisuits, pseudoseed("omnicontract"))
+			if ss == 1 then
+				card:set_ability(G.P_CENTERS["m_reverse_secondary_heart"])
+				G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+				delay(0.5)
+			elseif ss == 2 then
+				card:set_ability(G.P_CENTERS["m_reverse_secondary_spade"])
+				G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+				delay(0.5)
+			elseif ss == 3 then
+				card:set_ability(G.P_CENTERS["m_reverse_secondary_diamond"])
+				G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+				delay(0.5)
+			elseif ss == 4 then
+				card:set_ability(G.P_CENTERS["m_reverse_secondary_club"])
+				G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+				delay(0.5)
+			end
+	end
+	
+	 end
+	 
+	end,
+}

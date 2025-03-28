@@ -93,9 +93,14 @@ SMODS.Sticker({
 	},
 	rate = 0.2,
 	needs_enable_flag = true,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {G.GAME.probabilities.normal},
+		}
+	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and not context.blueprint then
-            if pseudorandom("absolute") < 1 / 4 then
+            if pseudorandom("absolute") < G.GAME.probabilities.normal / 4 then
                 local rr = nil
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then

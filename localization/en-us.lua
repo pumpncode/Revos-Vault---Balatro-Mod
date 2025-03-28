@@ -1619,7 +1619,24 @@ return {
 					"{C:green}#1# in #2#{} chance to",
 					"apply {C:attention}Absolute{} to jokers",
 					"without it.",
-					"Destroys them otherwise"
+					"Destroys them otherwise.",
+				},
+			},
+			j_crv_radtank = {
+				name = "Radioactive Tank",
+				text = {
+					"At the and of a round",
+					"randomly apply",
+					"{C:green}Radioactive{} to the",
+					"joker on the right or the left",
+				},
+			},
+			j_crv_defaultprinter = {
+				name = "Printer",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"Print a random {C:attention}Card",
+					"{C:inactive,s:0.8}(Joker, Consumable or Playing Card)"
 				},
 			},
 			--rift raft below
@@ -1677,6 +1694,14 @@ return {
 				text = {
 					"When Blind is selected,",
 					"print a {C:attention}Copper Document",
+					"{C:inactive}(Must have room)",
+				},
+			},
+			j_crv_omniprinter = {
+				name = "Omni Printer",
+				text = {
+					"When Blind is selected,",
+					"print a {C:attention}Omni Document",
 					"{C:inactive}(Must have room)",
 				},
 			},
@@ -1794,8 +1819,8 @@ return {
 			c_crv_uedoc = {
 				name = "Ultimate Edition Contract",
 				text = {
-					"Turns #1# card or joker into",
-					"{C:dark_edition}Foil{},{C:dark_edition} Holographic{} or {C:dark_edition}Polychrome",
+					"Adds a {C:dark_edition}Random Edition",
+				    "to #1# card or joker"
 				},
 			},
 			---cross-mod content below
@@ -1803,7 +1828,7 @@ return {
 			--cryptid
 			c_crv_gldoc = {
 				name = "Glitched Contract",
-				text = { "Turns #1# card or joker into", "{C:dark_edition}Glitched{}" },
+				text = { "Adds {C:dark_edition}Glitched{}", "to #1# card or joker" },
 			},
 			--reverse tarot
 			c_crv_crystalcontract = {
@@ -1820,6 +1845,15 @@ return {
 					"Turns #1# card into a{C:attention} Copper Card",
 					"{C:green} #2# in #3#{} chance for it to be a",
 					"{C:dark_edition} Coated Copper Card{}",
+				},
+			},
+			c_crv_omnicontract = {
+				name = "Omni Contract",
+				text = {
+					"Randomly turns #1# card into a{C:attention} Secondary Spade",
+					"{C:attention}or Secondary Club or Secondary Diamond or Secondary Heart.",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Omni Rank Card{}",
 				},
 			},
 		},
@@ -1894,15 +1928,17 @@ return {
 			crv_radioactive = {
 				name = "Radioactive",
 				text = {
-					"At the end of a round, {C:red}randomly",
-					"{C:red}destroy{} the joker on the left or right"}
+					"At the end of a round,",
+					"{C:red}randomly destroy{} the joker",
+					 "on the left or right"}
 			},
 			crv_absolute = {
 				name = "Absolute",
 				text = {
-					"{C:green}1 in 4 chance to",
-					"clone self in base form {C:inactive,s:0.8}(No editions etc.)",
-				"{C:inactive}(Chances are not affected", "{C:inactive}by Oops! All 6s or anything similar)"}
+					"{C:green}#1# in 4{} chance to",
+					"clone self in base form",
+					 "{C:inactive,s:0.8}(No editions etc.)",
+				},
 			},
 		},
 		Tag = {
