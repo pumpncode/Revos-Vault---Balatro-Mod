@@ -741,3 +741,110 @@ SMODS.Joker({
 		return true
 	end,
 })
+
+SMODS.Joker({
+	key = "vacrobat",
+	atlas = "Jokers2",
+	rarity = "crv_va",
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 10,
+		y = 2,
+	},
+	config = {
+		extra = { 
+			xmult = 6,
+			xmult2 = 3   
+        },
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.xmult,crv.xmult2},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main and G.GAME.current_round.hands_left == 0 then
+			return {
+				x_mult = card.ability.extra.xmult
+			}
+		elseif context.joker_main and G.GAME.current_round.hands_played == 0 then
+			return {
+				x_mult = -(card.ability.extra.xmult2)
+			}
+	end
+end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+
+local yesno = {1,2,3,4}
+
+SMODS.Joker({
+	key = "vstencil",
+	atlas = "Jokers2",
+	rarity = "crv_va",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	pos = {
+		x = 10,
+		y = 6,
+	},
+	config = {
+		extra = {
+			xmult = 2
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		if G and G.jokers and G.jokers.cards then
+		return {
+			vars = {#G.jokers.cards*card.ability.extra.xmult, card.ability.extra.xmult},
+		}
+	else
+		return {
+			vars = {card.ability.extra.xmult*0, card.ability.extra.xmult},
+		}
+	end
+end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.joker_main then
+			return {
+				x_mult = crv.xmult*#G.jokers.cards
+			}
+		end
+		if context.end_of_round and context.main_eval and not context.blueprint then
+			local yesno = pseudorandom_element(yesno, pseudoseed("rrp"))
+			if yesno == 1 then
+			local jokers = {}
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= card and G.jokers.cards[i].config.center.key ~= "j_crv_vstencil" then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
+			end
+		if #jokers > 0 then
+			local _card = pseudorandom_element(jokers, pseudoseed("rrp"))
+			if _card then
+				_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+			end
+		end
+	end
+end
+end,
+
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+

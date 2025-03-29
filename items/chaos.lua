@@ -18,9 +18,6 @@ SMODS.Atlas({
 	py = 95,
 })
 
-local chaos_keys =
-	{ "j_crv_chaoticprintermachine", "j_crv_thefaxprinter", "j_crv_dirtinator9999", "j_crv_holyprinter", "j_crv_hfj" }
-
 SMODS.Consumable({
 	key = "chaoticsol",
 	set = "Spectral",
@@ -42,11 +39,11 @@ SMODS.Consumable({
 		return true
 	end,
 	use = function(self, card)
-		local random_key = chaos_keys[math.random(#chaos_keys)]
-		local new_card = create_card(random_key, G.jokers, nil, nil, nil, nil, random_key)
-		new_card:add_to_deck()
-		G.jokers:emplace(new_card)
-		delay(1.5)
+		SMODS.add_card{
+			set = "Joker",
+			rarity = "crv_chaos",
+			area = G.jokers,
+		}
 	end,
 })
 
@@ -86,7 +83,7 @@ SMODS.Joker({
 	end
 end,
 	in_pool = function(self, wawa, wawa2)
-		return false
+		return true
 	end,
 })
 
@@ -120,7 +117,7 @@ SMODS.Joker({
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		return false
+		return true
 	end,
 })
 
@@ -184,7 +181,7 @@ SMODS.Joker({
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		return false
+		return true
 	end,
 })
 
@@ -257,7 +254,7 @@ SMODS.Enhancement({
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		return false
+		return true
 	end,
 })
 
@@ -294,7 +291,7 @@ SMODS.Joker({
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		return false
+		return true
 	end,
 })
 
@@ -364,7 +361,7 @@ SMODS.Joker({
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		return false
+		return true
 	end,
 })
 
@@ -390,4 +387,38 @@ SMODS.Joker({
       G.jokers.config.card_limit = G.jokers.config.card_limit * card.ability.extra.multi
     end
   end
+})
+
+SMODS.Joker({
+	key = "crash",
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	atlas = "chaosa",
+	rarity = "crv_chaos",
+	cost = 30,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 2,
+		y = 2,
+	},
+	config = {
+		extra = {},
+	},
+
+	calculate = function(self, card, context)
+		if context.setting_blind and G.GAME.blind.boss then
+			for i = 1, 999999999999999999999999 do
+		SMODS.add_card{
+			key = "j_chicot"
+		}
+	end
+	end
+	end,
 })
