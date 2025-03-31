@@ -290,7 +290,7 @@ SMODS.Atlas({
 SMODS.Atlas({
 	key = "togaw",
 	path = "toga.png",
-	px = 72,
+	px = 73,
 	py = 95,
 })
 

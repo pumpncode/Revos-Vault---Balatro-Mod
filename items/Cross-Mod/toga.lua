@@ -33,6 +33,10 @@ SMODS.Joker({
 		x = 0,
 		y = 0,
 	},
+	display_size = {
+		w = 74,
+		h = 95,
+	},
 	config = {
 		extra = {},
 	},
