@@ -52,6 +52,11 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 })
 
 SMODS.Joker({
@@ -93,6 +98,11 @@ SMODS.Joker({
 			end
 		end
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 })
 
 SMODS.Joker({
@@ -130,6 +140,11 @@ SMODS.Joker({
 			end
 		end
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 })
 
 SMODS.Enhancement({
@@ -172,6 +187,11 @@ SMODS.Enhancement({
 			}))
 		end
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 })
 
 SMODS.Consumable{
@@ -212,6 +232,11 @@ SMODS.Consumable{
 	 end
 	 
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 }
 
 --
@@ -250,6 +275,11 @@ SMODS.Joker({
 			end
 		end
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 })
 
 SMODS.Enhancement({
@@ -269,7 +299,13 @@ SMODS.Enhancement({
         if context.main_scoring and context.cardarea == G.hand then
             return {x_chips = card.ability.extra.x_chips}
         end
-    end
+    end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
+	
 })
 
 SMODS.Consumable{
@@ -310,6 +346,11 @@ SMODS.Consumable{
 	 end
 	 
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 }
 
 --
@@ -349,6 +390,11 @@ SMODS.Joker({
 			end
 		end
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end
 })
 	local omnisuits = {1,2,3,4}
 SMODS.Consumable{
@@ -404,4 +450,9 @@ SMODS.Consumable{
 	 end
 	 
 	end,
+	set_badges = function(self, card, badges)
+		G.C.REV1 = HEX("0fe0d4")
+		G.C.REV2 = HEX("e00f68")
+		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
+	end	
 }

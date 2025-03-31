@@ -341,6 +341,15 @@ return {
 					"stays in hand",
 				},
 			},
+			--Prism here
+			m_crv_saphire = {
+                name = "Sapphire Card",
+                text = {"{X:mult,C:white} X#1#{} Mult",
+                    "Gains {X:mult,C:white} X#2#{} Mult if held in",
+                    "hand at end of round"
+                }
+
+            },
 		},
 		Joker = {
 			j_crv_revoo_ = {
@@ -1632,10 +1641,12 @@ return {
 			j_crv_radtank = {
 				name = "Radioactive Tank",
 				text = {
-					"At the and of a round",
-					"randomly apply",
+					"At the {C:attention}end of a round",
+					"{C:red}randomly{} apply",
 					"{C:green}Radioactive{} to the",
-					"joker on the right or the left",
+					"joker on the {C:attention}right or the {C:attention}left.",
+					"Stores {C:money}#1#${C:inactive} (#2#){} for each applied sticker.",
+					"Get the cash when {C:attention}Sold"
 				},
 			},
 			j_crv_defaultprinter = {
@@ -1752,6 +1763,18 @@ return {
 				name = "Glitched Printer",
 				text = { "When Blind is selected,", "Prints a {C:attention}Glitched Contract" },
 			},
+			j_crv_rtprinter = {
+				name = "Rooted Printer",
+				text = { "When Blind is selected,", "Prints a {C:cry_code}://SEED" },
+			},
+			j_crv_qtprinter = {
+				name = "Quintuple Printer",
+				text = { "When Blind is selected,", "Prints a {C:attention}Quintuple Tag" },
+			},
+			j_crv_brprinter = {
+				name = "Printer Drawing",
+				text = { "When Blind is selected,", "Prints {C:attention}Boredom" },
+			},
 			--reverse tarots here
 			j_crv_reverseprinter = {
 				name = "Reverse Printer",
@@ -1792,6 +1815,59 @@ return {
 					"print an {C:attention}Omni Document",
 					"{C:inactive}(Must have room)",
 				},
+			},
+			-- TOGAPack here
+			j_crv_printerexe={
+				name = "Print",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"print a {C:attention}Windows Joker{}",
+					"from {C:money}TOGA's Stuff"
+				}
+			},
+			j_crv_printzip={
+				name = "Printer.ZIP",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"create a {C:attention}Joker.ZIP{} or {C:attention}Application{} Tag"
+				}
+			},
+			--Maximus here
+			j_crv_horosprint={
+				name = "Horoscope Printer",
+				text = {
+					"After every {C:attention}Boss Blind{}",
+					"print a {C:purple}Horoscope{} card"
+				}
+			},
+			j_crv_jimboprinterplus={
+				name = "Jimbo Printer+",
+				text = { "When Blind is selected,", "print a {C:attention}Joker+{}", "{C:inactive}(Must have room)" },
+			},
+			--MoreFluff here
+			j_crv_45degreeprinter={
+				name = "45 Degree Rotated Printer",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"print a {C:purple}45 Degree Rotated Tarot{} Card"
+				}
+			},
+			--Prism here
+			j_crv_stoneoven = {
+				name = "Oven",
+				text = {"When {C:attention}Blind{} is selected",
+				'{C:attention}"Cook"{} a random {C:attention}Pizza{} Joker{}',
+				"from {C:money}Prism"}
+			},
+			j_crv_mythprint = {
+				name = "Printer with Wings",
+				text = {"When {C:attention}Blind{} is selected",
+						"print a random {C:moon}Myth{} Card"}
+			},
+			j_crv_crystalprinter = {
+				name = "Crystal Printer",
+				text = {"When {C:attention}Blind{} is selected",
+						"print a {C:attention}Crystal Contract"}
 			},
 			--ends here
 		},
@@ -1944,6 +2020,15 @@ return {
 					"{C:dark_edition} Omni Rank Card{}",
 				},
 			},
+			--prism below
+			c_crv_saphirecontract = {
+				name = "Crystal Contract",
+				text = {
+					"Turns #1# card into a{C:attention} Crystal Card",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Sapphire Card{}",
+				},
+			}
 		},
 		Spectral = {
 			c_crv_VaultKey = {
@@ -2065,6 +2150,16 @@ return {
 				name = "Extra Ink",
 				text = { "Allows for certain", "{C:red}Printers{} to print {C:dark_edition}Negative" },
 			},
+		},
+		BakeryCharm = {
+			BakeryCharm_crv_prcharm={
+				name = "Printer's Charm",
+                text = { "When ending shop, get a","{C:red}Cartridge Tag" },
+			},
+			BakeryCharm_crv_cloner={
+				name = "NoNameYet",
+                text = { "Clone the first played deck to hand" },
+			}
 		},
 	},
 	misc = {

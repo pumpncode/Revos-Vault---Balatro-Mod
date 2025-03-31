@@ -1,26 +1,3 @@
-local printer_keys = {
-	"j_crv_printer",
-	"j_crv_rustyprinter",
-	"j_crv_jimboprinter",
-	"j_crv_grossprinter",
-	"j_crv_obeliskprinter",
-	"j_crv_moneyprinter",
-	"j_crv_brokenprinter",
-	"j_crv_faxprinter",
-	"j_crv_spectralprinter",
-	"j_crv_glassprinter",
-	"j_crv_lpm",
-	"j_crv_devilishprinter",
-	"j_crv_steelprinter",
-	"j_crv_tierp",
-	"j_crv_luckyprinter",
-	"j_crv_celestialprinter",
-	"j_crv_fcp",
-	"j_crv_pcp",
-	"j_crv_hcp",
-	"j_crv_ngp",
-	"j_crv_urp",
-}
 
 SMODS.Consumable({
 	key = "inkintuition",
@@ -423,7 +400,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
 				return true
 			end
 		end
@@ -457,7 +434,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
 				return true
 			end
 		end
@@ -490,7 +467,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
 				return true
 			end
 		end
@@ -512,18 +489,18 @@ SMODS.Consumable({
 	end,
 })
 SMODS.Consumable({
-	key = "t3doc", --key
-	set = "EnchancedDocuments", --the set of the card: corresponds to a consumable type
+	key = "t3doc", 
+	set = "EnchancedDocuments", 
 	discovered = true,
-	atlas = "t", --atlas
+	atlas = "t", 
 	pos = { x = 2, y = 1 },
-	config = { extra = { cards = 3 } }, --position in atlas
+	config = { extra = { cards = 3 } }, 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards } }
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
 				return true
 			end
 		end
@@ -596,8 +573,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
-				return true
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
 			end
 		end
 		return false
@@ -754,11 +730,11 @@ SMODS.Consumable({
 })
 
 SMODS.Consumable({
-	key = "holdoc", --key
-	set = "EnchancedDocuments", --the set of the card: corresponds to a consumable type
+	key = "holdoc", 
+	set = "EnchancedDocuments", 
 	discovered = true,
-	atlas = "documents", --atlas
-	pos = { x = 1, y = 1 }, --position in atlas
+	atlas = "documents", 
+	pos = { x = 1, y = 1 }, 
 	config = {
 		extra = {
 			cards = 1,

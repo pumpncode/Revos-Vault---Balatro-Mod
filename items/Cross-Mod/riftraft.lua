@@ -39,6 +39,9 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
+    set_badges = function(self, card, badges)
+		badges[#badges+#badges] = create_badge("Rift-Raft",G.C.UI.BACKGROUND_INACTIVE,nil,1)
+	end
 })
 
 SMODS.Consumable{
@@ -89,7 +92,7 @@ SMODS.Consumable{
         end
         G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
             SMODS.calculate_context({add_to_void = true, added = added})
-            return true
+            return true 
         end}))
         if not RIFTRAFT.in_void_pack() then
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.5, func = function()
@@ -100,4 +103,7 @@ SMODS.Consumable{
             end}))
         end
     end,
+    set_badges = function(self, card, badges)
+		badges[#badges+#badges] = create_badge("Rift-Raft",G.C.UI.BACKGROUND_INACTIVE,nil,1)
+	end
 }

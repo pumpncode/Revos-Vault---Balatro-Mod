@@ -5363,24 +5363,22 @@ SMODS.Joker({
 						trigger = "before",
 						delay = 0.5,
 						func = function()
-							local rank_suffix = v.base.id == 13 and 13 or math.min(v.base.id + 1, 13)
-							if rank_suffix < 10 then
-								rank_suffix = tostring(rank_suffix)
-							elseif rank_suffix == 10 then
-								rank_suffix = "10"
-							elseif rank_suffix == 11 then
-								rank_suffix = "Jack"
-							elseif rank_suffix == 12 then
-								rank_suffix = "Queen"
-							elseif rank_suffix == 13 then
-								rank_suffix = "King"
+							if v.base.id > 13 then
+								v:flip()
+								play_sound("card1")
+								v:juice_up(0.3, 0.4)
+								assert(SMODS.modify_rank(v, -1))
+							elseif v.base.id < 13 then
+								v:flip()
+								play_sound("card1")
+								v:juice_up(0.3, 0.4)
+								assert(SMODS.modify_rank(v, 1))
+							elseif v.base.id == 13 then
+								v:flip()
+								play_sound("card1")
 							end
-							v:flip()
-							play_sound("card1")
-							v:juice_up(0.3, 0.4)
-							SMODS.change_base(v, nil, rank_suffix)
-							return true
-						end,
+						return true
+					end
 					}))
 					G.E_MANAGER:add_event(Event({
 						trigger = "after",
@@ -5965,7 +5963,7 @@ SMODS.Joker({
 	key = "brj",
 	config = {
 		extra = {
-			cardhp = 1,
+			cardhp = 3,
 			playerhp = 3,
 			mode = "Joker",
 			turn = "Player",
@@ -5991,7 +5989,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if
-			context.first_hand_drawn
+			context.setting_blind
 			and not context.repetition
 			and not context.individual
 			and not context.blueprint
@@ -6038,7 +6036,7 @@ SMODS.Joker({
 				}
 			end
 		elseif
-			context.first_hand_drawn
+			context.setting_blind
 			and not context.repetition
 			and not context.individual
 			and not context.blueprint
@@ -6087,7 +6085,7 @@ SMODS.Joker({
 				}
 			end
 		elseif
-			context.first_hand_drawn
+			context.setting_blind
 			and not context.repetition
 			and not context.individual
 			and not context.blueprint
@@ -6105,9 +6103,9 @@ SMODS.Joker({
 			G.STATE = G.STATES.GAME_OVER
 			G.STATE_COMPLETE = false
 		end
-		if crv.cardhp == 0 and not context.blueprint and not context.repetition and not context.individual then
+		if crv.cardhp == 0 and not context.blueprint and not context.repetition and not context.individual and context.first_hand_drawn then
 			G.E_MANAGER:add_event(Event({
-				trigger = "after",
+				trigger = "immediate",
 				delay = 1,
 				blockable = false,
 				func = function()
@@ -9253,16 +9251,17 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			xmult = 1,
-			xmultg = 0.1,
+			gain = 15,
+			stored = 0,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { card.ability.extra.xmultg, card.ability.extra.xmult },
+			vars = { card.ability.extra.gain, card.ability.extra.stored },
 		}
 	end,
 	calculate = function(self, card, context)
+		local crv = card.ability.extra
 		if context.end_of_round and context.main_eval and not context.blueprint then
 			local rr = nil
 			for i = 1, #G.jokers.cards do
@@ -9279,13 +9278,20 @@ SMODS.Joker({
 				and not G.jokers.cards[rr - 1].ability.crv_radioactive
 			then
 				SMODS.Stickers["crv_radioactive"]:apply(G.jokers.cards[rr - 1], true)
+				crv.stored = crv.stored + crv.gain
 			elseif
 				choosencard == "Right"
 				and G.jokers.cards[rr + 1] ~= nil
 				and not G.jokers.cards[rr + 1].ability.crv_radioactive
 			then
 				SMODS.Stickers["crv_radioactive"]:apply(G.jokers.cards[rr + 1], true)
+				crv.stored = crv.stored + crv.gain
 			end
+		end
+		if context.selling_self then
+			return {
+				dollars = crv.stored
+			}
 		end
 	end,
 
