@@ -1,5 +1,5 @@
 
-### Latest: Vers 4.0.0a:
+### Latest: Vers 4.1.0a:
 
 **Revo's Vault**
 
@@ -30,6 +30,8 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 28 Prin
 - 5 Jokers
 - 3 Consumables
 - 2 Enhancements
+
+- AND A LOT MORE WHICH ARE NOT DOCUMENTED YET!
 
 ------
 
