@@ -13,7 +13,7 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 28 Prin
 
 **[Cryptid](https://github.com/MathIsFun0/Cryptid)**
 
-- 3 Jokers
+- 6 Jokers
 - 1 Consumable
 
 **[CardSleeves](https://github.com/larswijn/CardSleeves)**
