@@ -3,7 +3,7 @@
 
 **Revo's Vault**
 
-Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 28 Printer Jokers with their own decks , 8 Chaos Jokers, 12 Vaulted Jokers, 2 Secret Jokers and 101 normal jokers for a total of **150** jokers, 14 new enhancements, 2 new tarots, 3 new spectral cards, 2 new consumable types with a total of 25 custom consumables, 1 new seal, 3 new tags, 1 new voucher, 4 new booster packs, 4 new stickers, 4 new stakes and 4 new boss blinds!
+Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 29 Printer Jokers with their own decks , 8 Chaos Jokers, 12 Vaulted Jokers, 2 Secret Jokers and 106 normal jokers for a total of **150** jokers, 14 new enhancements, 2 new tarots, 3 new spectral cards, 2 new consumable types with a total of 25 custom consumables, 1 new seal, 3 new tags, 1 new voucher, 4 new booster packs, 4 new stickers, 4 new stakes and 4 new boss blinds!
 
 ![image](https://github.com/user-attachments/assets/a595307b-5ded-4de8-b20b-566f844c6ef4)
 
