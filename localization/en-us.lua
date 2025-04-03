@@ -1162,8 +1162,8 @@ return {
 			j_crv_kit = {
 				name = "King's Impact",
 				text = {
-					"Upgrades any played card up to {C:attention}King",
-					"And will decrase any played {C:attention}Ace",
+					"{C:attention}Upgrades{} any scored card up to {C:attention}King",
+					"And will {C:red}decrase{} any scored card{C:attention} Above King",
 					"down to {C:attention}King",
 				},
 			},
@@ -1737,6 +1737,55 @@ return {
 					"is present"
 				},
 			},
+			j_crv_shjoker = {
+				name = "Shadow Joker",
+                text={
+                    "{C:red,s:1.1}+#1#{} Mult.",
+					"{C:attention}+1{} {C:dark_edition}Joker Slot"
+                },
+			},
+			j_crv_vredcard = {
+				name = "Purple Card",
+                text={
+                    "Gains {X:mult,C:white}X#2#{} Mult",
+					"for each {C:attention}skipped{} booster pack.",
+					"loses {X:mult,C:white}X(#3#){} Mult",
+					"for each {C:attention}opened{} booster pack.",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+                },
+			},
+			j_crv_foodprinter = {
+				name = "Choco Printer",
+                text={
+                    "When {C:attention}Blind{} is selected",
+					"print a random {C:attention}Food{} Joker"
+                },
+			},
+			j_crv_kitf = {
+				name = "King's Fist",
+				text = {
+					"After scoring, {C:attention}Upgrades{} all cards held",
+					 "in hand up to {C:attention}King",
+					"And will decrase anything {C:attention}Above King",
+					"down to {C:attention}King",
+				},
+			},
+			j_crv_mycard = {
+				name = "Revo's Card",
+				text = {
+					"{C:mult}+0.5{} Mult for each",
+					"dollar in my papara account",
+					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+					"{C:inactive}(Updates every week)",
+				},
+			},
+			j_crv_printerprinter = {
+				name = "Printer Printer",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"print a random {C:red}Printer"
+				},
+			},
 
 			--rift raft below
 			j_crv_riftrinter = {
@@ -2056,6 +2105,14 @@ return {
 			},
 			p_crv_pbst = {
 				name = "Printer Pack",
+				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:red} Printers{}" },
+			},
+			p_crv_pbst2 = {
+				name = "Jumbo Printer Pack",
+				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:red} Printers{}" },
+			},
+			p_crv_pbst3= {
+				name = "Mega Printer Pack",
 				text = { "Choose {C:attention}#1#{} of up to", "{C:attention}#2#{C:red} Printers{}" },
 			},
 			p_crv_cbst = {

@@ -27,58 +27,19 @@ SMODS.Joker({
         local crv = card.ability.extra
 		if context.setting_blind and not context.blueprint then
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
-                if crv.pizza == 1 then
-                    SMODS.add_card{
-                        key = "j_prism_pizza_cap",
-                        edition = "e_negative"
-                    }
-                    crv.pizza = 2
-                elseif crv.pizza == 2 then
-                    SMODS.add_card{
-                        key = "j_prism_pizza_mar",
-                        edition = "e_negative"
-                    }
-                    crv.pizza = 3
-                elseif crv.pizza == 3 then
-                    SMODS.add_card{
-                        key = "j_prism_pizza_for",
-                        edition = "e_negative"
-                    }
-                    crv.pizza = 4
-                elseif crv.pizza == 4 then
-                    SMODS.add_card{
-                        key = "j_prism_pizza_ruc",
-                        edition = "e_negative"
-                    }
-                    crv.pizza = 1
+				local card = create_card(nil, G.jokers, nil, nil, nil, nil, nil,"Pizza")
+				card:add_to_deck()
+				card:set_edition({negative = true},true)
+				G.jokers:emplace(card)
                 end
 			else
 				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
-                    if crv.pizza == 1 then
-                        SMODS.add_card{
-                            key = "j_prism_pizza_cap",
-                        }
-                        crv.pizza = 2
-                    elseif crv.pizza == 2 then
-                        SMODS.add_card{
-                            key = "j_prism_pizza_mar",
-                        }
-                        crv.pizza = 3
-                    elseif crv.pizza == 3 then
-                        SMODS.add_card{
-                            key = "j_prism_pizza_for",
-                        }
-                        crv.pizza = 4
-                    elseif crv.pizza == 4 then
-                        SMODS.add_card{
-                            key = "j_prism_pizza_ruc",
-                        }
-                        crv.pizza = 1
-                    end
+					local card = create_card(nil, G.jokers, nil, nil, nil, nil, nil,"Pizza")
+					card:add_to_deck()
+					G.jokers:emplace(card)
 				end
 			end
-		end
-end,
+		end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,

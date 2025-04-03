@@ -535,6 +535,9 @@ SMODS.Joker({
 		extra = { xmult = 30, odds = 12
  },
 	},
+	pools = {
+		Food = true
+	},
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
@@ -843,6 +846,58 @@ end,
 end
 end,
 
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "vredcard",
+	atlas = "Jokers2",
+	pos = {
+		x = 0,
+		y = 10,
+	},
+	rarity = "crv_va",
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	config = {
+		extra = {
+			xmult = 1,
+			xmultp = 5,
+			xmultm = -3
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.xmult,crv.xmultp,crv.xmultm},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		local c = context
+		if c.skipping_booster and not c.blueprint then
+			crv.xmult = crv.xmult + crv.xmultp
+			return {
+				message = "Upgrade!"
+			}
+		end
+		if c.open_booster and not c.blueprint then
+			crv.xmult = crv.xmult + crv.xmultm
+			return{
+				message = "Downgrade!"
+			}
+		end
+		if c.joker_main then
+			return{
+			xmult = crv.xmult
+			}
+		end
+	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,

@@ -7,7 +7,39 @@ SMODS.Booster{
     config = {extra = 2,choose = 1},
     group_key = 'k_crv_pbstg',
     cost = 4,
+    weight = 0.06,
+    create_card = function(self, card, i)
+        return SMODS.create_card({
+            set = "Joker",
+            rarity = "crv_p"
+        })
+    end,
+}
+
+SMODS.Booster{
+    key = 'pbst2',
+    atlas = 'booster',
+    pos= {x=1,y=0},
+    config = {extra = 3,choose = 1},
+    group_key = 'k_crv_pbstg',
+    cost = 4,
     weight = 0.03,
+    create_card = function(self, card, i)
+        return SMODS.create_card({
+            set = "Joker",
+            rarity = "crv_p"
+        })
+    end,
+}
+
+SMODS.Booster{
+    key = 'pbst3',
+    atlas = 'booster',
+    pos= {x=2,y=0},
+    config = {extra = 4,choose = 1},
+    group_key = 'k_crv_pbstg',
+    cost = 4,
+    weight = 0.01,
     create_card = function(self, card, i)
         return SMODS.create_card({
             set = "Joker",

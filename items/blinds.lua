@@ -8,14 +8,15 @@ SMODS.Blind({
 	boss = { min = 1, max = 10 },
 	boss_colour = HEX("f84b4b"),
 })
-
+--[[ Until i find a solution to the crash, this will be disabled
 SMODS.Blind({
 	key = "fragile",
 	boss = { min = 1, max = 10 },
 	atlas = "blinds",
 	pos = { x = 0, y = 0 },
 	boss_colour = HEX("ffffff"),
-	press_play = function(self)
+	press_play = function(self,context)
+		if context.final_scoring_step then
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			delay = 0.2,
@@ -33,8 +34,9 @@ SMODS.Blind({
 		}))
 		self.triggered = true
 		return true
-	end,
-})
+	end
+end,
+})]]
 
 SMODS.Blind({
 	key = "no",

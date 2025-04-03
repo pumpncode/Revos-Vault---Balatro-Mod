@@ -218,7 +218,6 @@ SMODS.Consumable({
 					return true
 				end,
 			}))
-			delay(0.5)
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
@@ -254,7 +253,7 @@ SMODS.Enhancement({
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		return true
+		return false
 	end,
 })
 
