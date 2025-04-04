@@ -44,7 +44,7 @@ SMODS.Joker({
 	},
 	rarity = 4,
 	atlas = "rev",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	discovered = false,
 	pos = {
 		x = 1,
@@ -90,7 +90,7 @@ SMODS.Joker({
 	},
 	rarity = 4,
 	atlas = "rev",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	discovered = false,
 	pos = {
 		x = 1,
@@ -107,7 +107,7 @@ SMODS.Joker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.individual then
+		if context.individual and not context.blueprint then
 			if context.cardarea == G.play then
 				context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
 				context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus
@@ -138,7 +138,7 @@ SMODS.Joker({
 				end
 			end
 		end
-		if context.end_of_round and context.main_eval then
+		if context.end_of_round and context.main_eval and not context.blueprint then
 			card.ability.extra.chips = card.ability.extra.chips + 10
 			return {
 				message = "+10!",
@@ -401,7 +401,6 @@ SMODS.Joker({
 	atlas = "rev",
 	blueprint_compat = true,
 	discovered = false,
-	no_collection = false,
 	pos = {
 		x = 3,
 		y = 0,
@@ -569,8 +568,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 2,
@@ -658,8 +655,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 0,
@@ -700,8 +695,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 0,
@@ -741,9 +734,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 2,
 		y = 0,
@@ -787,8 +778,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 1,
@@ -919,8 +908,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 10,
 		y = 3,
@@ -1022,8 +1009,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 1,
@@ -1061,9 +1046,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 2,
 		y = 1,
@@ -1089,8 +1072,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 2,
@@ -1217,8 +1198,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 3,
@@ -1257,8 +1236,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 3,
@@ -1303,8 +1280,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 2,
 		y = 3,
@@ -1387,8 +1362,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 0,
@@ -1440,8 +1413,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 0,
@@ -1490,8 +1461,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 1,
@@ -1570,8 +1539,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 0,
@@ -1620,9 +1587,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 0,
 		y = 0,
@@ -1661,9 +1626,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 1,
 		y = 0,
@@ -1727,9 +1690,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 2,
 		y = 0,
@@ -1768,9 +1729,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	no_collection = true,
 	display_size = {
 		w = 172,
@@ -1825,8 +1784,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 2,
 		y = 0,
@@ -1929,8 +1886,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 1,
@@ -2003,8 +1958,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 1,
@@ -2049,8 +2002,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 2,
 		y = 4,
@@ -2101,8 +2052,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 4,
@@ -2153,8 +2102,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 4,
@@ -2205,8 +2152,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 4,
@@ -2256,8 +2201,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 4,
 		y = 6,
@@ -2367,9 +2310,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 9,
 		y = 6,
@@ -2400,8 +2341,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 4,
 		y = 10,
@@ -2429,7 +2368,7 @@ SMODS.Joker({
 		return true
 	end,
 })
---[[
+--[[ Not even correct yet
 SMODS.Joker({
 	key = "cosmicprinter",
 	atlas = "Jokers2",
@@ -2478,8 +2417,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 10,
