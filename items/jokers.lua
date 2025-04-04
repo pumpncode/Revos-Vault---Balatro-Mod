@@ -6387,15 +6387,14 @@ SMODS.Joker({
 			vars = { crv.xmult * G.GAME.reincarnation, G.GAME.reincarnation, crv.odds, G.GAME.probabilities.normal },
 		}
 	end,
-
+	remove_from_deck = function(self, card, from_debuff)
+		G.GAME.reincarnation = G.GAME.reincarnation + 1
+		if pseudorandom("rein") < G.GAME.probabilities.normal / crv.odds then
+			add_tag(Tag("tag_crv_reintag"))
+		end
+	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if self.getting_sliced and not context.repetition and not context.individual and not context.blueprint then
-			G.GAME.reincarnation = G.GAME.reincarnation + 1
-			if pseudorandom("rein") < G.GAME.probabilities.normal / crv.odds then
-				add_tag(Tag("tag_crv_reintag"))
-			end
-		end
 		if context.joker_main then
 			return {
 				xmult = crv.xmult * G.GAME.reincarnation,
