@@ -31,7 +31,9 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), 29 Prin
 - 3 Consumables
 - 2 Enhancements
 
-- AND A LOT MORE WHICH ARE NOT DOCUMENTED YET!
+----
+
+- And more ;)
 
 ------
 
