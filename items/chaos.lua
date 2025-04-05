@@ -55,8 +55,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = { x = 0, y = 1 },
 	config = {
 		extra = { odds = 3
@@ -158,8 +156,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = { x = 2, y = 0 },
 	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
@@ -265,8 +261,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = { x = 0, y = 2 },
 	config = {
 		extra = {},
@@ -302,8 +296,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = { x = 5, y = 4 },
 	config = {
 		extra = { one = 0, chips = 0, ok = 0 },
@@ -372,8 +364,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = { x = 1, y = 2 },
 	config = {
 		extra = {multi = 2},
@@ -400,9 +390,7 @@ SMODS.Joker({
 	cost = 30,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 2,
 		y = 2,

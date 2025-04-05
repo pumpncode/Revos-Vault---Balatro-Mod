@@ -2465,8 +2465,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 0,
@@ -2510,8 +2509,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 0,
@@ -2550,8 +2548,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 0,
@@ -2645,8 +2642,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 0,
@@ -2720,8 +2716,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 2,
 		y = 0,
@@ -2816,8 +2811,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 0,
 		y = 1,
@@ -2890,8 +2884,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 1,
@@ -2957,9 +2950,8 @@ SMODS.Joker({
 	cost = 6,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
+	perishable_compat = false,
 	pos = {
 		x = 2,
 		y = 1,
@@ -3031,8 +3023,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	pos = {
 		x = 1,
 		y = 2,
@@ -3106,8 +3097,9 @@ SMODS.Joker({
 	},
 	rarity = 2,
 	atlas = "gban",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	discovered = false,
+	
 	pos = {
 		x = 0,
 		y = 2,
@@ -3810,9 +3802,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 3,
 		y = 2,
@@ -3857,9 +3847,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 2,
 		y = 3,
@@ -3946,7 +3934,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
 	config = {
 		extra = {
 			odds = 6,
@@ -4028,8 +4015,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 4,
 		y = 0,
@@ -4075,8 +4060,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 5,
 		y = 0,
@@ -4180,8 +4163,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 5,
 		y = 1,
@@ -4191,7 +4172,7 @@ SMODS.Joker({
 	},
 
 	calculate = function(self, card, context)
-		if context.selling_self then
+		if context.selling_self and not context.blueprint then
 			G.GAME.chips = G.GAME.chips / 2
 			G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + G.GAME.current_round.hands_played
 			G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + G.GAME.current_round.discards_used
@@ -4209,9 +4190,7 @@ SMODS.Joker({
 	cost = 6,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
 	pos = {
 		x = 5,
 		y = 2,
@@ -4270,8 +4249,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 5,
 		y = 3,
@@ -4361,9 +4338,7 @@ SMODS.Joker({
 	cost = 6,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
 	pos = {
 		x = 6,
 		y = 4,
@@ -4380,7 +4355,7 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-})
+})	
 
 local chances = { 1, 2, 3, 4, 5, 6, 7, 8 }
 
@@ -4392,8 +4367,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 6,
 		y = 0,
@@ -4435,8 +4408,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+
 	pos = {
 		x = 6,
 		y = 1,
@@ -4476,8 +4448,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 6,
 		y = 2,
@@ -4510,8 +4480,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 6,
 		y = 3,
@@ -4543,9 +4511,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 1,
 		y = 5,
@@ -4598,9 +4564,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 2,
 		y = 5,
@@ -4649,8 +4613,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 5,
@@ -4728,8 +4690,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 4,
 		y = 5,
@@ -4874,7 +4834,7 @@ SMODS.Joker({
 		return true
 	end,
 })
-
+---- LEFT HERE
 SMODS.Joker({
 	key = "tgm",
 	atlas = "Jokers2",
@@ -4883,8 +4843,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 5,
 		y = 5,
@@ -5356,9 +5314,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 6,
 		y = 5,
@@ -5407,9 +5363,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 7,
 		y = 0,
@@ -5459,9 +5413,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,	
 	pos = {
 		x = 7,
 		y = 1,
@@ -5527,7 +5479,7 @@ SMODS.Joker({
 	},
 	rarity = 3,
 	atlas = "Jokers2",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	discovered = false,
 	pos = {
 		x = 7,
@@ -5540,13 +5492,13 @@ SMODS.Joker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play and context.other_card:get_id() >= 7 then
+		if context.individual and context.cardarea == G.play and context.other_card:get_id() >= 7 and not context.blueprint then
 			context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
 			context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
 			return {
 				message = localize("k_upgrade_ex"),
 			}
-		elseif context.destroy_card and context.cardarea == G.play and context.destroy_card:get_id() < 7 then
+		elseif context.destroy_card and context.cardarea == G.play and context.destroy_card:get_id() < 7 and not context.blueprint then
 			return {
 				remove = true,
 			}
@@ -6269,8 +6221,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 6,
 		y = 6,
@@ -6306,8 +6256,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 7,
 		y = 6,
@@ -6611,9 +6559,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 1,
 		y = 7,
@@ -6662,9 +6608,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 2,
 		y = 7,
@@ -6710,8 +6654,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 3,
 		y = 7,
@@ -6750,8 +6692,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	rarity = 2,
 	pos = {
 		x = 4,
@@ -6785,8 +6725,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	rarity = 3,
 	pos = {
 		x = 5,
@@ -6821,9 +6759,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
 	rarity = 2,
 	pos = {
 		x = 6,
@@ -6865,8 +6801,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	rarity = 1,
 	pos = {
 		x = 8,
@@ -6900,8 +6834,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	rarity = 1,
 	pos = {
 		x = 8,
@@ -6921,8 +6853,13 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.buying_card and not context.blueprint then
+		if context.buying_card and not context.blueprint and not context.blueprint then
 			crv.mult = crv.mult + crv.multg
+		end
+		if context.joker_main then
+			return{
+				mult = crv.mult
+			}
 		end
 	end,
 })
@@ -6934,9 +6871,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 8,
 		y = 2,
@@ -6994,9 +6929,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 8,
 		y = 3,
@@ -7055,8 +6988,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 8,
 		y = 4,
@@ -7154,9 +7085,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,	
 	pos = {
 		x = 8,
 		y = 5,
@@ -7175,7 +7104,7 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.individual then
+		if context.individual and not context.blueprint then
 			if context.cardarea == G.play then
 				context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
 				context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + crv.plus
@@ -7201,8 +7130,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 8,
 		y = 6,
@@ -7283,8 +7210,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 8,
 		y = 7,
@@ -7310,7 +7235,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.end_of_round and context.game_over == false and context.main_eval then
+		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
 			card.ability.extra_value = card.ability.extra_value + crv.owe
 			crv.current_dept = crv.current_dept + crv.owe
 			card:set_cost()
@@ -7378,9 +7303,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 1,
 		y = 8,
@@ -7428,8 +7351,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 8,
@@ -7704,9 +7625,7 @@ SMODS.Joker({
 	cost = 0,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 5,
 		y = 8,
@@ -7801,7 +7720,7 @@ SMODS.Joker({
 	},
 	rarity = 2,
 	atlas = "Jokers2",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	discovered = false,
 	pos = {
 		x = 7,
@@ -7967,8 +7886,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 2,
 		y = 9,
@@ -7983,7 +7900,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		if context.final_scoring_step then
+		if context.final_scoring_step and not context.blueprint then
 			if context.cardarea then
 				for k, v in ipairs(context.scoring_hand) do
 					if v:is_suit("Hearts", true) then
@@ -8013,8 +7930,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 9,
@@ -8053,8 +7968,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 4,
 		y = 9,
@@ -8069,7 +7982,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		if context.final_scoring_step then
+		if context.final_scoring_step and not context.blueprint then
 			if context.cardarea then
 				for k, v in ipairs(context.scoring_hand) do
 					if v:is_suit("Spades", true) then
@@ -8334,8 +8247,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 5,
 		y = 9,
@@ -8423,8 +8334,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 6,
 		y = 9,
@@ -8443,7 +8352,7 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.setting_blind and G.GAME.blind.boss then
+		if context.setting_blind and G.GAME.blind.boss and not context.blueprint then
 			G.GAME.blind.chips = G.GAME.blind.chips * 2
 			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 			card:juice_up(0.3, 0.4)
@@ -8486,9 +8395,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 8,
 		y = 9,
@@ -8542,9 +8449,7 @@ SMODS.Joker({
 	cost = 6,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
 	pos = {
 		x = 9,
 		y = 0,
@@ -8558,7 +8463,7 @@ SMODS.Joker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.individual then
+		if context.individual and not context.blueprint then 
 			if context.cardarea == G.play then
 				for k, v in ipairs(context.scoring_hand) do
 					if context.other_card.ability.seal == nil then
@@ -8588,8 +8493,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 9,
 		y = 1,
@@ -8645,9 +8548,7 @@ SMODS.Joker({
 	cost = 6,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
 	pos = {
 		x = 9,
 		y = 2,
@@ -8683,6 +8584,7 @@ SMODS.Joker({
 			and G.GAME.current_round.hands_played <= 1
 			and context.end_of_round
 			and context.main_eval
+			and not context.blueprint
 		then
 			card.ability.extra.stored = card.ability.extra.stored + 5
 			return {
@@ -8702,9 +8604,7 @@ SMODS.Joker({
 	cost = 30,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 9,
 		y = 9,
@@ -8756,9 +8656,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 9,
 		y = 3,
@@ -8814,8 +8712,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 9,
 		y = 4,
@@ -8858,9 +8754,7 @@ SMODS.Joker({
 	cost = 5,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 9,
 		y = 5,
@@ -8877,7 +8771,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		if context.setting_blind then
+		if context.setting_blind and not context.blueprint then
 			local jokers = {}
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] ~= card then
@@ -9278,9 +9172,7 @@ SMODS.Joker({
 	rarity = 3,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 9,
 		y = 8,
@@ -9294,7 +9186,7 @@ SMODS.Joker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.final_scoring_step then
+		if context.final_scoring_step and not context.blueprint then
 			if context.cardarea then
 				for k, v in ipairs(context.scoring_hand) do
 					G.E_MANAGER:add_event(Event({
@@ -9322,8 +9214,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 10,
 		y = 0,
@@ -9373,8 +9263,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 10,
 		y = 1,
@@ -9438,8 +9326,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 10,
 		y = 4,
@@ -9481,9 +9367,7 @@ SMODS.Joker({
 	cost = 6,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
+	blueprint_compat = false,
 	pos = {
 		x = 10,
 		y = 5,
@@ -9526,8 +9410,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 10,
 		y = 8,
@@ -9567,8 +9449,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 10,
 		y = 7,
@@ -9613,8 +9493,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 10,
 		y = 9,
@@ -9658,9 +9536,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 2,
 		y = 10,
@@ -9724,9 +9600,8 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
+
 	pos = {
 		x = 3,
 		y = 10,

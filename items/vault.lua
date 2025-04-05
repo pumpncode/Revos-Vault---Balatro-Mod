@@ -52,8 +52,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 3,
@@ -304,8 +302,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 4,
 		y = 3,
@@ -350,7 +346,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
 	config = {
 		extra = {},
 	},
@@ -401,9 +396,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = true,
 	pos = {
 		x = 0,
 		y = 5,
@@ -467,8 +460,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 7,
 		y = 4,
@@ -525,8 +516,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 3,
 		y = 6,
@@ -580,9 +569,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 7,
 		y = 7,
@@ -598,7 +585,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.setting_blind then
+		if context.setting_blind and not context.blueprint then
 			local jokers = {}
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] ~= card then
@@ -639,9 +626,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
+	blueprint_compat = false,
 	pos = {
 		x = 8,
 		y = 8,
@@ -699,8 +684,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 7,
 		y = 9,
@@ -753,8 +736,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = false,
 	pos = {
 		x = 10,
 		y = 2,
@@ -798,8 +779,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
 	pos = {
 		x = 10,
 		y = 6,
@@ -863,7 +842,6 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
 	config = {
 		extra = {
 			xmult = 1,
