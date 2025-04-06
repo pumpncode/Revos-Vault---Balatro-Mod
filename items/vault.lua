@@ -11,7 +11,7 @@ SMODS.Consumable({
 	atlas = "spec",
 	hidden = true,
 	soul_set = "Spectral",
-	soul_rate = 0.08,
+	soul_rate = 0.01,
 	can_repeat_soul = false,
 	pos = {
 		x = 1,

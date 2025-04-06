@@ -574,9 +574,10 @@ SMODS.Consumable({
 	can_use = function(self, card)
 		if G and G.hand then
 			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+				return true
 			end
 		end
-		return false
+		return true
 	end,
 	use = function(self, card, area, copier)
 		if pseudorandom("luckydocument") < G.GAME.probabilities.normal / card.ability.extra.odds then
