@@ -22,7 +22,7 @@ SMODS.Rarity({
 })
 
 SMODS.Rarity({
-	key = "tit",
+	key = "titan",
 	badge_colour = G.C.RARITY[4],
 
 	pools = {},
@@ -33,6 +33,7 @@ SMODS.Rarity({
 	badge_colour = G.C.BLACK,
 	pools = {},
 })
+
 
 SMODS.Joker({
 	key = "revoo_",
@@ -345,7 +346,7 @@ SMODS.Joker({
 			xmult = 20,
 		},
 	},
-	rarity = "crv_tit",
+	rarity = "crv_titan",
 	atlas = "rev",
 	blueprint_compat = true,
 	discovered = false,
@@ -884,24 +885,9 @@ SMODS.Joker({
 	end,
 })
 
-SMODS.ObjectType({
-	key = "BananaPool",
-	cards = {
-		["j_crv_ghostbanana"] = true,
-		["j_crv_plantain"] = true,
-		["j_crv_reban"] = true,
-		["j_crv_tundan"] = true,
-		["j_crv_bluj"] = true,
-		["j_crv_bananavine"] = true,
-		["j_crv_plainb"] = true,
-		["j_crv_tickingb"] = true,
-		["j_crv_uneasyb"] = true,
-		["j_gross_michel"] = true,
-	},
-})
 
 SMODS.Joker({
-	key = "sgrossprinter",
+	key = "sgrossprinter",	
 	atlas = "Jokers2",
 	rarity = "crv_secret",
 	cost = 10,
@@ -3130,6 +3116,207 @@ SMODS.Joker({
 	end,
 })
 
+SMODS.Joker({
+	key = "bananatemp",
+	atlas = "gban",
+	no_pool_flag = "btex",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 2,
+		y = 2,
+	},
+	config = {
+		extra = {
+			timer = 0,
+			odds = 8
+		},
+	},
+	pools = {
+		Food = true,
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.timer},
+		}
+	end,
+	calculate = function(self, card, context)
+		if
+			context.end_of_round
+			and not context.repetition
+			and not context.individual
+			and not (card.ability.extra.timer == 3)
+			and not context.blueprint
+		then
+			card.ability.extra.timer = card.ability.extra.timer + 1
+		end
+		if context.setting_blind and not context.blueprint and not context.repetition then
+			if card.ability.extra.timer == 3 then
+				card:start_dissolve({ HEX("57ecab") }, nil, 0.1)
+				SMODS.add_card({
+					set = "BananaPool"
+				})
+			end
+		end
+	end,
+})
+
+SMODS.Joker({
+	key = "doubleban",
+	atlas = "gban",
+	no_pool_flag = "dbex",
+	rarity = 3,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 3,
+		y = 2,
+	},
+	config = {
+		extra = {
+			repetitions = 2,
+			odds = 8
+		},
+	},
+	pools = {
+		Food = true,
+		BananaPool = true
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.repetitions,card.ability.extra.odds,(G.GAME.probabilities.normal or 1) },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.retrigger_joker_check then
+				return {
+					repetitions = card.ability.extra.repetitions,
+
+				}
+		end
+		if context.setting_blind and not context.blueprint and not context.repetition and pseudorandom("doubleban")  < G.GAME.probabilities.normal / card.ability.extra.odds then
+			card:start_dissolve({ HEX("57ecab") }, nil, 0.1)
+			G.GAME.pool_flags.dbex = true
+		for i = 1, 2 do
+			SMODS.add_card({
+				key = "j_cavendish",
+				area = G.jokers
+			})
+		end
+	end
+end
+})
+
+SMODS.Joker({
+	key = "jimban",
+	atlas = "gban",
+	no_pool_flag = "jbex",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 3,
+		y = 0,
+	},
+	config = {
+		extra = {
+			mult = 8,
+			odds = 6
+		},
+	},
+	pools = {
+		Food = true,
+		BananaPool = true
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.mult,card.ability.extra.odds,(G.GAME.probabilities.normal or 1)},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.joker_main then
+			return{
+				mult = crv.mult
+			}
+		end
+		if context.end_of_round and not context.blueprint and context.main_eval and pseudorandom("jimban") < G.GAME.probabilities.normal / card.ability.extra.odds then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					play_sound("tarot1")
+					card.T.r = -0.2
+					card:juice_up(0.3, 0.4)
+					card.states.drag.is = true
+					card.children.center.pinch.x = true
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 1.5,
+						blockable = false,
+						func = function()
+							G.jokers:remove_card(card)
+							card:remove()
+							card = nil
+							return true
+						end,
+					}))
+					G.GAME.pool_flags.jbex = true
+					return true
+				end,
+			}))
+		end
+	end
+})
+
+SMODS.Joker({
+	key = "divineban",
+	atlas = "gban",
+	no_pool_flag = "dibex",
+	rarity = 3,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	perishable_compat = false,
+	pos = {
+		x = 3,
+		y = 1,
+	},
+	config = {
+		extra = {
+			dollars = 2
+		},
+	},
+	pools = {
+		Food = true,
+		BananaPool = true
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.dollars},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.individual and context.cardarea == G.play then
+			return{
+				dollars = crv.dollars
+			}
+		end
+	end
+
+})
+
 function bfps()
 	local bfps2 = 0
 	if G.playing_cards then
@@ -4398,7 +4585,7 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-})
+}) 
 
 SMODS.Joker({
 	key = "psy",

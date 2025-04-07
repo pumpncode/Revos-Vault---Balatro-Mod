@@ -545,3 +545,25 @@ SMODS.ObjectType({
 		self:inject_card(G.P_CENTERS.j_selzer)
 	end,
 })
+
+SMODS.ObjectType({
+	key = "BananaPool",
+	cards = {
+		["j_crv_ghostbanana"] = true,
+		["j_crv_plantain"] = true,
+		["j_crv_reban"] = true,
+		["j_crv_tundan"] = true,
+		["j_crv_bluj"] = true,
+		["j_crv_bananavine"] = true,
+		["j_crv_plainb"] = true,
+		["j_crv_tickingb"] = true,
+		["j_crv_uneasyb"] = true,
+	},
+	inject = function(self)
+		SMODS.ObjectType.inject(self)
+		self:inject_card(G.P_CENTERS.j_gros_michel)
+		self:inject_card(G.P_CENTERS.j_cavendish)
+	end,
+})
+
+RevosVault.optional_features = {retrigger_joker = true}

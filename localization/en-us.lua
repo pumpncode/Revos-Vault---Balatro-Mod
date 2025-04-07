@@ -1786,6 +1786,35 @@ return {
 					"print a random {C:red}Printer"
 				},
 			},
+			j_crv_bananatemp = {
+				name = "Banana Template",
+				text = {
+					"After {C:attention}3{} rounds, Transform into",
+					"a random {C:attention}Banana{} Joker.",
+					"{C:inactive}(Currently #1#/3 Rounds)"
+				},
+			},
+			j_crv_doubleban = {
+				name = "Multi Banana",
+				text = {
+					"Retrigger every joker {C:attention}#1#{} times.",
+					"When setting blind, has a {C:green}#3# in #2#{} Chance", "to turn into {C:attention}2{} Cavendish Bananas",
+				},
+			},
+			j_crv_jimban = {
+				name = "Jimbanana",
+				text = {
+					"{C:mult}+#1#{} Mult.",
+					"{C:green}#3# in #2#{} Chance to go extinct"
+				},
+			},
+			j_crv_divineban = {
+				name = "Divine Banana",
+				text = {
+					"Each scored card gives",
+					"{C:money}$#1#{}"
+				},
+			},
 
 			--rift raft below
 			j_crv_riftrinter = {
@@ -2124,7 +2153,7 @@ return {
 				},
 			},
 			p_crv_cbst2 = {
-				name = "Jumbo Contract  Pack",
+				name = "Jumbo Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
 					"{C:attention}#2#{C:attention} Contracts{} to",
@@ -2137,6 +2166,27 @@ return {
 					"Choose {C:attention}#1#{} of up to",
 					"{C:attention}#2#{C:attention} Contracts{} to",
 					"use immediately",
+				},
+			},
+			p_crv_bbst = {
+				name = "Banana Pack",
+				text = {
+					"Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:attention} Bananas{}"
+				},
+			},
+			p_crv_bbst2 = {
+				name = "Jumbo Banana Pack",
+				text = {
+					"Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:attention} Bananas{}"
+				},
+			},
+			p_crv_bbst3 = {
+				name = "Mega Banana Pack",
+				text = {
+					"Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:attention} Bananas{}"
 				},
 			},
 			undiscovered_scrap = {
@@ -2233,6 +2283,7 @@ return {
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",
 			k_crv_cbstg = "Contract Pack",
+			k_crv_bbstg = "Banana Pack",
 			k_crv_std_ex = "Sacrified to the Divine!",
 			k_crv_sbg_ex = "Shielded by Grace!",
 			k_crv_cbm_ex = "The Company is Hiring!",
