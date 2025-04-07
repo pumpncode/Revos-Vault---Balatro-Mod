@@ -9,7 +9,7 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **160**
 
  **Cross-Mod Content**
 
---
+----
 
 **[Cryptid](https://github.com/MathIsFun0/Cryptid)**
 
