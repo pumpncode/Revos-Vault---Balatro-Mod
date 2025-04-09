@@ -2308,7 +2308,7 @@ return {
 			k_crv_p = "Printer",
 			k_crv_holy = "Holy Banana",
 			k_crv_pedro = "Pedro",
-			k_crv_tit = "Evolution",
+			k_crv_titan = "Evolution",
 			k_crv_chaos = "Chaos",
 			k_crv_va = "Vaulted",
 			k_crv_secret = "Secret",
