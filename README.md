@@ -7,7 +7,7 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **160**
 
 ![Ekran görüntüsü 2025-04-07 210258](https://github.com/user-attachments/assets/848fe3cf-1f36-4f75-ba4b-24d423bd9cb3)
 
- **Cross-Mod Content**
+### **Cross-Mod Content**
 
 ----
 
