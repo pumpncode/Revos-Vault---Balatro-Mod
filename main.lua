@@ -37,7 +37,9 @@ end
 if JokerDisplay then
 	SMODS.load_file("items/Cross-Mod/display.lua")()
 end
-SMODS.load_file("Cryptid/items.lua")()
+if next(SMODS.find_mod("Cryptid")) then
+	SMODS.load_file("Cryptid/items.lua")()
+end
 
 if Bakery_API and Bakery_API.Charm or next(SMODS.find_mod("Bakery")) then
 	SMODS.load_file("items/Cross-Mod/charms.lua")()
@@ -567,3 +569,64 @@ SMODS.ObjectType({
 })
 
 RevosVault.optional_features = {retrigger_joker = true}
+
+SMODS.Joker({   --used for the title screen
+	key = "printertitle",
+	atlas = "Jokers",
+	rarity = "crv_p",
+	cost = 10,
+	unlocked = true,
+	discovered = true,
+	no_collection = true,
+	pos = {
+		x = 0,
+		y = 0,
+	},
+	in_pool = function(self)
+		return false
+	end,
+})
+
+SMODS.Joker({ 	--used for the title screen
+	key = "grossprintertitle",
+	atlas = "Jokers",
+	rarity = "crv_p",
+	cost = 10,
+	unlocked = true,
+	discovered = true,
+	no_collection = true,
+	pos = {
+		x = 0,
+		y = 1,
+	},
+	in_pool = function(self)
+		return false
+	end,
+})
+
+--Adds Gross Printer to the main menu. Code from Cryptid
+
+
+local oldfunc = Game.main_menu   --ily cryptid x2
+	Game.main_menu = function(change_context)
+		local ret = oldfunc(change_context)
+
+		local newcard = Card(
+			G.title_top.T.x,
+			G.title_top.T.y,
+			G.CARD_W,
+			G.CARD_H,
+			G.P_CARDS.empty,
+			G.P_CENTERS.j_crv_grossprintertitle,
+			{ bypass_discovery_center = true }
+		)
+
+		G.title_top.T.w = G.title_top.T.w * 1.7675
+		G.title_top.T.x = G.title_top.T.x - 0.8
+		G.title_top:emplace(newcard)
+
+		newcard.T.w = newcard.T.w * 1.1 * 1.25
+		newcard.T.h = newcard.T.h * 1.1 * 1.25
+		newcard.no_ui = true
+		newcard.states.visible = true
+	end
