@@ -881,3 +881,44 @@ SMODS.Joker({
 	end,
 })
 
+SMODS.Joker({
+	key = "vhalfjoker",
+	atlas = "Jokers2",
+	pos = {
+		x = 6,
+		y = 10,
+	},
+	rarity = "crv_va",
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	config = {
+		extra = {
+			xmult = 5
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {crv.xmult},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		local c = context
+		if c.joker_main and #c.full_hand > 3 then
+			return{
+				xmult = crv.xmult
+			}
+		elseif c.joker_main then
+			return{
+				xmult = -crv.xmult
+			}
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+

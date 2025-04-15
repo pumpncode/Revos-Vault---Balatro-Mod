@@ -1815,6 +1815,33 @@ return {
 					"{C:money}$#1#{}"
 				},
 			},
+			j_crv_those = {
+				name = "Those who Joke",
+				text = {
+					"{C:inactive,s:0.75}(art by Crazy Dave (aka Crazy Dave)™)",
+					"When {C:attention}Blind{} is selected,",
+					"{C:green}#2# in #1#{} Chance to create",
+					"a negative {C:attention}Mr. Bones"
+				},
+			},
+			j_crv_vhalfjoker = {
+				name = "Taped Joker",
+				text = {
+					"{X:mult,C:white}X#1#{} Mult if played",
+					"hand contains",
+					"More than {C:attention}3{} cards.",
+					"{X:mult,C:white}X(-#1#){} Mult otherwise",
+				},
+			},
+
+			--SDM_0 below
+			j_crv_burgerpr= {
+				name = "Burger Printer",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"print a {C:attention}Burger"
+				},
+			},
 
 			--rift raft below
 			j_crv_riftrinter = {
@@ -2334,6 +2361,7 @@ return {
 			crv_invest = "Invest",
 			crv_change = "Change",
 			crv_bet = "Bet",
+			k_evolve_crv = "Evolve!",
 		},
 	},
 }
