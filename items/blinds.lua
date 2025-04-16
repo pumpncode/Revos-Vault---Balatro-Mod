@@ -5,9 +5,11 @@ SMODS.Blind({
 	},
 	atlas = "blinds",
 	pos = { x = 0, y = 1 },
-	boss = { min = 1, max = 10 },
+	boss = { min = 3, max = 10 },
 	boss_colour = HEX("f84b4b"),
 })
+
+
 --[[ Until i find a solution to the crash, this will be disabled
 SMODS.Blind({
 	key = "fragile",

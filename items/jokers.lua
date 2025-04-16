@@ -286,7 +286,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 3,
-			timer = 0,
+			timer = 4,
 		},
 	},
 	rarity = 4,
@@ -316,20 +316,9 @@ SMODS.Joker({
 		end
 		if context.joker_main and G.GAME.current_round.hands_left == 1 and card.ability.extra.timer == 5 then
 			card.ability.extra.timer = 0
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.3,
-				blockable = false,
-				func = function()
-					G.jokers:remove_card(card)
-					card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-					card = nil
-					return true
-				end,
-			}))
-			local new_card = create_card("Giant", G.jokers, nil, nil, nil, nil, "j_crv_snayn32")
-			new_card:add_to_deck()
-			G.jokers:emplace(new_card)
+			card:juice_up(0.3, 0.4)
+			card:set_ability("j_crv_snayn32")
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_evolve_crv") })
 		end
 		if context.joker_main and not G.GAME.current_round.hands_left == 1 then
 			return {
@@ -372,20 +361,8 @@ SMODS.Joker({
 			}
 		end
 		if context.end_of_round and context.main_eval then
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.3,
-				blockable = false,
-				func = function()
-					G.jokers:remove_card(card)
-					card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-					card = nil
-					return true
-				end,
-			}))
-			local new_card = create_card("Eren", G.jokers, nil, nil, nil, nil, "j_crv_snayn3")
-			new_card:add_to_deck()
-			G.jokers:emplace(new_card)
+			card:juice_up(0.3, 0.4)
+			card:set_ability("j_crv_snayn3")
 		end
 	end,
 })
@@ -807,10 +784,8 @@ SMODS.Joker({
 		local crv = card.ability.extra
 		if context.end_of_round and context.main_eval and not context.blueprint then
 			if pseudorandom("grossprinter") < G.GAME.probabilities.normal / crv.odds3 then
-				card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-				SMODS.add_card({
-					key = "j_crv_sgrossprinter",
-				})
+				card:juice_up(0.3, 0.4)
+				card:set_ability("j_crv_grossprinter")
 			end
 		end
 		if
@@ -5836,10 +5811,9 @@ SMODS.Joker({
 				end,
 			}))
 			local rabs = pseudorandom_element(rabbits, pseudoseed("rab"))
-			SMODS.add_card({
-				area = G.jokers,
-				key = rabs,
-			})
+			card:juice_up(0.3, 0.4)
+			card:set_ability(rabs)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_evolve_crv") })
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
@@ -7153,12 +7127,8 @@ SMODS.Joker({
 		end
 		if context.end_of_round and context.main_eval and not context.blueprint then
 			if pseudorandom("kq") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-				SMODS.add_card({
-					set = "Joker",
-					area = G.jokers,
-					key = "j_crv_kqb",
-				})
+				card:juice_up(0.3, 0.4)
+				card:set_ability("j_crv_kqb")
 			end
 		end
 	end,
@@ -9795,7 +9765,7 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			mult = 53
+			mult = 60
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -9808,6 +9778,43 @@ SMODS.Joker({
 		if context.joker_main then
 			return {
 				mult = card.ability.extra.mult
+			}
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
+SMODS.Joker({
+	key = "those",
+	atlas = "Jokers2",
+	rarity = 3,
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+
+	pos = {
+		x = 5,
+		y = 10,
+	},
+	config = {
+		extra = {
+			odds = 4
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.odds,(G.GAME.probabilities.normal or 1)},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.setting_blind and pseudorandom("those") < card.ability.extra.odds / G.GAME.probabilities.normal then
+			SMODS.add_card{
+				key = "j_mr_bones",
+				area = G.jokers
 			}
 		end
 	end,

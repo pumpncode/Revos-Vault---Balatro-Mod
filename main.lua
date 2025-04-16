@@ -57,6 +57,10 @@ if next(SMODS.find_mod("Prism")) then
 	SMODS.load_file("items/Cross-Mod/prism.lua")()
 end
 
+if next(SMODS.find_mod("sdm0sstuff")) then
+	SMODS.load_file("items/Cross-Mod/sdm0.lua")()
+end
+
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -320,6 +324,13 @@ SMODS.Atlas({
 SMODS.Atlas({
 	key = "prismc",
 	path = "prism.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "sdm0",
+	path = "sdm0.png",
 	px = 71,
 	py = 95,
 })
