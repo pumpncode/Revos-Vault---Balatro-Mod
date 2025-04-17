@@ -78,7 +78,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = false,
 	pos = {
-		x = 2,
+		x = 0,
 		y = 0,
 	},
 	config = {
