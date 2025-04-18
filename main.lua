@@ -61,6 +61,14 @@ if next(SMODS.find_mod("sdm0sstuff")) then
 	SMODS.load_file("items/Cross-Mod/sdm0.lua")()
 end
 
+if next(SMODS.find_mod("aikoyorisshenanigans")) then
+	SMODS.load_file("items/Cross-Mod/aiko.lua")()
+end
+
+if next(SMODS.find_mod("GARBPACK")) then
+	SMODS.load_file("items/Cross-Mod/garb.lua")()
+end
+
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -331,6 +339,20 @@ SMODS.Atlas({
 SMODS.Atlas({
 	key = "sdm0",
 	path = "sdm0.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "aiko",
+	path = "aiko.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "garb",
+	path = "garb.png",
 	px = 71,
 	py = 95,
 })

@@ -1833,7 +1833,22 @@ return {
 					"{X:mult,C:white}X(-#1#){} Mult otherwise",
 				},
 			},
-
+			--GARBSHIT below
+			j_crv_stamprinter = {
+				name = "Stamp Printer",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"print a random {C:attention}Stamp Card",
+				},
+			},
+			--Aikoyori's Shenanigans below
+			j_crv_letterprinter = {
+				name = "Letter Printer",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"print a random {C:attention}Alphabet Card",
+				},
+			},
 			--SDM_0 below
 			j_crv_burgerpr= {
 				name = "Burger Printer",
