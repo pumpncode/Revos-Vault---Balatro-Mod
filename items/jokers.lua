@@ -6434,6 +6434,7 @@ SMODS.Joker({
 		}
 	end,
 	remove_from_deck = function(self, card, from_debuff)
+		local crv = card.ability.extra
 		G.GAME.reincarnation = G.GAME.reincarnation + 1
 		if pseudorandom("rein") < G.GAME.probabilities.normal / crv.odds then
 			add_tag(Tag("tag_crv_reintag"))
