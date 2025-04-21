@@ -59,10 +59,7 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-	set_badges = function(self, card, badges)
-		G.C.ORANGE = HEX("fd9712")
-		badges[#badges+#badges] = create_badge("TOGA's Stuff", G.C.ORANGE, G.C.WHITE,1)
-	end
+dependencies = "TOGAPack"
 })
 
 local tags = {1,2}
@@ -125,8 +122,5 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-	set_badges = function(self, card, badges)
-		G.C.ORANGE = HEX("fd9712")
-		badges[#badges+#badges] = create_badge("TOGA's Stuff", G.C.ORANGE, G.C.WHITE,1)
-	end
+dependencies = "TOGAPack"
 })

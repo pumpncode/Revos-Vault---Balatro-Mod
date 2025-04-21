@@ -39,9 +39,7 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-		badges[#badges+#badges] = create_badge("Rift-Raft",G.C.UI.BACKGROUND_INACTIVE,nil,1)
-	end
+    dependencies = "RiftRaft",
 })
 
 SMODS.Consumable{
@@ -103,7 +101,5 @@ SMODS.Consumable{
             end}))
         end
     end,
-    set_badges = function(self, card, badges)
-		badges[#badges+#badges] = create_badge("Rift-Raft",G.C.UI.BACKGROUND_INACTIVE,nil,1)
-	end
+    dependencies = "RiftRaft",
 }

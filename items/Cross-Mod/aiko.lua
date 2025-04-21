@@ -12,6 +12,7 @@ SMODS.Joker({
 		x = 0,
 		y = 0,
 	},
+	dependencies = "aikoyorisshenanigans",
 	loc_vars = function(self, info_queue, center)
 	end,
 
@@ -36,8 +37,4 @@ SMODS.Joker({
     in_pool = function(self, args)
         return G.GAME.akyrs_character_stickers_enabled
     end,
-    set_badges = function(self, card, badges)
-        G.C.AIKOR = HEX("ff475a")
-		badges[#badges+#badges] = create_badge("AikoShenanigans",G.C.AIKOR,nil,1)
-	end
 })
