@@ -15,6 +15,7 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+	dependencies = "reverse_tarot",
 	loc_vars = function(self, info_queue, center) end,
 
 	calculate = function(self, card, context)
@@ -52,11 +53,6 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 })
 
 SMODS.Joker({
@@ -80,6 +76,7 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -98,11 +95,6 @@ SMODS.Joker({
 			end
 		end
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 })
 
 SMODS.Joker({
@@ -122,6 +114,7 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -140,11 +133,6 @@ SMODS.Joker({
 			end
 		end
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 })
 
 SMODS.Enhancement({
@@ -167,6 +155,7 @@ SMODS.Enhancement({
 			},
 		}
 	end,
+	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.main_scoring and context.cardarea == G.play then
 			return { x_chips = card.ability.extra.x_chips }
@@ -187,11 +176,6 @@ SMODS.Enhancement({
 			}))
 		end
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 })
 
 SMODS.Consumable{
@@ -204,6 +188,7 @@ SMODS.Consumable{
 		extra = {
 			cards = 1, odds = 4}
 	},
+	dependencies = "reverse_tarot",
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	  end,
@@ -232,11 +217,6 @@ SMODS.Consumable{
 	 end
 	 
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 }
 
 --
@@ -257,6 +237,7 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -275,11 +256,6 @@ SMODS.Joker({
 			end
 		end
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 })
 
 SMODS.Enhancement({
@@ -292,6 +268,7 @@ SMODS.Enhancement({
             x_chips = 2.5
         }
     },
+	dependencies = "reverse_tarot",
     loc_vars = function(self, info_queue, center)
         return {vars = {center.ability.extra.x_chips}}
     end,
@@ -300,11 +277,6 @@ SMODS.Enhancement({
             return {x_chips = card.ability.extra.x_chips}
         end
     end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 	
 })
 
@@ -318,6 +290,7 @@ SMODS.Consumable{
 		extra = {
 			cards = 1, odds = 4}
 	},
+	dependencies = "reverse_tarot",
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	  end,
@@ -346,11 +319,6 @@ SMODS.Consumable{
 	 end
 	 
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 }
 
 --
@@ -372,6 +340,7 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -390,12 +359,9 @@ SMODS.Joker({
 			end
 		end
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end
 })
+
+
 	local omnisuits = {1,2,3,4}
 SMODS.Consumable{
 	key = 'omnicontract', 
@@ -407,6 +373,7 @@ SMODS.Consumable{
 		extra = {
 			cards = 1, odds = 4}
 	},
+	dependencies = "reverse_tarot",
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	  end,
@@ -448,11 +415,6 @@ SMODS.Consumable{
 	end
 	
 	 end
-	 
 	end,
-	set_badges = function(self, card, badges)
-		G.C.REV1 = HEX("0fe0d4")
-		G.C.REV2 = HEX("e00f68")
-		badges[#badges+#badges] = create_badge("Reverse Tarot Cards", G.C.REV1, G.C.REV2,0.6)
-	end	
+
 }

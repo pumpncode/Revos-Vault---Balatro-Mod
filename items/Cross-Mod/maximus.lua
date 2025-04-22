@@ -16,6 +16,7 @@ SMODS.Joker({
 		y = 0,
 	},
 	cost = 6,
+	dependencies = "Maximus",
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = { },
@@ -40,11 +41,6 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-        G.C.REV3 = HEX("f51bbc")
-        G.C.REV4 = HEX("f8a100")
-		badges[#badges+#badges] = create_badge("Maximus", G.C.REV3, G.C.REV4,1)
-	end
 })
 
 end
@@ -66,6 +62,7 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+	dependencies = "Maximus",
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.j_mxms_joker_plus
 	end,
@@ -91,9 +88,4 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-        G.C.REV3 = HEX("f51bbc")
-        G.C.REV4 = HEX("f8a100")
-		badges[#badges+#badges] = create_badge("Maximus", G.C.REV3, G.C.REV4,1)
-	end
 })

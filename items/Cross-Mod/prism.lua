@@ -22,7 +22,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.j_blueprint
 	end,
-
+	dependencies = "Prism",
 	calculate = function(self, card, context)
         local crv = card.ability.extra
 		if context.setting_blind and not context.blueprint then
@@ -43,11 +43,6 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-        G.C.PRISREV = HEX("665775")
-        G.C.PRISREV1 = HEX("dbd5ce")
-		badges[#badges+#badges] = create_badge("Prism",G.C.PRISREV,G.C.PRISREV1,1)
-	end
 })
 
 
@@ -74,7 +69,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.j_blueprint
 	end,
-
+	dependencies = "Prism",
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint then
             if G.GAME.used_vouchers["v_crv_printerup"] == true then
@@ -94,11 +89,6 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-        G.C.PRISREV = HEX("665775")
-        G.C.PRISREV1 = HEX("dbd5ce")
-		badges[#badges+#badges] = create_badge("Prism",G.C.PRISREV,G.C.PRISREV1,1)
-	end
 })
 end
 
@@ -115,6 +105,7 @@ SMODS.Enhancement({
             vars = { card_ability.extra.x_mult, card_ability.extra.x_gain}
         }
     end,
+	dependencies = "Prism",
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring then
             return {
@@ -130,11 +121,6 @@ SMODS.Enhancement({
             }
         end
 	end,
-    set_badges = function(self, card, badges)
-        G.C.PRISREV = HEX("665775")
-        G.C.PRISREV1 = HEX("dbd5ce")
-		badges[#badges+#badges] = create_badge("Prism",G.C.PRISREV,G.C.PRISREV1,1)
-	end
 })
 
 SMODS.Consumable({
@@ -149,6 +135,7 @@ SMODS.Consumable({
 			odds = 4,
 		},
 	},
+	dependencies = "Prism",
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
@@ -189,11 +176,6 @@ SMODS.Consumable({
 			end
 		end
 	end,
-    set_badges = function(self, card, badges)
-        G.C.PRISREV = HEX("665775")
-        G.C.PRISREV1 = HEX("dbd5ce")
-		badges[#badges+#badges] = create_badge("Prism",G.C.PRISREV,G.C.PRISREV1,1)
-	end
 })
 
 SMODS.Joker({
@@ -242,9 +224,5 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-        G.C.PRISREV = HEX("665775")
-        G.C.PRISREV1 = HEX("dbd5ce")
-		badges[#badges+#badges] = create_badge("Prism",G.C.PRISREV,G.C.PRISREV1,1)
-	end
+	dependencies = "Prism",
 })

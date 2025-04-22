@@ -19,6 +19,7 @@ SMODS.Joker({
 		h = 114,
 	},
 	cost = 6,
+    dependencies = "MoreFluff",
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = { },
@@ -43,7 +44,4 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-    set_badges = function(self, card, badges)
-		badges[#badges+#badges] = create_badge("MoreFluff", G.C.PURPLE, nil,1)
-	end
 })
