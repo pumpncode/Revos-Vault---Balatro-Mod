@@ -136,7 +136,7 @@ return {
 				text = {
 					"Upon entering blind,",
 					"blind requirement is multiplied",
-					"by the ammount of your jokers",
+					"by the amount of your jokers",
 				},
 			},
 		},
@@ -982,7 +982,7 @@ return {
 				text = {
 					"If there is {C:attention}nothing{} to the right of this card,",
 					"{C:green}#2# in #1#{} Chance to",
-					"Add {C:attention}double{} the ammount of the blind chips",
+					"Add {C:attention}double{} the amount of the blind chips",
 					"As {C:chips}chips{}. However, if failed, sets current score to",
 					"{C:red}zero",
 				},
@@ -1136,7 +1136,7 @@ return {
 			j_crv_hfj = {
 				name = "{C:green}Hacked File",
 				text = {
-					"Saves the {C:green}4{} times the ammount of your first",
+					"Saves the {C:green}4{} times the amount of your first",
 					"scored chips and returns it as {X:mult,C:white}XMult{}.",
 					"{C:red}resets{} at the end of a round",
 					"{C:inactive}({C:attention}#1# {C:inactive}Stored)",
@@ -1831,6 +1831,30 @@ return {
 					"hand contains",
 					"More than {C:attention}3{} cards.",
 					"{X:mult,C:white}X(-#1#){} Mult otherwise",
+				},
+			},
+			j_crv_acee = {
+				name = "Ace?",
+				text = {
+					"Retrigger each played {C:attention}Ace{}",
+					"{C:attention}2{} Times"
+				},
+			},
+			j_crv_eyes = {
+				name = "The Eyes",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"destroy the joker on the left",
+					"and {C:attention}Copy{} the joker on the right",
+				},
+			},
+			j_crv_asc = {
+				name = "Ascended One",
+				text = {
+					"Gains {C:mult}#1#{} Mult",
+					"for each {C:attention}Spectral{} Card",
+					"used this run",
+					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
 				},
 			},
 			--GARBSHIT below
