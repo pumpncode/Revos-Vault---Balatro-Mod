@@ -64,7 +64,7 @@ SMODS.Blind({
 	pos = { x = 0, y = 2 },
 	boss_colour = HEX("3e3e3e"),
 	drawn_to_hand = function(self)
-		if G.jokers.cards[1] then
+		if G.jokers.cards[1] and self.prepped then
 			local jokers = {}
 			for i = 1, #G.jokers.cards do
 				if not G.jokers.cards[i].debuff or #G.jokers.cards < 2 then
@@ -77,6 +77,10 @@ SMODS.Blind({
 				_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
 				self.triggered = true
 			end
+			self.prepped = false
 		end
+	end,
+	press_play = function(self)
+		self.prepped = true
 	end,
 })
