@@ -909,3 +909,63 @@ SMODS.Consumable({
 		end
 	end,
 })
+
+SMODS.Consumable({
+	key = "rdocument",
+	set = "EnchancedDocuments",
+	discovered = true,
+	atlas = "documents",
+	pos = { x = 1, y = 2 },
+	config = {
+		extra = {
+			cards = 1,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.cards } }
+	end,
+	can_use = function(self, card)
+		if G and G.hand then
+			if
+				#G.hand.highlighted ~= 0
+				and #G.hand.highlighted <= card.ability.extra.cards
+				and #G.jokers.highlighted == 0
+			then
+				return true
+			elseif
+				#G.jokers.highlighted ~= 0
+				and #G.jokers.highlighted <= card.ability.extra.cards
+				and #G.hand.highlighted == 0
+			then
+				return true
+			end
+		end
+		return false
+	end,
+	use = function(self, card, area, copier)
+		for i, card in pairs(G.hand.highlighted) do
+			card:set_edition()
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.2,
+				func = function()
+					G.hand:unhighlight_all()
+					return true
+				end,
+			}))
+			delay(0.5)
+		end
+		for i, card in pairs(G.jokers.highlighted) do
+			card:set_edition()
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.2,
+				func = function()
+					G.hand:unhighlight_all()
+					return true
+				end,
+			}))
+			delay(0.5)
+		end
+	end,
+})

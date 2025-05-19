@@ -1,11 +1,11 @@
 
-### Latest: Vers 4.2.0d:
+### Latest: Vers 4.2.1a:
 
 **Revo's Vault**
 
-Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **162** jokers, 14 new enhancements, 2 new tarots, 3 new spectral cards, 2 new consumable types with a total of 25 custom consumables, 1 new seal, 3 new tags, 1 new voucher, 9 new booster packs, 4 new stickers, 4 new stakes and 3 new boss blinds!
+Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **174** jokers, 14 new enhancements, 2 new tarots, 3 new spectral cards, 2 new consumable types with a total of 26 custom consumables, 1 new seal, 3 new tags, 1 new voucher, 9 new booster packs, 4 new stickers, 4 new stakes and 3 new boss blinds!
 
-![image](https://github.com/user-attachments/assets/667f2a85-ebe8-4052-9217-a64dc475a2f1)
+ ![image](https://github.com/user-attachments/assets/d8741aa0-1c39-4234-bd39-1b917c403d02)
 
 ### **Cross-Mod Content**
 

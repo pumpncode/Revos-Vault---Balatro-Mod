@@ -2412,6 +2412,51 @@ SMODS.Joker({
 	end,
 })
 
+
+SMODS.Joker({
+	key = "rprinter",
+	atlas = "Jokers2",
+	rarity = "crv_p",
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 5,
+		y = 11,
+	},
+	config = {
+		extra = {
+			
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { },
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.setting_blind then
+			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				SMODS.add_card({
+					area = G.consumeables,
+					key = "c_crv_rdocument",
+					edition = "e_negative",
+				})
+			else
+				SMODS.add_card({
+					area = G.consumeables,
+					key = "c_crv_rdocument",
+				})
+			end
+		end
+	end,
+	in_pool = function(self, wawa, wawa2)
+		return true
+	end,
+})
+
 --printers end here [PEP]
 
 SMODS.Joker({
@@ -9972,3 +10017,305 @@ SMODS.Joker({
 		end
 	end,
 })
+
+SMODS.Joker({
+	key = "addiction",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 4,
+		y = 11,
+	},
+	config = {
+		extra = {
+			mult = 3,
+			odds = 1
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return{
+			vars = { card.ability.extra.mult, card.ability.extra.odds,(G.GAME.probabilities.normal or 1) },
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main and pseudorandom("addiction") < G.GAME.probabilities.normal / card.ability.extra.odds then
+			card.ability.extra.odds = card.ability.extra.odds + 1
+			return{
+				xmult = card.ability.extra.mult,
+			}
+		end
+		if context.end_of_round and G.GAME.blind.boss then
+			card.ability.extra.odds = 1
+		end
+	end,
+})
+
+SMODS.Joker({
+	key = "shm",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 10,
+		y = 10,
+	},
+	config = {
+		extra = {
+			interest = 3,
+			ssize = 1
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.interest,crv.ssize },
+		}
+	end,
+	add_to_deck = function(self, card, from_debuff)
+		local crv = card.ability.extra
+		change_shop_size(-crv.ssize)
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		local crv = card.ability.extra
+		change_shop_size(crv.ssize)
+	end,
+})
+
+SMODS.Joker({
+	key = "ec",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 0,
+		y = 11,
+	},
+	config = {
+		extra = {
+			dollars = 3,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.dollars },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.individual and context.cardarea == G.play then
+			if not context.other_card:is_face() then
+				return{
+					dollars = crv.dollars
+				}
+			end
+		end
+	end
+})
+
+SMODS.Joker({
+	key = "ev",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 1,
+		y = 11,
+	},
+	config = {
+		extra = {
+			mult = 3,
+			chips = 6
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.mult, crv.chips },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.individual and context.cardarea == G.play then
+			if context.other_card:is_face() then
+				return{
+					mult = crv.mult
+				}
+			else 
+				return{
+					chips = crv.chips
+				}
+			end
+		end
+	end
+})
+
+SMODS.Joker({
+	key = "teen",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 3,
+		y = 11,
+	},
+	config = {	
+		extra = {
+			rep = 1,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.rep},
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.repetition and context.cardarea == G.play then
+			if context.other_card:get_id() == 11 then
+				return{
+					repetitions = crv.rep
+				}
+			end
+		end
+	end
+})
+
+SMODS.Joker({
+	key = "evt",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 2,
+		y = 11,
+	},
+	config = {
+		extra = {
+			xmult = 2,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.xmult },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.individual and context.cardarea == G.play then	
+			if context.full_hand[1]:get_id() == 10 then
+			if context.individual then
+				return{
+					xmult = crv.xmult
+				}
+			end
+		end
+	end
+end
+})
+
+SMODS.Joker({
+	key = "aon",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 1,
+		y = 12,
+	},
+	config = {
+		extra = {
+			chips = 50,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.chips },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.joker_main then
+			local fc = 0
+			for k, v in ipairs(G.play.cards) do
+				if v:is_face() then
+					fc = fc + 1
+				end
+			end
+			if fc > 0 then
+				return{
+					chips = crv.chips*fc
+				}
+			end
+		end
+	end
+})
+
+SMODS.Joker({
+	key = "mature",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	pos = {
+		x = 0,
+		y = 12,
+	},
+	config = {
+		extra = {
+			mult = 0,
+			multg = 5,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return{
+			vars = { crv.mult, crv.multg },
+		}
+	end,
+	calculate = function(self, card, context)
+		local crv = card.ability.extra
+		if context.remove_playing_cards then
+			crv.mult = crv.mult + crv.multg
+		end
+		if context.end_of_round and context.main_eval and G.GAME.blind.boss then
+			crv.mult = 0
+			return{
+				message = "Reset!"
+			}
+		end
+		if context.joker_main then
+			return{
+				mult = crv.mult
+			}
+		end
+	end
+})
+
