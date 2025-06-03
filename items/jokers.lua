@@ -9406,9 +9406,10 @@ SMODS.Joker({
 		if context.final_scoring_step and not context.blueprint then
 			if context.cardarea then
 				for k, v in ipairs(context.scoring_hand) do
+					if not v.edition and not v.ability.polychrome then
 					G.E_MANAGER:add_event(Event({
 						func = function()
-							if not v.edition then
+							if not v.edition and not v.ability.polychrome then
 								v:juice_up(0.3, 0.4)
 								v:set_edition({ polychrome = true }, true)
 								return true
@@ -9418,7 +9419,8 @@ SMODS.Joker({
 				end
 			end
 		end
-	end,
+	end
+end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,

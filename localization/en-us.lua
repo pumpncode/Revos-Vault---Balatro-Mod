@@ -1624,8 +1624,9 @@ return {
 			j_crv_nyancat = {
 				name = "Nyan Cat",
 				text = {
-					"Scored cards turn {C:dark_edition}Polychrome{}",
-					"after scoring",
+					"Applies {C:edition}Polychrome{} to",
+					"scored cards after scoring",
+					"{C:inactive}(Won't overwrite existing edition)",
 				},
 			},
 			j_crv_mathness = {
