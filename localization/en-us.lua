@@ -1987,8 +1987,23 @@ return {
 			j_crv_icece = {
 				name = "Cookie Cats",
 				text = {
-					"If {C:attention}played hand{} does not", "contain any {C:heart}Heart cards",
+					"If {C:attention}played hand{} does not",
+					"contain any {C:heart}Heart cards",
 					"gives {X:chips,C:white}X#1#{} Chips",
+				},
+			},
+			j_crv_grosdish = {
+				name = "Grosdish",
+				text = {
+					"{C:chips}+#1#{} Chips",
+					"{C:green}#2# in #3#{} Chance to go extinct",
+				},
+			},
+			j_crv_cavicheal = {
+				name = "Caveicheal",
+				text = {
+					"{X:chips,C:white}X#1#{} Chips",
+					"{C:green}#2# in #3#{} Chance to go extinct",
 				},
 			},
 			--GARBSHIT below
