@@ -3,9 +3,10 @@
 
 **Revo's Vault**
 
-Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **175+** jokers and a lot more!
+Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **180+** jokers and a lot more!
 
- ![image](https://github.com/user-attachments/assets/d8741aa0-1c39-4234-bd39-1b917c403d02)
+ ![image](https://github.com/user-attachments/assets/09fa158d-09c6-479a-a829-af173bdbc04f)
+
 
 ### **Cross-Mod Content**
 
