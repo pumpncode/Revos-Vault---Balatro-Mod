@@ -399,3 +399,27 @@ SMODS.Enhancement({
         end
 	end
 })
+
+SMODS.Enhancement({
+	key = "shattered",
+	atlas = "enh",
+	pos = { x = 0, y = 3 },
+	discovered = true,
+	unlocked = true,
+	replace_base_card = true,
+	no_rank = true,
+	no_suit = true,
+	always_scores = true,
+	weight = 0,
+	config = { extra = { x_mult = 2} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.x_mult} }
+	end,
+	calculate = function(self, card, context, effect)
+		if context.main_scoring and context.cardarea == G.play then
+			return {
+				x_mult = card.ability.extra.x_mult,
+			}
+		end
+	end,
+})

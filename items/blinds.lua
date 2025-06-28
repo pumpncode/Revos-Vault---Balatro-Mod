@@ -10,14 +10,13 @@ SMODS.Blind({
 })
 
 
---[[ Until i find a solution to the crash, this will be disabled
 SMODS.Blind({
 	key = "fragile",
 	boss = { min = 1, max = 10 },
 	atlas = "blinds",
 	pos = { x = 0, y = 0 },
 	boss_colour = HEX("ffffff"),
-	press_play = function(self,context)
+		calculate = function(self, blind, context)
 		if context.final_scoring_step then
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
@@ -38,7 +37,7 @@ SMODS.Blind({
 		return true
 	end
 end,
-})]]
+})
 
 SMODS.Blind({
 	key = "no",

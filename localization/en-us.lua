@@ -128,7 +128,7 @@ return {
 				name = "Fragile",
 				text = {
 					"Destroy a random",
-					"played card before scoring",
+					"played card after scoring",
 				},
 			},
 			bl_crv_no = {
@@ -137,6 +137,21 @@ return {
 					"Upon entering blind,",
 					"blind requirement is multiplied",
 					"by the amount of your jokers",
+				},
+			},
+		},
+		Partner = {
+			pnr_crv_pprinter = {
+				name = "Lil' Printer",
+				text = {
+					"Has a {C:green}#2# in #1#{} chance to",
+					"copy the first {C:attention}Joker{}",
+					"in your deck when a hand is played",
+				},
+				unlock = {
+					"Used {C:attention}Joker",
+					"to win on {C:attention}Gold",
+					"{C:attention}Stake{} difficulty",
 				},
 			},
 		},
@@ -251,6 +266,12 @@ return {
 			},
 		},
 		Enhanced = {
+			m_crv_shattered = {
+				name = "Shattered",
+				text = {
+					"{X:mult,C:white}X#1#{} Mult",
+				},
+			},
 			m_crv_bulletproofglass = {
 				name = "Bulletproof Glass",
 				text = {
@@ -1931,6 +1952,45 @@ return {
 					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
 				},
 			},
+			j_crv_dealb = {
+				name = "Deal Breaker",
+				text = {
+					"When activated, {C:attention}Halfs{} current",
+					"blind's requirements.",
+					"{C:red}Self-Destructs{} when out of uses",
+					"{C:inactive}({C:attention}#1#{C:inactive} uses left)",
+				},
+			},
+			j_crv_embutton = {
+				name = "Emergency Button",
+				text = {
+					"Gain an {C:attention}extra{C:blue} hand",
+					"when sold",
+				},
+			},
+			j_crv_rebel = {
+				name = "Rebel",
+				text = {
+					"Will {C:red}destroy{} any face card.",
+					"{X:mult,C:white}X#1#{} Mult",
+				},
+			},
+			j_crv_glassgun = {
+				name = "Glass Gun",
+				text = {
+					"{C:red}Halves{} the {C:green}odds{} of glass cards breaking",
+					"Destroyed glass cards become {C:attention}Shattered{}",
+					"Scored glass cards become {C:dark_edition}Polychrome",
+					"{C:inactive}(eg. 4 -> 2)",
+				},
+			},
+			j_crv_icece = {
+				name = "Cookie Cats",
+				text = {
+					"If {C:attention}played hand{} does not", "contain any {C:heart}Heart cards",
+					"gives {X:chips,C:white}X#1#{} Chips",
+				},
+			},
 			--GARBSHIT below
 			j_crv_stamprinter = {
 				name = "Stamp Printer",
@@ -2482,6 +2542,29 @@ return {
 			crv_change = "Change",
 			crv_bet = "Bet",
 			k_evolve_crv = "Evolve!",
+			k_half_crv = "Half",
+			k_hblind_crv = "Blind",
+		},
+
+		quips = {
+			pnr_crv_pprinter_1 = {
+				"*printing noises*",
+			},
+			pnr_crv_pprinter_2 = {
+				"*aggresive printing noises*",
+			},
+			pnr_crv_pprinter_3 = {
+				"*happy printing noises*",
+			},
+			pnr_crv_pprinter_4 = {
+				"*HP Laserjet 1018 noises*",
+			},
+			pnr_crv_pprinter_5 = {
+				"*print print print print*",
+			},
+			pnr_crv_pprinter_6 = {
+				"*cheerful printing noises*",
+			},
 		},
 	},
 }

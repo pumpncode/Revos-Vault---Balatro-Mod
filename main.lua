@@ -69,6 +69,11 @@ if next(SMODS.find_mod("GARBPACK")) then
 	SMODS.load_file("items/Cross-Mod/garb.lua")()
 end
 
+if next(SMODS.find_mod("partner")) then
+	SMODS.load_file("items/Cross-Mod/partner.lua")()
+end
+
+
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -252,6 +257,7 @@ SMODS.Atlas({
 	frames = 21,
 })
 
+
 SMODS.Atlas({
 	key = "mm",
 	path = "mm.png",
@@ -357,6 +363,13 @@ SMODS.Atlas({
 	py = 95,
 })
 
+SMODS.Atlas{
+    key = "partners",
+    px = 46,
+    py = 58,
+    path = "part.png"
+}
+
 
 
 function joker_add(jKey)
@@ -400,6 +413,13 @@ Game.init_game_object = function(self)
 	local ret = igo(self)
 	ret.reincarnation = 1
 	ret.henchmans = 0
+	ret.glassodds = 4
+    ret.glassxmult = 2
+	if next(SMODS.find_mod("JoJoMod")) then
+		ret.jojo = true
+	else
+		ret.jojo = false
+	end
 	if next(SMODS.find_mod("Talisman")) then
 		ret.talisman = 1
 	else
@@ -600,6 +620,8 @@ SMODS.ObjectType({
 		self:inject_card(G.P_CENTERS.j_cavendish)
 	end,
 })
+
+
 
 RevosVault.optional_features = {retrigger_joker = true}
 

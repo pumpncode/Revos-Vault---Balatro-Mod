@@ -117,3 +117,18 @@ SMODS.Sticker({
 	end
 end
 })
+
+SMODS.Sticker({
+	key = "marked",
+	badge_colour = HEX("000000"),
+	atlas = "enh",
+	pos = {
+		x = 3,
+		y = 3,
+	},
+	sets = {
+		Joker = true,
+	},
+	rate = 0.1,
+	needs_enable_flag = true,
+})

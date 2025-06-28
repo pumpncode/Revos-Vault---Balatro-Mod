@@ -1,4 +1,3 @@
-
 SMODS.Consumable({
 	key = "inkintuition",
 	set = "Tarot",
@@ -96,6 +95,7 @@ SMODS.ConsumableType({
 	collection_rows = { 4, 5 },
 	primary_colour = G.C.RED,
 	secondary_colour = G.C.RED,
+	shop_rate = nil,
 })
 
 SMODS.UndiscoveredSprite({
@@ -105,8 +105,8 @@ SMODS.UndiscoveredSprite({
 })
 
 SMODS.Consumable({
-	in_pool = function(self, wawa, wawa2)
-		return false
+	in_pool = function(self)
+		return true, { allow_duplicates = true }
 	end,
 	key = "horn",
 	discovered = true,
@@ -126,8 +126,8 @@ SMODS.Consumable({
 })
 
 SMODS.Consumable({
-	in_pool = function(self, wawa, wawa2)
-		return false
+	in_pool = function(self)
+		return true, { allow_duplicates = true }
 	end,
 	key = "pickles",
 	discovered = true,
@@ -146,8 +146,8 @@ SMODS.Consumable({
 	end,
 })
 SMODS.Consumable({
-	in_pool = function(self, wawa, wawa2)
-		return false
+	in_pool = function(self)
+		return true, { allow_duplicates = true }
 	end,
 	key = "mp",
 	discovered = true,
@@ -167,8 +167,8 @@ SMODS.Consumable({
 })
 
 SMODS.Consumable({
-	in_pool = function(self, wawa, wawa2)
-		return false
+	in_pool = function(self)
+		return true, { allow_duplicates = true }
 	end,
 	key = "ap",
 	discovered = true,
@@ -188,8 +188,8 @@ SMODS.Consumable({
 })
 
 SMODS.Consumable({
-	in_pool = function(self, wawa, wawa2)
-		return false
+	in_pool = function(self)
+		return true, { allow_duplicates = true }
 	end,
 	key = "dc",
 	discovered = true,
@@ -400,7 +400,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
 				return true
 			end
 		end
@@ -434,7 +434,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
 				return true
 			end
 		end
@@ -467,7 +467,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
 				return true
 			end
 		end
@@ -489,18 +489,18 @@ SMODS.Consumable({
 	end,
 })
 SMODS.Consumable({
-	key = "t3doc", 
-	set = "EnchancedDocuments", 
+	key = "t3doc",
+	set = "EnchancedDocuments",
 	discovered = true,
-	atlas = "t", 
+	atlas = "t",
 	pos = { x = 2, y = 1 },
-	config = { extra = { cards = 3 } }, 
+	config = { extra = { cards = 3 } },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards } }
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
 				return true
 			end
 		end
@@ -573,7 +573,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then 
+			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
 				return true
 			end
 		end
@@ -731,11 +731,11 @@ SMODS.Consumable({
 })
 
 SMODS.Consumable({
-	key = "holdoc", 
-	set = "EnchancedDocuments", 
+	key = "holdoc",
+	set = "EnchancedDocuments",
 	discovered = true,
-	atlas = "documents", 
-	pos = { x = 1, y = 1 }, 
+	atlas = "documents",
+	pos = { x = 1, y = 1 },
 	config = {
 		extra = {
 			cards = 1,
