@@ -118,7 +118,7 @@ SMODS.Sticker({
 end
 })
 
-SMODS.Sticker({
+--[[SMODS.Sticker({
 	key = "marked",
 	badge_colour = HEX("000000"),
 	atlas = "enh",
@@ -131,4 +131,4 @@ SMODS.Sticker({
 	},
 	rate = 0.1,
 	needs_enable_flag = true,
-})
+})]]
