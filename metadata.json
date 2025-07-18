@@ -10,6 +10,7 @@
 	"version": "4.2.2a",
 	"dependencies": ["Steamodded (>=1.0.0~ALPHA-0309c)"],
 	"badge_colour": "7E7AFF",
-	"badge_text_colour": "40093A"
+	"badge_text_colour": "40093A",
+	"allow_redistribution": true
 
 }
