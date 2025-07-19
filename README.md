@@ -1,5 +1,5 @@
 
-### Latest: Vers 4.2.2a:
+### Latest: Vers 4.2.2:
 
 **Revo's Vault**
 
