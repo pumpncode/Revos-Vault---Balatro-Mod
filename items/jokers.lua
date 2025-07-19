@@ -113,7 +113,7 @@ SMODS.Joker({
 				context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus
 					+ card.ability.extra.chips
 				for k, v in ipairs(context.scoring_hand) do
-					if context.other_card.ability.effect == "Base" then
+					if context.other_card.ability.effect == "Base" then	
 						context.other_card:set_ability(
 							G.P_CENTERS[SMODS.poll_enhancement({
 								guaranteed = true,
@@ -6470,7 +6470,7 @@ G.FUNCS.crv_modee = function(e)
 	end
 end
 
--- find a way to localize this
+-- find a way to localize this (hmmmmmmm)
 local brjk2 = { "Self", "Joker" }
 SMODS.Joker({
 	key = "brj",

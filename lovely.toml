@@ -61,3 +61,16 @@ elseif _c.effect == 'Glass Card' then loc_vars = {_c.config.Xmult, G.GAME.probab
 match_indent = true
 overwrite = true
 
+
+# Trying to patch into obsidian orb to fix bricking issue
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Crypid "lib/overrides.lua"]'
+pattern = '	--Stop impossible blind combinations from happening'
+position = "after"
+payload = '''
+		and (self.name ~= "The Psychic" or not G.GAME.defeated_blinds["bl_jud_minimalizm"])
+'''
+match_indent = true
+

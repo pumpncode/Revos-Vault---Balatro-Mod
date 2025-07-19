@@ -74,6 +74,11 @@ if next(SMODS.find_mod("partner")) then
 end
 
 
+if next(SMODS.find_mod("tangent")) then
+	SMODS.load_file("items/Cross-Mod/tangent.lua")()
+end
+
+
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -368,6 +373,13 @@ SMODS.Atlas{
     px = 46,
     py = 58,
     path = "part.png"
+}
+
+SMODS.Atlas{
+    key = "tangent",
+    px = 71,
+    py = 95,
+    path = "tangent.png"
 }
 
 

@@ -1,5 +1,6 @@
 SMODS.Blind({
 	key = "minimalizm",
+	name = "jud-minimalizm",
 	debuff = {
 		h_size_le = 3,
 	},
