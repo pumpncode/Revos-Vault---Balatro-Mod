@@ -2162,6 +2162,11 @@ return {
 				name = "Crystal Printer",
 				text = { "When {C:attention}Blind{} is selected", "print a {C:attention}Crystal Contract" },
 			},
+			--Tangents here
+			j_crv_printerinme = {
+				name = "Printer Inside Me",
+				text = {"When {C:attention}Blind{} is selected,","fills your joker slots with 'Joker Inside Me'"}
+			}
 			--ends here
 		},
 		Tarot = {
@@ -2541,7 +2546,7 @@ return {
 			k_crv_rain2 = "A new day awaits..",
 			k_scrap = "Scrap",
 			b_scrap_cards = "Scrap",
-			k_enchanceddocuments = "Contract",
+			k_enchanceddocuments = "Contracts",
 			b_enchanceddocuments_cards = "Contract",
 			crv_mode = "Change",
 			crv_mode2 = "Target",
