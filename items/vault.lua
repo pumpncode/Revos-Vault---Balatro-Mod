@@ -2,46 +2,7 @@ SMODS.Rarity({
 	key = "va",
 	badge_colour = G.C.PURPLE,
 	pools = {},
-})
-
-SMODS.Consumable({
-	key = "VaultKey",
-	set = "Spectral",
-	discovered = true,
-	atlas = "spec",
-	hidden = true,
-	soul_set = "Spectral",
-	soul_rate = 0.01,
-	can_repeat_soul = false,
-	pos = {
-		x = 1,
-		y = 0,
-	},
-	soul_pos = {
-		x = 2,
-		y = 0,
-	},
-	config = {
-		extra = {},
-	},
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {},
-		}
-	end,
-	can_use = function(self, card)
-		return true
-	end,
-	use = function(self, card, area, copier)
-		SMODS.add_card({
-			set = "Joker",
-			area = G.jokers,
-			rarity = "crv_va",
-		})
-	end,
-	in_pool = function(self, wawa, wawa2)
-		return true
-	end,
+	shop_rate = nil
 })
 
 SMODS.Joker({

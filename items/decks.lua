@@ -540,3 +540,24 @@ SMODS.Back {
         }))
     end
 }
+
+SMODS.Back {
+    key = 'thedeal',
+    atlas = 'Decks2',
+    pos = {
+        x = 3,
+        y = 1
+    },
+    apply = function()
+
+        G.E_MANAGER:add_event(Event({
+
+            func = function()
+
+                joker_add('j_crv_brj')
+
+                return true
+            end
+        }))
+    end
+}

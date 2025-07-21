@@ -423,3 +423,51 @@ SMODS.Enhancement({
 		end
 	end,
 })
+
+SMODS.Enhancement({
+	key = "xmultcard",
+	atlas = "enh",
+	pos = { x = 3, y = 3 },
+	discovered = true,
+	unlocked = true,
+	replace_base_card = false,
+	no_rank = false,
+	no_suit = false,
+	always_scores = false,
+	weight = 0,
+	config = { extra = { x_mult = 1.5} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.x_mult} }
+	end,
+	calculate = function(self, card, context, effect)
+		if context.main_scoring and context.cardarea == G.play then
+			return {
+				x_mult = card.ability.extra.x_mult,
+			}
+		end
+	end,
+})
+
+SMODS.Enhancement({
+	key = "superiore",
+	atlas = "enh",
+	pos = { x = 4, y = 3 },
+	discovered = true,
+	unlocked = true,
+	replace_base_card = false,
+	no_rank = false,
+	no_suit = false,
+	always_scores = false,
+	weight = 0,
+	config = { extra = { xchips = 1} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.x_mult} }
+	end,
+	calculate = function(self, card, context, effect)
+		if context.main_scoring and context.cardarea == G.play then
+			return {
+				xchips = card.base.id*card.ability.extra.xchips
+			}
+		end
+	end,
+})

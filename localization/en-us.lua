@@ -109,12 +109,31 @@ return {
 				name = "Unregistered Deck",
 				text = { "Start with an", "Eternal{C:attention,T:j_crv_urp} Unregistered Printer{}." },
 			},
+						b_crv_thedeal = {
+				name = "The Deal",
+				text = { "Start with an", "Eternal{C:attention,T:j_crv_brj} Dealer{}." },
+			},
 		},
 		Blind = {
 			bl_crv_minimalizm = {
 				name = "Minimalizm",
 				text = {
 					"Must play 3 cards or less",
+				},
+			},
+			bl_crv_themess = {
+				name = "The Mess",
+				text = {
+					"Sorting your hand will destroy",
+					"all hand held cards",
+				},
+			},
+			bl_crv_therent = {
+				name = "The Rent",
+				text = {
+					"When a hand is played,",
+					"if you have more than {C:money}$10",
+					"lose {C:red}-$3{}",
 				},
 			},
 			bl_crv_rrp = {
@@ -593,7 +612,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"are present, Fuse into the {C:attention}Mega Printer",
-					"when able to.",
+					"when all parts are placed correctly.",
 					"Gives {C:mult}+#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -603,7 +622,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"are present, Fuse into the {C:attention}Mega Printer",
-					"when able to.",
+					"when all parts are placed correctly.",
 					"Gives {C:mult}+#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -613,7 +632,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"is present, Fuse into the {C:attention}Mega Printer",
-					"when able to.",
+					"when all parts are placed correctly.",
 					"Gives {C:mult}+#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -623,7 +642,7 @@ return {
 				text = {
 					"When {C:attention}Blind{} is selected,",
 					"print a {C:attention}Mega Contract.",
-					"Gives {C:mult}+#1#{} Mult.",
+					"Gives {X:mult,C:white}X#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
 			},
@@ -1626,10 +1645,9 @@ return {
 			j_crv_3dp = {
 				name = "3D Printer",
 				text = {
-					"When Blind is selected,",
+					"When {C:attention}Entering Shop{},",
 					"print a Random",
-					"{C:attention}Booster Tag{}",
-					"{C:inactive,s:0.8}(Only Vanilla)",
+					"{C:attention}Booster Pack{}",
 				},
 			},
 			j_crv_roulj = {
@@ -1795,10 +1813,7 @@ return {
 			j_crv_mycard = {
 				name = "Revo's Card",
 				text = {
-					"{C:mult}+0.5{} Mult for each",
-					"dollar in my papara account",
-					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-					"{C:inactive}(Updates every week)",
+					"{C:mult}+#1#{} Mult{}",
 				},
 			},
 			j_crv_printerprinter = {
@@ -2165,8 +2180,31 @@ return {
 			--Tangents here
 			j_crv_printerinme = {
 				name = "Printer Inside Me",
-				text = {"When {C:attention}Blind{} is selected,","fills your joker slots with 'Joker Inside Me'"}
-			}
+				text = { "When {C:attention}Blind{} is selected,", "fills your joker slots with 'Joker Inside Me'" },
+			},
+			-- NotVanilla here
+			j_crv_ticketprinter = {
+				name = "Ticker Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Ticket" },
+			},
+			-- Grab Bag here
+			j_crv_epprinter = {
+				name = "Ephemeral Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Ephemeral{} card" },
+			},
+			j_crv_honeyprinter = {
+				name = "Honey Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a {C:attention}Honey Contract" },
+			},
+			m_crv_syrup = {
+				name = "Syrup Card",
+				text = { "When drawn, draw", "another Honey or Syrup card" },
+			},
+			--Lucky Rabbit here
+			j_crv_sillyprinter = {
+				name = "Silly Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Silly{} card" },
+			},
 			--ends here
 		},
 		Tarot = {
@@ -2332,6 +2370,15 @@ return {
 					"Turns #1# card into a{C:attention} Crystal Card",
 					"{C:green} #2# in #3#{} chance for it to be a",
 					"{C:dark_edition} Sapphire Card{}",
+				},
+			},
+			--grabbag below
+			c_crv_honeycontract = {
+				name = "Honey Contract",
+				text = {
+					"Turns #1# card into {C:attention}Honey",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Syrup{}",
 				},
 			},
 		},
@@ -2546,8 +2593,10 @@ return {
 			k_crv_rain2 = "A new day awaits..",
 			k_scrap = "Scrap",
 			b_scrap_cards = "Scrap",
-			k_enchanceddocuments = "Contracts",
-			b_enchanceddocuments_cards = "Contract",
+			k_enchanceddocuments = "Contract",
+			b_enchanceddocuments_cards = "Contracts",
+			k_superior = "Superior Tarot",
+			b_superior_cards = "Superior Cards",
 			crv_mode = "Change",
 			crv_mode2 = "Target",
 			k_crv_92 = "2-9",

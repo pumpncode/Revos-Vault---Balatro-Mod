@@ -1,84 +1,6 @@
 -------------MOD CODE-------------
 RevosVault = SMODS.current_mod
 
-SMODS.load_file("items/jokers.lua")()
-SMODS.load_file("items/decks.lua")()
-SMODS.load_file("items/tags.lua")()
-SMODS.load_file("items/seals.lua")()
-SMODS.load_file("items/enh.lua")()
-SMODS.load_file("items/cons.lua")()
-SMODS.load_file("items/booster.lua")()
-SMODS.load_file("items/vouchers.lua")()
-SMODS.load_file("items/stickers.lua")()
-SMODS.load_file("items/stakes.lua")()
-SMODS.load_file("items/challenge.lua")()
-SMODS.load_file("items/blinds.lua")()
-SMODS.load_file("items/vault.lua")()
-SMODS.load_file("items/chaos.lua")()
-
---cross mod content--
-
-if next(SMODS.find_mod("RiftRaft")) then
-	SMODS.load_file("items/Cross-Mod/riftraft.lua")()
-end
-
-if next(SMODS.find_mod("reverse_tarot")) then
-	SMODS.load_file("items/Cross-Mod/reversetarot.lua")()
-end
-
-if next(SMODS.find_mod("TOGAPack")) then
-	SMODS.load_file("items/Cross-Mod/toga.lua")()
-end
-
-if CardSleeves then
-	SMODS.load_file("items/Cross-Mod/sleeves.lua")()
-end
-
-if JokerDisplay then
-	SMODS.load_file("items/Cross-Mod/display.lua")()
-end
-if next(SMODS.find_mod("Cryptid")) then
-	SMODS.load_file("Cryptid/items.lua")()
-end
-
-if Bakery_API and Bakery_API.Charm or next(SMODS.find_mod("Bakery")) then
-	SMODS.load_file("items/Cross-Mod/charms.lua")()
-end
-
-if next(SMODS.find_mod("Maximus")) then
-	SMODS.load_file("items/Cross-Mod/maximus.lua")()
-end
-
-if next(SMODS.find_mod("MoreFluff")) then
-	SMODS.load_file("items/Cross-Mod/morefluff.lua")()
-end
-
-if next(SMODS.find_mod("Prism")) then
-	SMODS.load_file("items/Cross-Mod/prism.lua")()
-end
-
-if next(SMODS.find_mod("sdm0sstuff")) then
-	SMODS.load_file("items/Cross-Mod/sdm0.lua")()
-end
-
-if next(SMODS.find_mod("aikoyorisshenanigans")) then
-	SMODS.load_file("items/Cross-Mod/aiko.lua")()
-end
-
-if next(SMODS.find_mod("GARBPACK")) then
-	SMODS.load_file("items/Cross-Mod/garb.lua")()
-end
-
-if next(SMODS.find_mod("partner")) then
-	SMODS.load_file("items/Cross-Mod/partner.lua")()
-end
-
-
-if next(SMODS.find_mod("tangent")) then
-	SMODS.load_file("items/Cross-Mod/tangent.lua")()
-end
-
-
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -262,7 +184,6 @@ SMODS.Atlas({
 	frames = 21,
 })
 
-
 SMODS.Atlas({
 	key = "mm",
 	path = "mm.png",
@@ -368,56 +289,139 @@ SMODS.Atlas({
 	py = 95,
 })
 
-SMODS.Atlas{
-    key = "partners",
-    px = 46,
-    py = 58,
-    path = "part.png"
-}
+SMODS.Atlas({
+	key = "partners",
+	px = 46,
+	py = 58,
+	path = "part.png",
+})
+
+SMODS.Atlas({
+	key = "tangent",
+	px = 71,
+	py = 95,
+	path = "tangent.png",
+})
+
+SMODS.Atlas({
+	key = "notvanilla",
+	path = "tickets.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "grabbag",
+	path = "grab.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "luckyrab",
+	path = "luckyr.png",
+	px = 71,
+	py = 95,
+})
 
 SMODS.Atlas{
-    key = "tangent",
-    px = 71,
-    py = 95,
-    path = "tangent.png"
+	key = "Superior",
+	path = "superior.png",
+	px = 71,
+	py = 95
 }
 
+RevosVault.C = {
+	SUP = HEX("f7baff"),
+}
 
+local removeold = Card.remove
+function Card:remove()
+	if self.ability.set == "Joker" and self.added_to_deck then
+		if self.area == G.jokers then
+			G.GAME.last_destroyed_joker = self
 
-function joker_add(jKey)
-	if type(jKey) == "string" then
-		local j = SMODS.create_card({
-			key = jKey,
+			SMODS.calculate_context({
+				crv_joker_destroyed = true,
+				crv_destroyedj = self,
+			})
+		end
+	end
+	if self.ability.consumeable and self.added_to_deck then
+		SMODS.calculate_context({
+			crv_cons_destroyed = true,
+			crv_destroyedc = self,
 		})
-
-		j:add_to_deck()
-		G.jokers:emplace(j)
-		-- (Credit to @AstroLighz for the deck codes)
-		SMODS.Stickers["eternal"]:apply(j, true)
+	end
+	if #SMODS.find_card("j_jud_thanatophobia") == 0 then
+		removeold(self)
 	end
 end
 
-function joker_add_etx(jKey)
-	if type(jKey) == "string" then
-		local j = SMODS.create_card({
-			key = jKey,
-		})
-
-		j:add_to_deck()
-		G.jokers:emplace(j)
+function Blind:crv_after_play() --Taken from cryptid
+	if not self.disabled then
+		local obj = self.config.blind
+		if obj.crv_after_play and type(obj.crv_after_play) == "function" then
+			return obj:crv_after_play()
+		end
 	end
 end
 
-function joker_add_per(jKey)
-	if type(jKey) == "string" then
-		local j = SMODS.create_card({
-			key = jKey,
-		})
+local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
+function G.FUNCS.evaluate_play(e)
+	gfep(e)
+	G.GAME.blind:crv_after_play()
+end
 
-		j:add_to_deck()
-		G.jokers:emplace(j)
-		SMODS.Stickers["perishable"]:apply(j, true)
+function Blind:crv_hand_sort()
+	if not self.disabled then
+		local obj = self.config.blind
+		if obj.crv_hand_sort and type(obj.crv_hand_sort) == "function" then
+			return obj:crv_hand_sort()
+		end
 	end
+end
+
+local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
+function G.FUNCS.evaluate_play(e)
+	gfep(e)
+	G.GAME.blind:crv_after_play()
+end
+
+local sorthandold = G.FUNCS.sort_hand_value
+function G.FUNCS.sort_hand_value(e)
+	sorthandold(e)
+	G.GAME.blind:crv_hand_sort()
+end
+
+local sorthandoldsuit = G.FUNCS.sort_hand_suit
+function G.FUNCS.sort_hand_suit(e)
+	sorthandoldsuit(e)
+	G.GAME.blind:crv_hand_sort()
+end
+
+local destroyjoker = Card.remove
+function Card:remove()
+	if self.added_to_deck and self.ability.set == "Joker" and 30 > G.GAME.vaultspawn then
+		G.GAME.vaultspawn = G.GAME.vaultspawn + 1
+	elseif self.added_to_deck and self.ability.set == "Joker" and G.GAME.vaultspawn >= 30 then
+		G.GAME.vaultspawn = 0
+		play_sound("holo1")
+		SMODS.add_card({
+			set = "Joker",
+			area = G.jokers,
+			rarity = "crv_va",
+		})
+	end
+	return destroyjoker(self)
+end
+
+local shopcreateold = create_card_for_shop
+function create_card_for_shop(area)
+	if pseudorandom("supcreate") > 0.9 then
+		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key,true,"Tarot")
+	end
+	return shopcreateold(area)
 end
 
 local igo = Game.init_game_object
@@ -426,7 +430,10 @@ Game.init_game_object = function(self)
 	ret.reincarnation = 1
 	ret.henchmans = 0
 	ret.glassodds = 4
-    ret.glassxmult = 2
+	ret.glassxmult = 2
+	ret.vaultspawn = 0
+	ret.last_destroyed_joker = nil
+	ret.hangedmanchips = 0
 	if next(SMODS.find_mod("JoJoMod")) then
 		ret.jojo = true
 	else
@@ -594,7 +601,6 @@ local vanilla = {
 	"j_perkeo",
 }
 
-
 --ily cryptid
 SMODS.ObjectType({
 	key = "Food",
@@ -633,11 +639,9 @@ SMODS.ObjectType({
 	end,
 })
 
+RevosVault.optional_features = { retrigger_joker = true }
 
-
-RevosVault.optional_features = {retrigger_joker = true}
-
-SMODS.Joker({   --used for the title screen
+SMODS.Joker({ --used for the title screen
 	key = "printertitle",
 	atlas = "Jokers",
 	rarity = "crv_p",
@@ -654,7 +658,7 @@ SMODS.Joker({   --used for the title screen
 	end,
 })
 
-SMODS.Joker({ 	--used for the title screen
+SMODS.Joker({ --used for the title screen
 	key = "grossprintertitle",
 	atlas = "Jokers",
 	rarity = "crv_p",
@@ -673,27 +677,116 @@ SMODS.Joker({ 	--used for the title screen
 
 --Adds Gross Printer to the main menu. Code from Cryptid
 
+local oldfunc = Game.main_menu --ily cryptid x2
+Game.main_menu = function(change_context)
+	local ret = oldfunc(change_context)
 
-local oldfunc = Game.main_menu   --ily cryptid x2
-	Game.main_menu = function(change_context)
-		local ret = oldfunc(change_context)
+	local newcard = Card(
+		G.title_top.T.x,
+		G.title_top.T.y,
+		G.CARD_W,
+		G.CARD_H,
+		G.P_CARDS.empty,
+		G.P_CENTERS.j_crv_grossprintertitle,
+		{ bypass_discovery_center = true }
+	)
 
-		local newcard = Card(
-			G.title_top.T.x,
-			G.title_top.T.y,
-			G.CARD_W,
-			G.CARD_H,
-			G.P_CARDS.empty,
-			G.P_CENTERS.j_crv_grossprintertitle,
-			{ bypass_discovery_center = true }
-		)
+	G.title_top.T.w = G.title_top.T.w * 1.7675
+	G.title_top.T.x = G.title_top.T.x - 0.8
+	G.title_top:emplace(newcard)
 
-		G.title_top.T.w = G.title_top.T.w * 1.7675
-		G.title_top.T.x = G.title_top.T.x - 0.8
-		G.title_top:emplace(newcard)
+	newcard.T.w = newcard.T.w * 1.1 * 1.25
+	newcard.T.h = newcard.T.h * 1.1 * 1.25
+	newcard.no_ui = true
+	newcard.states.visible = true
+end
 
-		newcard.T.w = newcard.T.w * 1.1 * 1.25
-		newcard.T.h = newcard.T.h * 1.1 * 1.25
-		newcard.no_ui = true
-		newcard.states.visible = true
-	end
+
+SMODS.load_file("items/funcs.lua")()
+SMODS.load_file("items/jokers.lua")()
+SMODS.load_file("items/decks.lua")()
+SMODS.load_file("items/tags.lua")()
+SMODS.load_file("items/seals.lua")()
+SMODS.load_file("items/enh.lua")()
+SMODS.load_file("items/cons.lua")()
+SMODS.load_file("items/booster.lua")()
+SMODS.load_file("items/vouchers.lua")()
+SMODS.load_file("items/stickers.lua")()
+SMODS.load_file("items/stakes.lua")()
+SMODS.load_file("items/challenge.lua")()
+SMODS.load_file("items/blinds.lua")()
+SMODS.load_file("items/vault.lua")()
+SMODS.load_file("items/chaos.lua")()
+
+--cross mod content--
+
+if next(SMODS.find_mod("RiftRaft")) then
+	SMODS.load_file("items/Cross-Mod/riftraft.lua")()
+end
+
+if next(SMODS.find_mod("reverse_tarot")) then
+	SMODS.load_file("items/Cross-Mod/reversetarot.lua")()
+end
+
+if next(SMODS.find_mod("TOGAPack")) then
+	SMODS.load_file("items/Cross-Mod/toga.lua")()
+end
+
+if CardSleeves then
+	SMODS.load_file("items/Cross-Mod/sleeves.lua")()
+end
+
+if JokerDisplay then
+	SMODS.load_file("items/Cross-Mod/display.lua")()
+end
+if next(SMODS.find_mod("Cryptid")) then
+	SMODS.load_file("Cryptid/items.lua")()
+end
+
+if Bakery_API and Bakery_API.Charm or next(SMODS.find_mod("Bakery")) then
+	SMODS.load_file("items/Cross-Mod/charms.lua")()
+end
+
+if next(SMODS.find_mod("Maximus")) then
+	SMODS.load_file("items/Cross-Mod/maximus.lua")()
+end
+
+if next(SMODS.find_mod("MoreFluff")) then
+	SMODS.load_file("items/Cross-Mod/morefluff.lua")()
+end
+
+if next(SMODS.find_mod("Prism")) then
+	SMODS.load_file("items/Cross-Mod/prism.lua")()
+end
+
+if next(SMODS.find_mod("sdm0sstuff")) then
+	SMODS.load_file("items/Cross-Mod/sdm0.lua")()
+end
+
+if next(SMODS.find_mod("aikoyorisshenanigans")) then
+	SMODS.load_file("items/Cross-Mod/aiko.lua")()
+end
+
+if next(SMODS.find_mod("GARBPACK")) then
+	SMODS.load_file("items/Cross-Mod/garb.lua")()
+end
+
+if next(SMODS.find_mod("partner")) then
+	SMODS.load_file("items/Cross-Mod/partner.lua")()
+end
+
+if next(SMODS.find_mod("tangent")) then
+	SMODS.load_file("items/Cross-Mod/tangent.lua")()
+end
+
+if next(SMODS.find_mod("NotVanilla")) then
+	SMODS.load_file("items/Cross-Mod/notvanilla.lua")()
+end
+
+if next(SMODS.find_mod("GrabBag")) then
+	SMODS.load_file("items/Cross-Mod/grabbag.lua")()
+end
+
+if next(SMODS.find_mod("LuckyRabbit")) then
+	SMODS.load_file("items/Cross-Mod/luckrabbit.lua")()
+end

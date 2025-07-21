@@ -113,7 +113,7 @@ SMODS.Joker({
 				context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus
 					+ card.ability.extra.chips
 				for k, v in ipairs(context.scoring_hand) do
-					if context.other_card.ability.effect == "Base" then	
+					if context.other_card.ability.effect == "Base" then
 						context.other_card:set_ability(
 							G.P_CENTERS[SMODS.poll_enhancement({
 								guaranteed = true,
@@ -1689,32 +1689,28 @@ SMODS.Joker({
 				}),
 			}
 		end
-		if
-			context.setting_blind
-			or context.ending_shop
-			or context.end_of_round and context.main_eval
-			or context.buying_card
-		then
-			if
-				(#SMODS.find_card("j_crv_body") > 0)
-				and (#SMODS.find_card("j_crv_head") > 0)
-				and (#SMODS.find_card("j_crv_back") > 0)
-				and not context.repetition
-				and not context.blueprint
-				and not context.individual
-			then
-				for i = 1, #SMODS.find_card("j_crv_body") and #SMODS.find_card("j_crv_head") and #SMODS.find_card("j_crv_back") do
-					SMODS.find_card("j_crv_back")[i]:start_dissolve()
-					SMODS.find_card("j_crv_body")[i]:start_dissolve()
-					SMODS.find_card("j_crv_head")[i]:start_dissolve()
-					SMODS.add_card({
-						area = G.jokers,
-						key = "j_crv_full",
-					})
-				end
+	end,
+	update = function(self,card,context)
+	if card.area == G.jokers then
+		local megap = {}
+		local rr
+		for i = 1, #G.jokers.cards do
+			if G.jokers.cards[i] == card then
+				rr = i
 			end
 		end
-	end,
+		if (G.jokers.cards[rr-1] ~= nil and G.jokers.cards[rr-1].config.center.key == "j_crv_head") and ( G.jokers.cards[rr+1] ~= nil and G.jokers.cards[rr+1].config.center.key == "j_crv_back") and not card.fusion then
+			table.insert(megap,G.jokers.cards[rr+1])
+			table.insert(megap,G.jokers.cards[rr-1])
+			table.insert(megap,G.jokers.cards[rr])
+			card.fusion = true
+			SMODS.destroy_cards(megap)
+			SMODS.add_card{
+				key = "j_crv_full"
+			}
+		end
+	end
+end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
@@ -1778,7 +1774,7 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			mult = 80,
+			mult = 10,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1790,7 +1786,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.joker_main then
 			return {
-				mult = card.ability.extra.mult,
+				xmult = card.ability.extra.mult,
 			}
 		end
 		if context.setting_blind then
@@ -2334,7 +2330,6 @@ SMODS.Joker({
 	end,
 })
 
-local tags = { "tag_buffoon", "tag_charm", "tag_ethereal", "tag_meteor", "tag_standard" }
 SMODS.Joker({
 	key = "3dp",
 	loc_vars = function(self, info_queue, card)
@@ -2347,7 +2342,7 @@ SMODS.Joker({
 	cost = 10,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	pos = {
 		x = 9,
 		y = 6,
@@ -2357,15 +2352,8 @@ SMODS.Joker({
 	},
 
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					add_tag(Tag(pseudorandom_element(tags, pseudoseed("3dp"))))
-					play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
-					play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
-					return true
-				end,
-			}))
+		if context.starting_shop and not context.blueprint then
+			RevosVault.create_booster(pseudorandom_element(G.P_CENTER_POOLS.Booster).key)
 		end
 	end,
 })
@@ -3395,6 +3383,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			dollars = 2,
+			odds = 3,
 		},
 	},
 	pools = {
@@ -3408,7 +3397,11 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.individual and context.cardarea == G.play then
+		if
+			context.individual
+			and context.cardarea == G.play
+			and pseudorandom("divineban") < G.GAME.probabilities.normal / crv.odds
+		then
 			return {
 				dollars = crv.dollars,
 			}
@@ -3561,25 +3554,12 @@ SMODS.Joker({
 	end,
 })
 
-function bfps()
-	local bfps2 = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_bulletproofglass") then
-				bfps2 = bfps2 + 1
-			end
-		end
-		return bfps2
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "bpj",
 	config = {
 		extra = {
 			x_gain = 0.4,
-			bfps(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_bulletproofglass"),
 		},
 	},
 
@@ -3595,45 +3575,38 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_bulletproofglass
 		return {
-			vars = { card.ability.extra.x_gain * bfps() + 1, card.ability.extra.x_gain, bfps() },
+			vars = {
+				card.ability.extra.x_gain * RevosVault.check_enhancement(G.playing_cards, "m_crv_bulletproofglass") + 1,
+				card.ability.extra.x_gain,
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_bulletproofglass"),
+			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if bfps() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_bulletproofglass") > 0 then
 				return {
-					x_mult = bfps() * card.ability.extra.x_gain + 1,
+					x_mult = RevosVault.check_enhancement(G.playing_cards, "m_crv_bulletproofglass")
+							* card.ability.extra.x_gain
+						+ 1,
 				}
 			end
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		if bfps() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_bulletproofglass") > 0 then
 			return true
 		end
 		return false
 	end,
 })
 
-function dcs()
-	local dcss = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_diamondcard") then
-				dcss = dcss + 1
-			end
-		end
-		return dcss
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "dcj",
 	config = {
 		extra = {
 			x_gain = 0.3,
-			dcs(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_diamondcard"),
 		},
 	},
 	rarity = 2,
@@ -3648,45 +3621,38 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_diamondcard
 		return {
-			vars = { card.ability.extra.x_gain * dcs() + 1, card.ability.extra.x_gain, dcs() },
+			vars = {
+				card.ability.extra.x_gain * RevosVault.check_enhancement(G.playing_cards, "m_crv_diamondcard") + 1,
+				card.ability.extra.x_gain,
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_diamondcard"),
+			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if dcs() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_diamondcard") > 0 then
 				return {
-					x_mult = dcs() * card.ability.extra.x_gain + 1,
+					x_mult = RevosVault.check_enhancement(G.playing_cards, "m_crv_diamondcard")
+							* card.ability.extra.x_gain
+						+ 1,
 				}
 			end
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		if dcs() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_diamondcard") > 0 then
 			return true
 		end
 		return false
 	end,
 })
 
-function mgc()
-	local mgcc = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_mugged") then
-				mgcc = mgcc + 1
-			end
-		end
-		return mgcc
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "mgj",
 	config = {
 		extra = {
 			x_gain = 0.2,
-			mgc(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_mugged"),
 		},
 	},
 	rarity = 2,
@@ -3701,46 +3667,38 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_mugged
 		return {
-			vars = { card.ability.extra.x_gain * mgc() + 1, card.ability.extra.x_gain, mgc() },
+			vars = {
+				card.ability.extra.x_gain * RevosVault.check_enhancement(G.playing_cards, "m_crv_mugged") + 1,
+				card.ability.extra.x_gain,
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_mugged"),
+			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if mgc() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_mugged") > 0 then
 				return {
-					x_mult = mgc() * card.ability.extra.x_gain + 1,
+					x_mult = RevosVault.check_enhancement(G.playing_cards, "m_crv_mugged") * card.ability.extra.x_gain
+						+ 1,
 				}
 			end
 		end
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		if mgc() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_mugged") > 0 then
 			return true
 		end
 		return false
 	end,
 })
 
-function flm()
-	local flmm = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_aflame") then
-				flmm = flmm + 1
-			end
-		end
-		return flmm
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "amj",
 	config = {
 		extra = {
 			x_gain = 0.2,
-			flm(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_aflame"),
 		},
 	},
 	rarity = 2,
@@ -3755,46 +3713,38 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_aflame
 		return {
-			vars = { card.ability.extra.x_gain * flm() + 1, card.ability.extra.x_gain, flm() },
+			vars = {
+				card.ability.extra.x_gain * RevosVault.check_enhancement(G.playing_cards, "m_crv_aflame") + 1,
+				card.ability.extra.x_gain,
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_aflame"),
+			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if flm() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_aflame") > 0 then
 				return {
-					x_mult = flm() * card.ability.extra.x_gain + 1,
+					x_mult = RevosVault.check_enhancement(G.playing_cards, "m_crv_aflame") * card.ability.extra.x_gain
+						+ 1,
 				}
 			end
 		end
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		if flm() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_aflame") > 0 then
 			return true
 		end
 		return false
 	end,
 })
 
-function mg()
-	local mgg = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_mega") then
-				mgg = mgg + 1
-			end
-		end
-		return mgg
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "mj",
 	config = {
 		extra = {
 			x_gain = 0.4,
-			mg(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_mega"),
 		},
 	},
 	rarity = 2,
@@ -3807,48 +3757,37 @@ SMODS.Joker({
 	},
 	cost = 6,
 	loc_vars = function(self, info_queue, card)
+		local RCM = RevosVault.check_enhancement(G.playing_cards, "m_crv_mega")
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_mega
 		return {
-			vars = { card.ability.extra.x_gain * mg() + 1, card.ability.extra.x_gain, mg() },
+			vars = { card.ability.extra.x_gain * RCM + 1, card.ability.extra.x_gain, RCM },
 		}
 	end,
 	calculate = function(self, card, context)
+		local RCM = RevosVault.check_enhancement(G.playing_cards, "m_crv_mega")
 		if context.joker_main then
-			if mg() > 0 then
+			if RCM > 0 then
 				return {
-					x_mult = mg() * card.ability.extra.x_gain + 1,
+					x_mult = RCM * card.ability.extra.x_gain + 1,
 				}
 			end
 		end
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		if mg() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_mega") > 0 then
 			return true
 		end
 		return false
 	end,
 })
 
-function bls()
-	local blss = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_blessedcard") then
-				blss = blss + 1
-			end
-		end
-		return blss
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "bj",
 	config = {
 		extra = {
 			x_gain = 0.4,
-			bls(),
+			RevosVault.check_enhancement("m_crv_blessedcard"),
 			mult = 5,
 			chips = 10,
 		},
@@ -3863,58 +3802,47 @@ SMODS.Joker({
 	},
 	cost = 6,
 	loc_vars = function(self, info_queue, card)
+		local RCE = RevosVault.check_enhancement(G.playing_cards, "m_crv_blessedcard")
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_blessedcard
 		return {
 			vars = {
-				card.ability.extra.x_gain * bls() + 1,
+				card.ability.extra.x_gain * RCE + 1,
 				card.ability.extra.x_gain,
-				bls(),
+				RCE,
 				card.ability.extra.mult,
 				card.ability.extra.chips,
-				card.ability.extra.chips * bls(),
-				card.ability.extra.mult * bls(),
+				card.ability.extra.chips * RCE,
+				card.ability.extra.mult * RCE,
 			},
 		}
 	end,
 	calculate = function(self, card, context)
+		local RCE = RevosVault.check_enhancement(G.playing_cards, "m_crv_blessedcard")
 		if context.joker_main then
-			if bls() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_blessedcard") > 0 then
 				return {
-					chips = bls() * card.ability.extra.chips,
-					mult = bls() * card.ability.extra.mult,
-					x_mult = bls() * card.ability.extra.x_gain + 1,
+					chips = RCE * card.ability.extra.chips,
+					mult = RCE * card.ability.extra.mult,
+					x_mult = RCE * card.ability.extra.x_gain + 1,
 				}
 			end
 		end
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		if bls() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_blessedcard") > 0 then
 			return true
 		end
 		return false
 	end,
 })
 
-function t1()
-	local t11 = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_tier1card") then
-				t11 = t11 + 1
-			end
-		end
-		return t11
-	end
-	return 0
-end
-
 SMODS.Joker({
 	key = "t1j",
 	config = {
 		extra = {
 			chips = 15,
-			t1(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_tier1card"),
 		},
 	},
 	rarity = 2,
@@ -3929,39 +3857,30 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_tier1card
 		return {
-			vars = { t1(), card.ability.extra.chips, card.ability.extra.chips * t1() },
+			vars = {
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_tier1card"),
+				card.ability.extra.chips,
+				card.ability.extra.chips * RevosVault.check_enhancement(G.playing_cards, "m_crv_tier1card"),
+			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if t1() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_tier1card") > 0 then
 				return {
-					chips = t1() * card.ability.extra.chips,
+					chips = RevosVault.check_enhancement(G.playing_cards, "m_crv_tier1card") * card.ability.extra.chips,
 				}
 			end
 		end
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		if t1() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_tier1card") > 0 then
 			return true
 		end
 		return false
 	end,
 })
-
-function t2()
-	local t22 = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_tier2card") then
-				t22 = t22 + 1
-			end
-		end
-		return t22
-	end
-	return 0
-end
 
 SMODS.Joker({
 	key = "t2j",
@@ -3969,7 +3888,7 @@ SMODS.Joker({
 		extra = {
 			chips = 30,
 			mult = 5,
-			t2(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card"),
 		},
 	},
 	rarity = 2,
@@ -3985,45 +3904,32 @@ SMODS.Joker({
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_tier2card
 		return {
 			vars = {
-				t2(),
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card"),
 				card.ability.extra.chips,
 				card.ability.extra.mult,
-				card.ability.extra.chips * t2(),
-				card.ability.extra.mult * t2(),
+				card.ability.extra.chips * RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card"),
+				card.ability.extra.mult * RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card"),
 			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if t2() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card") > 0 then
 				return {
-					chips = t2() * card.ability.extra.chips,
-					mult = t2() * card.ability.extra.mult,
+					chips = RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card") * card.ability.extra.chips,
+					mult = RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card") * card.ability.extra.mult,
 				}
 			end
 		end
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		if t2() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_tier2card") > 0 then
 			return true
 		end
 		return false
 	end,
 })
-
-function t3()
-	local t33 = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_tier3card") then
-				t33 = t33 + 1
-			end
-		end
-		return t33
-	end
-	return 0
-end
 
 SMODS.Joker({
 	key = "t3j",
@@ -4031,7 +3937,7 @@ SMODS.Joker({
 		extra = {
 			chips = 50,
 			xmult = 0.2,
-			t3(),
+			RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card"),
 		},
 	},
 	rarity = 2,
@@ -4047,44 +3953,33 @@ SMODS.Joker({
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_crv_tier3card
 		return {
 			vars = {
-				t3(),
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card"),
 				card.ability.extra.chips,
 				card.ability.extra.xmult,
-				card.ability.extra.chips * t3(),
-				card.ability.extra.xmult * t3() + 1,
+				card.ability.extra.chips * RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card"),
+				card.ability.extra.xmult * RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card") + 1,
 			},
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if t3() > 0 then
+			if RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card") > 0 then
 				return {
-					chips = t3() * card.ability.extra.chips,
-					x_mult = t3() * card.ability.extra.xmult + 1,
+					chips = RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card") * card.ability.extra.chips,
+					x_mult = RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card")
+							* card.ability.extra.xmult
+						+ 1,
 				}
 			end
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
-		if t3() > 0 then
+		if RevosVault.check_enhancement(G.playing_cards, "m_crv_tier3card") > 0 then
 			return true
 		end
 		return false
 	end,
 })
-
-function hc()
-	local hcc = 0
-	if G.playing_cards then
-		for _, v in pairs(G.playing_cards) do
-			if SMODS.has_enhancement(v, "m_crv_target") then
-				hcc = hcc + 1
-			end
-		end
-		return hcc
-	end
-	return 0
-end
 
 SMODS.Joker({
 	key = "bh",
@@ -4108,7 +4003,12 @@ SMODS.Joker({
 	cost = 10,
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { card.ability.extra.hp, card.ability.extra.havecard, card.ability.extra.needs, hc() },
+			vars = {
+				card.ability.extra.hp,
+				card.ability.extra.havecard,
+				card.ability.extra.needs,
+				RevosVault.check_enhancement(G.playing_cards, "m_crv_target"),
+			},
 		}
 	end,
 	add_to_deck = function(self, card, context)
@@ -4118,7 +4018,12 @@ SMODS.Joker({
 		card.ability.extra.hand = -1
 	end,
 	calculate = function(self, card, context)
-		if context.setting_blind and not context.blueprint and not context.repetition and hc() == 0 then
+		if
+			context.setting_blind
+			and not context.blueprint
+			and not context.repetition
+			and RevosVault.check_enhancement(G.playing_cards, "m_crv_target") == 0
+		then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					local card2 = pseudorandom_element(G.playing_cards, pseudoseed("bh"))
@@ -5265,7 +5170,6 @@ SMODS.Joker({
 		return true
 	end,
 })
-
 
 SMODS.Joker({
 	key = "tgm",
@@ -6650,7 +6554,7 @@ SMODS.Joker({
 	end,
 
 	in_pool = function(self, wawa, wawa2)
-		return true
+		return false
 	end,
 })
 
@@ -10036,7 +9940,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "mycard",
 	atlas = "Jokers2",
-	rarity = 3,
+	rarity = 1,
 	cost = 10,
 	unlocked = true,
 	discovered = false,
@@ -10048,7 +9952,7 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			mult = 60,
+			mult = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
