@@ -981,8 +981,8 @@ SMODS.ConsumableType({
 	default = "c_crv_supfool",
 })
 
-
 SMODS.Consumable({
+	name = "Superior Fool",
 	key = "supfool",
 	set = "Superior",
 	atlas = "Superior",
@@ -995,10 +995,10 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		extra = {},
+		extra = {cards = nil},
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { card.ability.extra.cards} }
 	end,
 	can_use = function(self, card)
 		if G and G.GAME and G.GAME.last_destroyed_joker then
@@ -1011,6 +1011,13 @@ SMODS.Consumable({
 			key = G.GAME.last_destroyed_joker.config.center.key,
 		})
 	end,
+	update = function(self,card,context)
+		if G and G.GAME and G.GAME.last_destroyed_joker then
+			card.ability.extra.cards = G.GAME.last_destroyed_joker.ability.name
+		else
+			card.ability.extra.cards = "Superior Fool"
+		end
+	end
 })
 
 SMODS.Consumable({
@@ -1026,7 +1033,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 3,min_highlighted = 1,
+		max_highlighted = 3,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1078,10 +1086,10 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		extra = {},
+		extra = {create = 3},
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.max_highlighted, card.ability.extra.cards } }
+		return { vars = {card.ability.extra.create } }
 	end,
 	can_use = function(self, card)
 		return true
@@ -1093,7 +1101,7 @@ SMODS.Consumable({
 				_planet = v.key
 			end
 		end
-		for i = 1, 3 do
+		for i = 1, card.ability.extra.create do
 			SMODS.add_card({
 				key = _planet,
 				edition = "e_negative",
@@ -1115,7 +1123,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1170,7 +1179,7 @@ SMODS.Consumable({
 		for i = 1, 2 do
 			SMODS.add_card({
 				key = pseudorandom_element(G.P_CENTER_POOLS.Superior).key,
-				area = G.consumeables
+				area = G.consumeables,
 			})
 		end
 	end,
@@ -1189,7 +1198,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 3,min_highlighted = 1,
+		max_highlighted = 3,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1241,7 +1251,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 3,min_highlighted = 1,
+		max_highlighted = 3,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1293,7 +1304,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 3,min_highlighted = 1,
+		max_highlighted = 3,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1345,7 +1357,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 3,min_highlighted = 1,
+		max_highlighted = 3,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1400,12 +1413,13 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			money = 100,
+			give = 5
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.max_highlighted, card.ability.extra.money } }
+		return { vars = {card.ability.extra.money, card.ability.extra.give} }
 	end,
-	can_use = function(self,card)
+	can_use = function(self, card)
 		return true
 	end,
 	use = function(self, card, area, copier)
@@ -1423,14 +1437,14 @@ SMODS.Consumable({
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval then
 			return {
-				dollars = 5,
+				dollars = card.ability.extra.give,
 			}
 		end
 	end,
 })
 
 SMODS.Consumable({
-	key = "supwheel",
+	key = "supwof",
 	set = "Superior",
 	atlas = "Superior",
 	hidden = true,
@@ -1476,7 +1490,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1519,13 +1534,18 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 5,
+		min_highlighted = 1,
 		extra = {
 			chips = 0,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.max_highlighted } }
+	if G and G.GAME then
+		return { vars = { self.config.max_highlighted,card.ability.extra.chips } }
+	else
+		return { vars = { self.config.max_highlighted ,G.GAME.hangedmanchips} }
+	end
 	end,
 	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
@@ -1551,11 +1571,12 @@ SMODS.Consumable({
 	sout_rate = 0.1,
 	pos = {
 		x = 3,
-		y =1,
+		y = 1,
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {
 			chips = 0,
 		},
@@ -1612,13 +1633,14 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			money = 0,
+			max = 100
 		},
 	},
 	can_use = function(self, card)
-			return true
+		return true
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.max_highlighted } }
+		return { vars = {card.ability.extra.max } }
 	end,
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.cards do
@@ -1629,7 +1651,7 @@ SMODS.Consumable({
 		for i = 1, #G.consumeables.cards do
 			card.ability.extra.money = card.ability.extra.money + G.consumeables.cards[i].sell_cost
 		end
-		ease_dollars(math.max(0, math.min(card.ability.extra.money, 100)), true)
+		ease_dollars(math.max(0, math.min(card.ability.extra.money, card.ability.extra.max )), true)
 	end,
 })
 
@@ -1646,16 +1668,17 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		max_highlighted = 3,min_highlighted = 1,
+		max_highlighted = 3,
+		min_highlighted = 1,
 		extra = {
-			money = 0,
+			money = 5,
 		},
 	},
 	can_use = function(self, card)
 		return true
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.max_highlighted } }
+		return { vars = { self.config.max_highlighted,card.ability.extra.money } }
 	end,
 	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
@@ -1683,7 +1706,7 @@ SMODS.Consumable({
 		if context.individual and context.cardarea == G.play then
 			if SMODS.has_enhancement(context.other_card, "m_gold") then
 				return {
-					dollars = 5,
+					dollars = card.ability.extra.money,
 				}
 			end
 		end
@@ -1703,7 +1726,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-			max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {
 			money = 0,
 		},
@@ -1745,8 +1769,6 @@ SMODS.Consumable({
 	end,
 })
 
---All suits and suit releated stuff will be done later
-
 SMODS.Consumable({
 	key = "supstar",
 	set = "Superior",
@@ -1760,7 +1782,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-			max_highlighted = 2, min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {
 			money = 0,
 		},
@@ -1768,14 +1791,14 @@ SMODS.Consumable({
 	loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.max_highlighted } }
 	end,
-use = function(self, card, area, copier)
+	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
 			v:flip()
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.2,
 				func = function()
-					SMODS.change_base(v,"Diamonds",nil)
+					SMODS.change_base(v, "Diamonds", nil)
 					v:set_ability("m_crv_superiore")
 					return true
 				end,
@@ -1806,7 +1829,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-			max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {
 			money = 0,
 		},
@@ -1814,14 +1838,14 @@ SMODS.Consumable({
 	loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.max_highlighted } }
 	end,
-use = function(self, card, area, copier)
+	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
 			v:flip()
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.2,
 				func = function()
-					SMODS.change_base(v,"Clubs",nil)
+					SMODS.change_base(v, "Clubs", nil)
 					v:set_ability("m_crv_superiore")
 					return true
 				end,
@@ -1852,7 +1876,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-			max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {
 			money = 0,
 		},
@@ -1860,14 +1885,14 @@ SMODS.Consumable({
 	loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.max_highlighted } }
 	end,
-use = function(self, card, area, copier)
+	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
 			v:flip()
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.2,
 				func = function()
-					SMODS.change_base(v,"Hearts",nil)
+					SMODS.change_base(v, "Hearts", nil)
 					v:set_ability("m_crv_superiore")
 					return true
 				end,
@@ -1898,7 +1923,8 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-			max_highlighted = 2,min_highlighted = 1,
+		max_highlighted = 2,
+		min_highlighted = 1,
 		extra = {
 			money = 0,
 		},
@@ -1913,7 +1939,7 @@ SMODS.Consumable({
 				trigger = "before",
 				delay = 0.2,
 				func = function()
-					SMODS.change_base(v,"Spades",nil)
+					SMODS.change_base(v, "Spades", nil)
 					v:set_ability("m_crv_superiore")
 					return true
 				end,
@@ -1931,7 +1957,6 @@ SMODS.Consumable({
 	end,
 })
 
---
 
 SMODS.Consumable({
 	key = "supjudgement",
@@ -1958,46 +1983,46 @@ SMODS.Consumable({
 		return { vars = { self.config.max_highlighted } }
 	end,
 	use = function(self, card, area, copier)
-			local one
-			local two
-			G.E_MANAGER:add_event(Event({
-				trigger = "before",
-				delay = 0.2,
-				blockable = false,
-				blocking = false,
-				func = function()
-					one = SMODS.ObjectTypes["Joker"].rarities[1].weight
-					two = SMODS.ObjectTypes["Joker"].rarities[2].weight
-					SMODS.ObjectTypes["Joker"].rarities[1].weight = 0
-					SMODS.ObjectTypes["Joker"].rarities[2].weight = 0
-					return true
-				end,
-			}))
-			G.E_MANAGER:add_event(Event({
-				trigger = "immediate",
-				delay = 0.2,
-				blockable = false,
-				blocking = false,
-				func = function()
-					local acard = SMODS.add_card({
-						set = "Joker",
-					})
-					local transform = {}
-					if acard.config.center.key == "j_joker" then
-						print("Jimbo got created. Transforming it into a random rare joker")
-						for i = 1, #G.P_CENTER_POOLS.Joker do
-							local rcard = G.P_CENTER_POOLS.Joker
-								if rcard[i].rarity == 3 then
-									transform[#transform+1] = rcard[i]
-								end
+		local one
+		local two
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.2,
+			blockable = false,
+			blocking = false,
+			func = function()
+				one = SMODS.ObjectTypes["Joker"].rarities[1].weight
+				two = SMODS.ObjectTypes["Joker"].rarities[2].weight
+				SMODS.ObjectTypes["Joker"].rarities[1].weight = 0
+				SMODS.ObjectTypes["Joker"].rarities[2].weight = 0
+				return true
+			end,
+		}))
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			delay = 0.2,
+			blockable = false,
+			blocking = false,
+			func = function()
+				local acard = SMODS.add_card({
+					set = "Joker",
+				})
+				local transform = {}
+				if acard.config.center.key == "j_joker" then
+					print("Jimbo got created. Transforming it into a random rare joker")
+					for i = 1, #G.P_CENTER_POOLS.Joker do
+						local rcard = G.P_CENTER_POOLS.Joker
+						if rcard[i].rarity == 3 then
+							transform[#transform + 1] = rcard[i]
 						end
-						acard:set_ability(pseudorandom_element(transform).key)
 					end
-					return true
-				end,
-			}))
-			SMODS.ObjectTypes["Joker"].rarities[1].weight = one
-			SMODS.ObjectTypes["Joker"].rarities[2].weight = two
+					acard:set_ability(pseudorandom_element(transform).key)
+				end
+				return true
+			end,
+		}))
+		SMODS.ObjectTypes["Joker"].rarities[1].weight = one
+		SMODS.ObjectTypes["Joker"].rarities[2].weight = two
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play then

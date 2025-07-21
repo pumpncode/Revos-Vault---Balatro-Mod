@@ -109,7 +109,7 @@ return {
 				name = "Unregistered Deck",
 				text = { "Start with an", "Eternal{C:attention,T:j_crv_urp} Unregistered Printer{}." },
 			},
-						b_crv_thedeal = {
+			b_crv_thedeal = {
 				name = "The Deal",
 				text = { "Start with an", "Eternal{C:attention,T:j_crv_brj} Dealer{}." },
 			},
@@ -2382,6 +2382,194 @@ return {
 				},
 			},
 		},
+		Superior = {
+			c_crv_supfool = {
+				name = "Superior Fool",
+				text = {
+					"Creates the last",
+					"destroyed {C:attention}Joker{}",
+					"during this run",
+					"{s:0.8,C:inactive}(Last Destroyed Joker: {C:s:0.8,C:inactive}#1#{s:0.8,C:inactive})",
+				},
+			},
+			c_crv_supmagician = {
+				name = "Superior Magician",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Lucky Cards",
+					"Played lucky cards a retriggered",
+				},
+			},
+			c_crv_suppriestess = {
+				name = "Superior Priestess",
+				text = {
+					"Creates {C:attention}#1# {C:dark_edition}Negative {C:planet}Planet{}",
+					"cards for your {C:attention}Most Played Hand",
+				},
+			},
+			c_crv_supempress = {
+				name = "Superior Empress",
+				text = {
+					"Enhances {C:attention}#1#",
+					"selected cards to",
+					"{C:attention}XMult Cards",
+				},
+			},
+			c_crv_supemperor = {
+				name = "Superior Emperor",
+				text = {
+					"Creates 2 {C:crv_sup}Superior{} Cards",
+				},
+			},
+			c_crv_suphierophant = {
+				name = "Superior Hierophant",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Bonus Cards",
+					"Played lucky cards a retriggered",
+				},
+			},
+			c_crv_suplovers = {
+				name = "Superior Lovers",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Wild Cards",
+					"Wild cards give",
+					"half their rank as {C:mult}Mult",
+				},
+			},
+			c_crv_supchariot = {
+				name = "Superior Chariot",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Steel Cards",
+					"Each Steel Card in hand",
+					"gives {X:chips,C:white}X2{} Chips",
+				},
+			},
+			c_crv_supjustice = {
+				name = "Superior Justice",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"cards into {C:attention}Glass{}",
+					"and makes it {C:edition}Polychrome{}",
+				},
+			},
+			c_crv_suphermit = {
+				name = "Superior Hermit",
+				text = {
+					"Triples money",
+					"{C:attention}Gives {C:money}$#2#{} at the end of a round",
+					"{C:inactive}(Max of {C:money}$#1#{C:inactive})",
+				},
+			},
+			c_crv_supwof = {
+				name = "Superior Wheel of Fortune",
+				text = {
+					"Gives {C:attention}1{} Random joker",
+					"a random {C:edition}Edition{}",
+				},
+			},
+			c_crv_supstrength = {
+				name = "Superior Strength",
+				text = {
+					"Turns #1#{} Cards into a {C:attention}King",
+				},
+			},
+			c_crv_suphangedman = {
+				name = "Superior Hanged Man",
+				text = {
+					"Destroys up to {C:attention}#1#{}",
+					"If kept in hand, gives the {C:attention}Total",
+					"of the destroyed card's base ids",
+					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+				},
+			},
+			c_crv_supdeath = {
+				name = "Superior Death",
+				text = {
+					"Turns up to {C:attention}#1#{} Selected",
+					"cards to your {C:attention}Most Played Card",
+				},
+			},
+			c_crv_suptemp = {
+				name = "Superior Temperance",
+				text = {
+					"Gives the total sell value",
+					"of your {C:attention}Consumables{} and",
+					"{C:attention}Jokers{}.",
+					"{C:inactive}(Max of {C:money}$#1#{C:inactive})",
+				},
+			},
+			c_crv_supdevil = {
+				name = "Superior Devil",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Gold Cards",
+					"scored Gold Cards give",
+					"{C:money}$#2#{}",
+				},
+			},
+			c_crv_suptower = {
+				name = "Superior Tower",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to {C:dark_edition}Negative",
+					"{C:attention}Stone Cards",
+					"scored Stone Cards give",
+					"{X:mult,C:white}X2{} Mult",
+				},
+			},
+			c_crv_supstar = {
+				name = "Superior Star",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:diamonds}Diamonds",
+				},
+			},
+			c_crv_supmoon = {
+				name = "Superior Moon",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:clubs}Clubs",
+				},
+			},
+			c_crv_supsun = {
+				name = "Superior Moon",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:hearts}Hearts",
+				},
+			},
+			c_crv_supworld = {
+				name = "Superior World",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:spades}Spades",
+				},
+			},
+						c_crv_supjudgement = {
+				name = "Superior Judgement",
+				text = {
+					"Creates a random {C:attention}Joker{}",
+					"{C:inactive}Cannot create Commons or Uncommons"
+				},
+			},
+		},
+
 		Spectral = {
 			c_crv_VaultKey = {
 				name = "Vault Key",

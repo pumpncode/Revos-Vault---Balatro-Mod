@@ -10455,7 +10455,7 @@ function Card:highlight(is_highlighted)
 		end
 
 		self.children.use_button = UIBox({
-			definition = RevosVault.create_sell_and_switch_buttons(self, {
+			definition = RevosVault.create_sell_and_switch_buttonsss(self, {
 				sell = true,
 				use = true,
 			}),
@@ -10473,7 +10473,7 @@ function Card:highlight(is_highlighted)
 	end
 end
 
-RevosVault.create_sell_and_switch_buttons = function(card, args)
+RevosVault.create_sell_and_switch_buttonsss = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil

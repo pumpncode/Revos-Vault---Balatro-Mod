@@ -324,16 +324,13 @@ SMODS.Atlas({
 	py = 95,
 })
 
-SMODS.Atlas{
+SMODS.Atlas({
 	key = "Superior",
 	path = "superior.png",
 	px = 71,
-	py = 95
-}
+	py = 95,
+})
 
-RevosVault.C = {
-	SUP = HEX("f7baff"),
-}
 
 local removeold = Card.remove
 function Card:remove()
@@ -419,9 +416,23 @@ end
 local shopcreateold = create_card_for_shop
 function create_card_for_shop(area)
 	if pseudorandom("supcreate") > 0.9 then
-		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key,true,"Tarot")
+		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key, true, "Tarot")
 	end
 	return shopcreateold(area)
+end
+
+RevosVault.C = {
+	SUP = HEX("f7baff"),
+}
+
+local loc_old = loc_colour 
+function loc_colour(_c, _default)
+    if not G.ARGS.LOC_COLOURS then
+        loc_old()
+    end
+    G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
+
+    return loc_old(_c, _default)
 end
 
 local igo = Game.init_game_object
@@ -700,7 +711,6 @@ Game.main_menu = function(change_context)
 	newcard.no_ui = true
 	newcard.states.visible = true
 end
-
 
 SMODS.load_file("items/funcs.lua")()
 SMODS.load_file("items/jokers.lua")()
