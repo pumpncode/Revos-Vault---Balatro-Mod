@@ -10082,7 +10082,6 @@ SMODS.Joker({
 			if
 				G.jokers.cards[rr - 1] ~= nil
 					and G.jokers.cards[rr + 1] ~= nil
-					and #G.jokers.cards < G.jokers.config.card_limit
 				or self.area == G.jokers
 			then
 				G.jokers.cards[rr - 1]:start_dissolve({ HEX("57ecab") }, nil, 1.6)
