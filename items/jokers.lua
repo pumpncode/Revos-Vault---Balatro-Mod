@@ -3181,12 +3181,14 @@ SMODS.Joker({
 				x_mult = card.ability.extra.xmult,
 			}
 		end
-		if context.setting_blind and not context.blueprint then
+		if context.setting_blind and not context.blueprint and card.ability.canactivate then 
 			local random_key = rkeys[math.random(#rkeys)]
 			if (random_key == "5") and not context.repetition and not context.individual then
 				G.STATE = G.STATES.GAME_OVER
 				G.STATE_COMPLETE = false
 			end
+		elseif context.setting_blind and not context.blueprint and not card.ability.canactivate then
+			card.ability.canactivate = true
 		end
 	end,
 
