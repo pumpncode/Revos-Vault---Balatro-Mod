@@ -2435,7 +2435,7 @@ return {
 					"Enhances {C:attention}#1#{}",
 					"selected cards to",
 					"{C:attention}Bonus Cards",
-					"Played lucky cards a retriggered",
+					"Played bonus cards a retriggered",
 				},
 			},
 			c_crv_suplovers = {
