@@ -466,7 +466,7 @@ SMODS.Enhancement({
 	calculate = function(self, card, context, effect)
 		if context.main_scoring and context.cardarea == G.play then
 			return {
-				xchips = card.base.id*card.ability.extra.xchips
+				xchips = card.base.id*card.ability.extra.xchips/3
 			}
 		end
 	end,

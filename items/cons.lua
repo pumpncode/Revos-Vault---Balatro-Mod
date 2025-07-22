@@ -995,10 +995,10 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		extra = {cards = nil},
+		extra = { cards = nil },
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards} }
+		return { vars = { card.ability.extra.cards } }
 	end,
 	can_use = function(self, card)
 		if G and G.GAME and G.GAME.last_destroyed_joker then
@@ -1011,13 +1011,13 @@ SMODS.Consumable({
 			key = G.GAME.last_destroyed_joker.config.center.key,
 		})
 	end,
-	update = function(self,card,context)
+	update = function(self, card, context)
 		if G and G.GAME and G.GAME.last_destroyed_joker then
 			card.ability.extra.cards = G.GAME.last_destroyed_joker.ability.name
 		else
 			card.ability.extra.cards = "Superior Fool"
 		end
-	end
+	end,
 })
 
 SMODS.Consumable({
@@ -1086,10 +1086,10 @@ SMODS.Consumable({
 	},
 	discovered = true,
 	config = {
-		extra = {create = 3},
+		extra = { create = 3 },
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.create } }
+		return { vars = { card.ability.extra.create } }
 	end,
 	can_use = function(self, card)
 		return true
@@ -1413,11 +1413,11 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			money = 100,
-			give = 5
+			give = 5,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.money, card.ability.extra.give} }
+		return { vars = { card.ability.extra.money, card.ability.extra.give } }
 	end,
 	can_use = function(self, card)
 		return true
@@ -1541,11 +1541,11 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-	if G and G.GAME then
-		return { vars = { self.config.max_highlighted,card.ability.extra.chips } }
-	else
-		return { vars = { self.config.max_highlighted ,G.GAME.hangedmanchips} }
-	end
+		if G and G.GAME then
+			return { vars = { self.config.max_highlighted, card.ability.extra.chips } }
+		else
+			return { vars = { self.config.max_highlighted, G.GAME.hangedmanchips } }
+		end
 	end,
 	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
@@ -1633,14 +1633,14 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			money = 0,
-			max = 100
+			max = 100,
 		},
 	},
 	can_use = function(self, card)
 		return true
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.max } }
+		return { vars = { card.ability.extra.max } }
 	end,
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.cards do
@@ -1651,7 +1651,7 @@ SMODS.Consumable({
 		for i = 1, #G.consumeables.cards do
 			card.ability.extra.money = card.ability.extra.money + G.consumeables.cards[i].sell_cost
 		end
-		ease_dollars(math.max(0, math.min(card.ability.extra.money, card.ability.extra.max )), true)
+		ease_dollars(math.max(0, math.min(card.ability.extra.money, card.ability.extra.max)), true)
 	end,
 })
 
@@ -1678,7 +1678,7 @@ SMODS.Consumable({
 		return true
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.max_highlighted,card.ability.extra.money } }
+		return { vars = { self.config.max_highlighted, card.ability.extra.money } }
 	end,
 	use = function(self, card, area, copier)
 		for _, v in pairs(G.hand.highlighted) do
@@ -1957,7 +1957,6 @@ SMODS.Consumable({
 	end,
 })
 
-
 SMODS.Consumable({
 	key = "supjudgement",
 	set = "Superior",
@@ -2031,6 +2030,63 @@ SMODS.Consumable({
 					xmult = 2,
 				}
 			end
+		end
+	end,
+})
+
+--Superior Spectrals below
+
+SMODS.Consumable({
+	key = "supfamiliar",
+	set = "Superior",
+	atlas = "Superior",
+	hidden = true,
+	soul_set = "Spectral",
+	sout_rate = 0.1,
+	pos = {
+		x = 0,
+		y = 0,
+	},
+	discovered = true,
+	set_card_badge_type = function(self, card, badges)
+		badges[#badges + 1] =
+			create_badge(localize("k_superior_s"), get_type_colour(self or card.config, card), nil, 1.2)
+	end,
+	config = {
+		extra = { cards = 3 },
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.cards } }
+	end,
+	can_use = function(self, card)
+		local cards = {}
+		if G and G.hand and #G.hand.cards > 0 then
+			for i = 1, #G.hand.cards do
+				if not G.hand.cards[i]:is_face() then
+					cards[#cards + 1] = G.hand.cards[i]
+					if #cards > 0 then
+						return true
+					end
+				end
+			end
+		end
+		return false
+	end,
+	use = function(self, card, area, copier)
+		local cards = {}
+			for i = 1, #G.hand.cards do
+				if not G.hand.cards[i]:is_face() then
+					cards[#cards + 1] = G.hand.cards[i]
+			end
+		end
+		SMODS.destroy_cards(pseudorandom_element(cards))
+		for i = 1, card.ability.extra.cards do
+			SMODS.add_card{
+				set = "Enhanced",
+				area = G.hand,
+				edition = poll_edition(pseudorandom("supfam"), nil, true, true),
+				rank = pseudorandom_element(RevosVault.facepool()).card_key
+			}
 		end
 	end,
 })

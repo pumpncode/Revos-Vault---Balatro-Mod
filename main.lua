@@ -331,7 +331,6 @@ SMODS.Atlas({
 	py = 95,
 })
 
-
 local removeold = Card.remove
 function Card:remove()
 	if self.ability.set == "Joker" and self.added_to_deck then
@@ -425,14 +424,29 @@ RevosVault.C = {
 	SUP = HEX("f7baff"),
 }
 
-local loc_old = loc_colour 
-function loc_colour(_c, _default)
-    if not G.ARGS.LOC_COLOURS then
-        loc_old()
-    end
-    G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
+SMODS.Gradient({
+	key = "crv_polychrome",
+	colours = {
+		HEX("e81416"),
+		HEX("ffa500"),
+		HEX("faeb36"),
+		HEX("79c314"),
+		HEX("487de7"),
+		HEX("4b369d"),
+		HEX("70369d"),
+	},
+	cycle = 5,
+})
 
-    return loc_old(_c, _default)
+local loc_old = loc_colour
+function loc_colour(_c, _default)
+	if not G.ARGS.LOC_COLOURS then
+		loc_old()
+	end
+	G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
+	G.ARGS.LOC_COLOURS.crv_polychrome = SMODS.Gradients["crv_polychrome"]
+
+	return loc_old(_c, _default)
 end
 
 local igo = Game.init_game_object

@@ -291,6 +291,13 @@ return {
 					"{X:mult,C:white}X#1#{} Mult",
 				},
 			},
+			m_crv_superiore = {
+				name = "Superior",
+				text = {
+					"Gives 1/3 of the Card's",
+					"Rank as XCHIPS"
+				},
+			},
 			m_crv_bulletproofglass = {
 				name = "Bulletproof Glass",
 				text = {
@@ -683,7 +690,7 @@ return {
 				name = "Polychrome Printer",
 				text = {
 					"When Blind is selected,",
-					"prints a {C:dark_edition}Polychrome Contract",
+					"prints a {C:crv_polychrome}Polychrome Contract",
 					"Gives {X:mult,C:white}X#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -1663,7 +1670,7 @@ return {
 			j_crv_nyancat = {
 				name = "Nyan Cat",
 				text = {
-					"Applies {C:edition}Polychrome{} to",
+					"Applies {C:crv_polychrome}Polychrome{} to",
 					"scored cards after scoring",
 					"{C:inactive}(Won't overwrite existing edition)",
 				},
@@ -1995,7 +2002,7 @@ return {
 				text = {
 					"{C:red}Halves{} the {C:green}odds{} of glass cards breaking",
 					"Destroyed glass cards become {C:attention}Shattered{}",
-					"Scored glass cards become {C:dark_edition}Polychrome",
+					"Scored glass cards become {C:crv_polychrome}Polychrome",
 					"{C:inactive}(eg. 4 -> 2)",
 				},
 			},
@@ -2298,7 +2305,7 @@ return {
 			},
 			c_crv_polydoc = {
 				name = "Polychrome Contract",
-				text = { "Turns #1# card or joker into", "{C:dark_edition}Polychrome" },
+				text = { "Turns #1# card or joker into", "{C:crv_polychrome}Polychrome" },
 			},
 			c_crv_foildoc = {
 				name = "Foil Contract",
@@ -2456,7 +2463,7 @@ return {
 				text = {
 					"Enhances {C:attention}#1#{}",
 					"cards into {C:attention}Glass{}",
-					"and makes it {C:edition}Polychrome{}",
+					"and makes it {C:crv_polychrome}Polychrome{}",
 				},
 			},
 			c_crv_suphermit = {
@@ -2471,7 +2478,7 @@ return {
 				name = "Superior Wheel of Fortune",
 				text = {
 					"Gives {C:attention}1{} Random joker",
-					"a random {C:edition}Edition{}",
+					"a random {C:crv_polychrome}Edition{}",
 				},
 			},
 			c_crv_supstrength = {
@@ -2784,6 +2791,7 @@ return {
 			k_enchanceddocuments = "Contract",
 			b_enchanceddocuments_cards = "Contracts",
 			k_superior = "Superior Tarot",
+			k_superior_s = "Superior Spectral",
 			b_superior_cards = "Superior Cards",
 			crv_mode = "Change",
 			crv_mode2 = "Target",

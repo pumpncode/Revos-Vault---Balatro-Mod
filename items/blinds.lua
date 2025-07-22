@@ -28,7 +28,7 @@ SMODS.Blind({
 					end
 					local _card = pseudorandom_element(cards, pseudoseed("fragile"))
 					if _card then
-						_card:start_dissolve({ HEX("ffffff") }, nil, 1.6)
+						SMODS.destroy_card(_card)
 					end
 					return true
 				end,
