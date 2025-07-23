@@ -325,6 +325,13 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+	key = "paradox",
+	path = "paradox.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
 	key = "Superior",
 	path = "superior.png",
 	px = 71,
@@ -816,5 +823,9 @@ end
 
 if next(SMODS.find_mod("LuckyRabbit")) then
 	SMODS.load_file("items/Cross-Mod/luckrabbit.lua")()
+end
+
+if next(SMODS.find_mod("paradox_ideas")) then
+	SMODS.load_file("items/Cross-Mod/paradox.lua")()
 end
 
