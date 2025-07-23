@@ -417,6 +417,9 @@ function create_card_for_shop(area)
 	if pseudorandom("supcreate") > 0.9 then
 		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key, true, "Tarot")
 	end
+	if pseudorandom("supcreate") > 0.9 then
+		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key, true, "Spectral")
+	end
 	return shopcreateold(area)
 end
 
@@ -814,3 +817,4 @@ end
 if next(SMODS.find_mod("LuckyRabbit")) then
 	SMODS.load_file("items/Cross-Mod/luckrabbit.lua")()
 end
+

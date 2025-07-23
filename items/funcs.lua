@@ -327,3 +327,12 @@ function RevosVault.shop_card(acard, replace, set)
 		G.shop_jokers:emplace(card)
 	end
 end
+
+function RevosVault.index(table, cards)
+	for i, v in ipairs(table) do
+		if v == cards then
+			return i
+		end
+	end
+	return nil
+end

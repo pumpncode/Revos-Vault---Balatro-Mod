@@ -295,7 +295,7 @@ return {
 				name = "Superior",
 				text = {
 					"Gives 1/3 of the Card's",
-					"Rank as XCHIPS"
+					"Rank as XCHIPS",
 				},
 			},
 			m_crv_bulletproofglass = {
@@ -923,7 +923,7 @@ return {
 					"permanently add {C:attention}x1.5",
 					"the sell value of the leftmost joker to this {X:mult,C:white}XMult{}.",
 					"However, has a {C:green}#1# in #2#{} chance of destroying the leftmost joker.",
-					"Chances are reduced if the leftmost joker is not destroyed.",
+					"Chances are increased if the leftmost joker is not destroyed.",
 					"Will {C:red}self-destruct{} if theres nothing on the left side or the leftmost joker has eternal.",
 					"Chances will {C:attention}reset{} if it hits {C:attention}1{} or the leftmost joker is {C:red}destroyed",
 					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
@@ -2568,20 +2568,139 @@ return {
 					"and turns them into {C:spades}Spades",
 				},
 			},
-						c_crv_supjudgement = {
+			c_crv_supjudgement = {
 				name = "Superior Judgement",
 				text = {
 					"Creates a random {C:attention}Joker{}",
-					"{C:inactive}Cannot create Commons or Uncommons"
+					"{C:inactive}Cannot create Commons or Uncommons",
+				},
+			},
+			c_crv_supfamiliar = {
+				name = "Superior Familiar",
+				text = {
+					"{C:red}Destroys{} a random {C:attention}Non-Face{}",
+					"card. Creates {C:attention}#1#{} Random Face cards.",
+				},
+			},
+			c_crv_supgrim = {
+				name = "Superior Grim",
+				text = {
+					"{C:red}Destroys{} a random {C:attention}Non-Ace{}",
+					"card. Creates {C:attention}#1#{} Random Aces.",
+				},
+			},
+			c_crv_supincantation = {
+				name = "Superior Incantation",
+				text = {
+					"{C:red}Destroys{} a random {C:attention}Card{}",
+					"card. Creates {C:attention}#1#{} Random cards.",
+				},
+			},
+			c_crv_suptalisman = {
+				name = "Superior Talisman",
+				text = {
+					"Enhances #1# Cards to {C:attention}Gold.",
+					"and applies {C:attention}Gold{} Seal to them",
+				},
+			},
+			c_crv_supaura = {
+				name = "Superior Aura",
+				text = {
+					"Apply {C:crv_polychrome}Polychrome{}",
+					"or {C:dark_edition}Negative{} to",
+					"#1# Selected Jokers",
+				},
+			},
+			c_crv_supwraith = {
+				name = "Superior Wraith",
+				text = {
+					"Creates a random {C:rare}Rare{} Joker",
+					"{C:green}#3# in #2#{} Chance for it to be",
+					"{C:purple,E:2}Legendary{} Joker",
+				},
+			},
+			c_crv_supsigil = {
+				name = "Superior Sigil",
+				text = {
+					"Changes the {C:attention}Suits{} of all",
+					"hand-held cards into the {C:attentoin}Selected{} Card's",
+					"suit",
+				},
+			},
+			c_crv_supouija = {
+				name = "Superior Ouija",
+				text = {
+					"Changes the {C:attention}Ranks{} of all",
+					"hand-held cards into the {C:attentoin}Selected{} Card's",
+					"rank",
+				},
+			},
+			c_crv_supectoplasm = {
+				name = "Superior Ectoplasm",
+				text = {
+					"Applies {C:dark_edition}Negative{}",
+					"to {C:attention}#1#{} Random Jokers",
+				},
+			},
+			c_crv_supimmolate = {
+				name = "Superior Immolate",
+				text = {
+					"{C:red}Destroy{} #1# Selected Cards and",
+					"gain {C:dollars}+$#2#{}",
+				},
+			},
+			c_crv_supankh = {
+				name = "Superior Ankh",
+				text = {
+					"Applies {C:crv_polychrome}Polychrome{} to a",
+					"selected joker.",
+					"{C:green}#2# in #3#{} Chance to {C:red}Desroy{}",
+					"all jokers",
+				},
+			},
+			c_crv_supdejavu = {
+				name = "Superior De Javu",
+				text = {
+					"Enhances #1# Cards to {C:attention}Lucky or Glass",
+					"and applies {C:attention}Red{} Seal to them",
+				},
+			},
+			c_crv_suphex = {
+				name = "Superior Hex",
+				text = {
+					"Applies {C:crv_polychrome}Polychrome{} to a",
+					"selected joker and randomly {C:red}Destroys{}",
+					"the joker to its right or left",
+				},
+			},
+			c_crv_suptrance = {
+				name = "Superior Trance",
+				text = {
+					"Enhances #1# Cards to {C:attention}Steel",
+					"and applies {C:attention}Blue{} Seal to them",
+				},
+			},
+			c_crv_supmedium = {
+				name = "Superior Medium",
+				text = {
+					"Enhances #1# Cards to {C:attention}Steel",
+					"and applies {C:attention}Purple{} Seal to them",
+				},
+			},
+			c_crv_supcryptid = {
+				name = "Superior Cryptid",
+				text = {
+					"Creates #1# {C:dark_edition}Negative{} copies",
+					"of the selected card",
 				},
 			},
 		},
 
 		Spectral = {
-			c_crv_VaultKey = {
+			--[[c_crv_VaultKey = {
 				name = "Vault Key",
 				text = { "Spawns a random", "{C:purple}Vaulted{} Joker" },
-			},
+			},]]
 			c_crv_brush = {
 				name = "Brush",
 				text = { "Add a {C:purple}Printer's Seal", "to {C:attention}1{} selected", "card in your hand" },
