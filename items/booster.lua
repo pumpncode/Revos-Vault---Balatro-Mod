@@ -57,7 +57,7 @@ SMODS.Booster{
     group_key = 'k_crv_cbstg',
     cost = 4,
     draw_hand = true,
-    weight = 0.8,
+    weight = 0.03,
     kind = "Contract",
     create_card = function(self, card, i)
         return SMODS.create_card({
@@ -75,7 +75,7 @@ SMODS.Booster{
     group_key = 'k_crv_cbstg',
     cost = 6,
     draw_hand = true,
-    weight = 0.4,
+    weight = 0.01,
     kind = "Contract",
     create_card = function(self, card, i)
         return SMODS.create_card({
@@ -93,7 +93,7 @@ SMODS.Booster{
     group_key = 'k_crv_cbstg',
     cost = 8,
     draw_hand = true,
-    weight = 0.4,
+    weight = 0.008,
     kind = "Contract",
     create_card = function(self, card, i)
         return SMODS.create_card({
@@ -111,7 +111,7 @@ SMODS.Booster{
     group_key = 'k_crv_bbstg',
     cost = 4,
     draw_hand = false,
-    weight = 0.9,
+    weight = 0.09,
     kind = "Banana",
     create_card = function(self, card, i)
         return SMODS.create_card({
@@ -129,7 +129,7 @@ SMODS.Booster{
     group_key = 'k_crv_bbstg',
     cost = 6,
     draw_hand = false,
-    weight = 0.5,
+    weight = 0.07,
     kind = "Banana",
     create_card = function(self, card, i)
         return SMODS.create_card({
@@ -147,7 +147,7 @@ SMODS.Booster{
     group_key = 'k_crv_bbstg',
     cost = 8,
     draw_hand = false,
-    weight = 0.4,
+    weight = 0.04,
     kind = "Banana",
     create_card = function(self, card, i)
         return SMODS.create_card({

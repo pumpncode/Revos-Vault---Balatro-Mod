@@ -1,6 +1,6 @@
 SMODS.Joker({
-	key = "printerinme",
-	atlas = "tangent",
+	key = "ticketprinter",
+	atlas = "notvanilla",
 	rarity = "crv_p",
 	cost = 10,
 	unlocked = true,
@@ -12,29 +12,27 @@ SMODS.Joker({
 		x = 0,
 		y = 0,
 	},
-	dependencies = "tangent",
+	dependencies = "NotVanilla",
 	loc_vars = function(self, info_queue, center)
 	end,
 
 	calculate = function(self, card, context)
         local crv = card.ability.extra
-		if context.setting_blind and not context.blueprint then
+	if context.setting_blind and not context.blueprint then
+        for i = 1, 3 do
 			if G.GAME.used_vouchers["v_crv_printerup"] == true then
-            for i = 1, G.jokers.config.card_limit do
 				SMODS.add_card{
-                    key = "j_tngt_friends",
+                    set = "Tickets",
                     editon = "e_negative"
                 }
-            end
 			else
-				if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
-                    for i = 1, G.jokers.config.card_limit - #G.jokers.cards do
+				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
                     SMODS.add_card{
-                    key = "j_tngt_friends",
+                    set = "Tickets",
                     }
-				end
 			end
 		end
     end
+end
 end
 })

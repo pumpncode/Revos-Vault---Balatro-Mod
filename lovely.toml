@@ -74,3 +74,31 @@ payload = '''
 '''
 match_indent = true
 
+[[patches]]
+[patches.pattern]
+target = 'common_events.lua'
+pattern = '''   
+ elseif _c.set == 'Tarot' then
+ '''
+position = "before"
+payload = '''
+	elseif _c.set == 'Superior' then
+       if _c.key == "supfool" then
+            local fool_c = G.GAME.last_destroyed_joker and G.P_CENTERS[G.GAME.last_destroyed_joker] or nil
+            local last_destroyed_joker = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+            local colour = (not fool_c or fool_c.name == 'The Fool') and G.C.RED or G.C.GREEN
+            main_end = {
+                {n=G.UIT.C, config={align = "bm", padding = 0.02}, nodes={
+                    {n=G.UIT.C, config={align = "m", colour = colour, r = 0.05, padding = 0.05}, nodes={
+                        {n=G.UIT.T, config={text = ' '..last_destroyed_joker..' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true}},
+                    }}
+                }}
+            }
+           loc_vars = {last_destroyed_joker}
+           if not (not fool_c or fool_c.key == "supfool") then
+                info_queue[#info_queue+1] = fool_c
+           end
+'''
+match_indent = true
+
+

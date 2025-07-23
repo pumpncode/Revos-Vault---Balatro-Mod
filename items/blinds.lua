@@ -10,34 +10,77 @@ SMODS.Blind({
 	boss_colour = HEX("f84b4b"),
 })
 
-
 SMODS.Blind({
 	key = "fragile",
 	boss = { min = 1, max = 10 },
 	atlas = "blinds",
 	pos = { x = 0, y = 0 },
 	boss_colour = HEX("ffffff"),
-		calculate = function(self, blind, context)
+	calculate = function(self, blind, context)
 		if context.final_scoring_step then
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			delay = 0.2,
-			func = function()
-				local cards = {}
-				for i = 1, #G.play.cards do
-					cards[#cards + 1] = G.play.cards[i]
-				end
-				local _card = pseudorandom_element(cards, pseudoseed("fragile"))
-				if _card then
-					_card:start_dissolve({ HEX("ffffff") }, nil, 1.6)
-				end
-				return true
-			end,
-		}))
-		self.triggered = true
-		return true
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.2,
+				func = function()
+					local cards = {}
+					for i = 1, #G.play.cards do
+						cards[#cards + 1] = G.play.cards[i]
+					end
+					local _card = pseudorandom_element(cards, pseudoseed("fragile"))
+					if _card then
+						SMODS.destroy_card(_card)
+					end
+					return true
+				end,
+			}))
+			self.triggered = true
+			return true
+		end
+	end,
+})
+
+SMODS.Blind({
+	key = "themess",
+	boss = {
+		min = 1,
+		max = 10,
+	},
+	atlas = "blinds",
+	pos = { x = 0, y = 4 },
+	boss_colour = HEX("5e5e5e"),
+	crv_hand_sort = function(self)
+		local cards = {}
+		for i, v in pairs(G.hand.cards) do
+			cards[#cards + 1] = v
+		end
+		if #cards > 0 then
+			SMODS.destroy_cards(cards)
+			G.GAME.blind:wiggle()
+		end
+	end,
+})
+
+SMODS.Blind({
+	key = "therent",
+	boss = {
+		min = 3,	
+		max = 10,
+	},
+	atlas = "blinds",
+	pos = { x = 0, y = 5 },
+	boss_colour = HEX("5e5e5e"),
+	press_play = function(self)
+		local cards = {}
+	if G.GAME.talisman == 1 then
+		if to_number(G.GAME.dollars) > 10 then
+			ease_dollars(-3)
+		end
+	else 
+		if G.GAME.dollars > 10 then
+			ease_dollars(-3)
+		end
 	end
-end,
+end
 })
 
 SMODS.Blind({
@@ -45,7 +88,7 @@ SMODS.Blind({
 	boss = { min = 1, max = 10, showdown = true },
 	atlas = "blinds",
 	pos = { x = 0, y = 3 },
-	boss_colour = HEX("008016"),
+	boss_colour = HEX("c89a00"),
 	set_blind = function(self)
 		G.GAME.blind.chips = G.GAME.blind.chips * #G.jokers.cards
 		G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
@@ -63,21 +106,16 @@ SMODS.Blind({
 	atlas = "blinds",
 	pos = { x = 0, y = 2 },
 	boss_colour = HEX("3e3e3e"),
-	drawn_to_hand = function(self)
-		if G.jokers.cards[1] and self.prepped then
-			local jokers = {}
-			for i = 1, #G.jokers.cards do
-				if not G.jokers.cards[i].debuff or #G.jokers.cards < 2 then
-					jokers[#jokers + 1] = G.jokers.cards[i]
-				end
-				G.jokers.cards[i]:set_debuff(false)
-			end
-			local _card = pseudorandom_element(jokers, pseudoseed("rrp"))
-			if _card then
-				_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-				self.triggered = true
-			end
-			self.prepped = false
+	crv_after_play = function(self)
+		local jokers = {}
+		for i, v in pairs(G.jokers.cards) do
+			jokers[#jokers + 1] = v
+		end
+		if #jokers > 0 then
+			self.prepper = false
+			local joker = pseudorandom_element(jokers, pseudoseed("cry_landlord"))
+			SMODS.destroy_cards(joker)
+			G.GAME.blind:wiggle()
 		end
 	end,
 	press_play = function(self)

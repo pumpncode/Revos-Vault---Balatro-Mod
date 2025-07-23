@@ -1,3 +1,5 @@
+if SDM_0s_Stuff_Mod.config.sdm_jokers then
+
 SMODS.Joker({
 	key = "burgerpr",
 	atlas = "sdm0",
@@ -40,3 +42,5 @@ SMODS.Joker({
 		return true
 	end,
 })
+
+end

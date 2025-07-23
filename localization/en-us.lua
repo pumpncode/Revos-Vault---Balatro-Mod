@@ -109,12 +109,31 @@ return {
 				name = "Unregistered Deck",
 				text = { "Start with an", "Eternal{C:attention,T:j_crv_urp} Unregistered Printer{}." },
 			},
+			b_crv_thedeal = {
+				name = "The Deal",
+				text = { "Start with an", "Eternal{C:attention,T:j_crv_brj} Dealer{}." },
+			},
 		},
 		Blind = {
 			bl_crv_minimalizm = {
 				name = "Minimalizm",
 				text = {
 					"Must play 3 cards or less",
+				},
+			},
+			bl_crv_themess = {
+				name = "The Mess",
+				text = {
+					"Sorting your hand will destroy",
+					"all hand held cards",
+				},
+			},
+			bl_crv_therent = {
+				name = "The Rent",
+				text = {
+					"When a hand is played,",
+					"if you have more than {C:money}$10",
+					"lose {C:red}-$3{}",
 				},
 			},
 			bl_crv_rrp = {
@@ -270,6 +289,13 @@ return {
 				name = "Shattered",
 				text = {
 					"{X:mult,C:white}X#1#{} Mult",
+				},
+			},
+			m_crv_superiore = {
+				name = "Superior",
+				text = {
+					"Gives 1/3 of the Card's",
+					"Rank as XCHIPS",
 				},
 			},
 			m_crv_bulletproofglass = {
@@ -593,7 +619,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"are present, Fuse into the {C:attention}Mega Printer",
-					"when able to.",
+					"when all parts are placed correctly.",
 					"Gives {C:mult}+#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -603,7 +629,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"are present, Fuse into the {C:attention}Mega Printer",
-					"when able to.",
+					"when all parts are placed correctly.",
 					"Gives {C:mult}+#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -613,7 +639,7 @@ return {
 				text = {
 					"If all 3 parts of the mega printer",
 					"is present, Fuse into the {C:attention}Mega Printer",
-					"when able to.",
+					"when all parts are placed correctly.",
 					"Gives {C:mult}+#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -623,7 +649,7 @@ return {
 				text = {
 					"When {C:attention}Blind{} is selected,",
 					"print a {C:attention}Mega Contract.",
-					"Gives {C:mult}+#1#{} Mult.",
+					"Gives {X:mult,C:white}X#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
 			},
@@ -664,7 +690,7 @@ return {
 				name = "Polychrome Printer",
 				text = {
 					"When Blind is selected,",
-					"prints a {C:dark_edition}Polychrome Contract",
+					"prints a {C:crv_polychrome}Polychrome Contract",
 					"Gives {X:mult,C:white}X#1#{} Mult.",
 					"{C:inactive}(Must have room)",
 				},
@@ -897,7 +923,7 @@ return {
 					"permanently add {C:attention}x1.5",
 					"the sell value of the leftmost joker to this {X:mult,C:white}XMult{}.",
 					"However, has a {C:green}#1# in #2#{} chance of destroying the leftmost joker.",
-					"Chances are reduced if the leftmost joker is not destroyed.",
+					"Chances are increased if the leftmost joker is not destroyed.",
 					"Will {C:red}self-destruct{} if theres nothing on the left side or the leftmost joker has eternal.",
 					"Chances will {C:attention}reset{} if it hits {C:attention}1{} or the leftmost joker is {C:red}destroyed",
 					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
@@ -1626,10 +1652,9 @@ return {
 			j_crv_3dp = {
 				name = "3D Printer",
 				text = {
-					"When Blind is selected,",
+					"When {C:attention}Entering Shop{},",
 					"print a Random",
-					"{C:attention}Booster Tag{}",
-					"{C:inactive,s:0.8}(Only Vanilla)",
+					"{C:attention}Booster Pack{}",
 				},
 			},
 			j_crv_roulj = {
@@ -1645,7 +1670,7 @@ return {
 			j_crv_nyancat = {
 				name = "Nyan Cat",
 				text = {
-					"Applies {C:edition}Polychrome{} to",
+					"Applies {C:crv_polychrome}Polychrome{} to",
 					"scored cards after scoring",
 					"{C:inactive}(Won't overwrite existing edition)",
 				},
@@ -1795,10 +1820,7 @@ return {
 			j_crv_mycard = {
 				name = "Revo's Card",
 				text = {
-					"{C:mult}+0.5{} Mult for each",
-					"dollar in my papara account",
-					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-					"{C:inactive}(Updates every week)",
+					"{C:mult}+#1#{} Mult{}",
 				},
 			},
 			j_crv_printerprinter = {
@@ -1980,7 +2002,7 @@ return {
 				text = {
 					"{C:red}Halves{} the {C:green}odds{} of glass cards breaking",
 					"Destroyed glass cards become {C:attention}Shattered{}",
-					"Scored glass cards become {C:dark_edition}Polychrome",
+					"Scored glass cards become {C:crv_polychrome}Polychrome",
 					"{C:inactive}(eg. 4 -> 2)",
 				},
 			},
@@ -2165,8 +2187,31 @@ return {
 			--Tangents here
 			j_crv_printerinme = {
 				name = "Printer Inside Me",
-				text = {"When {C:attention}Blind{} is selected,","fills your joker slots with 'Joker Inside Me'"}
-			}
+				text = { "When {C:attention}Blind{} is selected,", "fills your joker slots with 'Joker Inside Me'" },
+			},
+			-- NotVanilla here
+			j_crv_ticketprinter = {
+				name = "Ticker Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Ticket" },
+			},
+			-- Grab Bag here
+			j_crv_epprinter = {
+				name = "Ephemeral Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Ephemeral{} card" },
+			},
+			j_crv_honeyprinter = {
+				name = "Honey Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a {C:attention}Honey Contract" },
+			},
+			m_crv_syrup = {
+				name = "Syrup Card",
+				text = { "When drawn, draw", "another Honey or Syrup card" },
+			},
+			--Lucky Rabbit here
+			j_crv_sillyprinter = {
+				name = "Silly Printer",
+				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Silly{} card" },
+			},
 			--ends here
 		},
 		Tarot = {
@@ -2260,7 +2305,7 @@ return {
 			},
 			c_crv_polydoc = {
 				name = "Polychrome Contract",
-				text = { "Turns #1# card or joker into", "{C:dark_edition}Polychrome" },
+				text = { "Turns #1# card or joker into", "{C:crv_polychrome}Polychrome" },
 			},
 			c_crv_foildoc = {
 				name = "Foil Contract",
@@ -2334,12 +2379,328 @@ return {
 					"{C:dark_edition} Sapphire Card{}",
 				},
 			},
+			--grabbag below
+			c_crv_honeycontract = {
+				name = "Honey Contract",
+				text = {
+					"Turns #1# card into {C:attention}Honey",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Syrup{}",
+				},
+			},
 		},
+		Superior = {
+			c_crv_supfool = {
+				name = "Superior Fool",
+				text = {
+					"Creates the last",
+					"destroyed {C:attention}Joker{}",
+					"during this run",
+					"{s:0.8,C:inactive}(Last Destroyed Joker: {C:s:0.8,C:inactive}#1#{s:0.8,C:inactive})",
+				},
+			},
+			c_crv_supmagician = {
+				name = "Superior Magician",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Lucky Cards",
+					"Played lucky cards a retriggered",
+				},
+			},
+			c_crv_suppriestess = {
+				name = "Superior Priestess",
+				text = {
+					"Creates {C:attention}#1# {C:dark_edition}Negative {C:planet}Planet{}",
+					"cards for your {C:attention}Most Played Hand",
+				},
+			},
+			c_crv_supempress = {
+				name = "Superior Empress",
+				text = {
+					"Enhances {C:attention}#1#",
+					"selected cards to",
+					"{C:attention}XMult Cards",
+				},
+			},
+			c_crv_supemperor = {
+				name = "Superior Emperor",
+				text = {
+					"Creates 2 {C:crv_sup}Superior{} Cards",
+				},
+			},
+			c_crv_suphierophant = {
+				name = "Superior Hierophant",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Bonus Cards",
+					"Played bonus cards a retriggered",
+				},
+			},
+			c_crv_suplovers = {
+				name = "Superior Lovers",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Wild Cards",
+					"Wild cards give",
+					"half their rank as {C:mult}Mult",
+				},
+			},
+			c_crv_supchariot = {
+				name = "Superior Chariot",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Steel Cards",
+					"Each Steel Card in hand",
+					"gives {X:chips,C:white}X2{} Chips",
+				},
+			},
+			c_crv_supjustice = {
+				name = "Superior Justice",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"cards into {C:attention}Glass{}",
+					"and makes it {C:crv_polychrome}Polychrome{}",
+				},
+			},
+			c_crv_suphermit = {
+				name = "Superior Hermit",
+				text = {
+					"Triples money",
+					"{C:attention}Gives {C:money}$#2#{} at the end of a round",
+					"{C:inactive}(Max of {C:money}$#1#{C:inactive})",
+				},
+			},
+			c_crv_supwof = {
+				name = "Superior Wheel of Fortune",
+				text = {
+					"Gives {C:attention}1{} Random joker",
+					"a random {C:crv_polychrome}Edition{}",
+				},
+			},
+			c_crv_supstrength = {
+				name = "Superior Strength",
+				text = {
+					"Turns #1#{} Cards into a {C:attention}King",
+				},
+			},
+			c_crv_suphangedman = {
+				name = "Superior Hanged Man",
+				text = {
+					"Destroys up to {C:attention}#1#{}",
+					"If kept in hand, gives the {C:attention}Total",
+					"of the destroyed card's base ids",
+					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+				},
+			},
+			c_crv_supdeath = {
+				name = "Superior Death",
+				text = {
+					"Turns up to {C:attention}#1#{} Selected",
+					"cards to your {C:attention}Most Played Card",
+				},
+			},
+			c_crv_suptemp = {
+				name = "Superior Temperance",
+				text = {
+					"Gives the total sell value",
+					"of your {C:attention}Consumables{} and",
+					"{C:attention}Jokers{}.",
+					"{C:inactive}(Max of {C:money}$#1#{C:inactive})",
+				},
+			},
+			c_crv_supdevil = {
+				name = "Superior Devil",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Gold Cards",
+					"scored Gold Cards give",
+					"{C:money}$#2#{}",
+				},
+			},
+			c_crv_suptower = {
+				name = "Superior Tower",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to {C:dark_edition}Negative",
+					"{C:attention}Stone Cards",
+					"scored Stone Cards give",
+					"{X:mult,C:white}X2{} Mult",
+				},
+			},
+			c_crv_supstar = {
+				name = "Superior Star",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:diamonds}Diamonds",
+				},
+			},
+			c_crv_supmoon = {
+				name = "Superior Moon",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:clubs}Clubs",
+				},
+			},
+			c_crv_supsun = {
+				name = "Superior Moon",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:hearts}Hearts",
+				},
+			},
+			c_crv_supworld = {
+				name = "Superior World",
+				text = {
+					"Enhances {C:attention}#1#{}",
+					"selected cards to",
+					"{C:attention}Superior Cards",
+					"and turns them into {C:spades}Spades",
+				},
+			},
+			c_crv_supjudgement = {
+				name = "Superior Judgement",
+				text = {
+					"Creates a random {C:attention}Joker{}",
+					"{C:inactive}Cannot create Commons or Uncommons",
+				},
+			},
+			c_crv_supfamiliar = {
+				name = "Superior Familiar",
+				text = {
+					"{C:red}Destroys{} a random {C:attention}Non-Face{}",
+					"card. Creates {C:attention}#1#{} Random Face cards.",
+				},
+			},
+			c_crv_supgrim = {
+				name = "Superior Grim",
+				text = {
+					"{C:red}Destroys{} a random {C:attention}Non-Ace{}",
+					"card. Creates {C:attention}#1#{} Random Aces.",
+				},
+			},
+			c_crv_supincantation = {
+				name = "Superior Incantation",
+				text = {
+					"{C:red}Destroys{} a random {C:attention}Card{}",
+					"card. Creates {C:attention}#1#{} Random cards.",
+				},
+			},
+			c_crv_suptalisman = {
+				name = "Superior Talisman",
+				text = {
+					"Enhances #1# Cards to {C:attention}Gold.",
+					"and applies {C:attention}Gold{} Seal to them",
+				},
+			},
+			c_crv_supaura = {
+				name = "Superior Aura",
+				text = {
+					"Apply {C:crv_polychrome}Polychrome{}",
+					"or {C:dark_edition}Negative{} to",
+					"#1# Selected Jokers",
+				},
+			},
+			c_crv_supwraith = {
+				name = "Superior Wraith",
+				text = {
+					"Creates a random {C:rare}Rare{} Joker",
+					"{C:green}#3# in #2#{} Chance for it to be",
+					"{C:purple,E:2}Legendary{} Joker",
+				},
+			},
+			c_crv_supsigil = {
+				name = "Superior Sigil",
+				text = {
+					"Changes the {C:attention}Suits{} of all",
+					"hand-held cards into the {C:attentoin}Selected{} Card's",
+					"suit",
+				},
+			},
+			c_crv_supouija = {
+				name = "Superior Ouija",
+				text = {
+					"Changes the {C:attention}Ranks{} of all",
+					"hand-held cards into the {C:attentoin}Selected{} Card's",
+					"rank",
+				},
+			},
+			c_crv_supectoplasm = {
+				name = "Superior Ectoplasm",
+				text = {
+					"Applies {C:dark_edition}Negative{}",
+					"to {C:attention}#1#{} Random Jokers",
+				},
+			},
+			c_crv_supimmolate = {
+				name = "Superior Immolate",
+				text = {
+					"{C:red}Destroy{} #1# Selected Cards and",
+					"gain {C:dollars}+$#2#{}",
+				},
+			},
+			c_crv_supankh = {
+				name = "Superior Ankh",
+				text = {
+					"Applies {C:crv_polychrome}Polychrome{} to a",
+					"selected joker.",
+					"{C:green}#2# in #3#{} Chance to {C:red}Desroy{}",
+					"all jokers",
+				},
+			},
+			c_crv_supdejavu = {
+				name = "Superior De Javu",
+				text = {
+					"Enhances #1# Cards to {C:attention}Lucky or Glass",
+					"and applies {C:attention}Red{} Seal to them",
+				},
+			},
+			c_crv_suphex = {
+				name = "Superior Hex",
+				text = {
+					"Applies {C:crv_polychrome}Polychrome{} to a",
+					"selected joker and randomly {C:red}Destroys{}",
+					"the joker to its right or left",
+				},
+			},
+			c_crv_suptrance = {
+				name = "Superior Trance",
+				text = {
+					"Enhances #1# Cards to {C:attention}Steel",
+					"and applies {C:attention}Blue{} Seal to them",
+				},
+			},
+			c_crv_supmedium = {
+				name = "Superior Medium",
+				text = {
+					"Enhances #1# Cards to {C:attention}Steel",
+					"and applies {C:attention}Purple{} Seal to them",
+				},
+			},
+			c_crv_supcryptid = {
+				name = "Superior Cryptid",
+				text = {
+					"Creates #1# {C:dark_edition}Negative{} copies",
+					"of the selected card",
+				},
+			},
+		},
+
 		Spectral = {
-			c_crv_VaultKey = {
+			--[[c_crv_VaultKey = {
 				name = "Vault Key",
 				text = { "Spawns a random", "{C:purple}Vaulted{} Joker" },
-			},
+			},]]
 			c_crv_brush = {
 				name = "Brush",
 				text = { "Add a {C:purple}Printer's Seal", "to {C:attention}1{} selected", "card in your hand" },
@@ -2546,8 +2907,11 @@ return {
 			k_crv_rain2 = "A new day awaits..",
 			k_scrap = "Scrap",
 			b_scrap_cards = "Scrap",
-			k_enchanceddocuments = "Contracts",
-			b_enchanceddocuments_cards = "Contract",
+			k_enchanceddocuments = "Contract",
+			b_enchanceddocuments_cards = "Contracts",
+			k_superior = "Superior Tarot",
+			k_superior_s = "Superior Spectral",
+			b_superior_cards = "Superior Cards",
 			crv_mode = "Change",
 			crv_mode2 = "Target",
 			k_crv_92 = "2-9",
