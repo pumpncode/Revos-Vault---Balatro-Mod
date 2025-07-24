@@ -397,6 +397,16 @@ return {
 					"hand at end of round",
 				},
 			},
+			--Grab Bag below
+						m_crv_syrup = {
+				name = "Syrup Card",
+				text = { "When drawn, draw", "another Honey or Syrup card" },
+			},
+			--Pradox below
+				m_crv_ignited = {
+				name = "Re-ignited Card",
+				text = { "When this card is played","all scoring cards gain {X:mult,C:white}X#1#{}" },
+			},
 		},
 		Joker = {
 			j_crv_revoo_ = {
@@ -406,7 +416,7 @@ return {
 					"for each scored {C:attention}Ace.",
 					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 				},
-			},
+			},	
 			j_crv_spuzzypp = {
 				name = "Blueberry",
 				text = {
@@ -2052,6 +2062,13 @@ return {
 					"print a {C:attention}Burger",
 				},
 			},
+			j_crv_bredprinter = {
+				name = "Bred Printer",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"print a random{C:attention}Bakery{} card",
+				},
+			},
 
 			--rift raft below
 			j_crv_riftrinter = {
@@ -2203,14 +2220,15 @@ return {
 				name = "Honey Printer",
 				text = { "When {C:attention}Blind{} is selected", "creates a {C:attention}Honey Contract" },
 			},
-			m_crv_syrup = {
-				name = "Syrup Card",
-				text = { "When drawn, draw", "another Honey or Syrup card" },
-			},
 			--Lucky Rabbit here
 			j_crv_sillyprinter = {
 				name = "Silly Printer",
 				text = { "When {C:attention}Blind{} is selected", "creates a random {C:attention}Silly{} card" },
+			},
+			--Paradox below
+			j_crv_ahsenprinter = {
+				name = "Ashen Printer",
+				text = {"When {C:attention}Blind{} is selected","creates an {C:attention}Ashen Contract"}
 			},
 			--ends here
 		},
@@ -2388,6 +2406,16 @@ return {
 					"{C:dark_edition} Syrup{}",
 				},
 			},
+
+			--paradox below
+			c_crv_ashencontract = {
+				name = "Ashen Contract",
+				text = {
+					"Turns #1# card into {C:attention}Ashen",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Re-ignited{} Card",
+				},
+			}
 		},
 		Superior = {
 			c_crv_supfool = {
