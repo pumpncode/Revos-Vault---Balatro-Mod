@@ -3565,9 +3565,6 @@ SMODS.Consumable({
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Flush Five" then
-			if G.GAME.hands["Flush Five"].played == 0 then
-				SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_superis)
-			end
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
@@ -3635,9 +3632,6 @@ SMODS.Consumable({
 			and card.ability.extra.can_activate == false
 			and context.scoring_name == "Flush House"
 		then
-			if G.GAME.hands["Flush House"].played == 0 then
-				SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supceres)
-			end
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
@@ -3705,9 +3699,6 @@ SMODS.Consumable({
 			and card.ability.extra.can_activate == false
 			and context.scoring_name == "Five of a Kind"
 		then
-			if G.GAME.hands["Five of a Kind"].played == 0 then
-				SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supplanetx)
-			end
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {

@@ -391,9 +391,26 @@ function Blind:crv_after_play() --Taken from cryptid
 	end
 end
 
+local unlock1, unlock2, unlock3 = nil, nil, nil
 local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
 function G.FUNCS.evaluate_play(e)
 	gfep(e)
+	if SMODS.is_poker_hand_visible("Five of a Kind") and not unlock1 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supplanetx)
+		unlock1 = true
+		print("Unlocked Superior Planet X")
+	end
+	if SMODS.is_poker_hand_visible("Flush House") and not unlock2 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supceres)
+		unlock2 = true
+
+		print("Unlocked Superior Ceres")
+	end
+	if SMODS.is_poker_hand_visible("Flush Five") and not unlock3 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_superis)
+		unlock3 = true
+		print("Unlocked Superior Eris")
+	end
 	G.GAME.blind:crv_after_play()
 end
 
@@ -425,56 +442,55 @@ function G.FUNCS.sort_hand_suit(e)
 end
 
 if RevosVault.config.vault_enabled then
-local destroyjoker = Card.remove
-function Card:remove()
-	if self.added_to_deck and self.ability.set == "Joker" and 30 > G.GAME.vaultspawn then
-		G.GAME.vaultspawn = G.GAME.vaultspawn + 1
-	elseif self.added_to_deck and self.ability.set == "Joker" and G.GAME.vaultspawn >= 30 then
-		G.GAME.vaultspawn = 0
-		play_sound("holo1")
-		SMODS.add_card({
-			set = "Joker",
-			area = G.jokers,
-			rarity = "crv_va",
-		})
+	local destroyjoker = Card.remove
+	function Card:remove()
+		if self.added_to_deck and self.ability.set == "Joker" and 30 > G.GAME.vaultspawn then
+			G.GAME.vaultspawn = G.GAME.vaultspawn + 1
+		elseif self.added_to_deck and self.ability.set == "Joker" and G.GAME.vaultspawn >= 30 then
+			G.GAME.vaultspawn = 0
+			play_sound("holo1")
+			SMODS.add_card({
+				set = "Joker",
+				area = G.jokers,
+				rarity = "crv_va",
+			})
+		end
+		return destroyjoker(self)
 	end
-	return destroyjoker(self)
-end
 end
 
 if RevosVault.config.superior_enabled then
+	SMODS.ObjectType({
+		key = "SuperiorTarot",
+		cards = {},
+	})
 
-SMODS.ObjectType({
-	key = "SuperiorTarot",
-	cards = {
-	},
-})
+	SMODS.ObjectType({
+		key = "SuperiorSpectral",
+		cards = {},
+	})
 
-SMODS.ObjectType({
-	key = "SuperiorSpectral",
-	cards = {
-	},
-})
+	SMODS.ObjectType({
+		key = "SuperiorPlanet",
+		cards = {},
+	})
 
-SMODS.ObjectType({
-	key = "SuperiorPlanet",
-	cards = {
-	},
-})
-
-local shopcreateold = create_card_for_shop
-function create_card_for_shop(area)
-	if pseudorandom("supcreate") > 0.9 then	
-		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot",true)
-	end
-	if pseudorandom("supcreate") > 0.9 then
-		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral), true, "Spectral",true)
-	end
+	local shopcreateold = create_card_for_shop
+	function create_card_for_shop(area)
+		if pseudorandom("supcreate") > 0.9 then
+			local acard =
+				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+		end
+		if pseudorandom("supcreate") > 0.9 then
+			local acard =
+				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral), true, "Spectral", true)
+		end
 		if pseudorandom("supcreate") > 0.99 then
-		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet",true)
+			local acard =
+				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
+		end
+		return shopcreateold(area)
 	end
-	return shopcreateold(area)
-end
 end
 
 RevosVault.C = {
@@ -866,13 +882,13 @@ SMODS.load_file("items/stakes.lua")()
 SMODS.load_file("items/challenge.lua")()
 SMODS.load_file("items/blinds.lua")()
 if RevosVault.config.chaos_enabled then
-SMODS.load_file("items/vault.lua")()
+	SMODS.load_file("items/vault.lua")()
 end
 if RevosVault.config.vault_enabled then
-SMODS.load_file("items/chaos.lua")()
+	SMODS.load_file("items/chaos.lua")()
 end
 if RevosVault.config.wip_enable then
-SMODS.load_file("items/experimental.lua")()
+	SMODS.load_file("items/experimental.lua")()
 end
 
 --cross mod content--
