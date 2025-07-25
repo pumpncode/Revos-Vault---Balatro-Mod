@@ -18,7 +18,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					set = "Ephemeral",
 					editon = "e_negative",
@@ -152,7 +152,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					key = "c_crv_honeycontract",
 					editon = "e_negative",

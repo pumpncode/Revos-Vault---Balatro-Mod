@@ -69,7 +69,7 @@ SMODS.Joker({
 			and not context.blueprint
 			and pseudorandom("chaoticprintermachine") < G.GAME.probabilities.normal / card.ability.extra.odds
 		then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+						if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 			for i = 1, 27 do
 				SMODS.add_card({ set = "Joker", rarity = "crv_p",area = G.jokers,edition = "e_negative" })
 			end
@@ -102,7 +102,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 			local new_card = create_card("Promotion", G.jokers, nil, nil, nil, nil, "j_crv_promotion")
 			new_card:add_to_deck()
 			new_card:set_edition({negative = true},true)
@@ -164,7 +164,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 			local new_card = create_card("Dirt Document", G.consumeables, nil, nil, nil, nil, "c_crv_dirtdocument")
 			new_card:add_to_deck()
 			new_card:set_edition({negative = true},true)
@@ -271,7 +271,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 			local new_card = create_card("Blueprinter", G.jokers, nil, nil, nil, nil, "j_crv_holybanana")
 			new_card:add_to_deck()
 			new_card:set_edition({negative= true},true)

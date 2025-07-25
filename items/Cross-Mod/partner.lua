@@ -33,7 +33,7 @@ Partner_API.Partner({
 				end
 			end
 			if jokercount > 0 then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 					local copied = copy_card(jokers[1], nil)
 					copied:add_to_deck()
 					copied:set_edition({ negative = true }, true)

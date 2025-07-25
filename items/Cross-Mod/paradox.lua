@@ -5,23 +5,23 @@ SMODS.Enhancement({
 	shatters = true,
 	config = {
 		extra = {
-            add = 0.1
-        },
+			add = 0.1,
+		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = {card.ability.extra.add},
+			vars = { card.ability.extra.add },
 		}
 	end,
 	dependencies = "paradox_ideas",
-    calculate = function(self, card, context)
-        if context.before and context.cardarea == G.play then
-            for _, v in ipairs(context.scoring_hand) do
-                v.ability.perma_x_mult = (v.ability.perma_x_mult or 0) + card.ability.extra.add
-                v:juice_up()
-            end
-    end
-    end
+	calculate = function(self, card, context)
+		if context.before and context.cardarea == G.play then
+			for _, v in ipairs(context.scoring_hand) do
+				v.ability.perma_x_mult = (v.ability.perma_x_mult or 0) + card.ability.extra.add
+				v:juice_up()
+			end
+		end
+	end,
 })
 
 SMODS.Consumable({
@@ -99,7 +99,10 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+				and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+			then
 				SMODS.add_card({
 					key = "c_crv_ashencontract",
 					editon = "e_negative",
@@ -107,7 +110,7 @@ SMODS.Joker({
 			else
 				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
 					SMODS.add_card({
-					key = "c_crv_ashencontract",
+						key = "c_crv_ashencontract",
 					})
 				end
 			end
