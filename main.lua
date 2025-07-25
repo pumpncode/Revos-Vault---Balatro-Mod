@@ -464,13 +464,13 @@ SMODS.ObjectType({
 
 local shopcreateold = create_card_for_shop
 function create_card_for_shop(area)
-	if pseudorandom("supcreate") > 0 then	
+	if pseudorandom("supcreate") > 0.9 then	
 		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot",true)
 	end
-	if pseudorandom("supcreate") > 0 then
+	if pseudorandom("supcreate") > 0.9 then
 		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral), true, "Spectral",true)
 	end
-		if pseudorandom("supcreate") > 0 then
+		if pseudorandom("supcreate") > 0.99 then
 		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet",true)
 	end
 	return shopcreateold(area)
