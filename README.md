@@ -5,7 +5,7 @@
 
 Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **180+** jokers and a lot more!
 
- ![image](https://github.com/user-attachments/assets/09fa158d-09c6-479a-a829-af173bdbc04f)
+<img width="951" height="720" alt="image" src="https://github.com/user-attachments/assets/74277b23-5995-4662-9739-23b8e9ba9fe7" />
 
 
 ### **Cross-Mod Content**
