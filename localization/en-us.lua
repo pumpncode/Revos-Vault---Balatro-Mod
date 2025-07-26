@@ -398,14 +398,32 @@ return {
 				},
 			},
 			--Grab Bag below
-						m_crv_syrup = {
+			m_crv_syrup = {
 				name = "Syrup Card",
 				text = { "When drawn, draw", "another Honey or Syrup card" },
 			},
 			--Pradox below
-				m_crv_ignited = {
+			m_crv_ignited = {
 				name = "Re-ignited Card",
-				text = { "When this card is played","all scoring cards gain {X:mult,C:white}X#1#{}" },
+				text = { "When this card is played", "all scoring cards gain {X:mult,C:white}X#1#{}" },
+			},
+
+			--Entropy below
+			m_crv_brightest = {
+				name = "Brightest Card",
+				text = {
+					"{X:dark_edition,C:white}^#1#{} Mult",
+					"increase by {X:dark_edition,C:white}^#2#{}",
+					"when card is scored",
+				},
+			},
+			m_crv_darkest = {
+				name = "Darkest Card",
+				text = {
+					"{X:dark_edition,C:white}^#1#{} Chips when held in hand",
+					"Increase by {X:dark_edition,C:white}^#2#{} for each",
+					"{C:attention}unique{} suit in scoring hand",
+				},
 			},
 		},
 		Joker = {
@@ -416,7 +434,7 @@ return {
 					"for each scored {C:attention}Ace.",
 					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 				},
-			},	
+			},
 			j_crv_spuzzypp = {
 				name = "Blueberry",
 				text = {
@@ -2054,6 +2072,13 @@ return {
 					"print a random {C:attention}Alphabet Card",
 				},
 			},
+			j_crv_umbralprinter = {
+				name = "Umbral Printer",
+				text = {
+					"When {C:attention}Blind{} is selected",
+					"print a random {C:purple}Umbral{} Card",
+				},
+			},
 			--SDM_0 below
 			j_crv_burgerpr = {
 				name = "Burger Printer",
@@ -2228,7 +2253,34 @@ return {
 			--Paradox below
 			j_crv_ahsenprinter = {
 				name = "Ashen Printer",
-				text = {"When {C:attention}Blind{} is selected","creates an {C:attention}Ashen Contract"}
+				text = { "When {C:attention}Blind{} is selected", "creates an {C:attention}Ashen Contract" },
+			},
+			--PokerJoker below
+			j_crv_trashprinter = {
+				name = "Trash Printer",
+				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Trash{} Bin" },
+			},
+			--Entropy below
+			j_crv_prismaticprinter = {
+				name = "Prismatic Printer",
+				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Prismatic{} Contract" },
+			},
+			j_crv_darkprinter = {
+				name = "Dark Printer",
+				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Dark{} Contract" },
+			},
+			--Kino below
+			j_crv_confectionprinter = {
+				name = "Confection Printer",
+				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Confection{} Card" },
+			},
+			j_crv_movieprinter = {
+				name = "Print, The Movie",
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"creates a {C:attention}Movie{} Joker from a specific genre.",
+					"{C:inactive}(Currentl genre: #1#)",
+				},
 			},
 			--ends here
 		},
@@ -2415,7 +2467,24 @@ return {
 					"{C:green} #2# in #3#{} chance for it to be a",
 					"{C:dark_edition} Re-ignited{} Card",
 				},
-			}
+			},
+			--entropy below
+			c_crv_prismaticcontract = {
+				name = "Prismatic Contract",
+				text = {
+					"Turns #1# card into {C:attention}Prismatic",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Brightest{} Card",
+				},
+			},
+			c_crv_darkcontract = {
+				name = "Dark Contract",
+				text = {
+					"Turns #1# card into {C:attention}Dark",
+					"{C:green} #2# in #3#{} chance for it to be a",
+					"{C:dark_edition} Darkest{} Card",
+				},
+			},
 		},
 		Superior = {
 			c_crv_supfool = {
@@ -2722,6 +2791,138 @@ return {
 					"of the selected card",
 				},
 			},
+			c_crv_supceres = {
+				name = "Superior Ceres",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_suppluto = {
+				name = "Superior Pluto",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supmercury = {
+				name = "Superior Mercury",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supvenus = {
+				name = "Superior Venus",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supearth = {
+				name = "Superior Earth",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supmars = {
+				name = "Superior Mars",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supjupiter = {
+				name = "Superior Jupiter",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supsaturn = {
+				name = "Superior Saturn",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supuranus = {
+				name = "Superior Uranus",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supneptune = {
+				name = "Superior Neptune",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_superis = {
+				name = "Superior Eris",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
+			c_crv_supplanetx = {
+				name = "Superior Planet X",
+				text = {
+					"{S:0.8}(lvl.#1#){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips.",
+					"Played {C:attention}#2#{}s are {C:green}Boosted",
+					"until the end of the round",
+				},
+			},
 		},
 
 		Spectral = {
@@ -2939,6 +3140,7 @@ return {
 			b_enchanceddocuments_cards = "Contracts",
 			k_superior = "Superior Tarot",
 			k_superior_s = "Superior Spectral",
+			k_superior_p = "Superior Planet",
 			b_superior_cards = "Superior Cards",
 			crv_mode = "Change",
 			crv_mode2 = "Target",
@@ -2956,6 +3158,10 @@ return {
 			k_evolve_crv = "Evolve!",
 			k_half_crv = "Half",
 			k_hblind_crv = "Blind",
+			crv_enable_chaoscards = "Enable Chaos Cards",
+			crv_enable_vaulteds = "Enable Vaulted Jokers",
+			crv_enable_wip = "Enable Experimental/Wip Features",
+			crv_enable_superior = "Enable Superior Cards",
 		},
 
 		quips = {

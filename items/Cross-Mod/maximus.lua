@@ -24,7 +24,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.starting_shop and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card{
                     set = "Horoscope",
                     edition = "e_negative"
@@ -68,7 +68,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				local new_card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_mxms_joker_plus")
 				new_card:set_edition({
 					negative = true,

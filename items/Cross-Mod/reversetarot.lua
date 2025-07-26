@@ -20,7 +20,7 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
 					delay = 0.4,
@@ -79,7 +79,7 @@ SMODS.Joker({
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					set = "Zodiac",
 					area = G.consumeables,
@@ -117,7 +117,7 @@ SMODS.Joker({
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					area = G.consumeables,
 					edition = "e_negative",
@@ -240,7 +240,7 @@ SMODS.Joker({
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					area = G.consumeables,
 					edition = "e_negative",
@@ -343,7 +343,7 @@ SMODS.Joker({
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					area = G.consumeables,
 					edition = "e_negative",

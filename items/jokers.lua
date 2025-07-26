@@ -186,7 +186,11 @@ SMODS.Joker({
 		if context.reroll_shop then
 			local adamcc = pseudorandom_element(adamc, pseudoseed("lpm"))
 			if adamcc == 1 then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					local scrapselect = pseudorandom_element(scrapselecta, pseudoseed("lpm"))
 					if G.GAME.jojo then
 						if scrapselect == 1 then
@@ -597,7 +601,11 @@ SMODS.Joker({
 	},
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local make = pseudorandom_element(cardtomake, pseudoseed("defaultprinter"))
 				local allcons = {}
 				for k, _ in pairs(SMODS.ConsumableTypes) do
@@ -688,7 +696,11 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Blueprint", G.jokers, nil, nil, nil, nil, "j_blueprint")
 				new_card:add_to_deck()
 				new_card:set_edition({ negative = true }, true)
@@ -727,7 +739,11 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Brainstorm", G.jokers, nil, nil, nil, nil, "j_brainstorm")
 				new_card:add_to_deck()
 				new_card:set_edition({ negative = true }, true)
@@ -767,7 +783,11 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_joker")
 				new_card:set_edition({
 					negative = true,
@@ -1083,7 +1103,11 @@ SMODS.Joker({
 	},
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				SMODS.add_card({
 					set = "Joker",
 					area = G.jokers,
@@ -1132,7 +1156,11 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			if pseudorandom("faxprinter") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					local new_card = create_card("Paper Work", G.jokers, nil, nil, nil, nil, "j_crv_pprwork")
 					new_card:add_to_deck()
 					new_card:set_edition({ negative = true }, true)
@@ -1209,7 +1237,11 @@ SMODS.Joker({
 	},
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				SMODS.add_card({
 					set = "Spectral",
 					area = G.consumeables,
@@ -1334,7 +1366,10 @@ SMODS.Joker({
 					create_card("Glass Document", G.consumeables, nil, nil, nil, nil, "c_crv_glassdocument")
 				new_card:add_to_deck()
 				G.consumeables:emplace(new_card)
-			elseif G.GAME.used_vouchers["v_crv_printerup"] == true then
+			elseif
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+				and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+			then
 				local new_card =
 					create_card("Glass Document", G.consumeables, nil, nil, nil, nil, "c_crv_glassdocument")
 				new_card:add_to_deck()
@@ -1381,7 +1416,11 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card =
 					create_card("Steel Document", G.consumeables, nil, nil, nil, nil, "c_crv_steeldocument")
 				new_card:add_to_deck()
@@ -1436,7 +1475,11 @@ SMODS.Joker({
 			and context.setting_blind
 			and pseudorandom("smile") < G.GAME.probabilities.normal / card.ability.extra.odds
 		then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Photograph", G.jokers, nil, nil, nil, nil, "j_photograph")
 				new_card:add_to_deck()
 				new_card:set_edition({ negative = true }, true)
@@ -1482,7 +1525,11 @@ SMODS.Joker({
 		if context.reroll_shop then
 			local lpmcc = pseudorandom_element(lpmc, pseudoseed("lpm"))
 			if lpmcc == 1 then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					local scrapselect = pseudorandom_element(scrapselecta, pseudoseed("lpm"))
 					if G.GAME.jojo then
 						if scrapselect == 1 then
@@ -1596,7 +1643,11 @@ SMODS.Joker({
 			context.setting_blind
 			and pseudorandom("devilishprinter") < G.GAME.probabilities.normal / card.ability.extra.odds
 		then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card =
 					create_card("Devil's Contract", G.consumeables, nil, nil, nil, nil, "c_crv_devilscontract")
 				new_card:add_to_deck()
@@ -1690,27 +1741,31 @@ SMODS.Joker({
 			}
 		end
 	end,
-	update = function(self,card,context)
-	if card.area == G.jokers then
-		local megap = {}
-		local rr
-		for i = 1, #G.jokers.cards do
-			if G.jokers.cards[i] == card then
-				rr = i
+	update = function(self, card, context)
+		if card.area == G.jokers then
+			local megap = {}
+			local rr
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					rr = i
+				end
+			end
+			if
+				(G.jokers.cards[rr - 1] ~= nil and G.jokers.cards[rr - 1].config.center.key == "j_crv_head")
+				and (G.jokers.cards[rr + 1] ~= nil and G.jokers.cards[rr + 1].config.center.key == "j_crv_back")
+				and not card.fusion
+			then
+				table.insert(megap, G.jokers.cards[rr + 1])
+				table.insert(megap, G.jokers.cards[rr - 1])
+				table.insert(megap, G.jokers.cards[rr])
+				card.fusion = true
+				SMODS.destroy_cards(megap)
+				SMODS.add_card({
+					key = "j_crv_full",
+				})
 			end
 		end
-		if (G.jokers.cards[rr-1] ~= nil and G.jokers.cards[rr-1].config.center.key == "j_crv_head") and ( G.jokers.cards[rr+1] ~= nil and G.jokers.cards[rr+1].config.center.key == "j_crv_back") and not card.fusion then
-			table.insert(megap,G.jokers.cards[rr+1])
-			table.insert(megap,G.jokers.cards[rr-1])
-			table.insert(megap,G.jokers.cards[rr])
-			card.fusion = true
-			SMODS.destroy_cards(megap)
-			SMODS.add_card{
-				key = "j_crv_full"
-			}
-		end
-	end
-end,
+	end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
@@ -1790,7 +1845,11 @@ SMODS.Joker({
 			}
 		end
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Mega", G.consumeables, nil, nil, nil, nil, "c_crv_megadoc")
 				new_card:add_to_deck()
 				new_card:set_edition({ negative = true }, true)
@@ -1838,7 +1897,11 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind and (card.ability.extra.timer == 15) and not (card.ability.extra.timer2 == 5) then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Tier 3 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t3doc")
 				new_card:add_to_deck()
 				new_card:set_edition({ negative = true }, true)
@@ -1851,7 +1914,11 @@ SMODS.Joker({
 				end
 			end
 		elseif context.setting_blind and (card.ability.extra.timer >= 5) and not (card.ability.extra.timer == 15) then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				local new_card = create_card("Tier 2 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t2doc")
 				new_card:add_to_deck()
 				new_card:set_edition({ negative = true }, true)
@@ -1865,7 +1932,11 @@ SMODS.Joker({
 			end
 		else
 			if context.setting_blind and not (card.ability.extra.timer > 4) then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					local new_card = create_card("Tier 1 Document", G.consumeables, nil, nil, nil, nil, "c_crv_t1doc")
 					new_card:add_to_deck()
 					new_card:set_edition({ negative = true }, true)
@@ -1937,7 +2008,11 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.setting_blind then
 			if pseudorandom("luckyprinter") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					local new_card =
 						create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
 					new_card:add_to_deck()
@@ -1961,7 +2036,11 @@ SMODS.Joker({
 					end
 				end
 			else
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					local new_card =
 						create_card("Lucky Document", G.consumeables, nil, nil, nil, nil, "c_crv_luckydocument")
 					new_card:add_to_deck()
@@ -2000,7 +2079,11 @@ SMODS.Joker({
 	},
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				SMODS.add_card({
 					set = "Planet",
 					area = G.consumeables,
@@ -2244,7 +2327,11 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				SMODS.add_card({
 					area = G.consumeables,
 					key = "c_crv_uedoc",
@@ -2297,7 +2384,11 @@ SMODS.Joker({
 				end
 			end
 			if G.jokers.cards[rr + 1] ~= nil then
-				if G.GAME.used_vouchers["v_crv_printerup"] == true then
+				if
+					G.GAME.used_vouchers["v_crv_printerup"] == true
+						and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+					or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+				then
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							local card2 = copy_card(G.jokers.cards[rr + 1], nil, nil, G.jokers.cards[i] == card)
@@ -2461,7 +2552,11 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				SMODS.add_card({
 					set = "Food",
 					edition = "e_negative",
@@ -2501,7 +2596,11 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			if
+				G.GAME.used_vouchers["v_crv_printerup"] == true
+					and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
+				or G.GAME.used_vouchers["v_crv_printeruptier"] == true
+			then
 				SMODS.add_card({
 					area = G.consumeables,
 					key = "c_crv_rdocument",
@@ -3181,7 +3280,7 @@ SMODS.Joker({
 				x_mult = card.ability.extra.xmult,
 			}
 		end
-		if context.setting_blind and not context.blueprint and card.ability.canactivate then 
+		if context.setting_blind and not context.blueprint and card.ability.canactivate then
 			local random_key = rkeys[math.random(#rkeys)]
 			if (random_key == "5") and not context.repetition and not context.individual then
 				G.STATE = G.STATES.GAME_OVER
@@ -6272,6 +6371,7 @@ RevosVault.create_sell_and_switch_buttons = function(card, args)
 						shadow = true,
 						colour = G.C.RED,
 						button = "crv_modee",
+						func = "can_change_mode",
 					},
 					nodes = {
 						{
@@ -6365,6 +6465,17 @@ RevosVault.create_sell_and_switch_buttons = function(card, args)
 	}
 end
 
+G.FUNCS.can_change_mode = function(e)
+	local card = e.config.ref_table
+	if card.ability.extra["turn"] == "Player" then
+		e.config.colour = G.C.RED
+		e.config.button = "crv_modee"
+	else
+		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+		e.config.button = nil
+	end
+end
+
 G.FUNCS.crv_modee = function(e)
 	local card = e.config.ref_table
 	if card.ability.extra["turn"] == "Player" then
@@ -6376,14 +6487,14 @@ G.FUNCS.crv_modee = function(e)
 	end
 end
 
--- find a way to localize this (hmmmmmmm)
+-- find a way to localize this (hmmmmmmmhmmmmmmmmm)
 local brjk2 = { "Self", "Joker" }
 SMODS.Joker({
 	key = "brj",
 	config = {
 		extra = {
-			cardhp = 3,
-			playerhp = 3,
+			cardhp = 6,
+			playerhp = 6,
 			mode = "Joker",
 			turn = "Player",
 			odds2 = 3,
@@ -10079,11 +10190,7 @@ SMODS.Joker({
 					break
 				end
 			end
-			if
-				G.jokers.cards[rr - 1] ~= nil
-					and G.jokers.cards[rr + 1] ~= nil
-				or self.area == G.jokers
-			then
+			if G.jokers.cards[rr - 1] ~= nil and G.jokers.cards[rr + 1] ~= nil or self.area == G.jokers then
 				G.jokers.cards[rr - 1]:start_dissolve({ HEX("57ecab") }, nil, 1.6)
 				local copied = copy_card(G.jokers.cards[rr + 1], nil)
 				copied:add_to_deck()
@@ -10904,44 +11011,3 @@ SMODS.Enhancement:take_ownership("glass", {
 		end
 	end,
 }, true)
-
---[[local chalk = true     its all wrong. all wrong.
-SMODS.Joker({
-	key = "chalk",
-	rarity = 2,
-	cost = 4,
-	atlas = "Jokers2",
-	config = {
-		extra = {
-			xmult = 3,
-		},
-	},
-	pos = { x = 5, y = 12 },
-	discovered = true,
-	blueprint_compat = true,
-	remove_from_deck = function(self, card, from_debuff)
-		chalk = false
-	end,
-	calculate = function(self, card, context)	
-		if context.individual and context.cardarea == G.play then
-			SMODS.Stickers["crv_marked"]:apply(context.other_card, true)
-		end
-		if context.joker_main then
-			return {
-				xmult = card.ability.extra.xmult,
-			}
-		end
-	end,
-	update = function(self, card, context)
-		if chalk == false then
-			if context.destroy_card and context.cardarea then
-				if context.destroy_card.ability.crv_chalk then
-					chalk = true
-					return {
-						remove = true,
-					}
-				end
-			end
-		end
-	end,
-})]]

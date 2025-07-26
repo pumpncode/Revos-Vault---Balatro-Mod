@@ -332,6 +332,27 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+	key = "pokerjoker",
+	path = "pokerjoker.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "entropy",
+	path = "entropy.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "kino",
+	path = "kino.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
 	key = "Superior",
 	path = "superior.png",
 	px = 71,
@@ -370,9 +391,25 @@ function Blind:crv_after_play() --Taken from cryptid
 	end
 end
 
+local unlock1, unlock2, unlock3 = nil, nil, nil
 local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
 function G.FUNCS.evaluate_play(e)
 	gfep(e)
+	if SMODS.is_poker_hand_visible("Five of a Kind") and not unlock1 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supplanetx)
+		unlock1 = true
+		print("Unlocked Superior Planet X")
+	end
+	if SMODS.is_poker_hand_visible("Flush House") and not unlock2 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supceres)
+		unlock2 = true
+		print("Unlocked Superior Ceres")
+	end
+	if SMODS.is_poker_hand_visible("Flush Five") and not unlock3 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_superis)
+		unlock3 = true
+		print("Unlocked Superior Eris")
+	end
 	G.GAME.blind:crv_after_play()
 end
 
@@ -403,31 +440,56 @@ function G.FUNCS.sort_hand_suit(e)
 	G.GAME.blind:crv_hand_sort()
 end
 
-local destroyjoker = Card.remove
-function Card:remove()
-	if self.added_to_deck and self.ability.set == "Joker" and 30 > G.GAME.vaultspawn then
-		G.GAME.vaultspawn = G.GAME.vaultspawn + 1
-	elseif self.added_to_deck and self.ability.set == "Joker" and G.GAME.vaultspawn >= 30 then
-		G.GAME.vaultspawn = 0
-		play_sound("holo1")
-		SMODS.add_card({
-			set = "Joker",
-			area = G.jokers,
-			rarity = "crv_va",
-		})
+if RevosVault.config.vault_enabled then
+	local destroyjoker = Card.remove
+	function Card:remove()
+		if self.added_to_deck and self.ability.set == "Joker" and 30 > G.GAME.vaultspawn then
+			G.GAME.vaultspawn = G.GAME.vaultspawn + 1
+		elseif self.added_to_deck and self.ability.set == "Joker" and G.GAME.vaultspawn >= 30 then
+			G.GAME.vaultspawn = 0
+			play_sound("holo1")
+			SMODS.add_card({
+				set = "Joker",
+				area = G.jokers,
+				rarity = "crv_va",
+			})
+		end
+		return destroyjoker(self)
 	end
-	return destroyjoker(self)
 end
 
-local shopcreateold = create_card_for_shop
-function create_card_for_shop(area)
-	if pseudorandom("supcreate") > 0.9 then
-		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key, true, "Tarot")
+if RevosVault.config.superior_enabled then
+	SMODS.ObjectType({
+		key = "SuperiorTarot",
+		cards = {},
+	})
+
+	SMODS.ObjectType({
+		key = "SuperiorSpectral",
+		cards = {},
+	})
+
+	SMODS.ObjectType({
+		key = "SuperiorPlanet",
+		cards = {},
+	})
+
+	local shopcreateold = create_card_for_shop
+	function create_card_for_shop(area)
+		if pseudorandom("supcreate") > 0.9 then
+			local acard =
+				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+		end
+		if pseudorandom("supcreate") > 0.9 then
+			local acard =
+				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral), true, "Spectral", true)
+		end
+		if pseudorandom("supcreate") > 0.99 then
+			local acard =
+				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
+		end
+		return shopcreateold(area)
 	end
-	if pseudorandom("supcreate") > 0.9 then
-		local acard = RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.Superior).key, true, "Spectral")
-	end
-	return shopcreateold(area)
 end
 
 RevosVault.C = {
@@ -469,6 +531,8 @@ Game.init_game_object = function(self)
 	ret.vaultspawn = 0
 	ret.last_destroyed_joker = nil
 	ret.hangedmanchips = 0
+	ret.SuperiorRates = 0.9
+	ret.superiorRatesPlanet = 0.99
 	if next(SMODS.find_mod("JoJoMod")) then
 		ret.jojo = true
 	else
@@ -736,6 +800,73 @@ Game.main_menu = function(change_context)
 	newcard.states.visible = true
 end
 
+--CONFIG
+
+--Kindly took this from Prism :D
+
+local old_config = copy_table(RevosVault.config)
+local function should_restart()
+	for k, v in pairs(old_config) do
+		if v ~= RevosVault.config[k] then
+			SMODS.full_restart = 1
+			return
+		end
+	end
+	SMODS.full_restart = 0
+end
+
+RevosVault.config_tab = function()
+	return {
+		n = G.UIT.ROOT,
+		config = { align = "cm", padding = 0.07, emboss = 0.05, r = 0.1, colour = G.C.BLACK, minh = 4.5, minw = 7 },
+		nodes = {
+			{
+				n = G.UIT.R,
+				nodes = {
+					{
+						n = G.UIT.C,
+						nodes = {
+							create_toggle({
+								label = localize("crv_enable_chaoscards"),
+								ref_table = RevosVault.config,
+								ref_value = "chaos_enabled",
+								callback = should_restart,
+							}),
+							create_toggle({
+								label = localize("crv_enable_vaulteds"),
+								ref_table = RevosVault.config,
+								ref_value = "vault_enabled",
+								callback = should_restart,
+							}),
+							create_toggle({
+								label = localize("crv_enable_superior"),
+								ref_table = RevosVault.config,
+								ref_value = "superior_enabled",
+								callback = should_restart,
+							}),
+							create_toggle({
+								label = localize("crv_enable_wip"),
+								ref_table = RevosVault.config,
+								ref_value = "wip_enable",
+								callback = should_restart,
+							}),
+						},
+					},
+				},
+			},
+			{
+				n = G.UIT.R,
+				config = { align = "cm", minh = 0.6 },
+				nodes = {
+					{ n = G.UIT.T, config = { text = "Requires restart!", colour = G.C.RED, scale = 0.4 } },
+				},
+			},
+		},
+	}
+end
+
+--
+
 SMODS.load_file("items/funcs.lua")()
 SMODS.load_file("items/jokers.lua")()
 SMODS.load_file("items/decks.lua")()
@@ -749,8 +880,15 @@ SMODS.load_file("items/stickers.lua")()
 SMODS.load_file("items/stakes.lua")()
 SMODS.load_file("items/challenge.lua")()
 SMODS.load_file("items/blinds.lua")()
-SMODS.load_file("items/vault.lua")()
-SMODS.load_file("items/chaos.lua")()
+if RevosVault.config.chaos_enabled then
+	SMODS.load_file("items/vault.lua")()
+end
+if RevosVault.config.vault_enabled then
+	SMODS.load_file("items/chaos.lua")()
+end
+if RevosVault.config.wip_enable then
+	SMODS.load_file("items/experimental.lua")()
+end
 
 --cross mod content--
 
@@ -829,3 +967,14 @@ if next(SMODS.find_mod("paradox_ideas")) then
 	SMODS.load_file("items/Cross-Mod/paradox.lua")()
 end
 
+if next(SMODS.find_mod("pokerjokers")) then
+	SMODS.load_file("items/Cross-Mod/pokerjoker.lua")()
+end
+
+if next(SMODS.find_mod("entr")) then
+	SMODS.load_file("items/Cross-Mod/entropy.lua")()
+end
+
+if next(SMODS.find_mod("kino")) then
+	SMODS.load_file("items/Cross-Mod/kino.lua")()
+end

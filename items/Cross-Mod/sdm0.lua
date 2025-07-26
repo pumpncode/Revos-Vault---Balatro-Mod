@@ -21,7 +21,7 @@ SMODS.Joker({
 	
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card{
                     key = "j_sdm_burger",
                     edition = "e_negative",
@@ -60,7 +60,7 @@ SMODS.Joker({
 	dependencies = "sdm0sstuff",
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card{
                     set = "Bakery",
                     edition = "e_negative",
@@ -80,4 +80,9 @@ SMODS.Joker({
 		return SDM_0s_Stuff_Mod.config.sdm_bakery
 	end,
 })
+
+
+
+
+
 
