@@ -2275,7 +2275,7 @@ return {
 				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Confection{} Card" },
 			},
 			j_crv_movieprinter = {
-				name = "Confection Printer",
+				name = "Print, The Movie",
 				text = {
 					"When {C:attention}Blind{} is selected,",
 					"creates a {C:attention}Movie{} Joker from a specific genre.",
