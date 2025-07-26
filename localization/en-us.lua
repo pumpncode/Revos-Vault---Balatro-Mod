@@ -3072,7 +3072,11 @@ return {
 		Voucher = {
 			v_crv_printerup = {
 				name = "Extra Ink",
-				text = { "Allows for certain", "{C:red}Printers{} to print {C:dark_edition}Negative" },
+				text = { "Gives certain printer a chance to print Negative" },
+			},
+			v_crv_printeruptier = {
+				name = "Extra Ink (Tier 2)",
+				text = { "Increases the Negative printing chances" },
 			},
 		},
 		BakeryCharm = {
