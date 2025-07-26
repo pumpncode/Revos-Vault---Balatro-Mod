@@ -48,7 +48,7 @@ SMODS.Joker({
 	perishable_compat = false,
 	config = {extra = {cgenre = nil}},
 	pos = {
-		x = 0,
+		x = 1,
 		y = 0,
 	},
 	dependencies = "kino",

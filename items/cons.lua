@@ -2920,6 +2920,8 @@ SMODS.Consumable({
 	end,
 })
 
+--Superior planets
+
 SMODS.Consumable({
 	key = "suppluto",
 	set = "Superior",
@@ -2950,7 +2952,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["High Card"].level,"High Card",G.GAME.hands["High Card"].mult,G.GAME.hands["High Card"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -2959,19 +2961,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "High Card" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["High Card"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["High Card"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["High Card"].mult + 2) / 2,
-					xchips = (G.GAME.hands["High Card"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3016,7 +3019,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = {G.GAME.hands["Pair"].level,"Pair",G.GAME.hands["Pair"].mult,G.GAME.hands["Pair"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3025,19 +3028,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Pair" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Pair"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Pair"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Pair"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Pair"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3082,7 +3086,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Three of a Kind"].level,"Three of a Kind",G.GAME.hands["Three of a Kind"].mult,G.GAME.hands["Three of a Kind"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3091,6 +3095,7 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if
@@ -3101,13 +3106,13 @@ SMODS.Consumable({
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Three of a Kind"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Three of a Kind"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Three of a Kind"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Three of a Kind"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3152,7 +3157,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Full House"].level,"Full House",G.GAME.hands["Full House"].mult,G.GAME.hands["Full House"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3161,19 +3166,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Full House" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Full House"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Full House"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Full House"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Full House"].chips + 2) / 2,
+					xmult =1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3218,7 +3224,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = {G.GAME.hands["Four of a Kind"].level,"Four of a Kind",G.GAME.hands["Four of a Kind"].mult,G.GAME.hands["Four of a Kind"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3227,6 +3233,7 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if
@@ -3237,13 +3244,13 @@ SMODS.Consumable({
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Four of a Kind"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Four of a Kind"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Four of a Kind"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Four of a Kind"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3288,7 +3295,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Flush"].level,"Flush",G.GAME.hands["Flush"].mult,G.GAME.hands["Flush"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3297,19 +3304,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Flush" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Flush"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Flush"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Flush"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Flush"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3354,7 +3362,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Straight"].level,"Straight",G.GAME.hands["Straight"].mult,G.GAME.hands["Straight"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3363,19 +3371,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Straight" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Straight"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Straight"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Straight"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Straight"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3420,7 +3429,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Two Pair"].level,"Two Pair",G.GAME.hands["Two Pair"].mult,G.GAME.hands["Two Pair"].chips } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3429,19 +3438,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Two Pair" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Two Pair"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Two Pair"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Two Pair"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Two Pair"].chips + 2) / 2,
+					xmult =1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3486,7 +3496,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Straight Flush"].level,"Straight Flush",G.GAME.hands["Straight Flush"].mult,G.GAME.hands["Straight Flush"].chips } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3495,6 +3505,7 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if
@@ -3505,13 +3516,13 @@ SMODS.Consumable({
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Straight Flush"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Straight Flush"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Straight Flush"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Straight Flush"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3553,7 +3564,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { G.GAME.hands["Flush Five"].level,"Flush Five",G.GAME.hands["Flush Five"].mult,G.GAME.hands["Flush Five"].chips } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3562,19 +3573,20 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and card.ability.extra.can_activate == false and context.scoring_name == "Flush Five" then
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Flush Five"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Flush Five"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Flush Five"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Flush Five"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3616,7 +3628,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = {G.GAME.hands["Flush House"].level,"Flush House",G.GAME.hands["Flush House"].mult,G.GAME.hands["Flush House"].chips  } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3625,6 +3637,7 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if
@@ -3635,13 +3648,13 @@ SMODS.Consumable({
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Flush House"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Flush House"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Flush House"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Flush House"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3683,7 +3696,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = {G.GAME.hands["Five of a Kind"].level,"Five of a Kind",G.GAME.hands["Five of a Kind"].mult,G.GAME.hands["Five of a Kind"].chips } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3692,6 +3705,7 @@ SMODS.Consumable({
 			return card.ability.extra.can_activate == false
 		end
 		juice_card_until(card, eval, true)
+		card.ability.extra.can_keep = false
 	end,
 	calculate = function(self, card, context)
 		if
@@ -3702,13 +3716,13 @@ SMODS.Consumable({
 			card.ability.extra.can_keep = false
 			if G.GAME.talisman == 1 then
 				return {
-					xmult = to_number((G.GAME.hands["Five of a Kind"].mult + 2) / 2),
-					xchips = to_number((G.GAME.hands["Five of a Kind"].chips + 2) / 2),
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			else
 				return {
-					xmult = (G.GAME.hands["Five of a Kind"].mult + 2) / 2,
-					xchips = (G.GAME.hands["Five of a Kind"].chips + 2) / 2,
+					xmult = 1.5,
+					xchips = 1.5,
 				}
 			end
 		end
@@ -3722,3 +3736,4 @@ SMODS.Consumable({
 		badges[1] = create_badge(localize("k_superior_p"), get_type_colour(self or card.config, card), nil, 1.2)
 	end,
 })
+
