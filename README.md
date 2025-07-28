@@ -34,7 +34,7 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **180+*
 
 ----
 
-- And more ;)
+- And arround 30 more!
 
 ------
 
