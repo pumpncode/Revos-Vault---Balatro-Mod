@@ -28,7 +28,7 @@ SMODS.Blind({
 					end
 					local _card = pseudorandom_element(cards, pseudoseed("fragile"))
 					if _card then
-						SMODS.destroy_card(_card)
+						SMODS.destroy_cards(_card)
 					end
 					return true
 				end,

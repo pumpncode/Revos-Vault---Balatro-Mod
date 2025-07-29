@@ -1,6 +1,9 @@
 -------------MOD CODE-------------
 RevosVault = SMODS.current_mod
 
+
+--BEHOLD! THE WORST CODE IN HISTORY UNFOLDS UPON YOUR EYES!
+
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -353,8 +356,22 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+	key = "ortalab",
+	path = "ortalab.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
 	key = "Superior",
 	path = "superior.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "corrupt",
+	path = "corrupt.png",
 	px = 71,
 	py = 95,
 })
@@ -390,7 +407,6 @@ function Blind:crv_after_play() --Taken from cryptid
 		end
 	end
 end
-
 local unlock1, unlock2, unlock3 = nil, nil, nil
 local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
 function G.FUNCS.evaluate_play(e)
@@ -488,12 +504,56 @@ if RevosVault.config.superior_enabled then
 			local acard =
 				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
 		end
+		if pseudorandom("supcreate") > 0.9 then
+			local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
+		end
 		return shopcreateold(area)
 	end
 end
 
+local oldaddroundevalrow = add_round_eval_row
+function add_round_eval_row(config)
+if config.dollars == nil then
+	sendWarnMessage("Couldn't multiply payout. Potentially caused by Paya's Terrible Additions","Judgement")
+else
+		config.dollars = config.dollars * G.GAME.crv_cashout
+end
+	return oldaddroundevalrow(config)
+end
+
+local getidold = Card.get_id
+function Card:get_id()
+	if (#SMODS.find_card("j_crv_revoo_") > 0)then
+		return 14
+	else
+		return self.base.id
+	end
+end
+
+local getoriginalrankold = Card.get_original_rank
+function Card:get_original_rank()
+	if (#SMODS.find_card("j_crv_revoo_") > 0) then
+		return "Ace"
+	else
+		return getoriginalrankold
+	end
+end
+
+local isfaceold = Card.is_face
+function Card:is_face(from_boss)
+	if self.debuff and not from_boss then
+		return
+	end
+	if  (#SMODS.find_card("j_crv_revoo_") > 0) then
+		return false
+	end
+	return isfaceold(self, from_boss)
+end
+
+
 RevosVault.C = {
 	SUP = HEX("f7baff"),
+	Continuity = HEX("96a0ff"),
 }
 
 SMODS.Gradient({
@@ -510,12 +570,24 @@ SMODS.Gradient({
 	cycle = 5,
 })
 
+SMODS.Gradient({
+	key = "crv_corrupt",
+	colours = {
+		HEX("8300a4"),
+		HEX("6c0087"),
+		HEX("4c005f"),
+		HEX("5f002b"),
+	},
+	cycle = 5,
+})
+
 local loc_old = loc_colour
 function loc_colour(_c, _default)
 	if not G.ARGS.LOC_COLOURS then
 		loc_old()
 	end
 	G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
+	G.ARGS.LOC_COLOURS.crv_continuity = RevosVault.C.Continuity
 	G.ARGS.LOC_COLOURS.crv_polychrome = SMODS.Gradients["crv_polychrome"]
 
 	return loc_old(_c, _default)
@@ -533,6 +605,8 @@ Game.init_game_object = function(self)
 	ret.hangedmanchips = 0
 	ret.SuperiorRates = 0.9
 	ret.superiorRatesPlanet = 0.99
+	ret.dont_fucking_draw = nil
+	ret.crv_cashout = 1
 	if next(SMODS.find_mod("JoJoMod")) then
 		ret.jojo = true
 	else
@@ -827,6 +901,12 @@ RevosVault.config_tab = function()
 						n = G.UIT.C,
 						nodes = {
 							create_toggle({
+							label = localize("crv_enable_blinds"),
+								ref_table = RevosVault.config,
+								ref_value = "enable_blinds",
+								callback = should_restart,
+							}),
+							create_toggle({
 								label = localize("crv_enable_chaoscards"),
 								ref_table = RevosVault.config,
 								ref_value = "chaos_enabled",
@@ -848,6 +928,12 @@ RevosVault.config_tab = function()
 								label = localize("crv_enable_wip"),
 								ref_table = RevosVault.config,
 								ref_value = "wip_enable",
+								callback = should_restart,
+							}),
+								create_toggle({
+								label = localize("crv_enable_secret"),
+								ref_table = RevosVault.config,
+								ref_value = "secret_enabled",
 								callback = should_restart,
 							}),
 						},
@@ -885,6 +971,9 @@ if RevosVault.config.chaos_enabled then
 end
 if RevosVault.config.vault_enabled then
 	SMODS.load_file("items/chaos.lua")()
+end
+if RevosVault.config.secret_enabled then
+	SMODS.load_file("items/secretjokers.lua")()
 end
 if RevosVault.config.wip_enable then
 	SMODS.load_file("items/experimental.lua")()
@@ -977,4 +1066,8 @@ end
 
 if next(SMODS.find_mod("kino")) then
 	SMODS.load_file("items/Cross-Mod/kino.lua")()
+end
+
+if next(SMODS.find_mod("ortalab")) then
+	SMODS.load_file("items/Cross-Mod/ortalab.lua")()
 end

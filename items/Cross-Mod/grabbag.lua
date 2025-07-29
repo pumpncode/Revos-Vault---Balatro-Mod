@@ -34,7 +34,7 @@ if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER"
 	end,
 })
 
-SMODS.Enhancement({
+--[[SMODS.Enhancement({
 	key = "syrup",
 	atlas = "grabbag",
 	pos = { x = 0, y = 0 },
@@ -130,7 +130,7 @@ SMODS.Consumable({
 			end
 		end
 	end,
-})
+})]]
 
 SMODS.Joker({
 	key = "honeyprinter",
@@ -147,23 +147,16 @@ SMODS.Joker({
 		y = 1,
 	},
 	dependencies = "GrabBag",
-	loc_vars = function(self, info_queue, center) end,
+	loc_vars = function(self, info_queue, center) 
+	return{
+	vars = {
+		G.GAME.probabilities.normal}}
+	end,
 
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.setting_blind and not context.blueprint then
-if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
-				SMODS.add_card({
-					key = "c_crv_honeycontract",
-					editon = "e_negative",
-				})
-			else
-				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
-					SMODS.add_card({
-					key = "c_crv_honeycontract",
-					})
-				end
-			end
+			if context.first_hand_drawn then
+			RevosVault.printer_apply("m_gb_honey", "m_crv_syrup", nil)
 		end
 	end,
 })

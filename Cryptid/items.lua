@@ -94,7 +94,7 @@ local glprinter = {
 	end,
 }
 
-local gldoc = {
+--[[local gldoc = {
 	object_type = "Consumable",
 	key = "gldoc",
 	name = "Glitched Document",
@@ -168,7 +168,7 @@ local gldoc = {
 	draw = function(self, card, layer)
 		card.children.center:draw_shader("cry_glitched", nil, card.ARGS.send_to_shader)
 	end,
-}
+}]]
 
 local printorium = {
 	object_type = "Joker",

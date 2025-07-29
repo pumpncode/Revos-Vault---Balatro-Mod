@@ -32,49 +32,49 @@ SMODS.Consumable({
 	pos = { x = 1, y = 0 },
 	config = {
 		extra = {
-			cards = 1,
-			odds = 4,
+			chip_add = 10,
+			xmult = 3,
+			odds = 3,
+			active = false,
 		},
 	},
-	dependencies = "paradox_ideas",
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		if pseudorandom("honeycontract") < G.GAME.probabilities.normal / card.ability.extra.odds then
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_crv_ignited"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if context.cardarea == G.play then
+				for _, v in ipairs(context.scoring_hand) do
+					v.ability.perma_bonus = (v.ability.perma_bonus or 0) + card.ability.extra.chip_add
+					v:juice_up()
+				end
 			end
-		else
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_para_ashen"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
-			end
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and (SMODS.has_enhancement(context.destroy_card, "m_para_ashen") or pseudorandom("paraparaashpara") < G.GAME.probabilities.normal / card.ability.extra.odds)
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
@@ -94,26 +94,16 @@ SMODS.Joker({
 		y = 0,
 	},
 	dependencies = "paradox_ideas",
-	loc_vars = function(self, info_queue, center) end,
+	loc_vars = function(self, info_queue, center) 
+	return{
+		vars = {
+		G.GAME.probabilities.normal}}
+	end,
 
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.setting_blind and not context.blueprint then
-			if
-				G.GAME.used_vouchers["v_crv_printerup"] == true
-				and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4
-			then
-				SMODS.add_card({
-					key = "c_crv_ashencontract",
-					editon = "e_negative",
-				})
-			else
-				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
-					SMODS.add_card({
-						key = "c_crv_ashencontract",
-					})
-				end
-			end
+				if context.first_hand_drawn then
+			RevosVault.printer_apply("m_para_ashen", "m_crv_ignited", nil)
 		end
 	end,
 })
