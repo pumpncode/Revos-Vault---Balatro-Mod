@@ -631,7 +631,7 @@ return {
 				text = {
 					"When first hand is drawn is selected,",
 					"Enhances a random card in hand to {C:attention}Aflame{}",
-					"or {C:attention}Mugged.",
+					"or {C:attention}Stained.",
 					"{C:green}#1# in 4{} Chance for it to be a {C:attention}Soul Card{}",
 				},
 			},
@@ -1189,7 +1189,7 @@ return {
 			},
 			j_crv_dirtinator9999 = {
 				name = "{C:green}Dirtinator9999",
-				text = { "Prints a{C:green} Dirt Contract{}", "When blind is selected," },
+				text = { "when first hand is drawn,", "Enhances a random ard into {C:green}Dirt{} " },
 			},
 			j_crv_holyprinter = {
 				name = "{C:green}Holy Printer",
@@ -2273,7 +2273,7 @@ return {
 			},
 			j_crv_darkprinter = {
 				name = "Dark Printer",
-								text = {
+				text = {
 					"When first hand is drawn is selected,",
 					"Enhances a random card in hand to {C:attention}Dark{}",
 					"{C:green}#1# in 4{} Chance for it to be a {C:attention}Darkest Card{}",
@@ -2320,7 +2320,7 @@ return {
 				name = "Dreams & Desires",
 				text = { "Creates one of the three {C:attention}Machine Parts,", "{C:inactive}(Must have room)" },
 			},
-						c_crv_heart = {
+			c_crv_heart = {
 				name = "The Heart",
 				text = {
 					"Removes any {C:dark_edition}Edition",
@@ -2354,56 +2354,85 @@ return {
 			c_crv_glassdocument = {
 				name = "Glass Contract",
 				text = {
-					"Turns #1# card into {C:attention}Glass",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Bulletproof Glass{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Glass{}",
+					"{C:red}Destroys{} any played glass card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			c_crv_steeldocument = {
 				name = "Steel Contract",
 				text = {
-					"Turns #1# card into {C:attention}Steel",
-					"{C:green} #2# in #3#{} chance for it to be",
-					"{C:dark_edition} Diamond{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Steel{}",
+					"{C:red}Destroys{} any played steel card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			c_crv_devilscontract = {
 				name = "Devil's Contract",
 				text = {
-					"Turns #1# card into {C:attention}Aflame or Stained{}",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Soul Card{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Aflame and Stained{}",
+					"{C:red}Destroys{} any played aflame or stained card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			c_crv_megadoc = {
 				name = "Mega Contract",
-				text = { "Turns #1# card into {C:attention}Mega" },
+				text = {
+					"When activated,",
+					"Playing cards act like {C:attention}Mega{}",
+					"{C:red}Destroys{} any played mega card",
+					"{C:red}Self-Destructs{} at the end of the round",
+				},
 			},
 			c_crv_t1doc = {
 				name = "Tier 1 Contract",
-				text = { "Turns #1# card into a", "{C:attention}Tier 1 Card" },
+				text = {
+					"When activated,",
+					"Playing cards act like {C:attention}Tier 1{}",
+					"{C:red}Destroys{} any played tier 1 card",
+					"{C:red}Self-Destructs{} at the end of the round",
+				},
 			},
 			c_crv_t2doc = {
 				name = "Tier 2 Contract",
-				text = { "Turns up to #1# cards into a", "{C:attention}Tier 2 Card" },
+				text = {
+					"When activated,",
+					"Playing cards act like {C:attention}Tier 2{}",
+					"{C:red}Destroys{} any played tier 2 card",
+					"{C:red}Self-Destructs{} at the end of the round",
+				},
 			},
 			c_crv_t3doc = {
 				name = "Tier 3 Contract",
-				text = { "Turns up to #1# cards into a", "{C:attention}Tier 3 Card" },
+				text = {
+					"When activated,",
+					"Playing cards act like {C:attention}Tier 3{}",
+					"{C:red}Destroys{} any played tier 3 card",
+					"{C:red}Self-Destructs{} at the end of the round",
+				},
 			},
 			c_crv_boostdoc = {
 				name = "Boosted Contract",
-				text = { "Turns #1# card into a", "{C:attention}Boosted Card" },
+				text = {
+					"When activated,",
+					"Playing cards act like {C:attention}Boosted{}",
+					"{C:red}Destroys{} any played boosted card",
+					"{C:red}Self-Destructs{} at the end of the round",
+				},
 			},
 			c_crv_luckydocument = {
 				name = "Lucky Contract",
 				text = {
-					"Turns #1# card into a{C:attention} Lucky Card",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Blessed Card{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Lucky{}",
+					"{C:red}Destroys{} any played lucky card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
-			c_crv_polydoc = {
+			--[[c_crv_polydoc = {
 				name = "Polychrome Contract",
 				text = { "Turns #1# card or joker into", "{C:crv_polychrome}Polychrome" },
 			},
@@ -2418,12 +2447,17 @@ return {
 			c_crv_negdoc = {
 				name = "Negative Contract",
 				text = { "Turns #1# card or joker into", "{C:dark_edition}Negative" },
-			},
+			},]]
 			c_crv_dirtdocument = {
 				name = "Dirt Contract",
-				text = { "Turns #1# cards into {C:green}Dirt" },
+				text = {
+					"When activated,",
+					"Playing cards act like {C:green}Dirt{}",
+					"{C:red}Destroys{} any played dirt card",
+					"{C:red}Self-Destructs{} at the end of the round",
+				},
 			},
-			c_crv_uedoc = {
+		--[[c_crv_uedoc = {
 				name = "Ultimate Edition Contract",
 				text = {
 					"Adds a {C:dark_edition}Random Edition",
@@ -2443,25 +2477,27 @@ return {
 			c_crv_gldoc = {
 				name = "Glitched Contract",
 				text = { "Adds {C:dark_edition}Glitched{}", "to #1# card or joker" },
-			},
+			},]]
 			--reverse tarot
 			c_crv_crystalcontract = {
 				name = "Crystal Contract",
 				text = {
-					"Turns #1# card into a{C:attention} Crystal Card",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Quartz Card{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Crystal{}",
+					"{C:red}Destroys{} any played crystal card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			c_crv_coppercontract = {
 				name = "Copper Contract",
 				text = {
-					"Turns #1# card into a{C:attention} Copper Card",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Coated Copper Card{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Copper{}",
+					"{C:red}Destroys{} any played copper card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
-			c_crv_omnicontract = {
+			--[[c_crv_omnicontract = {
 				name = "Omni Contract",
 				text = {
 					"Randomly turns #1# card into a{C:attention} Secondary Spade",
@@ -2469,50 +2505,54 @@ return {
 					"{C:green} #2# in #3#{} chance for it to be a",
 					"{C:dark_edition} Omni Rank Card{}",
 				},
-			},
+			},]]
 			--prism below
 			c_crv_saphirecontract = {
 				name = "Crystal Contract",
 				text = {
-					"Turns #1# card into a{C:attention} Crystal Card",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Sapphire Card{}",
+					"When activated,",
+					"Playing cards act like {C:attention}Saphire{}",
+					"{C:red}Destroys{} any played saphire card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			--grabbag below
-			c_crv_honeycontract = {
+			--[[c_crv_honeycontract = {
 				name = "Honey Contract",
 				text = {
 					"Turns #1# card into {C:attention}Honey",
 					"{C:green} #2# in #3#{} chance for it to be a",
 					"{C:dark_edition} Syrup{}",
 				},
-			},
+			},]]
 
 			--paradox below
 			c_crv_ashencontract = {
 				name = "Ashen Contract",
 				text = {
-					"Turns #1# card into {C:attention}Ashen",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Re-ignited{} Card",
+					"When activated,",
+					"Playing cards act like {C:attention}Ashen{}",
+					"{C:red}Destroys{} any played ashen card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			--entropy below
 			c_crv_prismaticcontract = {
 				name = "Prismatic Contract",
 				text = {
-					"Turns #1# card into {C:attention}Prismatic",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Brightest{} Card",
+					"When activated,",
+					"Playing cards act like {C:attention}Prismatic{}",
+					"{C:red}Destroys{} any played prismatic card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 			c_crv_darkcontract = {
 				name = "Dark Contract",
 				text = {
-					"Turns #1# card into {C:attention}Dark",
-					"{C:green} #2# in #3#{} chance for it to be a",
-					"{C:dark_edition} Darkest{} Card",
+					"When activated,",
+					"Playing cards act like {C:attention}Dark{}",
+					"{C:red}Destroys{} any played dark card",
+					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
 		},

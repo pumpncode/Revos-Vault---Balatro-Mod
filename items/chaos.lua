@@ -163,17 +163,8 @@ SMODS.Joker({
 		return { vars = { card.ability.extra.xmult } }
 	end,
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
-			local new_card = create_card("Dirt Document", G.consumeables, nil, nil, nil, nil, "c_crv_dirtdocument")
-			new_card:add_to_deck()
-			new_card:set_edition({negative = true},true)
-			G.consumeables:emplace(new_card)
-			else
-			local new_card = create_card("Dirt Document", G.consumeables, nil, nil, nil, nil, "c_crv_dirtdocument")
-			new_card:add_to_deck()
-			G.consumeables:emplace(new_card)
-			end
+		if context.first_hand_drawn then
+			RevosVault.printer_apply("m_crv_dirt")
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
@@ -189,36 +180,39 @@ SMODS.Consumable({
 	discovered = true,
 	config = {
 		extra = {
-			cards = 10,
+			active = false,
+			x_mult = 99999999
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards } }
 	end,
+	keep_on_use = function(self,card)
+		return true
+	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
 	end,
 	use = function(self, card, area, copier)
-		for i, card in pairs(G.hand.highlighted) do
-			card:set_ability(G.P_CENTERS["m_crv_dirt"])
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-		end
+		card.ability.extra.active = true
 	end,
 	in_pool = function(self, wawa, wawa2)
 		return false
 	end,
+	calculate = function(self,card,context)
+		if card.ability.extra.active and context.individual then
+			if SMODS.has_enhancement(context.other_card,"m_crv_dirt") then
+				SMODS.destroy_cards(context.other_card)
+			else
+			return{
+				xmult = card.ability.extra.x_mult
+			}
+		end
+	end
+		if context.end_of_round and card.ability.extra.active then 
+			SMODS.destroy_cards(card)
+		end
+	end
 })
 
 SMODS.Enhancement({
