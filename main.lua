@@ -414,17 +414,14 @@ function G.FUNCS.evaluate_play(e)
 	if SMODS.is_poker_hand_visible("Five of a Kind") and not unlock1 then
 		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supplanetx)
 		unlock1 = true
-		print("Unlocked Superior Planet X")
 	end
 	if SMODS.is_poker_hand_visible("Flush House") and not unlock2 then
 		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supceres)
 		unlock2 = true
-		print("Unlocked Superior Ceres")
 	end
 	if SMODS.is_poker_hand_visible("Flush Five") and not unlock3 then
 		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_superis)
 		unlock3 = true
-		print("Unlocked Superior Eris")
 	end
 	G.GAME.blind:crv_after_play()
 end

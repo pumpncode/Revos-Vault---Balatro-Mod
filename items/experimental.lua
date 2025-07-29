@@ -576,7 +576,6 @@ SMODS.Consumable({
 			if context.end_of_round and not context.blueprint then
 				if crv.timer < crv.max then
 					crv.timer = crv.timer + 1
-					print(crv.timer)
 				else
 					SMODS.ObjectTypes["Joker"].rarities[1].weight = crv.weg
 					SMODS.destroy_cards(card)

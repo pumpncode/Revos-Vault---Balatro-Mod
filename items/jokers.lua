@@ -1244,7 +1244,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_steeldocument
 		return {
-			vars = { card.ability.extra.xmult,(G.GAME.probabilities.normal or 1) },
+			vars = { card.ability.extra.xmult, (G.GAME.probabilities.normal or 1) },
 		}
 	end,
 	calculate = function(self, card, context)
@@ -1636,7 +1636,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_megadoc
 		return {
-			vars = { card.ability.extra.mult ,(G.GAME.probabilities.normal or 1) },
+			vars = { card.ability.extra.mult, (G.GAME.probabilities.normal or 1) },
 		}
 	end,
 	calculate = function(self, card, context)
@@ -1682,18 +1682,15 @@ SMODS.Joker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.first_hand_drawn and card.ability.extra.timer2 < 5 then 
+		if context.first_hand_drawn and card.ability.extra.timer2 < 5 then
 			if card.ability.extra.timer >= 15 then
-			RevosVault.printer_apply("m_crv_tier3card")
-		elseif
-			(card.ability.extra.timer >= 5)
-			and (card.ability.extra.timer < 15)
-		then
-			RevosVault.printer_apply("m_crv_tier2card")
-		else
-			RevosVault.printer_apply("m_crv_tier1card")
+				RevosVault.printer_apply("m_crv_tier3card")
+			elseif (card.ability.extra.timer >= 5) and (card.ability.extra.timer < 15) then
+				RevosVault.printer_apply("m_crv_tier2card")
+			else
+				RevosVault.printer_apply("m_crv_tier1card")
+			end
 		end
-	end
 		if
 			context.end_of_round
 			and not context.repetition
@@ -1802,7 +1799,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_polydoc
 		return {
-			vars = { card.ability.extra.xmult ,(G.GAME.probabilities.normal or 1) ,card.ability.extra.odds},
+			vars = { card.ability.extra.xmult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	atlas = "Jokers2",
@@ -1818,7 +1815,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 1.5,
-			odds = 4
+			odds = 4,
 		},
 	},
 
@@ -1849,7 +1846,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_foildoc
 		return {
-			vars = { card.ability.extra.chips,(G.GAME.probabilities.normal or 1) ,card.ability.extra.odds },
+			vars = { card.ability.extra.chips, (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	atlas = "Jokers2",
@@ -1865,7 +1862,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			chips = 50,
-			odds = 4
+			odds = 4,
 		},
 	},
 
@@ -1891,7 +1888,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_holdoc
 		return {
-			vars = { card.ability.extra.mult ,(G.GAME.probabilities.normal or 1) ,card.ability.extra.odds},
+			vars = { card.ability.extra.mult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	atlas = "Jokers2",
@@ -1907,7 +1904,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			mult = 10,
-			odds = 4
+			odds = 4,
 		},
 	},
 
@@ -1937,7 +1934,7 @@ SMODS.Joker({
 	key = "ncp",
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = {(G.GAME.probabilities.normal or 1) ,card.ability.extra.odds},
+			vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	atlas = "Jokers2",
@@ -1985,7 +1982,7 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_uedoc
 		return {
-			vars = {(G.GAME.probabilities.normal or 1) ,card.ability.extra.odds},
+			vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	atlas = "Jokers2",
@@ -2000,16 +1997,16 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			odds = 4
+			odds = 4,
 		},
 	},
 
 	calculate = function(self, card, context)
 		if context.first_hand_drawn then
 			if pseudorandom("ucp") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				RevosVault.printer_apply(nil, nil, poll_edition({guaranteed = true}), G.jokers)
+				RevosVault.printer_apply(nil, nil, poll_edition({ guaranteed = true }), G.jokers)
 			else
-				RevosVault.printer_apply(nil, nil, poll_edition({guaranteed = true}))
+				RevosVault.printer_apply(nil, nil, poll_edition({ guaranteed = true }))
 			end
 		end
 	end,
@@ -3848,94 +3845,44 @@ SMODS.Joker({
 				message = localize("k_crv_tset_ex"),
 			}
 		end
-		if context.destroying_card and not context.blueprint then
-			for k, v in ipairs(context.scoring_hand) do
-				if
-					v.config.center == G.P_CENTERS.m_crv_target
-					and not (card.ability.extra.needs == 4)
-					and not context.blueprint
-				then
-					card.ability.extra.needs = card.ability.extra.needs + 1
-					return {
-						dollars = card.ability.extra.money,
-						message = localize("k_crv_telim_ex"),
-					}
+		if
+			context.destroy_card
+			and not context.blueprint
+			and card.ability.extra.needs < 4
+			and context.cardarea == G.play
+		then
+			if SMODS.has_enhancement(context.destroy_card, "m_crv_target") then
+				card.ability.extra.needs = card.ability.extra.needs + 1
+				ease_dollars(card.ability.extra.money)
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_crv_telim_ex") })
+				return {
+					remove = true,
+				}
+			end
+		end
+		if context.end_of_round and context.main_eval and card.ability.extra.hp > 0 then
+			if card.ability.extra.needs >= 4 then
+				SMODS.destroy_cards(card)
+				for i = 1, 2 do
+					SMODS.add_card({
+						legendary = true,
+						area = G.jokers,
+						set = "Joker",
+						edition = "e_negative"
+					})
+				end
+			else
+				for k, v in pairs(G.playing_cards) do
+					if v.config.center == G.P_CENTERS.m_crv_target then
+						card.ability.extra.hp = card.ability.extra.hp - 1
+						return {
+							message = localize("k_crv_failed_ex"),
+						}
+					end
 				end
 			end
-		end
-		if
-			(card.ability.extra.needs == 4)
-			and not context.blueprint
-			and not context.repetition
-			and not context.individual
-		then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					play_sound("tarot1")
-					card.T.r = -0.2
-					card:juice_up(0.3, 0.4)
-					card.states.drag.is = true
-					card.children.center.pinch.x = true
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						blockable = false,
-						func = function()
-							G.jokers:remove_card(card)
-							card:remove()
-							card = nil
-							return true
-						end,
-					}))
-					return true
-				end,
-			}))
-			if context.after and not context.repetitive and not context.individual and not context.blueprint then
-				local random_key = leg_keys[math.random(#leg_keys)]
-				local new_card = create_card(random_key, G.jokers, nil, nil, nil, nil, random_key)
-				new_card:set_edition({
-					negative = true,
-				}, true)
-				new_card:add_to_deck()
-				G.jokers:emplace(new_card)
-			end
-		end
-		if context.end_of_round and not context.repetition and not context.individual then
-			for k, v in pairs(G.playing_cards) do
-				if v.config.center == G.P_CENTERS.m_crv_target then
-					card.ability.extra.hp = card.ability.extra.hp - 1
-					return {
-						message = localize("k_crv_failed_ex"),
-					}
-				end
-			end
-		end
-		if
-			(card.ability.extra.hp == 0)
-			and not context.blueprint
-			and not context.repetition
-			and not context.individual
-		then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					play_sound("tarot1")
-					card.T.r = -0.2
-					card:juice_up(0.3, 0.4)
-					card.states.drag.is = true
-					card.children.center.pinch.x = true
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						delay = 0.3,
-						blockable = false,
-						func = function()
-							G.jokers:remove_card(card)
-							card:remove()
-							card = nil
-							return true
-						end,
-					}))
-					return true
-				end,
-			}))
+		elseif context.end_of_round and context.main_eval and card.ability.extra.hp <= 0 then
+			SMODS.destroy_cards(card)
 			G.hand:change_size(card.ability.extra.hand)
 			return {
 				message = localize("k_crv_post_ex"),
@@ -8390,7 +8337,7 @@ RevosVault.investment = function(card, args)
 	}
 end
 
-G.FUNCS.crv_invest = function(e)
+G.FUNCS.crv_invest = function(e) -- i am way to lazy to fix this right now. I will fix it later.................................................................
 	local card = e.config.ref_table
 	if card.ability.extra["check"] == false then
 		card.ability.extra["check"] = true

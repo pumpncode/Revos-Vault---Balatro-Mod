@@ -678,7 +678,6 @@ SMODS.Joker({
 			end
 		end
 		if context.joker_main and #context.full_hand > 1 then
-			print(crv.cards)
 			return {
 				x_mult = crv.cards*crv.xmult+1
 			}
