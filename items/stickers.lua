@@ -38,7 +38,7 @@ SMODS.Sticker({
 	sets = {
 		Joker = true,
 	},
-	rate = 0.2,
+	rate = 0.06,
 	needs_enable_flag = true,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and not context.blueprint then
@@ -91,30 +91,109 @@ SMODS.Sticker({
 	sets = {
 		Joker = true,
 	},
-	rate = 0.2,
+	rate = 0.06,
 	needs_enable_flag = true,
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = {G.GAME.probabilities.normal},
+			vars = { G.GAME.probabilities.normal },
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and not context.blueprint then
-            if pseudorandom("absolute") < G.GAME.probabilities.normal / 4 then
-                local rr = nil
-			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i] == card then
-					rr = i
-					break
+			if pseudorandom("absolute") < G.GAME.probabilities.normal / 4 then
+				local rr = nil
+				for i = 1, #G.jokers.cards do
+					if G.jokers.cards[i] == card then
+						rr = i
+						break
+					end
 				end
+				local card2 = G.jokers.cards[rr].config.center_key
+				SMODS.add_card({
+					area = G.jokers,
+					key = card2,
+				})
 			end
-                local card2 = G.jokers.cards[rr].config.center_key
-                SMODS.add_card({
-                    area = G.jokers,
-                    key = card2,
-                })
 		end
-	end
+	end,
+})
+
+SMODS.Sticker({
+	key = "continuity",
+	badge_colour = HEX("96a0ff"),
+	atlas = "enh",
+	pos = {
+		x = 5,
+		y = 1,
+	},
+	sets = {
+		Joker = true,
+	},
+	rate = 0.06,
+	needs_enable_flag = true,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and context.main_eval then
+			local table = {}
+			table[#table + 1] = card
+			RevosVault.replacecards(table, nil, nil, true, nil)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = "Change!" })
+		end
+		if card.ability.set == "Enhanced" or card.ability.set == "Default" or card.ability.set == "Playing Card" then
+			if context.final_scoring_step and context.cardarea == G.play then
+				G.E_MANAGER:add_event(Event({
+					trigger = "after",
+					delay = 0.2,
+					func = function()
+						local table = {}
+						table[#table + 1] = card
+						RevosVault.replacecards(table, nil, nil, true, nil)
+						return true
+					end,
+				}))
+			end
+		end
+	end,
+})
+
+SMODS.Sticker({
+	key = "sharpedge",
+	badge_colour = HEX("ff4d4d"),
+	atlas = "enh",
+	pos = {
+		x = 5,
+		y = 3,
+	},
+	sets = {
+		Joker = true,
+	},
+	rate = 0.04,
+	needs_enable_flag = true,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+	if context.end_of_round then
+			local area = card.area
+			local joker = area.cards
+			local rr = RevosVault.index(G.jokers.cards, card)
+			if joker[rr + 1] and joker[rr - 1] then
+				SMODS.destroy_cards(pseudorandom_element({ joker[rr + 1], joker[rr - 1] }))
+			elseif joker[rr + 1] then
+				ease_dollars(joker[rr + 1].sell_cost)
+				SMODS.destroy_cards(joker[rr + 1])
+			elseif joker[rr - 1] then
+				ease_dollars(joker[rr - 1].sell_cost)
+				SMODS.destroy_cards(joker[rr - 1])
+			else
+			end
+		end
 end
 })
 

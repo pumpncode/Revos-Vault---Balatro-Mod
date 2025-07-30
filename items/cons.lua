@@ -90,6 +90,66 @@ SMODS.Consumable({
 	end,
 })
 
+SMODS.Consumable({
+	key = "heart",
+	set = "Tarot",
+	discovered = true,
+	atlas = "tarots",
+	pos = { x = 0, y = 1 },
+	config = {
+		extra = {
+			cards = 1,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.cards } }
+	end,
+	can_use = function(self, card)
+		if G and G.hand then
+			if
+				#G.hand.highlighted ~= 0
+				and #G.hand.highlighted <= card.ability.extra.cards
+				and #G.jokers.highlighted == 0
+			then
+				return true
+			elseif
+				#G.jokers.highlighted ~= 0
+				and #G.jokers.highlighted <= card.ability.extra.cards
+				and #G.hand.highlighted == 0
+			then
+				return true
+			end
+		end
+		return false
+	end,
+	use = function(self, card, area, copier)
+		for i, card in pairs(G.hand.highlighted) do
+			card:set_edition()
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.2,
+				func = function()
+					G.hand:unhighlight_all()
+					return true
+				end,
+			}))
+			delay(0.5)
+		end
+		for i, card in pairs(G.jokers.highlighted) do
+			card:set_edition()
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.2,
+				func = function()
+					G.hand:unhighlight_all()
+					return true
+				end,
+			}))
+			delay(0.5)
+		end
+	end,
+})
+
 SMODS.ConsumableType({
 	key = "scrap",
 	collection_rows = { 4, 5 },
@@ -230,48 +290,44 @@ SMODS.Consumable({
 	pos = { x = 0, y = 0 },
 	config = {
 		extra = {
-			cards = 1,
+			xmult = 2,
 			odds = 4,
+			active = false,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		if pseudorandom("glassdocument") < G.GAME.probabilities.normal / card.ability.extra.odds then
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_crv_bulletproofglass"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
-			end
-		else
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_glass"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
-			end
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual and context.cardarea == G.play then
+			return {
+				xmult = card.ability.extra.xmult,
+			}
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and pseudorandom("glassdocument") < G.GAME.probabilities.normal / G.GAME.glassodds
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
@@ -284,53 +340,50 @@ SMODS.Consumable({
 	pos = { x = 3, y = 0 },
 	config = {
 		extra = {
-			cards = 1,
+			xmult = 1.5,
 			odds = 4,
+			active = false,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		if pseudorandom("steeldocument") < G.GAME.probabilities.normal / card.ability.extra.odds then
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_crv_diamondcard"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if context.cardarea == G.hand then
+				return {
+					xmult = card.ability.extra.xmult,
+				}
 			end
-		else
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_steel"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
-			end
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_steel")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
-
-local imsofckntired = { "m_crv_aflame", "m_crv_mugged" }
 
 SMODS.Consumable({
 	key = "devilscontract",
@@ -339,47 +392,51 @@ SMODS.Consumable({
 	atlas = "documents",
 	pos = { x = 1, y = 0 },
 	config = {
-		extra = { cards = 1, odds = 4 },
+		extra = {
+			xmult = 2,
+			odds = 4,
+			active = false,
+		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then --if cards in hand highlighted are above 0 but below the configurable value then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		if pseudorandom("devilscontract") < G.GAME.probabilities.normal / card.ability.extra.odds then
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_crv_soulcard"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if next(context.poker_hands["Flush"]) or next(context.poker_hands["Full House"]) then
+				if context.cardarea == G.play then
+					return {
+						xmult = card.ability.extra.xmult,
+					}
+				end
 			end
-		else
-			local random_key = imsofckntired[math.random(#imsofckntired)]
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS[random_key])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
-			end
+		end
+		if
+			context.destroy_card
+				and context.cardarea == G.play
+				and card.ability.extra.active
+				and (SMODS.has_enhancement(context.destroy_card, "m_crv_mugged")
+			or SMODS.has_enhancement(context.destroy_card, "m_crv_aflame"))
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
@@ -392,66 +449,99 @@ SMODS.Consumable({
 	pos = { x = 1, y = 0 },
 	config = {
 		extra = {
-			cards = 1,
+			xmult =4,
+			odds = 4,
+			active = false,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		for i, card in pairs(G.hand.highlighted) do
-			card:set_ability(G.P_CENTERS["m_crv_mega"])
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-			delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if context.cardarea == G.play then
+				return {
+					xmult = card.ability.extra.xmult,
+				}
+			end
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_crv_mega")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
-
 SMODS.Consumable({
 	key = "t1doc",
 	set = "EnchancedDocuments",
 	discovered = true,
 	atlas = "t",
 	pos = { x = 0, y = 1 },
-	config = { extra = { cards = 1 } },
+	config = {
+		extra = {
+			xmult = 50,
+			odds = 4,
+			active = false,
+		},
+	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		for i, card in pairs(G.hand.highlighted) do
-			card:set_ability(G.P_CENTERS["m_crv_tier1card"])
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-			delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if context.cardarea == G.play then
+				return {
+					chips = card.ability.extra.xmult,
+				}
+			end
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_crv_tier1card")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
@@ -461,30 +551,51 @@ SMODS.Consumable({
 	discovered = true,
 	atlas = "t",
 	pos = { x = 1, y = 1 },
-	config = { extra = { cards = 2 } },
+	config = {
+		extra = {
+			xmult = 100,
+			mult = 10,
+			odds = 4,
+			active = false,
+		},
+	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		for i, card in pairs(G.hand.highlighted) do
-			card:set_ability(G.P_CENTERS["m_crv_tier2card"])
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-			delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if context.cardarea == G.play then
+				return {
+					chips = card.ability.extra.xmult,
+					mult = card.ability.extra.mult
+				}
+			end
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_crv_tier2card")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
@@ -494,35 +605,56 @@ SMODS.Consumable({
 	discovered = true,
 	atlas = "t",
 	pos = { x = 2, y = 1 },
-	config = { extra = { cards = 3 } },
+	config = {
+		extra = {
+			chips = 200,
+			xmult =3,
+			odds = 4,
+			active = false,
+		},
+	},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
-		return false
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
-		for i, card in pairs(G.hand.highlighted) do
-			card:set_ability(G.P_CENTERS["m_crv_tier3card"])
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-			delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual then
+			if context.cardarea == G.play then
+				return {
+					chips = card.ability.extra.chips,
+					xmult = card.ability.extra.xmult
+				}
+			end
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_crv_tier3card")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
 
-SMODS.Consumable({
+--[[SMODS.Consumable({
 	key = "boostdoc",
 	set = "EnchancedDocuments",
 	discovered = true,
@@ -554,7 +686,7 @@ SMODS.Consumable({
 			delay(0.5)
 		end
 	end,
-})
+})]]
 
 SMODS.Consumable({
 	key = "luckydocument",
@@ -564,53 +696,56 @@ SMODS.Consumable({
 	pos = { x = 2, y = 0 },
 	config = {
 		extra = {
-			cards = 1,
-			odds = 4,
+			xmult = 1.5,
+			odds = 5,
+			odds2 = 15,
+			active = false,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
 	can_use = function(self, card)
-		if G and G.hand then
-			if #G.hand.highlighted ~= 0 and #G.hand.highlighted <= card.ability.extra.cards then
-				return true
-			end
-		end
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
 		return true
 	end,
 	use = function(self, card, area, copier)
-		if pseudorandom("luckydocument") < G.GAME.probabilities.normal / card.ability.extra.odds then
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_crv_blessedcard"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual and context.cardarea == G.play then
+			local effect = {}
+			if pseudorandom("luckydocument") < G.GAME.probabilities.normal / card.ability.extra.odds2 then
+				effect.mult = G.P_CENTERS.m_lucky.config.p_dollars
 			end
-		else
-			for i, card in pairs(G.hand.highlighted) do
-				card:set_ability(G.P_CENTERS["m_lucky"])
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.2,
-					func = function()
-						G.hand:unhighlight_all()
-						return true
-					end,
-				}))
-				delay(0.5)
+			if pseudorandom("luckydocument") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				effect.mult = G.P_CENTERS.m_lucky.config.mult
 			end
+			return effect
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_lucky")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
 
-SMODS.Consumable({
+--[[SMODS.Consumable({
 	key = "polydoc",
 	set = "EnchancedDocuments",
 	discovered = true,
@@ -910,66 +1045,7 @@ SMODS.Consumable({
 	end,
 })
 
-SMODS.Consumable({
-	key = "rdocument",
-	set = "EnchancedDocuments",
-	discovered = true,
-	atlas = "documents",
-	pos = { x = 1, y = 2 },
-	config = {
-		extra = {
-			cards = 1,
-		},
-	},
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.cards } }
-	end,
-	can_use = function(self, card)
-		if G and G.hand then
-			if
-				#G.hand.highlighted ~= 0
-				and #G.hand.highlighted <= card.ability.extra.cards
-				and #G.jokers.highlighted == 0
-			then
-				return true
-			elseif
-				#G.jokers.highlighted ~= 0
-				and #G.jokers.highlighted <= card.ability.extra.cards
-				and #G.hand.highlighted == 0
-			then
-				return true
-			end
-		end
-		return false
-	end,
-	use = function(self, card, area, copier)
-		for i, card in pairs(G.hand.highlighted) do
-			card:set_edition()
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-			delay(0.5)
-		end
-		for i, card in pairs(G.jokers.highlighted) do
-			card:set_edition()
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.2,
-				func = function()
-					G.hand:unhighlight_all()
-					return true
-				end,
-			}))
-			delay(0.5)
-		end
-	end,
-})
-
+]]
 -- Superior Cards
 
 if RevosVault.config.superior_enabled then
@@ -1012,14 +1088,12 @@ if RevosVault.config.superior_enabled then
 		end,
 		use = function(self, card, area, copier)
 			SMODS.add_card({
-				key = G.GAME.last_destroyed_joker.config.center.key,
+				key = card.ability.extra.cards,
 			})
 		end,
 		update = function(self, card, context)
-			if G and G.GAME and G.GAME.last_destroyed_joker then
-				card.ability.extra.cards = G.GAME.last_destroyed_joker.ability.name
-			else
-				card.ability.extra.cards = "Superior Fool"
+			if G.GAME.last_destroyed_joker then
+				card.ability.extra.cards = G.GAME.last_destroyed_joker.config.center.key
 			end
 		end,
 	})
@@ -2952,7 +3026,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["High Card"].level,"High Card",G.GAME.hands["High Card"].mult,G.GAME.hands["High Card"].chips  } }
+		return {
+			vars = {
+				G.GAME.hands["High Card"].level,
+				"High Card",
+				G.GAME.hands["High Card"].mult,
+				G.GAME.hands["High Card"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3019,7 +3100,7 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = {G.GAME.hands["Pair"].level,"Pair",G.GAME.hands["Pair"].mult,G.GAME.hands["Pair"].chips  } }
+		return { vars = { G.GAME.hands["Pair"].level, "Pair", G.GAME.hands["Pair"].mult, G.GAME.hands["Pair"].chips } }
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3086,7 +3167,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Three of a Kind"].level,"Three of a Kind",G.GAME.hands["Three of a Kind"].mult,G.GAME.hands["Three of a Kind"].chips  } }
+		return {
+			vars = {
+				G.GAME.hands["Three of a Kind"].level,
+				"Three of a Kind",
+				G.GAME.hands["Three of a Kind"].mult,
+				G.GAME.hands["Three of a Kind"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3157,7 +3245,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Full House"].level,"Full House",G.GAME.hands["Full House"].mult,G.GAME.hands["Full House"].chips  } }
+		return {
+			vars = {
+				G.GAME.hands["Full House"].level,
+				"Full House",
+				G.GAME.hands["Full House"].mult,
+				G.GAME.hands["Full House"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3178,7 +3273,7 @@ SMODS.Consumable({
 				}
 			else
 				return {
-					xmult =1.5,
+					xmult = 1.5,
 					xchips = 1.5,
 				}
 			end
@@ -3224,7 +3319,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = {G.GAME.hands["Four of a Kind"].level,"Four of a Kind",G.GAME.hands["Four of a Kind"].mult,G.GAME.hands["Four of a Kind"].chips  } }
+		return {
+			vars = {
+				G.GAME.hands["Four of a Kind"].level,
+				"Four of a Kind",
+				G.GAME.hands["Four of a Kind"].mult,
+				G.GAME.hands["Four of a Kind"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3295,7 +3397,9 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Flush"].level,"Flush",G.GAME.hands["Flush"].mult,G.GAME.hands["Flush"].chips  } }
+		return {
+			vars = { G.GAME.hands["Flush"].level, "Flush", G.GAME.hands["Flush"].mult, G.GAME.hands["Flush"].chips },
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3362,7 +3466,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Straight"].level,"Straight",G.GAME.hands["Straight"].mult,G.GAME.hands["Straight"].chips  } }
+		return {
+			vars = {
+				G.GAME.hands["Straight"].level,
+				"Straight",
+				G.GAME.hands["Straight"].mult,
+				G.GAME.hands["Straight"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3429,7 +3540,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Two Pair"].level,"Two Pair",G.GAME.hands["Two Pair"].mult,G.GAME.hands["Two Pair"].chips } }
+		return {
+			vars = {
+				G.GAME.hands["Two Pair"].level,
+				"Two Pair",
+				G.GAME.hands["Two Pair"].mult,
+				G.GAME.hands["Two Pair"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3450,7 +3568,7 @@ SMODS.Consumable({
 				}
 			else
 				return {
-					xmult =1.5,
+					xmult = 1.5,
 					xchips = 1.5,
 				}
 			end
@@ -3496,7 +3614,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Straight Flush"].level,"Straight Flush",G.GAME.hands["Straight Flush"].mult,G.GAME.hands["Straight Flush"].chips } }
+		return {
+			vars = {
+				G.GAME.hands["Straight Flush"].level,
+				"Straight Flush",
+				G.GAME.hands["Straight Flush"].mult,
+				G.GAME.hands["Straight Flush"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3564,7 +3689,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.hands["Flush Five"].level,"Flush Five",G.GAME.hands["Flush Five"].mult,G.GAME.hands["Flush Five"].chips } }
+		return {
+			vars = {
+				G.GAME.hands["Flush Five"].level,
+				"Flush Five",
+				G.GAME.hands["Flush Five"].mult,
+				G.GAME.hands["Flush Five"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3628,7 +3760,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = {G.GAME.hands["Flush House"].level,"Flush House",G.GAME.hands["Flush House"].mult,G.GAME.hands["Flush House"].chips  } }
+		return {
+			vars = {
+				G.GAME.hands["Flush House"].level,
+				"Flush House",
+				G.GAME.hands["Flush House"].mult,
+				G.GAME.hands["Flush House"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3696,7 +3835,14 @@ SMODS.Consumable({
 		end
 	end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = {G.GAME.hands["Five of a Kind"].level,"Five of a Kind",G.GAME.hands["Five of a Kind"].mult,G.GAME.hands["Five of a Kind"].chips } }
+		return {
+			vars = {
+				G.GAME.hands["Five of a Kind"].level,
+				"Five of a Kind",
+				G.GAME.hands["Five of a Kind"].mult,
+				G.GAME.hands["Five of a Kind"].chips,
+			},
+		}
 	end,
 	use = function(self, card, area, copier)
 		card.ability.extra.can_activate = false
@@ -3736,4 +3882,3 @@ SMODS.Consumable({
 		badges[1] = create_badge(localize("k_superior_p"), get_type_colour(self or card.config, card), nil, 1.2)
 	end,
 })
-

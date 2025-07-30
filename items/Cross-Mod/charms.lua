@@ -25,7 +25,7 @@ Bakery_API.Charm({
 })
 
 --[[
-not sure on how to implement the idea yet but its there
+not sure on how to implement the idea yet but its there.  Came back to check what ihavedone and i dont remember
 Bakery_API.Charm({
 	key = "prcharm",
 	pos = {

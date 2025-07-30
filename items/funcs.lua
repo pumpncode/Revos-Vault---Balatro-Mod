@@ -116,10 +116,18 @@ function RevosVault.total_limit(mod, silent)
 end
 
 function RevosVault.defeat()
-	G.GAME.chips = G.GAME.blind.chips
-	G.STATE = G.STATES.HAND_PLAYED
-	G.STATE_COMPLETE = true
-	end_round()
+	G.E_MANAGER:add_event(Event({
+		blocking = false,
+		func = function()
+			if G.STATE == G.STATES.SELECTING_HAND then
+				G.GAME.chips = G.GAME.blind.chips
+				G.STATE = G.STATES.HAND_PLAYED
+				G.STATE_COMPLETE = true
+				end_round()
+				return true
+			end
+		end,
+	}))
 end
 
 function RevosVault.find_lowest(area, reverse, card)
@@ -297,22 +305,36 @@ function RevosVault.crash()
 	}))
 end
 
-function RevosVault.shop_card(with, replace, set, keep)
+function RevosVault.shop_card(with, replace, set, keep, rarity, specific)
 	local c = false
-	if replace and set then
+	if replace and set or rarity then
 		local inshop = {}
-		for i = 1, #G.shop_jokers.cards do
-			if G.shop_jokers.cards[i].ability.set == set then
-				inshop[#inshop + 1] = G.shop_jokers.cards[i]
+		if set then
+			for i = 1, #G.shop_jokers.cards do
+				if G.shop_jokers.cards[i].ability.set == set then
+					inshop[#inshop + 1] = G.shop_jokers.cards[i]
+				end
+			end
+		elseif rarity then
+			for i = 1, #G.shop_jokers.cards do
+				if G.shop_jokers.cards[i].config.center.rarity == rarity then
+					inshop[#inshop + 1] = G.shop_jokers.cards[i]
+				end
 			end
 		end
 		if #inshop > 0 then
 			if keep then
-				local ca = pseudorandom_element(inshop)
-				ca:juice_up()
-				ca:set_ability(with.key)
+				if not specific then
+					local ca = pseudorandom_element(inshop)
+					ca:juice_up()
+					ca:set_ability(with.key)
+				else
+					local ca = pseudorandom_element(inshop)
+					ca:juice_up()
+					ca:set_ability(with)
+				end
 			else
-			SMODS.destroy_cards(pseudorandom_element(inshop), true, true)
+				SMODS.destroy_cards(pseudorandom_element(inshop), true, true)
 			end
 			c = true
 		else
@@ -343,8 +365,7 @@ function RevosVault.index(table, cards)
 	return nil
 end
 
-
---Holy Yap. Also, needs playing card support!!!!
+--ok you see nothing. there is nothing for 241 lines
 function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporiginal) --Cards not keeping editions/seals/stickers is intended. //Probably extremely inefficient /// Like why tf did i make the keep n entire seperate section. I probably wont even use "replace" or teh destruction part of this like ever.
 	if G.shop_booster and area == G.shop_booster.cards or G.shop_vouchers and area == G.shop_vouchers.cards then --Setting the area as these 2 disables the entire thing below and will not have a support for them anytime soon cause NONE of the jokers does anything with destroyed booster PACKS and VOUCHERS. Including mods
 		if area == G.shop_booster.cards then
@@ -435,17 +456,23 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 				elseif area[i].ability.set then
 					local set = area[i].ability.set
 					local tab = {}
-					--[[	if G.STATE == G.STATES.STANDARD_PACK or area == G.hand.cards then
+					if
+						area[i].ability.set == "Enhanced"
+						or area[i].ability.set == "Default"
+						or area[i].ability.set == "Playing Card"
+						or area == G.hand.cards
+					then
 						area[i]:juice_up()
 						local _suit, _rank =
 							pseudorandom_element(SMODS.Suits).key, pseudorandom_element(SMODS.Ranks).card_key
 						SMODS.change_base(area[i], _suit, _rank)
 						area[i]:set_ability(SMODS.poll_enhancement())
 						area[i]:set_edition(poll_edition())
-					else]]
-					for i = 1, #G.P_CENTER_POOLS.Consumeables do
-						if G.P_CENTER_POOLS.Consumeables[i].set == set then
-							tab[#tab + 1] = G.P_CENTER_POOLS.Consumeables[i].key
+					else
+						for i = 1, #G.P_CENTER_POOLS.Consumeables do
+							if G.P_CENTER_POOLS.Consumeables[i].set == set then
+								tab[#tab + 1] = G.P_CENTER_POOLS.Consumeables[i].key
+							end
 						end
 					end
 					if area[i] ~= keeporiginal then
@@ -454,7 +481,6 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 					end
 				end
 			end
-			--end
 		else
 			if replace then --Doesnt stick to joker rarities
 				for i = 1, #area do
@@ -502,18 +528,25 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 								area = G.pack_cards,
 							})
 						elseif area[i].ability.set and area[i] ~= keeporiginal then
-							--[[			if G.STATE == G.STATES.STANDARD_PACK or area == G.hand.cards then
-								SMODS.destroy_cards(area[i])
+							if
+								area[i].ability.set == "Enhanced"
+								or area[i].ability.set == "Default"
+								or area[i].ability.set == "Playing Card"
+								or area == G.hand.cards
+							then
+								area[i]:juice_up()
 								local _suit, _rank =
 									pseudorandom_element(SMODS.Suits).key, pseudorandom_element(SMODS.Ranks).card_key
-								local acard = SMODS.create_card({
-									set = "Playing Card",
-									area = area,
-								})
-								SMODS.change_base(acard, _suit, _rank)
-								acard:set_ability(SMODS.poll_enhancement())
-								acard:set_edition(poll_edition())
-							else]]
+								SMODS.change_base(area[i], _suit, _rank)
+								area[i]:set_ability(SMODS.poll_enhancement())
+								area[i]:set_edition(poll_edition())
+							else
+								for i = 1, #G.P_CENTER_POOLS.Consumeables do
+									if G.P_CENTER_POOLS.Consumeables[i].set == set then
+										tab[#tab + 1] = G.P_CENTER_POOLS.Consumeables[i].key
+									end
+								end
+							end
 							local set = area[i].ability.set
 							SMODS.destroy_cards(area[i], true)
 							SMODS.add_card({
@@ -521,7 +554,6 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 								area = G.pack_cards,
 							})
 						end
-						--end
 					else
 						if area[i].config.center.rarity and not area[i].ability.eternal and area[i] ~= keeporiginal then
 							local rarity
@@ -544,18 +576,25 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 								area = G.pack_cards,
 							})
 						elseif area[i].ability.set and not area[i].ability.eternal and area[i] ~= keeporiginal then
-							--[[if G.STATE == G.STATES.STANDARD_PACK or area == G.hand.cards then
-								SMODS.destroy_cards(area[i])
+							if
+								area[i].ability.set == "Enhanced"
+								or area[i].ability.set == "Default"
+								or area[i].ability.set == "Playing Card"
+								or area == G.hand.cards
+							then
+								area[i]:juice_up()
 								local _suit, _rank =
 									pseudorandom_element(SMODS.Suits).key, pseudorandom_element(SMODS.Ranks).card_key
-								local acard = SMODS.create_card({
-									set = "Playing Card",
-									area = area,
-								})
-								SMODS.change_base(acard, _suit, _rank)
-								acard:set_ability(SMODS.poll_enhancement())
-								acard:set_edition(poll_edition())
-							else]]
+								SMODS.change_base(area[i], _suit, _rank)
+								area[i]:set_ability(SMODS.poll_enhancement())
+								area[i]:set_edition(poll_edition())
+							else
+								for i = 1, #G.P_CENTER_POOLS.Consumeables do
+									if G.P_CENTER_POOLS.Consumeables[i].set == set then
+										tab[#tab + 1] = G.P_CENTER_POOLS.Consumeables[i].key
+									end
+								end
+							end
 							local set = area[i].ability.set
 							SMODS.destroy_cards(area[i])
 							SMODS.add_card({
@@ -569,11 +608,211 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 		end
 	end
 end
---end
 
+--There is a saying we have in Turkish, "Yandan yemişi".
 
-function RevosVault.check(check)
+function RevosVault.check(check, area)
 	if check == "inblind" then
 		return G.STATE == G.STATES.SELECTING_HAND
+	elseif check == "hasjoker" then
+		if #G.jokers.cards > 0 then
+			return true
+		end
+	elseif check == "highlight" then
+		if #area.highlighted > 0 then
+			return #area.highlighted
+		end
 	end
+end
+
+--Sadly this requires manually adding/removing cards. :((
+function RevosVault.modify_rarity(card, by)
+	local shouldgo = true
+	local rarity_order = {
+		1,
+		2,
+		3,
+		4,
+		"crv_p",
+	}
+
+	if RevosVault.config.vault_enabled then
+		table.insert(rarity_order, 6, "crv_va")
+	end
+	if Cryptid then
+		table.insert(rarity_order, 1, "cry_candy")
+		table.insert(rarity_order, 5, "cry_epic")
+		table.insert(rarity_order, "cry_exotic")
+	end
+	if RevosVault.config.chaos_enabled then
+		table.insert(rarity_order, "crv_chaos")
+	end
+	if card and by then
+		local current_rarity = card.config.center.rarity or card.rarity
+		local future_rarity = nil
+		for i = 1, #rarity_order do
+			if rarity_order[i] == current_rarity then
+				if rarity_order[i + by] ~= nil then
+					future_rarity = rarity_order[i + by]
+				else
+					sendWarnMessage("No next or previous rarity found", "RevosVault")
+					shouldgo = nil
+				end
+			end
+		end
+		if shouldgo then
+			local new_card = pseudorandom_element(G.P_JOKER_RARITY_POOLS[future_rarity]).key
+			card:juice_up()
+			card:set_ability(new_card)
+		end
+	else
+		return rarity_order -- if you leave it with nothing it returns the table itself >:D
+	end
+end
+
+function RevosVault.printer_apply(enhancement, upgraded_enhancement, edition, area, odds)
+	if not odds then
+		odds = 4
+	end --Default odds
+	if not area then
+		area = G.hand
+	end --Default area
+	local ecards = {}
+	local emcards = {}
+	local card
+	for i = 1, #area.cards do
+		if not area.cards[i].edition then
+			ecards[#ecards + 1] = area.cards[i]
+		end
+		if area.cards[i].ability.effect == "Base" then
+			emcards[#emcards + 1] = area.cards[i]
+		end
+	end
+	if enhancement then
+		card = pseudorandom_element(emcards, pseudoseed("printer_apply"))
+	elseif edition then
+		card = pseudorandom_element(ecards, pseudoseed("printer_apply"))
+	end
+	if not edition then
+		if #emcards > 0 then
+			if pseudorandom("enh_printers") < G.GAME.probabilities.normal / odds then
+				if upgraded_enhancement then
+					card:set_ability(upgraded_enhancement)
+					return upgraded_enhancement
+				else
+					card:set_ability(enhancement)
+					return enhancement
+				end
+			else
+				if enhancement then
+					card:set_ability(enhancement)
+					return enhancement
+				end
+			end
+		end
+	else
+		if #ecards > 0 then
+			card:set_edition(edition)
+			return edition
+		end
+	end
+end
+
+function RevosVault.stickercheck(area, stickers)
+	local st = 0
+	if area then
+		for _, v in pairs(area) do
+			for i = 1, #stickers do
+				if v.stickers then
+				end
+			end
+		end
+		return st
+	end
+	return 0
+end
+
+
+function RevosVault.get_name(key, set)
+	local name
+	name = localize({ type = "name_text", key = key, set = set })
+	return name
+end
+
+
+--idk made an advanced searcg
+
+function RevosVault.joker_search(key, name, rarity, cost, edition, stickers,debuff,area)
+	if not area then area = G.jokers.cards end
+	local cards = {}
+	for i = 1, #area do
+		cards[#cards + 1] = area[i]
+	end
+	if key then
+		for k, v in pairs(cards) do
+			print(#cards)
+			if v.config.center.key ~= key then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if name then
+		for k, v in pairs(cards) do
+			local vsname = localize({ type = "name_text", key = v.config.center.key, set = "Joker" })
+		for i = 1, #name do
+			if not string.find(vsname, name[i]) then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+		end
+	end
+	if rarity then
+		for k, v in pairs(cards) do
+			if v.config.center.rarity ~= rarity then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if cost then
+		for k, v in pairs(cards) do
+			if v.cost ~= cost then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if edition then
+		for k, v in pairs(cards) do
+			if v.edition and not v.edition.key ~= edition then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if stickers then
+	for k, v in pairs(cards) do
+		for i = 1, #stickers do
+			if v.ability[stickers[i]] then
+				break
+			else
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+end
+if debuff then
+	for k, v in pairs(cards) do
+		for i = 1, #stickers do
+			if v.debuff then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+end
+	return cards
 end
