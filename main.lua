@@ -511,7 +511,7 @@ end
 local oldaddroundevalrow = add_round_eval_row
 function add_round_eval_row(config)
 if config.dollars == nil then
-	sendWarnMessage("Couldn't multiply payout. Potentially caused by Paya's Terrible Additions","Judgement")
+	sendWarnMessage("Couldn't multiply payout","Revo's Vault")
 else
 		config.dollars = config.dollars * G.GAME.crv_cashout
 end

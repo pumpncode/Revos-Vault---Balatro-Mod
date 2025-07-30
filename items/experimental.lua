@@ -318,7 +318,7 @@ end
 
 --Corrupt Cards
 
-SMODS.ConsumableType({
+--[[SMODS.ConsumableType({
 	key = "Corrupt",
 
 	collection_rows = { 4, 5 },
@@ -631,7 +631,7 @@ SMODS.Consumable({
 	end,
 	calculate = function(self,card,context)
 	end
-})]]
+})
 
 SMODS.Consumable({
 	key = "dept",
@@ -695,3 +695,4 @@ SMODS.Consumable({
 		G.jokers:unhighlight_all()
 	end,
 })
+]]

@@ -609,6 +609,8 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 	end
 end
 
+--There is a saying we have in Turkish, "Yandan yemişi".
+
 function RevosVault.check(check, area)
 	if check == "inblind" then
 		return G.STATE == G.STATES.SELECTING_HAND
@@ -634,9 +636,6 @@ function RevosVault.modify_rarity(card, by)
 		"crv_p",
 	}
 
-	if RevosVault.config.chaos_enabled then
-		table.insert(rarity_order, 6, "crv_chaos")
-	end
 	if RevosVault.config.vault_enabled then
 		table.insert(rarity_order, 6, "crv_va")
 	end
@@ -644,6 +643,9 @@ function RevosVault.modify_rarity(card, by)
 		table.insert(rarity_order, 1, "cry_candy")
 		table.insert(rarity_order, 5, "cry_epic")
 		table.insert(rarity_order, "cry_exotic")
+	end
+	if RevosVault.config.chaos_enabled then
+		table.insert(rarity_order, "crv_chaos")
 	end
 	if card and by then
 		local current_rarity = card.config.center.rarity or card.rarity
@@ -714,4 +716,103 @@ function RevosVault.printer_apply(enhancement, upgraded_enhancement, edition, ar
 			return edition
 		end
 	end
+end
+
+function RevosVault.stickercheck(area, stickers)
+	local st = 0
+	if area then
+		for _, v in pairs(area) do
+			for i = 1, #stickers do
+				if v.stickers then
+				end
+			end
+		end
+		return st
+	end
+	return 0
+end
+
+
+function RevosVault.get_name(key, set)
+	local name
+	name = localize({ type = "name_text", key = key, set = set })
+	return name
+end
+
+
+--idk made an advanced searcg
+
+function RevosVault.joker_search(key, name, rarity, cost, edition, stickers,debuff,area)
+	if not area then area = G.jokers.cards end
+	local cards = {}
+	for i = 1, #area do
+		cards[#cards + 1] = area[i]
+	end
+	if key then
+		for k, v in pairs(cards) do
+			print(#cards)
+			if v.config.center.key ~= key then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if name then
+		for k, v in pairs(cards) do
+			local vsname = localize({ type = "name_text", key = v.config.center.key, set = "Joker" })
+		for i = 1, #name do
+			if not string.find(vsname, name[i]) then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+		end
+	end
+	if rarity then
+		for k, v in pairs(cards) do
+			if v.config.center.rarity ~= rarity then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if cost then
+		for k, v in pairs(cards) do
+			if v.cost ~= cost then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if edition then
+		for k, v in pairs(cards) do
+			if v.edition and not v.edition.key ~= edition then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+	if stickers then
+	for k, v in pairs(cards) do
+		for i = 1, #stickers do
+			if v.ability[stickers[i]] then
+				break
+			else
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+end
+if debuff then
+	for k, v in pairs(cards) do
+		for i = 1, #stickers do
+			if v.debuff then
+				local i = RevosVault.index(cards, v)
+				table.remove(cards, i)
+			end
+		end
+	end
+end
+	return cards
 end

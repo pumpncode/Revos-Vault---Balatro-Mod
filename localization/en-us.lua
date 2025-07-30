@@ -2718,7 +2718,7 @@ return {
 				},
 			},
 			c_crv_supsun = {
-				name = "Superior Moon",
+				name = "Superior Sun",
 				text = {
 					"Enhances {C:attention}#1#{}",
 					"selected cards to",
