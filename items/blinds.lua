@@ -12,7 +12,7 @@ SMODS.Blind({
 
 SMODS.Blind({
 	key = "fragile",
-	boss = { min = 1, max = 10 },
+	boss = { min = 3, max = 10 },
 	atlas = "blinds",
 	pos = { x = 0, y = 0 },
 	boss_colour = HEX("ffffff"),
@@ -59,7 +59,7 @@ SMODS.Blind({
 	},
 	atlas = "blinds",
 	pos = { x = 0, y = 5 },
-	boss_colour = HEX("5e5e5e"),
+	boss_colour = HEX("f0b900"),
 	press_play = function(self)
 		local cards = {}
 		if G.GAME.talisman == 1 then
@@ -72,6 +72,23 @@ SMODS.Blind({
 			end
 		end
 	end,
+})
+
+SMODS.Blind({
+	key = "thehater",
+	boss = {
+		min = 5,
+		max = 10,
+	},
+	atlas = "blinds",
+	pos = { x = 0, y = 6 },
+	boss_colour = HEX("0d0066"),
+	calculate = function(self,card,context)
+		if context.final_scoring_step then
+			hand_chips = 1
+			return hand_chips 
+		end
+	end
 })
 
 SMODS.Blind({

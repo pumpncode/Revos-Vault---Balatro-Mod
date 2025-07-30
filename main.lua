@@ -3,6 +3,7 @@ RevosVault = SMODS.current_mod
 
 
 --BEHOLD! THE WORST CODE IN HISTORY UNFOLDS UPON YOUR EYES!
+--No but seriously goodluck understanding anything
 
 SMODS.Atlas({
 	key = "modicon",
@@ -508,14 +509,10 @@ if RevosVault.config.superior_enabled then
 	end
 end
 
-local oldaddroundevalrow = add_round_eval_row
+local arer_ref = add_round_eval_row --thank's to haya for this bit :D
 function add_round_eval_row(config)
-if config.dollars == nil then
-	sendWarnMessage("Couldn't multiply payout","Revo's Vault")
-else
-		config.dollars = config.dollars * G.GAME.crv_cashout
-end
-	return oldaddroundevalrow(config)
+  config.dollars = (config.dollars or 0) * G.GAME.crv_cashout
+  return arer_ref(config)
 end
 
 local getidold = Card.get_id

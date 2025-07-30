@@ -136,6 +136,13 @@ return {
 					"lose {C:red}-$3{}",
 				},
 			},
+			bl_crv_thehater = {
+				name = "The Hater",
+				text = {
+					"At the final scoring step,",
+					" chips are set to 1",
+				},
+			},
 			bl_crv_rrp = {
 				name = "Russian Roulette+",
 				text = {
@@ -1225,7 +1232,7 @@ return {
 				name = "King's Impact",
 				text = {
 					"{C:attention}Upgrades{} any scored card up to {C:attention}King",
-					"And will {C:red}decrase{} any scored card{C:attention} Above King",
+					"And will {C:red}decrease{} any scored card{C:attention} Above King",
 					"down to {C:attention}King",
 				},
 			},
@@ -1828,7 +1835,7 @@ return {
 				text = {
 					"After scoring, {C:attention}Upgrades{} all cards held",
 					"in hand up to {C:attention}King",
-					"And will decrase anything {C:attention}Above King",
+					"And will decrease anything {C:attention}Above King",
 					"down to {C:attention}King",
 				},
 			},
@@ -2457,7 +2464,7 @@ return {
 					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
-		--[[c_crv_uedoc = {
+			--[[c_crv_uedoc = {
 				name = "Ultimate Edition Contract",
 				text = {
 					"Adds a {C:dark_edition}Random Edition",
