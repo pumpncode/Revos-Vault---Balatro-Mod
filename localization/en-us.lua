@@ -136,10 +136,11 @@ return {
 					"lose {C:red}-$3{}",
 				},
 			},
-						bl_crv_thehater = {
+			bl_crv_thehater = {
 				name = "The Hater",
 				text = {
-					"At the final scoring step,"," chips are set to 1",
+					"At the final scoring step,",
+					" chips are set to 1",
 				},
 			},
 			bl_crv_rrp = {
@@ -2463,7 +2464,7 @@ return {
 					"{C:red}Self-Destructs{} at the end of the round",
 				},
 			},
-		--[[c_crv_uedoc = {
+			--[[c_crv_uedoc = {
 				name = "Ultimate Edition Contract",
 				text = {
 					"Adds a {C:dark_edition}Random Edition",
