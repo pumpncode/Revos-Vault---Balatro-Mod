@@ -20,7 +20,7 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
 					delay = 0.4,
@@ -79,7 +79,7 @@ SMODS.Joker({
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card({
 					set = "Zodiac",
 					area = G.consumeables,
@@ -114,23 +114,17 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+		loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				G.GAME.probabilities.normal,
+			},
+		}
+	end,
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
-				SMODS.add_card({
-					area = G.consumeables,
-					edition = "e_negative",
-					key = "c_crv_crystalcontract",
-				})
-			else
-				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
-					SMODS.add_card({
-						area = G.consumeables,
-						key = "c_crv_crystalcontract",
-					})
-				end
-			end
+			if context.first_hand_drawn then
+			RevosVault.printer_apply("m_reverse_crystal", "m_crv_quartz", nil)
 		end
 	end,
 })
@@ -138,45 +132,53 @@ SMODS.Joker({
 SMODS.Enhancement({
 	key = "quartz",
 	atlas = "rtarot",
+	dependencies = "reverse_tarot",
 	pos = { x = 0, y = 2 },
-	shatters = true,
 	config = {
 		extra = {
-			x_chips = 2,
-			shatter_prob = 8,
+			xchips = 2,
+			xmultg = 0.25,
+			odds = 4,
+			active = false,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {
-				card.ability.extra.x_chips,
-				G.GAME.probabilities.normal,
-				card.ability.extra.shatter_prob,
-			},
-		}
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 	end,
-	dependencies = "reverse_tarot",
+	can_use = function(self, card)
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
+	end,
+	use = function(self, card, area, copier)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
 	calculate = function(self, card, context)
-		if context.main_scoring and context.cardarea == G.play then
+		if card.ability.extra.active and context.individual and context.cardarea == G.play then
 			return { x_chips = card.ability.extra.x_chips }
 		end
 		if
 			context.destroy_card
 			and context.cardarea == G.play
-			and pseudorandom("crystal") < G.GAME.probabilities.normal / 4
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_reverse_crystal")
 		then
-			G.E_MANAGER:add_event(Event({
-
-				func = function()
-					card:juice_up(0.3, 0.4)
-					card:set_ability(G.P_CENTERS["m_reverse_crystal"])
-					card = nil
-					return true
-				end,
-			}))
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
 		end
 	end,
 })
+
+
 
 SMODS.Consumable{
 	key = 'crystalcontract', 
@@ -237,23 +239,17 @@ SMODS.Joker({
 	config = {
 		extra = {},
 	},
+		loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				G.GAME.probabilities.normal,
+			},
+		}
+	end,
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
-				SMODS.add_card({
-					area = G.consumeables,
-					edition = "e_negative",
-					key = "c_crv_coppercontract",
-				})
-			else
-				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
-					SMODS.add_card({
-						area = G.consumeables,
-						key = "c_crv_coppercontract",
-					})
-				end
-			end
+		if context.first_hand_drawn then
+			RevosVault.printer_apply("m_reverse_copper", "m_crv_coatedcopper", nil)
 		end
 	end,
 })
@@ -263,23 +259,50 @@ SMODS.Enhancement({
 	atlas = "rtarot",
 	pos = { x = 0, y = 3 },
 	shatters = true,
-    config = {
-        extra = {
-            x_chips = 2.5
-        }
-    },
+	config = {
+		extra = {
+			xchips = 2.5,
+			xmultg = 0.25,
+			odds = 4,
+			active = false,
+		},
+	},
 	dependencies = "reverse_tarot",
-    loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.x_chips}}
-    end,
-    calculate = function(self,card,context)
-        if context.main_scoring and context.cardarea == G.hand then
-            return {x_chips = card.ability.extra.x_chips}
-        end
-    end,
-	
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+	end,
+	can_use = function(self, card)
+		return card.ability.extra.active == false
+	end,
+	keep_on_use = function(self, card)
+		return true
+	end,
+	use = function(self, card, area, copier)
+		card.ability.extra.active = true
+		local eval = function()
+			return card.ability.extra.active == true
+		end
+		juice_card_until(card, eval, true)
+	end,
+	calculate = function(self, card, context)
+		if card.ability.extra.active and context.individual and context.cardarea == G.hand then
+			return { x_chips = card.ability.extra.x_chips }
+		end
+		if
+			context.destroy_card
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and SMODS.has_enhancement(context.destroy_card, "m_reverse_crystal")
+		then
+			return {
+				remove = true,
+			}
+		end
+		if context.end_of_round and card.ability.extra.active then
+			SMODS.destroy_cards(card)
+		end
+	end,
 })
-
 SMODS.Consumable{
 	key = 'coppercontract', 
 	set = 'EnchancedDocuments', 
@@ -342,27 +365,24 @@ SMODS.Joker({
 	},
 	dependencies = "reverse_tarot",
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
-				SMODS.add_card({
-					area = G.consumeables,
-					edition = "e_negative",
-					key = "c_crv_omnicontract",
-				})
-			else
-				if #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables then
-					SMODS.add_card({
-						area = G.consumeables,
-						key = "c_crv_omnicontract",
-					})
-				end
+		if context.first_hand_drawn then
+			local aeaeaeae = pseudorandom_element({1,2,3,4})
+			if aeaeaeae == 1 then
+				RevosVault.printer_apply("m_reverse_secondary_heart")
+			elseif aeaeaeae == 2 then
+				RevosVault.printer_apply("m_reverse_secondary_spade")
+			elseif aeaeaeae == 3 then
+				RevosVault.printer_apply("m_reverse_secondary_diamond")
+			elseif aeaeaeae == 4 then
+				RevosVault.printer_apply("m_reverse_secondary_club")
 			end
+		
 		end
 	end,
 })
 
 
-	local omnisuits = {1,2,3,4}
+	--[[local omnisuits = {1,2,3,4}
 SMODS.Consumable{
 	key = 'omnicontract', 
 	set = 'EnchancedDocuments', 
@@ -417,4 +437,4 @@ SMODS.Consumable{
 	 end
 	end,
 
-}
+}]]

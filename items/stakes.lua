@@ -110,3 +110,31 @@ SMODS.Stake{
         G.GAME.modifiers.enable_crv_absolute = true
     end
 }
+
+SMODS.Stake{
+    key = "contin",
+    atlas = "stakes",
+    pos = {x=4,y=0},
+    colour = HEX("ffe9b5"),
+    sticker_atlas = "enh",
+    sticker_pos = {x=5,y=0},
+    applied_stakes = { "crv_absol" },
+    shiny = true,
+    unlocked = false,
+    prefix_config = { applied_stakes = { mod = false} },
+    loc_txt = {
+        name = "Continuity Stake",
+        text = {"{C:attentionAll{} Jokers can have {C:crv_continuity}Continuity",
+                "{C:inactive,s:0.6}(The card is replaced by another with the same rarity/set)"},
+                sticker = {
+                    name = "Continuity Sticker",
+                    text = {"Used this Joker",
+                            "to win on {C:attention}Continuity",
+                            "{C:attention}Stake{} difficulty"}
+
+                }
+    },
+    modifiers = function()
+        G.GAME.modifiers.enable_crv_continuity = true
+    end
+}
