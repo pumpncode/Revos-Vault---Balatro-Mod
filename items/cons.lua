@@ -2796,7 +2796,7 @@ if RevosVault.config.superior_enabled then
 					delay = 0.1,
 					func = function()
 						card2:set_seal("Red", nil, true)
-						card2:set_ability(pseudorandom_elmenet({ "m_lucky", "m_glass" }))
+						card2:set_ability(pseudorandom_element({ "m_lucky", "m_glass" }))
 						return true
 					end,
 				}))

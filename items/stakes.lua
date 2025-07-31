@@ -138,3 +138,31 @@ SMODS.Stake{
         G.GAME.modifiers.enable_crv_continuity = true
     end
 }
+
+--[[SMODS.Stake{
+    key = "frag",
+    atlas = "stakes",
+    pos = {x=4,y=0},
+    colour = HEX("ffe9b5"),
+    sticker_atlas = "enh",
+    sticker_pos = {x=5,y=0},
+    applied_stakes = { "crv_absol" },
+    shiny = true,
+    unlocked = false,
+    prefix_config = { applied_stakes = { mod = false} },
+    loc_txt = {
+        name = "Fragile Stake",
+        text = {"{C:attentionAll{} Jokers can have {C:crv_continuity}Fragile",
+                "{C:inactive,s:0.6}(1/4 Chance to get destroyed when triggered/played)"},
+                sticker = {
+                    name = "Transparent Sticker",
+                    text = {"Used this Joker",
+                            "to win on {C:attention}Fragile",
+                            "{C:attention}Stake{} difficulty"}
+
+                }
+    },
+    modifiers = function()
+        G.GAME.modifiers.enable_crv_glasssticker = true
+    end
+}]]

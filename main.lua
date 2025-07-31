@@ -1,3 +1,4 @@
+
 -------------MOD CODE-------------
 RevosVault = SMODS.current_mod
 
@@ -545,6 +546,7 @@ function Card:is_face(from_boss)
 end
 
 
+
 RevosVault.C = {
 	SUP = HEX("f7baff"),
 	Continuity = HEX("96a0ff"),
@@ -930,6 +932,12 @@ RevosVault.config_tab = function()
 								ref_value = "secret_enabled",
 								callback = should_restart,
 							}),
+								create_toggle({
+								label = localize("crv_enable_secret"),
+								ref_table = RevosVault.config,
+								ref_value = "enable_gems",
+								callback = should_restart,
+							}),
 						},
 					},
 				},
@@ -946,8 +954,8 @@ RevosVault.config_tab = function()
 end
 
 --
-
 SMODS.load_file("items/funcs.lua")()
+SMODS.load_file("items/ui.lua")()
 SMODS.load_file("items/jokers.lua")()
 SMODS.load_file("items/decks.lua")()
 SMODS.load_file("items/tags.lua")()
@@ -971,6 +979,9 @@ if RevosVault.config.secret_enabled then
 end
 if RevosVault.config.wip_enable then
 	SMODS.load_file("items/experimental.lua")()
+end
+if RevosVault.config.enable_gems then
+	SMODS.load_file("items/gems.lua")()
 end
 
 --cross mod content--

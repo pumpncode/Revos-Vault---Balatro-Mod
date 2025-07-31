@@ -696,3 +696,66 @@ SMODS.Consumable({
 	end,
 })
 ]]
+
+
+
+--I want to make these like vouchers or ortalab's zodiac upgrades but i fucking suck at coding so give up right now.
+
+--[[
+Black Diamond
+–Spade and club suit cards cannot be destroyed for 2 antes.
+
+Emerald
+–All gained money doubles until the end of the ante
+
+Ruby
+–Total mult is multiplied by the amount of your jokers until the end of the round
+
+Diamond
+–Cards cannot be debuffed for 2 rounds
+
+Star Sapphire
+–All played hands are upgraded until the end of the round
+
+Obsidian
+–Glass cards cannot be destroyed for 3 rounds
+
+Angelite
+–Destroyed jokers has a 1 in 4 chance to be re-granted
+
+Amethyst
+–All appeared cards has a random edition
+
+]]
+
+--[[SMODS.ConsumableType({
+	key = "crv_testing1",
+
+	collection_rows = { 4, 5 },
+	primary_colour = SMODS.Gradients["crv_corrupt"],
+	secondary_colour = SMODS.Gradients["crv_corrupt"],
+	default = "c_crv_corruption",
+})
+
+SMODS.Consumable({
+	key = "exp",
+	set = "crv_testing1",
+	pos = {
+		x = 0,
+		y = 0,
+	},
+	atlas = "corrupt",
+	discovered = true,
+	config = {
+		extra = { cards = nil },
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.cards } }
+	end,
+	can_testing = function(self,card)
+		return false
+	end,
+	testing = function(self,card,area,copier)
+		print("a")
+	end
+})]]

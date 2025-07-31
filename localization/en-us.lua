@@ -457,7 +457,7 @@ return {
 					"Gains {X:mult,C:white}x#2#{} Mult for each scrap used",
 					"after every {C:attention}5 Scraps{}, spawns a {C:dark_edition}Negative {C:attention}Spectral Card",
 					"{C:inactive}(Currently #3#/5 Scrap and {X:mult,C:white}X#1#{C:inactive} Mult)",
-					'{C:inactive}(Items like "Oops! All 6s" wont affect the changes)',
+					'{C:inactive}(Items like "Oops! All 6s" wont affect the chances)',
 				},
 			},
 			j_crv_chainsawm = {
@@ -630,7 +630,7 @@ return {
 					"{C:green}1 in 4{} chance to spawn {C:attention}Scrap",
 					"Gains {C:mult}+#2# {}Mult for every {C:attention}Scrap used",
 					"{C:inactive}(Currently{C:mult} +#1#{C:inactive} Mult)",
-					'{C:inactive}(Items like "Oops! All 6s" wont affect the changes)',
+					'{C:inactive}(Items like "Oops! All 6s" wont affect the chances)',
 				},
 			},
 			j_crv_devilishprinter = {
@@ -1759,7 +1759,7 @@ return {
 					"{C:green}1 in 5{} Chance to",
 					"{C:red}Restart{} your game when a {C:attention}Blind{}",
 					"is selected.",
-					'{C:inactive}(Items like "Oops! All 6s" wont affect the changes)',
+					'{C:inactive}(Items like "Oops! All 6s" wont affect the chances)',
 				},
 			},
 			j_crv_disorder = {
@@ -1769,7 +1769,7 @@ return {
 					"When {C:attention}Blind{} is selected",
 					"{C:green}1 in 4{} Chance to {C:red}restart the game",
 					"with an {C:red}extra instance{}",
-					'{C:inactive}(Items like "Oops! All 6s" wont affect the changes)',
+					'{C:inactive}(Items like "Oops! All 6s" wont affect the chances)',
 				},
 			},
 			j_crv_vstencil = {
@@ -2767,7 +2767,7 @@ return {
 				name = "Superior Incantation",
 				text = {
 					"{C:red}Destroys{} a random {C:attention}Card{}",
-					"card. Creates {C:attention}#1#{} Random cards.",
+					"Creates {C:attention}#1#{} Random cards.",
 				},
 			},
 			c_crv_suptalisman = {
