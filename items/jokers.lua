@@ -10452,6 +10452,13 @@ SMODS.Joker({
 			xmult = 3,
 		},
 	},
+	add_to_deck = function(self,card,from_debuff)
+		for _, v in pairs(G.playing_cards) do
+			if v:is_face() then
+				SMODS.destroy_cards(v)
+			end
+		end
+	end,
 	loc_vars = function(self, info_queue, card)
 		local crv = card.ability.extra
 		return {
@@ -10618,3 +10625,61 @@ SMODS.Enhancement:take_ownership("glass", {
 		end
 	end,
 }, true)
+
+
+
+SMODS.Joker({
+	key = "thed6",
+	rarity = 3,
+	cost = 5,
+	atlas = "Jokers2",
+	config = {
+		extra = {
+			shop = nil,
+			rerolls = 3,
+			limit = 3,
+			can_roll = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.rerolls },
+		}
+	end,
+	pos = {
+		x = 6,
+		y = 12,
+	},
+	discovered = true,
+	blueprint_compat = false,
+	calculate = function(self, card, context)
+		if context.reroll_cards and not context.blueprint then
+			RevosVault.replacecards(G.jokers.highlighted, nil, nil, true, card)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = "Reroll!" })
+			card.ability.extra.rerolls = card.ability.extra.rerolls - 1
+			G.jokers:unhighlight_all()
+		end
+		if context.end_of_round and context.main_eval then
+			card.ability.extra.rerolls = 3
+			return {
+				message = localize("k_reset"),
+			}
+		end
+	end,
+	update = function(self, card, context)
+		if card.ability.extra.limit < 3 then
+			card.ability.extra.limit = 3
+		end
+		if card.ability.extra.rerolls > 0 then
+			if G and G.jokers and G.jokers.highlighted then
+				if #G.jokers.highlighted > 1 and #G.jokers.highlighted < card.ability.extra.limit then
+					card.ability.extra.can_roll = true
+				else
+					card.ability.extra.can_roll = false
+				end
+			end
+		else
+			card.ability.extra.can_roll = false
+		end
+	end,
+})

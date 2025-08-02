@@ -12,7 +12,7 @@ SMODS.Voucher({
 	key = "printeruptier",
 	atlas = "vouch",
 	pos = {
-		x = 0,
+		x = 1,
 		y = 0,
 	},
 	cost = 10,

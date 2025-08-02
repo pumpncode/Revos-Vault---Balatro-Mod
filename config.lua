@@ -7,5 +7,5 @@ return {
   disable_printers = false,
   secret_enabled = true,
   enable_blinds = true,
-  enable_gems = true
+  gem_enabled = true
 }

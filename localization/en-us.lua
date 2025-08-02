@@ -2054,6 +2054,16 @@ return {
 				name = "Superior Printer",
 				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Superior{} Card" },
 			},
+			j_crv_thed6 = {
+				name = "The D6",
+				text = {
+					"{C:green}Reroll{} any selected joker",
+					"to a random joker from",
+					"the {C:attention}same rarity{}",
+					"Can only be used {C:red}while in {C:green}shop{}",
+					"{C:attention}3{} {C:inactive}(#1#){} uses per shop",
+				},
+			},
 			--GARBSHIT below
 			j_crv_stamprinter = {
 				name = "Stamp Printer",
@@ -2570,7 +2580,6 @@ return {
 					"Creates the last",
 					"destroyed {C:attention}Joker{}",
 					"during this run",
-					"{s:0.8,C:inactive}(Last Destroyed Joker: {C:s:0.8,C:inactive}#1#{s:0.8,C:inactive})",
 				},
 			},
 			c_crv_supmagician = {
@@ -3157,11 +3166,81 @@ return {
 		Voucher = {
 			v_crv_printerup = {
 				name = "Extra Ink",
-				text = { "Gives certain printer a chance to print Negative" },
+				text = {
+					"Certain {C:red}Printers{} will now",
+					"have a {C:green}1 in 4{} Chance to print",
+					"{C:dark_edition}Random Edition",
+				},
+				v_crv_printeruptier = {
+					name = "Hyper Ink",
+					text = { "{C:red}Printers{} will always", "print {C:dark_edition}Negative" },
+				},
 			},
-			v_crv_printeruptier = {
-				name = "Extra Ink (Tier 2)",
-				text = { "Increases the Negative printing chances" },
+		},
+		Gem = {
+			gem_crv_exp = {
+				name = "Black Diamond",
+				text = {
+					"{C:spades}Spade{} and {C:clubs}Club{} cards",
+					"cannot be {C:red}debuffed{}",
+					"for 6 rounds",
+				},
+			},
+			gem_crv_expe = {
+				name = "Emerald",
+				text = {
+					"Double all earned",
+					"{C:money}Money{} for 3 rounds",
+				},
+			},
+			gem_crv_ruby = {
+				name = "Ruby",
+				text = {
+					"Gives {X:mult,C:white}XMult{}",
+					"equal to the ammount of {C:attention}Jokers{}",
+					"for 1 round",
+				},
+			},
+			gem_crv_diamond = {
+				name = "Diamond",
+				text = {
+					"{C:hearts}Heart{} and {C:diamonds}Diamond{} cards",
+					"cannot be {C:red}debuffed{}",
+					"for 6 rounds",
+				},
+			},
+			gem_crv_star_sapphire = {
+				name = "Star Sapphire",
+				text = {
+					"Played hands are {C:green}Upgraded{}",
+					"for 1 round",
+				},
+			},
+			gem_crv_obsidian = {
+				name = "Obsidian",
+				text = {
+					"{C:attention}Glass Cards{} {C:red}Cannot{} be",
+					"{C:red}Destroyed{} for 3 rounds",
+				},
+			},
+			gem_crv_angelite = {
+				name = "Angelite",
+				text = {
+					"{C:green}1 in 4{} Chance to",
+					"give back any destroyed {C:attention}Joker",
+					"for 3 rounds"
+
+				},
+			},
+			gem_crv_amethyst = {
+				name = "Amethyst",
+				text = {
+					"All {C:attention}Jokers{} and",
+					"{C:attention}Playing Cards{}",
+					"in shop spawns with a {C:dark_edition}Random Edition",
+					"for 6 rounds",
+
+				},
 			},
 		},
 		BakeryCharm = {
@@ -3256,6 +3335,12 @@ return {
 			crv_enable_superior = "Enable Superior Cards",
 			crv_enable_secret = "Enable Secret Jokers",
 			crv_enable_blinds = "Enable Blinds",
+			ph_active_gems = "Active Gems",
+			no_gems = "No Active Gems",
+			b_gems = "Gems",
+			b_gem = "Gem",
+			b_gem_act = "Activated!",
+			crv_enable_gems = "Enable Gems",
 		},
 
 		quips = {

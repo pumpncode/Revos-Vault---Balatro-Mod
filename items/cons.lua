@@ -1080,7 +1080,41 @@ if RevosVault.config.superior_enabled then
 			SuperiorTarot = true,
 		},
 		loc_vars = function(self, info_queue, card)
-			return { vars = { card.ability.extra.cards } }
+			local joka
+			local c
+			if G.GAME.dont_question then
+				joka = localize({ type = "name_text", key = G.GAME.dont_question, set = "Joker" })
+				c = G.C.GREEN
+			else
+				joka = localize("k_none")
+				c = G.C.RED
+			end
+			return {
+				main_end = {
+					{
+						n = G.UIT.C,
+						config = { align = "bm", padding = 0.02 },
+						nodes = {
+							{
+								n = G.UIT.C,
+								config = { align = "m", colour = c, r = 0.05, padding = 0.05 },
+								nodes = {
+									{
+										n = G.UIT.T,
+										config = {
+											text = " " .. joka .. " ",
+											colour = G.C.UI.TEXT_LIGHT,
+											scale = 0.3,
+											shadow = true,
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				vars = {},
+			}
 		end,
 		can_use = function(self, card)
 			if G and G.GAME and G.GAME.last_destroyed_joker then
@@ -1090,13 +1124,8 @@ if RevosVault.config.superior_enabled then
 		end,
 		use = function(self, card, area, copier)
 			SMODS.add_card({
-				key = card.ability.extra.cards,
+				key = G.GAME.dont_question,
 			})
-		end,
-		update = function(self, card, context)
-			if G.GAME.last_destroyed_joker then
-				card.ability.extra.cards = G.GAME.last_destroyed_joker.config.center.key
-			end
 		end,
 	})
 
@@ -2733,7 +2762,7 @@ if RevosVault.config.superior_enabled then
 			SuperiorSpectral = true,
 		},
 		loc_vars = function(self, info_queue, card)
-			return { vars = { card.ability.extra.cards,(G.GAME.probabilities.normal or 1),card.ability.extra.odds } }
+			return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 		end,
 		can_use = function(self, card)
 			local _cards = {}

@@ -1,7 +1,5 @@
-
 -------------MOD CODE-------------
 RevosVault = SMODS.current_mod
-
 
 --BEHOLD! THE WORST CODE IN HISTORY UNFOLDS UPON YOUR EYES!
 --No but seriously goodluck understanding anything
@@ -378,12 +376,19 @@ SMODS.Atlas({
 	py = 95,
 })
 
+SMODS.Atlas({
+	key = "gemss",
+	path = "gems.png",
+	px = 50,
+	py = 50,
+})
+
 local removeold = Card.remove
 function Card:remove()
 	if self.ability.set == "Joker" and self.added_to_deck then
 		if self.area == G.jokers then
 			G.GAME.last_destroyed_joker = self
-
+			G.GAME.dont_question = G.GAME.last_destroyed_joker.config.center.key
 			SMODS.calculate_context({
 				crv_joker_destroyed = true,
 				crv_destroyedj = self,
@@ -396,9 +401,7 @@ function Card:remove()
 			crv_destroyedc = self,
 		})
 	end
-	if #SMODS.find_card("j_jud_thanatophobia") == 0 then
-		removeold(self)
-	end
+	return removeold(self)
 end
 
 function Blind:crv_after_play() --Taken from cryptid
@@ -491,20 +494,32 @@ if RevosVault.config.superior_enabled then
 
 	local shopcreateold = create_card_for_shop
 	function create_card_for_shop(area)
-		if pseudorandom("supcreate") > 0.9 then
-			local acard =
-				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+		if RevosVault.config.superior_enabled then
+			if pseudorandom("supcreate") > 0.9 then
+				local acard =
+					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+			end
+			if pseudorandom("supcreate") > 0.9 then
+				local acard = RevosVault.shop_card(
+					pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
+					true,
+					"Spectral",
+					true
+				)
+			end
+			if pseudorandom("supcreate") > 0.99 then
+				local acard =
+					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
+			end
+			if pseudorandom("supcreate") > 0.9 then
+				local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
+			end
 		end
-		if pseudorandom("supcreate") > 0.9 then
-			local acard =
-				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral), true, "Spectral", true)
-		end
-		if pseudorandom("supcreate") > 0.99 then
-			local acard =
-				RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
-		end
-		if pseudorandom("supcreate") > 0.9 then
-			local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
+		if RevosVault.config.gem_enabled then
+			if pseudorandom("supcreate") > 0.79 then
+				local acard = SMODS.add_card({ set = "Gem", area = G.shop_vouchers })
+				create_shop_card_ui(acard)
+			end
 		end
 		return shopcreateold(area)
 	end
@@ -512,13 +527,13 @@ end
 
 local arer_ref = add_round_eval_row --thank's to haya for this bit :D
 function add_round_eval_row(config)
-  config.dollars = (config.dollars or 0) * G.GAME.crv_cashout
-  return arer_ref(config)
+	config.dollars = (config.dollars or 0) * G.GAME.crv_cashout
+	return arer_ref(config)
 end
 
 local getidold = Card.get_id
 function Card:get_id()
-	if (#SMODS.find_card("j_crv_revoo_") > 0)then
+	if #SMODS.find_card("j_crv_revoo_") > 0 then
 		return 14
 	else
 		return self.base.id
@@ -527,7 +542,7 @@ end
 
 local getoriginalrankold = Card.get_original_rank
 function Card:get_original_rank()
-	if (#SMODS.find_card("j_crv_revoo_") > 0) then
+	if #SMODS.find_card("j_crv_revoo_") > 0 then
 		return "Ace"
 	else
 		return getoriginalrankold
@@ -539,13 +554,19 @@ function Card:is_face(from_boss)
 	if self.debuff and not from_boss then
 		return
 	end
-	if  (#SMODS.find_card("j_crv_revoo_") > 0) then
+	if #SMODS.find_card("j_crv_revoo_") > 0 then
 		return false
 	end
 	return isfaceold(self, from_boss)
 end
 
-
+local easedolold = ease_dollars
+function ease_dollars(mod, instant)
+		SMODS.calculate_context({
+			crv_easedollars = to_big(mod),
+		})
+		return easedolold(mod, instant)
+	end
 
 RevosVault.C = {
 	SUP = HEX("f7baff"),
@@ -577,6 +598,18 @@ SMODS.Gradient({
 	cycle = 5,
 })
 
+SMODS.Gradient({
+	key = "crv_gem",
+	colours = {
+		HEX("000000"),
+		HEX("00e628"),
+		HEX("ff00f9"),
+		HEX("f8dd8c"),
+		HEX("52492e"),
+	},
+	cycle = 5,
+})
+
 local loc_old = loc_colour
 function loc_colour(_c, _default)
 	if not G.ARGS.LOC_COLOURS then
@@ -585,6 +618,7 @@ function loc_colour(_c, _default)
 	G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
 	G.ARGS.LOC_COLOURS.crv_continuity = RevosVault.C.Continuity
 	G.ARGS.LOC_COLOURS.crv_polychrome = SMODS.Gradients["crv_polychrome"]
+	G.ARGS.LOC_COLOURS.crv_gem = SMODS.Gradients["crv_gem"]
 
 	return loc_old(_c, _default)
 end
@@ -598,11 +632,13 @@ Game.init_game_object = function(self)
 	ret.glassxmult = 2
 	ret.vaultspawn = 0
 	ret.last_destroyed_joker = nil
+	ret.dont_question = nil
 	ret.hangedmanchips = 0
 	ret.SuperiorRates = 0.9
 	ret.superiorRatesPlanet = 0.99
 	ret.dont_fucking_draw = nil
 	ret.crv_cashout = 1
+	ret.used_gems = {}
 	if next(SMODS.find_mod("JoJoMod")) then
 		ret.jojo = true
 	else
@@ -897,7 +933,7 @@ RevosVault.config_tab = function()
 						n = G.UIT.C,
 						nodes = {
 							create_toggle({
-							label = localize("crv_enable_blinds"),
+								label = localize("crv_enable_blinds"),
 								ref_table = RevosVault.config,
 								ref_value = "enable_blinds",
 								callback = should_restart,
@@ -921,21 +957,21 @@ RevosVault.config_tab = function()
 								callback = should_restart,
 							}),
 							create_toggle({
-								label = localize("crv_enable_wip"),
+								label = localize("crv_enable_wip") .. "*",
 								ref_table = RevosVault.config,
 								ref_value = "wip_enable",
 								callback = should_restart,
 							}),
-								create_toggle({
+							create_toggle({
 								label = localize("crv_enable_secret"),
 								ref_table = RevosVault.config,
 								ref_value = "secret_enabled",
 								callback = should_restart,
 							}),
-								create_toggle({
-								label = localize("crv_enable_secret"),
+							create_toggle({
+								label = localize("crv_enable_gems"),
 								ref_table = RevosVault.config,
-								ref_value = "enable_gems",
+								ref_value = "gem_enabled",
 								callback = should_restart,
 							}),
 						},
@@ -949,6 +985,13 @@ RevosVault.config_tab = function()
 					{ n = G.UIT.T, config = { text = "Requires restart!", colour = G.C.RED, scale = 0.4 } },
 				},
 			},
+			{
+				n = G.UIT.R,
+				config = { align = "cm", minh = 0.6 },
+				nodes = {
+					{ n = G.UIT.T, config = { text = "*" .. "Not Recommended!", colour = G.C.WHITE, scale = 0.4 } },
+				},
+			},
 		},
 	}
 end
@@ -956,6 +999,7 @@ end
 --
 SMODS.load_file("items/funcs.lua")()
 SMODS.load_file("items/ui.lua")()
+SMODS.load_file("items/misc.lua")()
 SMODS.load_file("items/jokers.lua")()
 SMODS.load_file("items/decks.lua")()
 SMODS.load_file("items/tags.lua")()
