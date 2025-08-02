@@ -1024,7 +1024,7 @@ end
 if RevosVault.config.wip_enable then
 	SMODS.load_file("items/experimental.lua")()
 end
-if RevosVault.config.enable_gems then
+if RevosVault.config.gem_enabled then
 	SMODS.load_file("items/gems.lua")()
 end
 
