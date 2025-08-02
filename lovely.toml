@@ -38,11 +38,11 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern =  '''
+pattern = '''
 "m_glass =   {max = 500, order = 5, name = "Glass Card", set = "Enhanced", pos = {x=5,y=1}, effect = "Glass Card", label = "Glass Card", config = {Xmult = 2, extra = 4}},"
 '''
 position = "at"
-payload =  '''
+payload = '''
 m_glass =   {max = 500, order = 5, name = "Glass Card", set = "Enhanced", pos = {x=5,y=1}, effect = "Glass Card", label = "Glass Card", config = {Xmult = 2, extra = G.GAME.glassodds}},
 '''
 match_indent = true
@@ -55,7 +55,7 @@ pattern = '''
 "elseif _c.effect == 'Glass Card' then loc_vars = {_c.config.Xmult, G.GAME.probabilities.normal, _c.config.extra}"
 '''
 position = "at"
-payload =  '''
+payload = '''
 elseif _c.effect == 'Glass Card' then loc_vars = {_c.config.Xmult, G.GAME.probabilities.normal, G.GAME.glassodds}
 '''
 match_indent = true
@@ -66,7 +66,7 @@ overwrite = true
 
 [[patches]]
 [patches.pattern]
-target = '=[SMODS Crypid "lib/overrides.lua"]'
+target = '=[SMODS Cryptid "lib/overrides.lua"]'
 pattern = '	--Stop impossible blind combinations from happening'
 position = "after"
 payload = '''
@@ -74,31 +74,81 @@ payload = '''
 '''
 match_indent = true
 
+
 [[patches]]
 [patches.pattern]
-target = 'common_events.lua'
-pattern = '''   
- elseif _c.set == 'Tarot' then
- '''
+target = "game.lua"
+pattern = "{card_limit = self.GAME.starting_params.joker_slots, type = 'joker', highlight_limit = 1})"
+position = "at"
+payload = "{card_limit = self.GAME.starting_params.joker_slots, type = 'joker', highlight_limit = 2})"
+match_indent = true
+
+
+
+# Gems Tab
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "G.GAME.stake > 1 and {"
 position = "before"
 payload = '''
-	elseif _c.set == 'Superior' then
-       if _c.key == "supfool" then
-            local fool_c = G.GAME.last_destroyed_joker and G.P_CENTERS[G.GAME.last_destroyed_joker] or nil
-            local last_destroyed_joker = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
-            local colour = (not fool_c or fool_c.name == 'The Fool') and G.C.RED or G.C.GREEN
-            main_end = {
-                {n=G.UIT.C, config={align = "bm", padding = 0.02}, nodes={
-                    {n=G.UIT.C, config={align = "m", colour = colour, r = 0.05, padding = 0.05}, nodes={
-                        {n=G.UIT.T, config={text = ' '..last_destroyed_joker..' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true}},
-                    }}
-                }}
-            }
-           loc_vars = {last_destroyed_joker}
-           if not (not fool_c or fool_c.key == "supfool") then
-                info_queue[#info_queue+1] = fool_c
-           end
+        {
+            label = localize('b_gems'),
+            tab_definition_function = G.UIDEF.used_gems,
+        },
 '''
 match_indent = true
 
 
+# This part prevents them from being added to the Vouchers tab in run info. (DO NOT question this part i think this will cause a lot of issues in the future)
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "keys_used[key][#keys_used[key]+1] = v"
+position = "at"
+payload = '''
+	local should = true
+      for k, m in pairs(G.P_CENTER_POOLS.Gem) do
+        if v.key == m.key then
+			should = false
+			break
+        end
+      end
+	   if should == true then
+		keys_used[key][#keys_used[key]+1] = v
+	   end
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+          card.children.buy_button = UIBox{
+            definition = t2,
+            config = {
+              align="bm",
+              offset = {x=0,y=-0.3},
+              major = card,
+              bond = 'Weak',
+              parent = card
+            }
+          }
+'''
+position = "at"
+payload = '''
+if card.ability.set ~= "Gem" then
+	card.children.buy_button = UIBox{
+            definition = t2,
+            config = {
+              align="bm",
+              offset = {x=0,y=-0.3},
+              major = card,
+              bond = 'Weak',
+              parent = card
+            }
+          }
+		end
+'''
+match_indent = true

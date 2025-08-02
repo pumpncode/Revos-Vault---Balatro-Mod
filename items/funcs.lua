@@ -115,6 +115,8 @@ function RevosVault.total_limit(mod, silent)
 	end
 end
 
+function RevosVault.joker_limit(mod) end
+
 function RevosVault.defeat()
 	G.E_MANAGER:add_event(Event({
 		blocking = false,
@@ -277,11 +279,14 @@ function RevosVault.create_booster(pack)
 	return true
 end
 
-function RevosVault.facepool()
+function RevosVault.facepool(exclude)
+	if not exclude then
+		exclude = "1"
+	end
 	local faces = {}
 	for _, v in ipairs(SMODS.Rank.obj_buffer) do
 		local r = SMODS.Ranks[v]
-		if r.face then
+		if r.face and r.key ~= exclude then
 			table.insert(faces, r)
 		end
 	end
@@ -366,7 +371,8 @@ function RevosVault.index(table, cards)
 end
 
 --ok you see nothing. there is nothing for 241 lines
-function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporiginal) --Cards not keeping editions/seals/stickers is intended. //Probably extremely inefficient /// Like why tf did i make the keep n entire seperate section. I probably wont even use "replace" or teh destruction part of this like ever.
+-- _flip does nothing currently
+function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporiginal, _flip) --Cards not keeping editions/seals/stickers is intended. //Probably extremely inefficient /// Like why tf did i make the keep n entire seperate section. I probably wont even use "replace" or teh destruction part of this like ever.
 	if G.shop_booster and area == G.shop_booster.cards or G.shop_vouchers and area == G.shop_vouchers.cards then --Setting the area as these 2 disables the entire thing below and will not have a support for them anytime soon cause NONE of the jokers does anything with destroyed booster PACKS and VOUCHERS. Including mods
 		if area == G.shop_booster.cards then
 			for i = 1, #area do
@@ -609,7 +615,7 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 	end
 end
 
---There is a saying we have in Turkish, "Yandan yemişi".
+-- Nothing to see here
 
 function RevosVault.check(check, area)
 	if check == "inblind" then
@@ -618,6 +624,8 @@ function RevosVault.check(check, area)
 		if #G.jokers.cards > 0 then
 			return true
 		end
+	elseif check == "inshop" then
+		return G.STATE == G.STATES.SHOP
 	elseif check == "highlight" then
 		if #area.highlighted > 0 then
 			return #area.highlighted
@@ -732,18 +740,18 @@ function RevosVault.stickercheck(area, stickers)
 	return 0
 end
 
-
 function RevosVault.get_name(key, set)
 	local name
 	name = localize({ type = "name_text", key = key, set = set })
 	return name
 end
 
-
 --idk made an advanced searcg
 
-function RevosVault.joker_search(key, name, rarity, cost, edition, stickers,debuff,area)
-	if not area then area = G.jokers.cards end
+function RevosVault.joker_search(key, name, rarity, cost, edition, stickers, debuff, area)
+	if not area then
+		area = G.jokers.cards
+	end
 	local cards = {}
 	for i = 1, #area do
 		cards[#cards + 1] = area[i]
@@ -760,12 +768,12 @@ function RevosVault.joker_search(key, name, rarity, cost, edition, stickers,debu
 	if name then
 		for k, v in pairs(cards) do
 			local vsname = localize({ type = "name_text", key = v.config.center.key, set = "Joker" })
-		for i = 1, #name do
-			if not string.find(vsname, name[i]) then
-				local i = RevosVault.index(cards, v)
-				table.remove(cards, i)
+			for i = 1, #name do
+				if not string.find(vsname, name[i]) then
+					local i = RevosVault.index(cards, v)
+					table.remove(cards, i)
+				end
 			end
-		end
 		end
 	end
 	if rarity then
@@ -793,26 +801,55 @@ function RevosVault.joker_search(key, name, rarity, cost, edition, stickers,debu
 		end
 	end
 	if stickers then
-	for k, v in pairs(cards) do
-		for i = 1, #stickers do
-			if v.ability[stickers[i]] then
-				break
-			else
-				local i = RevosVault.index(cards, v)
-				table.remove(cards, i)
+		for k, v in pairs(cards) do
+			for i = 1, #stickers do
+				if v.ability[stickers[i]] then
+					break
+				else
+					local i = RevosVault.index(cards, v)
+					table.remove(cards, i)
+				end
 			end
 		end
 	end
-end
-if debuff then
-	for k, v in pairs(cards) do
-		for i = 1, #stickers do
-			if v.debuff then
-				local i = RevosVault.index(cards, v)
-				table.remove(cards, i)
+	if debuff then
+		for k, v in pairs(cards) do
+			for i = 1, #stickers do
+				if v.debuff then
+					local i = RevosVault.index(cards, v)
+					table.remove(cards, i)
+				end
 			end
 		end
 	end
-end
 	return cards
+end
+
+--I aint risking my shit istg fuck talisman
+
+to_big = to_big or function(x)
+	return x
+end
+
+function RevosVault.factorial(mod)
+	if to_big(mod) <= to_big(0) then
+		return 1
+	else
+		return to_big(mod) * RevosVault.factorial(to_big(mod) - to_big(1))
+	end
+end
+
+function RevosVault.perc(mod, perc)
+	local per = (to_big(mod) / 100) * perc
+	return per
+end
+
+function RevosVault.remove_gem(key)
+	local index = RevosVault.index(G.GAME.used_gems, key)
+	table.remove(G.GAME.used_gems,index)
+	for k, v in pairs(G.vouchers.cards) do
+		if v.config.center.key == key then
+			v:start_dissolve(nil, true)
+		end
+	end
 end

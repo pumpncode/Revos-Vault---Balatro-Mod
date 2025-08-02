@@ -426,10 +426,12 @@ SMODS.Consumable({
 		end
 		if
 			context.destroy_card
-				and context.cardarea == G.play
-				and card.ability.extra.active
-				and (SMODS.has_enhancement(context.destroy_card, "m_crv_mugged")
-			or SMODS.has_enhancement(context.destroy_card, "m_crv_aflame"))
+			and context.cardarea == G.play
+			and card.ability.extra.active
+			and (
+				SMODS.has_enhancement(context.destroy_card, "m_crv_mugged")
+				or SMODS.has_enhancement(context.destroy_card, "m_crv_aflame")
+			)
 		then
 			return {
 				remove = true,
@@ -449,7 +451,7 @@ SMODS.Consumable({
 	pos = { x = 1, y = 0 },
 	config = {
 		extra = {
-			xmult =4,
+			xmult = 4,
 			odds = 4,
 			active = false,
 		},
@@ -580,7 +582,7 @@ SMODS.Consumable({
 			if context.cardarea == G.play then
 				return {
 					chips = card.ability.extra.xmult,
-					mult = card.ability.extra.mult
+					mult = card.ability.extra.mult,
 				}
 			end
 		end
@@ -608,7 +610,7 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			chips = 200,
-			xmult =3,
+			xmult = 3,
 			odds = 4,
 			active = false,
 		},
@@ -634,7 +636,7 @@ SMODS.Consumable({
 			if context.cardarea == G.play then
 				return {
 					chips = card.ability.extra.chips,
-					xmult = card.ability.extra.xmult
+					xmult = card.ability.extra.xmult,
 				}
 			end
 		end
@@ -1078,7 +1080,41 @@ if RevosVault.config.superior_enabled then
 			SuperiorTarot = true,
 		},
 		loc_vars = function(self, info_queue, card)
-			return { vars = { card.ability.extra.cards } }
+			local joka
+			local c
+			if G.GAME.dont_question then
+				joka = localize({ type = "name_text", key = G.GAME.dont_question, set = "Joker" })
+				c = G.C.GREEN
+			else
+				joka = localize("k_none")
+				c = G.C.RED
+			end
+			return {
+				main_end = {
+					{
+						n = G.UIT.C,
+						config = { align = "bm", padding = 0.02 },
+						nodes = {
+							{
+								n = G.UIT.C,
+								config = { align = "m", colour = c, r = 0.05, padding = 0.05 },
+								nodes = {
+									{
+										n = G.UIT.T,
+										config = {
+											text = " " .. joka .. " ",
+											colour = G.C.UI.TEXT_LIGHT,
+											scale = 0.3,
+											shadow = true,
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				vars = {},
+			}
 		end,
 		can_use = function(self, card)
 			if G and G.GAME and G.GAME.last_destroyed_joker then
@@ -1088,13 +1124,8 @@ if RevosVault.config.superior_enabled then
 		end,
 		use = function(self, card, area, copier)
 			SMODS.add_card({
-				key = card.ability.extra.cards,
+				key = G.GAME.dont_question,
 			})
-		end,
-		update = function(self, card, context)
-			if G.GAME.last_destroyed_joker then
-				card.ability.extra.cards = G.GAME.last_destroyed_joker.config.center.key
-			end
 		end,
 	})
 
@@ -2731,7 +2762,7 @@ if RevosVault.config.superior_enabled then
 			SuperiorSpectral = true,
 		},
 		loc_vars = function(self, info_queue, card)
-			return { vars = { card.ability.extra.cards } }
+			return { vars = { card.ability.extra.cards, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
 		end,
 		can_use = function(self, card)
 			local _cards = {}
@@ -2782,25 +2813,26 @@ if RevosVault.config.superior_enabled then
 			return { vars = { card.ability.extra.cards } }
 		end,
 		use = function(self, card, area, copier)
-			for k, card2 in pairs(G.hand.highlighted) do
+			for _, v in pairs(G.hand.highlighted) do
+				v:flip()
 				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.2,
 					func = function()
-						play_sound("tarot1")
-						card:juice_up(0.3, 0.5)
+						v:set_seal("Red", nil, true)
+						v:set_ability(pseudorandom_element({ "m_lucky", "m_glass" }))
 						return true
 					end,
 				}))
-
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
-					delay = 0.1,
+					delay = 0.2,
 					func = function()
-						card2:set_seal("Red", nil, true)
-						card2:set_ability(pseudorandom_elmenet({ "m_lucky", "m_glass" }))
+						v:flip()
+						G.hand:unhighlight_all()
 						return true
 					end,
 				}))
-				G.hand:unhighlight_all()
 			end
 		end,
 		set_card_type_badge = function(self, card, badges)
@@ -2876,25 +2908,26 @@ if RevosVault.config.superior_enabled then
 			return { vars = { card.ability.extra.cards } }
 		end,
 		use = function(self, card, area, copier)
-			for k, card2 in pairs(G.hand.highlighted) do
+			for _, v in pairs(G.hand.highlighted) do
+				v:flip()
 				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.2,
 					func = function()
-						play_sound("tarot1")
-						card:juice_up(0.3, 0.5)
+						v:set_seal("Blue", nil, true)
+						v:set_ability("m_steel")
 						return true
 					end,
 				}))
-
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
-					delay = 0.1,
+					delay = 0.2,
 					func = function()
-						card2:set_seal("Blue", nil, true)
-						card2:set_ability("m_steel")
+						v:flip()
+						G.hand:unhighlight_all()
 						return true
 					end,
 				}))
-				G.hand:unhighlight_all()
 			end
 		end,
 		set_card_type_badge = function(self, card, badges)
@@ -2925,25 +2958,26 @@ if RevosVault.config.superior_enabled then
 			return { vars = { card.ability.extra.cards } }
 		end,
 		use = function(self, card, area, copier)
-			for k, card2 in pairs(G.hand.highlighted) do
+			for _, v in pairs(G.hand.highlighted) do
+				v:flip()
 				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.2,
 					func = function()
-						play_sound("tarot1")
-						card:juice_up(0.3, 0.5)
+						v:set_seal("Purple", nil, true)
+						v:set_ability("m_steel")
 						return true
 					end,
 				}))
-
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
-					delay = 0.1,
+					delay = 0.2,
 					func = function()
-						card2:set_seal("Purple", nil, true)
-						card2:set_ability("m_steel")
+						v:flip()
+						G.hand:unhighlight_all()
 						return true
 					end,
 				}))
-				G.hand:unhighlight_all()
 			end
 		end,
 		set_card_type_badge = function(self, card, badges)

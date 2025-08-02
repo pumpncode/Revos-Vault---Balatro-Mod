@@ -197,6 +197,28 @@ SMODS.Sticker({
 end
 })
 
+SMODS.Sticker({
+	key = "glasssticker",
+	badge_colour = HEX("878787"),
+	atlas = "enh",
+	pos = {
+		x = 2,
+		y = 2,
+	},
+	sets = {
+		Joker = true,
+	},
+	rate = 0.3,
+	needs_enable_flag = true,
+	calculate = function(self, card, context)
+		if context.joker_main then
+			if pseudorandom_element("crv_glass") < G.GAME.probabilities.normal / 4 then
+				SMODS.destroy_cards(card)
+			end
+		end
+	end,
+})
+
 --[[SMODS.Sticker({
 	key = "marked",
 	badge_colour = HEX("000000"),
