@@ -80,16 +80,19 @@ SMODS.Blind({
 		max = 10,
 	},
 	atlas = "blinds",
+	loc_vars = function(self, info_queue, card)
+		return { vars = { (G.GAME.probabilities.normal or 1) } }
+	end,
 	pos = { x = 0, y = 6 },
 	boss_colour = HEX("0d0066"),
-	calculate = function(self,card,context)
+	calculate = function(self, card, context)
 		if context.final_scoring_step then
-			if pseudorandom("thehater") < G.GAME.probabilities.normal / 4 then
-			hand_chips = 1
-			return hand_chips 
+			if pseudorandom("thehater") < 1 / 4 then
+				hand_chips = 1
+				return hand_chips
 			end
 		end
-	end
+	end,
 })
 
 SMODS.Blind({

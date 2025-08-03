@@ -140,7 +140,7 @@ return {
 				name = "The Hater",
 				text = {
 					"At the final scoring step,",
-					" chips are set to 1",
+					"has a 1 in 4 chance to","set the chips to 1"
 				},
 			},
 			bl_crv_rrp = {
