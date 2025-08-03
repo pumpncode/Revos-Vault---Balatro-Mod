@@ -2062,7 +2062,7 @@ SMODS.Joker({
 						end,
 					}))
 				else
-					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					if G.jokers.cards[rr + 1].edition and G.jokers.cards[rr + 1].edition.negative then
 						G.E_MANAGER:add_event(Event({
 							func = function()
 								local card2 = copy_card(G.jokers.cards[rr + 1], nil, nil, G.jokers.cards[i] == card)
@@ -2071,8 +2071,19 @@ SMODS.Joker({
 								return true
 							end,
 						}))
+					else
+					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								local card2 = copy_card(G.jokers.cards[rr + 1])
+								card2:add_to_deck()
+								G.jokers:emplace(card2)
+								return true
+							end,
+						}))
 					end
 				end
+			end
 
 				if rr and G.jokers.cards[rr + 1] then
 				end
