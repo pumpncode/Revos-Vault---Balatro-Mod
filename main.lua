@@ -495,11 +495,11 @@ if RevosVault.config.superior_enabled then
 	local shopcreateold = create_card_for_shop
 	function create_card_for_shop(area)
 		if RevosVault.config.superior_enabled then
-			if pseudorandom("supcreate") > 0.9 then
+			if pseudorandom("supcreate") > 0.99 then
 				local acard =
 					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
 			end
-			if pseudorandom("supcreate") > 0.9 then
+			if pseudorandom("supcreate") > 0.99 then
 				local acard = RevosVault.shop_card(
 					pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
 					true,

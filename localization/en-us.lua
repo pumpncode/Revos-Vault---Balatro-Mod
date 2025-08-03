@@ -3051,24 +3051,21 @@ return {
 				name = "Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{C:attention} Contracts{} to",
-					"use immediately",
+					"{C:attention}#2#{C:attention} Contracts{}"
 				},
 			},
 			p_crv_cbst2 = {
 				name = "Jumbo Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{C:attention} Contracts{} to",
-					"use immediately",
+					"{C:attention}#2#{C:attention} Contracts{}"
 				},
 			},
 			p_crv_cbst3 = {
 				name = "Mega Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{C:attention} Contracts{} to",
-					"use immediately",
+					"{C:attention}#2#{C:attention} Contracts{}"
 				},
 			},
 			p_crv_bbst = {
@@ -3197,7 +3194,7 @@ return {
 				name = "Ruby",
 				text = {
 					"Gives {X:mult,C:white}XMult{}",
-					"equal to the ammount of {C:attention}Jokers{}",
+					"equal to the amount of {C:attention}Jokers{}",
 					"for 1 round",
 				},
 			},
