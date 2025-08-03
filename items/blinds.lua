@@ -1,6 +1,5 @@
 SMODS.Blind({
 	key = "minimalizm",
-	name = "jud-minimalizm",
 	debuff = {
 		h_size_le = 3,
 	},
@@ -85,8 +84,10 @@ SMODS.Blind({
 	boss_colour = HEX("0d0066"),
 	calculate = function(self,card,context)
 		if context.final_scoring_step then
+			if pseudorandom("thehater") < G.GAME.probabilities.normal / 4 then
 			hand_chips = 1
 			return hand_chips 
+			end
 		end
 	end
 })
