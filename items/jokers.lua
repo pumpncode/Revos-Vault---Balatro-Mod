@@ -2062,7 +2062,7 @@ SMODS.Joker({
 						end,
 					}))
 				else
-					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+					if G.jokers.cards[rr + 1].edition and G.jokers.cards[rr + 1].edition.negative then
 						G.E_MANAGER:add_event(Event({
 							func = function()
 								local card2 = copy_card(G.jokers.cards[rr + 1], nil, nil, G.jokers.cards[i] == card)
@@ -2071,8 +2071,19 @@ SMODS.Joker({
 								return true
 							end,
 						}))
+					else
+					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								local card2 = copy_card(G.jokers.cards[rr + 1])
+								card2:add_to_deck()
+								G.jokers:emplace(card2)
+								return true
+							end,
+						}))
 					end
 				end
+			end
 
 				if rr and G.jokers.cards[rr + 1] then
 				end
@@ -6333,7 +6344,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "jimshow",
 	atlas = "Jokers2",
-	rarity = 3,
+	rarity = 2,
 	cost = 5,
 	unlocked = true,
 	discovered = false,
@@ -6345,7 +6356,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 1,
-			xmultg = 0.5,
+			xmultg = 0.05,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -6843,7 +6854,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	rarity = 3,
+	rarity = 2,
 	pos = {
 		x = 5,
 		y = 7,
@@ -6851,7 +6862,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			chips = 1,
-			chipsg = 0.5,
+			chipsg = 0.05,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -9382,7 +9393,7 @@ SMODS.Joker({
 	end,
 })
 
-SMODS.Joker({
+--[[SMODS.Joker({
 	key = "again",
 	atlas = "Jokers2",
 	rarity = 3,
@@ -9464,7 +9475,7 @@ SMODS.Joker({
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
-})
+})]]
 
 SMODS.Joker({
 	key = "ketchup",
@@ -10680,6 +10691,44 @@ SMODS.Joker({
 			end
 		else
 			card.ability.extra.can_roll = false
+		end
+	end,
+})
+
+
+
+
+SMODS.Joker({
+	key = "a",
+	rarity = 3,
+	cost = 5,
+	atlas = "Jokers2",
+	config = {
+		extra = {
+			shop = nil,
+			rerolls = 3,
+			limit = 3,
+			can_roll = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.extra.rerolls },
+		}
+	end,
+	pos = {
+		x = 6,
+		y = 12,
+	},
+	discovered = true,
+	blueprint_compat = false,
+	calculate = function(self, card, context)
+	end,
+	update = function(self, card, context)
+		if G and G.CONTROLLER and G.CONTROLLER.locks.shop_reroll then
+			print(G.CONTROLLER.locks.shop_reroll)
+		else
+			print("Not initialized yet")
 		end
 	end,
 })

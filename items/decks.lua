@@ -543,10 +543,10 @@ SMODS.Back {
 
 SMODS.Back {
     key = 'thedeal',
-    atlas = 'Decks2',
+    atlas = 'Decks',
     pos = {
-        x = 3,
-        y = 1
+        x = 1,
+        y = 4
     },
     apply = function()
 

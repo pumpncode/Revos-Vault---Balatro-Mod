@@ -853,3 +853,4 @@ function RevosVault.remove_gem(key)
 		end
 	end
 end
+

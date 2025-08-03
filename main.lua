@@ -412,6 +412,8 @@ function Blind:crv_after_play() --Taken from cryptid
 		end
 	end
 end
+
+
 local unlock1, unlock2, unlock3 = nil, nil, nil
 local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
 function G.FUNCS.evaluate_play(e)
@@ -429,6 +431,14 @@ function G.FUNCS.evaluate_play(e)
 		unlock3 = true
 	end
 	G.GAME.blind:crv_after_play()
+end
+
+local rerollold = G.FUNCS.reroll_shop
+function G.FUNCS.reroll_shop(e)
+	G.GAME.reroll_before = true
+	rerollold(e)
+	G.GAME.reroll_before = false
+
 end
 
 function Blind:crv_hand_sort()
@@ -495,11 +505,11 @@ if RevosVault.config.superior_enabled then
 	local shopcreateold = create_card_for_shop
 	function create_card_for_shop(area)
 		if RevosVault.config.superior_enabled then
-			if pseudorandom("supcreate") > 0.99 then
+			if pseudorandom("supcreate")  < 1 / 100 then
 				local acard =
 					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
 			end
-			if pseudorandom("supcreate") > 0.99 then
+			if pseudorandom("supcreate") < 1 / 100 then
 				local acard = RevosVault.shop_card(
 					pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
 					true,
@@ -507,7 +517,7 @@ if RevosVault.config.superior_enabled then
 					true
 				)
 			end
-			if pseudorandom("supcreate") > 0.99 then
+			if pseudorandom("supcreate") < 1 / 100 then
 				local acard =
 					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
 			end
@@ -515,7 +525,7 @@ if RevosVault.config.superior_enabled then
 				local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
 			end
 		end
-		if RevosVault.config.gem_enabled then
+		if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then
 			if pseudorandom("supcreate") > 0.79 then
 				local acard = SMODS.add_card({ set = "Gem", area = G.shop_vouchers })
 				create_shop_card_ui(acard)
@@ -639,6 +649,7 @@ Game.init_game_object = function(self)
 	ret.dont_fucking_draw = nil
 	ret.crv_cashout = 1
 	ret.used_gems = {}
+	ret.reroll_before = false
 	if next(SMODS.find_mod("JoJoMod")) then
 		ret.jojo = true
 	else

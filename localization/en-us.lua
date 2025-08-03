@@ -1683,7 +1683,7 @@ return {
 				name = "Roulette",
 				text = {
 					"At the {C:attention}End of a Round{}, choose randomly Between {C:dark_edition}Black{} and {C:red}Red{}.",
-					"If set Bet is the same as the choosen bet, {C:attention}Double{} your money,",
+					"If set Bet is the same as the chosen bet, {C:attention}Double{} your money,",
 					"{C:red}Half{} it if otherwise {C:inactive,s:0.8}(Maximum of {C:money,s:0.8}$#5#{C:inactive,s:0.8}){}. Has a {C:green}#2# in #3#{} Chance to Choose {C:green}Green.",
 					"If won on green, gain {C:money}$#4#{}",
 					"{C:inactive}(Currently betting on #1#)",
@@ -1786,8 +1786,9 @@ return {
 			j_crv_crash = {
 				name = "Infinite Chicot Printer",
 				text = {
-					"Create a Chicot for every action",
-					"{C:red}Crashes the game",
+					"Create a {C:attention}Chicot{} for every",
+					"empty joker slot",
+					"when entering a boss blind"
 				},
 			},
 			j_crv_ketchup = {
