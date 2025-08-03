@@ -1786,8 +1786,9 @@ return {
 			j_crv_crash = {
 				name = "Infinite Chicot Printer",
 				text = {
-					"Create a Chicot for every action",
-					"{C:red}Crashes the game",
+					"Create a {C:attention}Chicot{} for every",
+					"empty joker slot",
+					"when entering a boss blind"
 				},
 			},
 			j_crv_ketchup = {
