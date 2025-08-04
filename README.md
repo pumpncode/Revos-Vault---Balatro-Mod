@@ -1,5 +1,5 @@
 
-### **Revo's Vault**
+# Revo's Vault
 
 Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **175+** jokers and a lot more!
 
