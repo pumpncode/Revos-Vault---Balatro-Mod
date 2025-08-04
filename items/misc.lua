@@ -8,6 +8,9 @@ if SMODS and SMODS.calculate_individual_effect then
 			return ret
 		end
 
+
+		-- Factorial Mult! 
+
 		if
 			(key == "f_mult" or key == "F_mult" or key == "Factorial_mult" or key == "factorial_mult")
 			and amount ~= 0
@@ -21,6 +24,9 @@ if SMODS and SMODS.calculate_individual_effect then
 			return true
 		end
 
+		-- Precentage Mult
+
+
 		if (key == "p_mult" or key == "P_mult" or key == "perc_mult" or key == "Perc_mult") and amount ~= 0 then
 			if effect.card then
 				juice_card(effect.card)
@@ -30,6 +36,12 @@ if SMODS and SMODS.calculate_individual_effect then
 			card_eval_status_text(scored_card, "extra", nil, nil, nil, { message = "+%"..amount})
 			return true
 		end
+
+		-- Score Mult / Chips
+
+		--in the future cause im lazy rn (i dont fucking need any of these bro)
+
+
 	end
 	for _, v in ipairs({ "p_mult", "P_mult", "perc_mult", "Perc_mult", "f_mult", "F_mult", "Factorial_mult", "factorial_mult"  }) do
 		table.insert(SMODS.calculation_keys, v)
