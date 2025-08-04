@@ -785,7 +785,7 @@ SMODS.Joker({
 		extra = {
 			odds = 100,
 			odds2 = 1011,
-			odds3 = 25,
+			odds3 = 50,
 		},
 	},
 	pools = {
@@ -803,10 +803,12 @@ SMODS.Joker({
 
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
-		if context.end_of_round and context.main_eval and not context.blueprint then
-			if pseudorandom("grossprinter") < G.GAME.probabilities.normal / crv.odds3 then
-				card:juice_up(0.3, 0.4)
-				card:set_ability("j_crv_grossprinter")
+		if RevosVault.config.secret_enabled then
+			if context.end_of_round and context.main_eval and not context.blueprint then
+				if pseudorandom("grossprinter") < 1 / crv.odds3 then
+					card:juice_up(0.3, 0.4)
+					card:set_ability("j_crv_sgrossprinter")
+				end
 			end
 		end
 		if
@@ -2072,18 +2074,18 @@ SMODS.Joker({
 							end,
 						}))
 					else
-					if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
-						G.E_MANAGER:add_event(Event({
-							func = function()
-								local card2 = copy_card(G.jokers.cards[rr + 1])
-								card2:add_to_deck()
-								G.jokers:emplace(card2)
-								return true
-							end,
-						}))
+						if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
+							G.E_MANAGER:add_event(Event({
+								func = function()
+									local card2 = copy_card(G.jokers.cards[rr + 1])
+									card2:add_to_deck()
+									G.jokers:emplace(card2)
+									return true
+								end,
+							}))
+						end
 					end
 				end
-			end
 
 				if rr and G.jokers.cards[rr + 1] then
 				end
@@ -3213,7 +3215,7 @@ SMODS.Joker({
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { card.ability.extra.dollars },
+			vars = { card.ability.extra.dollars, (G.GAME.probabilities.normal or 1), card.ability.extra.odds },
 		}
 	end,
 	calculate = function(self, card, context)
@@ -3879,7 +3881,7 @@ SMODS.Joker({
 						legendary = true,
 						area = G.jokers,
 						set = "Joker",
-						edition = "e_negative"
+						edition = "e_negative",
 					})
 				end
 			else
@@ -4735,7 +4737,13 @@ SMODS.Joker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.joker_main and not context.blueprint and not context.repetition and not context.individual then
+		if
+			context.joker_main
+			and not context.blueprint
+			and not context.repetition
+			and not context.individual
+			and G.GAME.current_round.hands_left == 0
+		then
 			local rr = nil
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
@@ -4770,169 +4778,6 @@ SMODS.Joker({
 					x_mult = G.GAME.blind.chips * 0,
 					message = localize("k_crv_nothing"),
 				}
-			end
-		end
-	end,
-
-	in_pool = function(self, wawa, wawa2)
-		return true
-	end,
-})
-
--- find a way to localize this mess (im hopeless send help)
-local quests = {
-	"Play a Full House",
-	"Use blueprint or brainstorm to copy this joker once",
-	"Use a strength tarot card",
-	"Score a stone card",
-	"Use an uranus card",
-}
-local questsr = { 1, 2, 3, 4, 5 }
-
-SMODS.Joker({
-	key = "inga",
-	atlas = "Jokers2",
-	rarity = 2,
-	cost = 10,
-	unlocked = true,
-	discovered = false,
-	blueprint_compat = true,
-	pos = {
-		x = 4,
-		y = 5,
-	},
-	config = {
-		extra = {
-			one = "Not Active Yet",
-			two = "Not Active Yet",
-			three = "Not Active Yet",
-			four = "Not Active Yet",
-			five = "Not Active Yet",
-			quest = 0,
-			questa = 0,
-			questb = "Not set yet",
-			xmult = 2,
-			xchips = 4,
-			odds = 4,
-			counter = 0,
-		},
-	},
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {
-				card.ability.extra.one,
-				card.ability.extra.two,
-				card.ability.extra.three,
-				card.ability.extra.four,
-				card.ability.extra.five,
-				card.ability.extra.quest,
-				card.ability.extra.questa,
-				card.ability.extra.questb,
-				card.ability.extra.xmult,
-				card.ability.extra.xchips,
-				card.ability.extra.odds,
-				(G.GAME.probabilities.normal or 1),
-				card.ability.extra.counter,
-			},
-		}
-	end,
-
-	calculate = function(self, card, context)
-		if context.setting_blind and card.ability.extra.questa == 0 then
-			card.ability.extra.counter = card.ability.extra.counter + 1
-			if card.ability.extra.counter == 1 then
-				card.ability.extra.questa = 1
-				card.ability.extra.questb = "Play a Full House"
-			elseif card.ability.extra.counter == 2 then
-				card.ability.extra.questa = 2
-				card.ability.extra.questb = "Use an uranus card"
-			elseif card.ability.extra.counter == 3 then
-				card.ability.extra.questa = 3
-				card.ability.extra.questb = "Use a strength tarot card"
-			elseif card.ability.extra.counter == 4 then
-				card.ability.extra.questa = 4
-				card.ability.extra.questb = "Score a stone card"
-			elseif card.ability.extra.counter == 5 then
-				card.ability.extra.questa = 5
-				card.ability.extra.questb = "Use blueprint or brainstorm to copy this joker once"
-			end
-		end
-		if context.joker_main and next(context.poker_hands["Full House"]) then
-			if card.ability.extra.questa == 1 then
-				card.ability.extra.quest = card.ability.extra.quest + 1
-				card.ability.extra.one = "Active"
-				card.ability.extra.questa = 0
-			end
-		end
-		if context.joker_main and context.blueprint then
-			if card.ability.extra.questa == 5 then
-				card.ability.extra.questb = "No more quests."
-				card.ability.extra.five = "Applied"
-				card.ability.extra.questa = 999
-				card.ability.extra.xmult = card.ability.extra.xmult * 2
-				card.ability.extra.xchips = card.ability.extra.xchips * 2
-			end
-		end
-		if context.using_consumeable and context.consumeable.config.center.key == "c_strength" then
-			if card.ability.extra.questa == 3 then
-				card.ability.extra.quest = card.ability.extra.quest + 1
-				card.ability.extra.three = "Active"
-				card.ability.extra.questa = 0
-			end
-		end
-
-		if context.individual and card.ability.extra.questa == 4 then
-			if context.cardarea == G.play then
-				for k, v in ipairs(context.scoring_hand) do
-					if context.other_card.ability.effect == "Stone Card" then
-						card.ability.extra.quest = card.ability.extra.quest + 1
-						card.ability.extra.four = "Active"
-						card.ability.extra.questa = 0
-					end
-				end
-			end
-		end
-		if context.using_consumeable and context.consumeable.config.center.key == "c_uranus" then
-			if card.ability.extra.questa == 2 then
-				card.ability.extra.quest = card.ability.extra.quest + 1
-				card.ability.extra.two = "Active"
-				card.ability.extra.questa = 0
-			end
-		end
-		if context.joker_main and card.ability.extra.quest == 1 then
-			return {
-				x_mult = card.ability.extra.xmult,
-			}
-		elseif context.joker_main and card.ability.extra.quest >= 2 then
-			return {
-				xchips = card.ability.extra.xchips,
-				x_mult = card.ability.extra.xmult,
-			}
-		end
-		if context.individual and card.ability.extra.quest >= 3 then
-			if context.cardarea == G.play then
-				for k, v in ipairs(context.scoring_hand) do
-					if context.other_card.ability.effect == "Base" then
-						context.other_card:set_ability(
-							G.P_CENTERS[SMODS.poll_enhancement({
-								guaranteed = true,
-							})],
-							true,
-							false
-						)
-						G.E_MANAGER:add_event(Event({
-							func = function()
-								return true
-							end,
-						}))
-					end
-				end
-			end
-		end
-		if context.individual and card.ability.extra.quest >= 4 then
-			if context.cardarea == G.play then
-				context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
-				context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + 30
 			end
 		end
 	end,
@@ -7093,10 +6938,12 @@ SMODS.Joker({
 				xmult = card.ability.extra.xmult * stickercheck() + 1,
 			}
 		end
-		if context.end_of_round and context.main_eval and not context.blueprint then
-			if pseudorandom("kq") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				card:juice_up(0.3, 0.4)
-				card:set_ability("j_crv_kqb")
+		if RevosVault.config.secret_enabled then
+			if context.end_of_round and context.main_eval and not context.blueprint then
+				if pseudorandom("kq") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					card:juice_up(0.3, 0.4)
+					card:set_ability("j_crv_kqb")
+				end
 			end
 		end
 	end,
@@ -10463,7 +10310,7 @@ SMODS.Joker({
 			xmult = 3,
 		},
 	},
-	add_to_deck = function(self,card,from_debuff)
+	add_to_deck = function(self, card, from_debuff)
 		for _, v in pairs(G.playing_cards) do
 			if v:is_face() then
 				SMODS.destroy_cards(v)
@@ -10637,8 +10484,6 @@ SMODS.Enhancement:take_ownership("glass", {
 	end,
 }, true)
 
-
-
 SMODS.Joker({
 	key = "thed6",
 	rarity = 3,
@@ -10691,44 +10536,6 @@ SMODS.Joker({
 			end
 		else
 			card.ability.extra.can_roll = false
-		end
-	end,
-})
-
-
-
-
-SMODS.Joker({
-	key = "a",
-	rarity = 3,
-	cost = 5,
-	atlas = "Jokers2",
-	config = {
-		extra = {
-			shop = nil,
-			rerolls = 3,
-			limit = 3,
-			can_roll = false,
-		},
-	},
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = { card.ability.extra.rerolls },
-		}
-	end,
-	pos = {
-		x = 6,
-		y = 12,
-	},
-	discovered = true,
-	blueprint_compat = false,
-	calculate = function(self, card, context)
-	end,
-	update = function(self, card, context)
-		if G and G.CONTROLLER and G.CONTROLLER.locks.shop_reroll then
-			print(G.CONTROLLER.locks.shop_reroll)
-		else
-			print("Not initialized yet")
 		end
 	end,
 })
