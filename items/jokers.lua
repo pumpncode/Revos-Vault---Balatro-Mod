@@ -10366,7 +10366,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local crv = card.ability.extra
 		if context.selling_self and not context.blueprint then
-			ease_discard(card.ability.extra.hands)
+			ease_hands_played(card.ability.extra.hands)
 		end
 	end,
 })
