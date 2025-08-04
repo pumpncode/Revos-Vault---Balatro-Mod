@@ -1049,23 +1049,21 @@ return {
 			j_crv_dont = {
 				name = "Double or Nothing",
 				text = {
-					"If there is {C:attention}nothing{} to the right of this card,",
-					"{C:green}#2# in #1#{} Chance to",
-					"Add {C:attention}double{} the amount of the blind chips",
-					"As {C:chips}chips{}. However, if failed, sets current score to",
-					"{C:red}zero",
+					"On {C:attention}final hand{} of round",
+					"has a {C:green}#2# in #1#{} chance to",
+					"{C:legendary}overscore{}",
+					"otherwise set the mult to {C:red}0"
 				},
 			},
 			j_crv_inga = {
 				name = "Grinder",
 				text = {
-					"Complete quests to unlock the abilities listed below.",
-					"{X:mult,C:white}X#9#{} Mult. {C:inactive}(#1#)",
-					"{X:chips,C:white}X#10#{} Chips. {C:inactive}(#2#)",
-					"Adds a random{C:attention} Enhancement{} to scored cards if they dont have one. {C:inactive}(#3#)",
-					"Scored cards gain +30 {C:chips}Permanent Chips{}. {C:inactive}(#4#)",
-					"{C:attention}Double{} the {X:mult,C:white}XMULT{} and {X:chips,C:white}XCHIPS{} of this card. {C:inactive}(#5#)",
-					"Current quest: #8#",
+					"{s:0.8}Complete quests to unlock the abilities listed below.",
+					"{X:mult,C:white}X#8#{} Mult. {C:inactive}(#1#)",
+					"{X:chips,C:white}X#9#{} Chips. {C:inactive}(#2#)",
+					"Scored cards gain +#14# {C:mult}Permanent Mult{}. {C:inactive}(#3#)",
+					"{C:attention}Double{} the {X:mult,C:white}XMULT{} and {X:chips,C:white}XCHIPS{} of this card. {C:inactive}(#4#)",
+					"Current quest: #7#",
 				},
 			},
 			j_crv_tgm = {
@@ -1879,8 +1877,9 @@ return {
 			j_crv_divineban = {
 				name = "Divine Banana",
 				text = {
-					"Each scored card gives",
-					"{C:money}$#1#{}",
+					"Each scored card has",
+					"a {C:green}#2# in #3#{} Chance to",
+					"give {C:dollars}+$#1#{} when scored",
 				},
 			},
 			j_crv_those = {
@@ -3339,6 +3338,8 @@ return {
 			b_gem = "Gem",
 			b_gem_act = "Activated!",
 			crv_enable_gems = "Enable Gems",
+			vars_not_active_yet = "Not Active Yet",
+			vars_not_set_yet = "Not Set Yet"
 		},
 
 		quips = {
