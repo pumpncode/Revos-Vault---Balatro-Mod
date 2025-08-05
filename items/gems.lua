@@ -5,7 +5,15 @@ SMODS.ObjectType({
 	key = "Gem",
 })
 
-RevosVault.Gemlist = { --Gemlist to prevent them from appearing in used vouchers
+SMODS.UndiscoveredSprite{
+	key = "Gem",
+	display_size = { w = 50, h = 50 },
+	atlas = "gemss",
+	pos = {x=0,y=3},
+	no_overlay = true
+}
+
+RevosVault.Gemlist = { --Gemlist to prevent them from appearing in used vouchers /not used/
 }
 
 RevosVault.Gem =
@@ -15,9 +23,9 @@ RevosVault.Gem =
 		set = "Gem",
 		unlocked = true,
 		discovered = true,
-		cost = 10,
+		cost = 6,
 		config = {},
-		pools = {
+		pools = {	
 			Gem = true,
 		},
 		set_card_type_badge = function(self, card, badges)
@@ -262,3 +270,10 @@ RevosVault.Gem({
 	key = "amethyst",
 	calculate = function(self, card, context) end,
 })]]
+
+
+--Ametrine - Played cards change suits 
+
+--Adamite - something something with cards being destroyed
+
+--
