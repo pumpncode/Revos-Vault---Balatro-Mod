@@ -525,10 +525,9 @@ if RevosVault.config.superior_enabled then
 				local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
 			end
 		end
-		if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then
+		if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then --Doesn't work with Handy's Reroll button
 			if pseudorandom("supcreate") > 0.79 then
-				local acard = SMODS.add_card({ set = "Gem", area = G.shop_vouchers })
-				create_shop_card_ui(acard)
+				RevosVault.add_gem(nil)
 			end
 		end
 		return shopcreateold(area)
@@ -611,11 +610,13 @@ SMODS.Gradient({
 SMODS.Gradient({
 	key = "crv_gem",
 	colours = {
-		HEX("000000"),
-		HEX("00e628"),
-		HEX("ff00f9"),
-		HEX("f8dd8c"),
-		HEX("52492e"),
+		HEX("60ff68"),
+		HEX("60fff3"),
+		HEX("60a2ff"),
+		HEX("aa60ff"),
+		HEX("ff60e0"),
+		HEX("e4fa63"),
+		HEX("b0ff8c"),
 	},
 	cycle = 5,
 })

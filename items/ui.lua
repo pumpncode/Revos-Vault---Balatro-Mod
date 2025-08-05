@@ -1144,7 +1144,7 @@ RevosVault.custom_collection_tabs = function()
 		UIBox_button({
 			button = "your_collection_crv_gems",
 			id = "your_collection_crv_gems",
-			label = { localize("b_gems") },
+			label = { localize("b_gems") },	
 			minw = 5,
 			minh = 1,
 		}),

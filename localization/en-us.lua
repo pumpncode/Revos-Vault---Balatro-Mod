@@ -3238,10 +3238,9 @@ return {
 			gem_crv_amethyst = {
 				name = "Amethyst",
 				text = {
-					"All {C:attention}Jokers{} and",
-					"{C:attention}Playing Cards{}",
-					"in shop spawns with a {C:dark_edition}Random Edition",
-					"for 6 rounds",
+					"All {C:attention}Cards{} in shop spawns",
+					"with a {C:dark_edition}Random Edition",
+					"for 3 rounds",
 
 				},
 			},

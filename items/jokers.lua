@@ -2006,9 +2006,9 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.first_hand_drawn then
 			if pseudorandom("ucp") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				RevosVault.printer_apply(nil, nil, poll_edition({ guaranteed = true }), G.jokers)
+				RevosVault.printer_apply(nil, nil,poll_edition("ucp", nil, false, true), G.jokers)
 			else
-				RevosVault.printer_apply(nil, nil, poll_edition({ guaranteed = true }))
+				RevosVault.printer_apply(nil, nil, poll_edition("ucp", nil, false, true))
 			end
 		end
 	end,

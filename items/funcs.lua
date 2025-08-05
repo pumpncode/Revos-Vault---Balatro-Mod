@@ -854,3 +854,14 @@ function RevosVault.remove_gem(key)
 	end
 end
 
+
+function RevosVault.add_gem(key,set)
+	local acard
+	if key then
+		acard = SMODS.add_card({ key = key, set = "Gem", area = G.shop_vouchers })
+		create_shop_card_ui(acard)
+	else
+		acard = SMODS.add_card({ set = "Gem", area = G.shop_vouchers })
+		create_shop_card_ui(acard)
+	end
+end
