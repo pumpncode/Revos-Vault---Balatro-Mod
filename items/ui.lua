@@ -906,6 +906,26 @@ RevosVault.create_sell_and_switch_buttons11 = function(card, args)
 	}
 end
 
+G.FUNCS.can_reroll_cards = function(e)
+	local card = e.config.ref_table
+	if card.ability.extra.can_roll == true then
+		e.config.colour = G.C.RED
+		e.config.button = "reroll_cards"
+	else
+		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+		e.config.button = nil
+	end
+end
+
+G.FUNCS.reroll_cards = function(e)
+	local card = e.config.ref_table
+	Card:reroll_cards()
+end
+
+function Card:reroll_cards()
+	SMODS.calculate_context({ reroll_cards = true })
+end
+
 
 -- All gems stuff until "--"
 
@@ -980,25 +1000,6 @@ RevosVault.custom_button_set_3 = function(card, args)
 	}
 end
 
-G.FUNCS.can_reroll_cards = function(e)
-	local card = e.config.ref_table
-	if card.ability.extra.can_roll == true then
-		e.config.colour = G.C.RED
-		e.config.button = "reroll_cards"
-	else
-		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-		e.config.button = nil
-	end
-end
-
-G.FUNCS.reroll_cards = function(e)
-	local card = e.config.ref_table
-	Card:reroll_cards()
-end
-
-function Card:reroll_cards()
-	SMODS.calculate_context({ reroll_cards = true })
-end
 
 --Gem tab function to show the gems in a new tab in run info.
 function G.UIDEF.used_gems()
@@ -1119,7 +1120,7 @@ local function voucher_ui()
 	local gems = {}
 
 	for k, v in pairs(G.P_CENTER_POOLS.Gem) do
-		gems[#gems + 1] = v.key
+		gems[#gems + 1] = v
 	end
 
 	return SMODS.card_collection_UIBox(gems, { 5, 5 }, {
