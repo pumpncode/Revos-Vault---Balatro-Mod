@@ -1323,9 +1323,10 @@ return {
 			j_crv_jimshow = {
 				name = "The Jimbo Show",
 				text = {
-					"Gains {X:mult,C:white}X#2#{} Mult",
-					"when triggered.",
-					"{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
+					"{X:mult,C:white}X#1#{} Mult",
+					"increases by {X:mult,C:white}X#2#{} when",
+					"triggered"
+
 				},
 			},
 			j_crv_rein = {
@@ -1375,9 +1376,10 @@ return {
 			j_crv_jimbojam = {
 				name = "JNX",
 				text = {
-					"Gains {X:chips,C:white}X#2#{} Chips",
-					"when triggered.",
-					"{C:inactive}(Currently {X:chips,C:white} X#1# {C:inactive} Chips)",
+					"{X:chips,C:white}X#1#{} Mult",
+					"increases by {X:chips,C:white}X#2#{} when",
+					"triggered"
+
 				},
 			},
 			j_crv_stockmarket = {
@@ -2126,7 +2128,11 @@ return {
 			},
 			j_crv_glprinter = {
 				name = "Glitched Printer",
-				text = { "When Blind is selected,", "Prints a {C:attention}Glitched Contract" },
+				text = {
+					"When first hand is drawn,",
+					"Applies {C:dark_edition}Glitched{} to a random card in hand",
+					"{C:green}#1# in #2#{} Chance for it to be applied to a {C:attention}Joker{}",
+				},
 			},
 			j_crv_rtprinter = {
 				name = "Rooted Printer",
@@ -3168,11 +3174,11 @@ return {
 					"have a {C:green}1 in 4{} Chance to print",
 					"{C:dark_edition}Random Edition",
 				},
+			},
 				v_crv_printeruptier = {
 					name = "Hyper Ink",
 					text = { "{C:red}Printers{} will always", "print {C:dark_edition}Negative" },
 				},
-			},
 		},
 		Gem = {
 			gem_crv_exp = {
