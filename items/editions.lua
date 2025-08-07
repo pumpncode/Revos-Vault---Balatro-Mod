@@ -27,13 +27,3 @@ SMODS.Shader({
 	key = "sunwashed",
 	path = "sunwashed.fs",
 })
-
-SMODS.Edition({
-	key = "showcase",
-	shader = "test",
-})
-
-SMODS.Shader({
-	key = "test",
-	path = "test.fs",
-})
