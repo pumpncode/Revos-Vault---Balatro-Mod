@@ -200,10 +200,10 @@ RevosVault.Gem({
 	end,
 })
 
---[[RevosVault.Gem({   Taking ownership on glas cards soon
+RevosVault.Gem({
 	key = "obsidian",
 	atlas = "gemss",
-	pos = { x = 1, y = 0},
+	pos = { x = 0, y = 3},
 	config = {
 		extra = {
 			destroy_time = 0,
@@ -221,16 +221,7 @@ RevosVault.Gem({
 			end
 		end
 	end,
-	add_to_deck = function(self,card,from_debuff)
-        print("working")
-        card.ability.extra.old_odds = G.GAME.glassodds
-        G.GAME.glassodds = 0
-    end,
-    remove_from_deck = function(self,card,from_debuff)
-        print("properly")
-        G.GAME.glassodds = card.ability.extra.old_odds
-    end,
-})]]
+})
 
 
 RevosVault.Gem({

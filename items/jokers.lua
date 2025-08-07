@@ -2006,7 +2006,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.first_hand_drawn then
 			if pseudorandom("ucp") < G.GAME.probabilities.normal / card.ability.extra.odds then
-				RevosVault.printer_apply(nil, nil,poll_edition("ucp", nil, false, true), G.jokers)
+				RevosVault.printer_apply(nil, nil, poll_edition("ucp", nil, false, true), G.jokers)
 			else
 				RevosVault.printer_apply(nil, nil, poll_edition("ucp", nil, false, true))
 			end
@@ -10465,6 +10465,7 @@ SMODS.Joker({
 	end,
 })
 
+--why is this fucking here bro
 SMODS.Enhancement:take_ownership("glass", {
 	config = { Xmult = 2, extra = 4 },
 	loc_vars = function(self, info_queue, card)
@@ -10473,13 +10474,15 @@ SMODS.Enhancement:take_ownership("glass", {
 		}
 	end,
 	calculate = function(self, card, context)
-		if
-			context.destroy_card
-			and context.cardarea == G.play
-			and context.destroy_card == card
-			and pseudorandom("glass") < G.GAME.probabilities.normal / G.GAME.glassodds
-		then
-			return { remove = true }
+		if not (#SMODS.find_card("gem_crv_obsidian") > 0) then
+			if
+				context.destroy_card
+				and context.cardarea == G.play
+				and context.destroy_card == card
+				and pseudorandom("glass") < G.GAME.probabilities.normal / G.GAME.glassodds
+			then
+				return { remove = true }
+			end
 		end
 	end,
 }, true)
@@ -10561,12 +10564,11 @@ SMODS.Joker({
 			vars = {},
 		}
 	end,
-		draw = function(self, card, layer)
-		card.children.center:draw_shader('hologram', nil, card.ARGS.send_to_shader)
+	draw = function(self, card, layer)
+		card.children.center:draw_shader("hologram", nil, card.ARGS.send_to_shader)
 	end,
 	calculate = function(self, card, context) end,
 })
-
 
 --This part is fucked up
 
