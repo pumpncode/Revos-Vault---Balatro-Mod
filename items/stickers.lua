@@ -219,17 +219,39 @@ SMODS.Sticker({
 	end,
 })
 
---[[SMODS.Sticker({
-	key = "marked",
-	badge_colour = HEX("000000"),
+SMODS.Sticker({
+	key = "overtime",
+	badge_colour = HEX("fdffa8"),
 	atlas = "enh",
 	pos = {
-		x = 3,
-		y = 3,
+		x = 5,
+		y = 2,
 	},
 	sets = {
 		Joker = true,
 	},
-	rate = 0.1,
+	config = {
+		ad = {
+			timer = 3
+		}
+	},
+	rate = 0.06,
 	needs_enable_flag = true,
-})]]
+		loc_vars = function(self, info_queue, card)
+		return {
+			vars = {self.config.ad.timer},
+		}	
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and context.main_eval and self.config.ad.timer == 1 then
+			local table = {}
+			table[#table + 1] = G.jokers.cards[1]
+			RevosVault.replacecards(table, nil, nil, true, nil)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = "Change!" })
+			SMODS.Stickers["crv_overtime"]:apply(G.jokers.cards[1],false)
+			self.config.ad.timer = self.config.ad.timer - 1
+		elseif context.end_of_round and context.main_eval and self.config.ad.timer > 0 then
+			self.config.ad.timer = self.config.ad.timer - 1
+		end
+	end,
+})

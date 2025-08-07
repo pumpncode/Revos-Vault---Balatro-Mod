@@ -10539,3 +10539,30 @@ SMODS.Joker({
 		end
 	end,
 })
+
+SMODS.Joker({
+	key = "holoface",
+	atlas = "Jokers2",
+	rarity = 2,
+	cost = 1,
+	unlocked = true,
+	discovered = true,
+	pos = {
+		x = 7,
+		y = 12,
+	},
+	soul_pos = {
+		x = 8,
+		y = 12,
+	},
+	loc_vars = function(self, info_queue, card)
+		local crv = card.ability.extra
+		return {
+			vars = {},
+		}
+	end,
+		draw = function(self, card, layer)
+		card.children.center:draw_shader('hologram', nil, card.ARGS.send_to_shader)
+	end,
+	calculate = function(self, card, context) end,
+})

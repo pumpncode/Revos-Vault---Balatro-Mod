@@ -517,11 +517,11 @@ RevosVault.custom_button_set_2 = function(card, args)
 					n = G.UIT.C,
 					config = {
 						ref_table = card,
-						align = "cr",
-						maxw = 1.25,
-						padding = 0.03,
-						r = 0.5,
-						minw = 1.25,
+						align = "bm",
+						maxw = 1.3,
+						padding = 0.1,
+						r = 0.08,
+						minw = 1.1,
 						minh = 0.03,
 						hover = true,
 						shadow = true,
@@ -534,7 +534,7 @@ RevosVault.custom_button_set_2 = function(card, args)
 							n = G.UIT.B,
 							config = {
 								w = -0.1,
-								h = 0.5,
+								h = 0.6,
 							},
 						},
 						{
@@ -555,7 +555,7 @@ RevosVault.custom_button_set_2 = function(card, args)
 											config = {
 												text = "Swap",
 												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.6,
+												scale = 0.5,
 												shadow = true,
 											},
 										},

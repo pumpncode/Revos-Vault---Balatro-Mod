@@ -1,43 +1,5 @@
 
 
-SMODS.Joker({
-	key = "holoface",
-	atlas = "Jokers2",
-	rarity = 2,
-	cost = 1,
-	unlocked = true,
-	discovered = true,
-	pos = {
-		x = 3,
-		y = 12,
-	},
-	config = {
-		extra = {
-			chipx = 3,
-		},
-	},
-	loc_vars = function(self, info_queue, card)
-		local crv = card.ability.extra
-		return {
-			vars = { crv.chipx },
-		}
-	end,
-	calculate = function(self, card, context) end,
-})
-
-SMODS.Edition({
-	key = "sunbleached",
-	shader = "sunwashed",
-	loc_txt = {
-		name = "Sunbleached",
-		text = { "suns your wash" },
-	},
-})
-
-SMODS.Shader({
-	key = "sunwashed",
-	path = "sunwashed.fs",
-})
 
 --This part is fucked up
 
@@ -280,3 +242,4 @@ SMODS.Joker({
 		return true
 	end,
 })
+

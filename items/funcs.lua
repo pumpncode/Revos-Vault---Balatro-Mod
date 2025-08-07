@@ -846,7 +846,7 @@ end
 
 function RevosVault.remove_gem(key)
 	local index = RevosVault.index(G.GAME.used_gems, key)
-	table.remove(G.GAME.used_gems,index)
+	table.remove(G.GAME.used_gems, index)
 	for k, v in pairs(G.vouchers.cards) do
 		if v.config.center.key == key then
 			v:start_dissolve(nil, true)
@@ -854,8 +854,7 @@ function RevosVault.remove_gem(key)
 	end
 end
 
-
-function RevosVault.add_gem(key,set)
+function RevosVault.add_gem(key, set)
 	local acard
 	if key then
 		acard = SMODS.add_card({ key = key, set = "Gem", area = G.shop_vouchers })
@@ -865,3 +864,68 @@ function RevosVault.add_gem(key,set)
 		create_shop_card_ui(acard)
 	end
 end
+
+--I tried some stuff don't question this part. Is this efficent? probably not.
+function RevosVault.values(card, num, extra, only_extra)
+	if num == 0 then
+		num = 0.1
+	end
+	if not only_extra then
+		for k, v in pairs(card.ability) do
+			if
+				k ~= "x_mult"
+				and k ~= "x_chips"
+				and k ~= "order"
+				and v ~= 0
+				and k ~= "h_x_chips" -- ?
+				and k ~= "cry_prob" -- ?
+			then
+				if type(v) == "number" then
+					card.ability[k] = card.ability[k] * num
+				end
+			end
+		end
+	end
+	if extra and card.ability.extra then
+		if type(card.ability.extra) == "table" then
+			for l, m in pairs(card.ability.extra) do
+				if type(m) == "number" then
+					card.ability.extra[l] = card.ability.extra[l] * num
+				end
+			end
+		end
+	end
+end
+
+
+-- Fcked up random bullshit
+function RevosVault.table_check(card)
+	local full_table = {}
+		for k, v in pairs(card.ability) do
+			if
+				k ~= "x_mult"
+				and k ~= "x_chips"
+				and k ~= "order"
+				and v ~= 0
+				and k ~= "h_x_chips" -- ?
+				and k ~= "cry_prob" -- ?
+			then
+				if type(v) == "number" then
+					full_table[#full_table+1] = k
+					full_table[#full_table+1] = v
+				end
+			end
+		end
+	if card.ability.extra then
+		if type(card.ability.extra) == "table" then
+			for l, m in pairs(card.ability.extra) do
+				if type(m) == "number" then
+					full_table[#full_table+1] = l
+					full_table[#full_table+1] = m
+				end
+			end
+		end
+	end
+	return full_table
+end
+

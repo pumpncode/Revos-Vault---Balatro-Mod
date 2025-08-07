@@ -2066,6 +2066,13 @@ return {
 					"{C:attention}3{} {C:inactive}(#1#){} uses per shop",
 				},
 			},
+			j_crv_holoface = {
+				name = "Holographic Face",
+				text = {
+					"{C:attention}Face{} cards can be","{C:green}swapped{} to be",
+					"different face cards"
+				},
+			},
 			--GARBSHIT below
 			j_crv_stamprinter = {
 				name = "Stamp Printer",
@@ -3148,6 +3155,17 @@ return {
 					"from the same rarity or set",
 				},
 			},
+			crv_overtime = {
+				name = "Overtime",
+                text={
+                    "{C:red}Replace{} this joker after",
+					"with a card from",
+					"the same rarity",
+					"and remove the sticker after",
+                    "{C:attention}3{} rounds",
+                    "{C:inactive}({C:attention}#1#{C:inactive} remaining)",
+                },
+			},
 		},
 		Tag = {
 			tag_crv_pst = {
@@ -3166,6 +3184,15 @@ return {
 				},
 			},
 		},
+		Edition={
+            e_crv_sunbleached={
+                name="Sun Bleached",
+                text={
+                    "{C:green}#1# in #2#{} Chance",
+					"to retrigger"
+                },
+            },
+        },
 		Voucher = {
 			v_crv_printerup = {
 				name = "Extra Ink",
@@ -3267,6 +3294,7 @@ return {
 			crv_radioactive = "Radioactive",
 			crv_absolute = "Absolute",
 			crv_continuity = "Continuity",
+			crv_sunbleached = "Sun Bleached"
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",

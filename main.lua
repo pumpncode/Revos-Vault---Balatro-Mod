@@ -597,17 +597,6 @@ SMODS.Gradient({
 })
 
 SMODS.Gradient({
-	key = "crv_corrupt",
-	colours = {
-		HEX("8300a4"),
-		HEX("6c0087"),
-		HEX("4c005f"),
-		HEX("5f002b"),
-	},
-	cycle = 5,
-})
-
-SMODS.Gradient({
 	key = "crv_gem",
 	colours = {
 		HEX("60ff68"),
@@ -619,6 +608,14 @@ SMODS.Gradient({
 		HEX("b0ff8c"),
 	},
 	cycle = 5,
+})
+
+SMODS.Gradient({
+	key = "crv_sunwashed",
+	colours = {
+		HEX("fff760"),
+		HEX("ffd09f")
+	}
 })
 
 local loc_old = loc_colour
@@ -1024,6 +1021,7 @@ SMODS.load_file("items/stickers.lua")()
 SMODS.load_file("items/stakes.lua")()
 SMODS.load_file("items/challenge.lua")()
 SMODS.load_file("items/blinds.lua")()
+SMODS.load_file("items/editions.lua")()
 if RevosVault.config.chaos_enabled then
 	SMODS.load_file("items/vault.lua")()
 end
