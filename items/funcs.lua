@@ -84,6 +84,21 @@ function RevosVault.discard(ammount, area)
 	}))
 end
 
+--what the fuck is this
+function RevosVault.draw_new_hand()
+	local put = 0
+		for i = 1, #G.hand.cards do
+			draw_card(G.hand, G.discard, 1, "up", true)
+			put = put + 1
+		end
+		for i = 1, G.hand.config.card_limit do
+			draw_card(G.deck, G.hand, 1, "up", true)
+		end
+		for i = 1, put do
+			draw_card(G.discard, G.deck, 1, "up", true)
+		end
+end
+
 --Silent discard and play increase (idk if exists)
 --Taken straight from SMODS
 
@@ -213,8 +228,6 @@ function RevosVault.add_tag(random, ammount, key)
 		end
 	end
 end
-
-
 
 function RevosVault.random_joker(area, exclude_card)
 	local jokers = {}
