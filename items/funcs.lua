@@ -397,7 +397,7 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 				for i = 1, #G.P_CENTER_POOLS.Booster do
 					tab[#tab + 1] = G.P_CENTER_POOLS.Booster[i].key
 				end
-				if area[i] ~= keeporiginal then
+				if area[i] ~= keeporiginal and area[i].ability.set == "Booster" then
 					area[i]:juice_up()
 					area[i]:set_ability(pseudorandom_element(tab))
 				end
@@ -410,7 +410,7 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 				for i = 1, #G.P_CENTER_POOLS.Voucher do
 					tab[#tab + 1] = G.P_CENTER_POOLS.Voucher[i].key
 				end
-				if area[i] ~= keeporiginal then
+				if area[i] ~= keeporiginal and area[i].ability.set == "Voucher" then
 					area[i]:juice_up()
 					area[i]:set_ability(pseudorandom_element(tab))
 				end
