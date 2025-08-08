@@ -140,7 +140,8 @@ return {
 				name = "The Hater",
 				text = {
 					"At the final scoring step,",
-					"has a 1 in 4 chance to","set the chips to 1"
+					"has a 1 in 4 chance to",
+					"set the chips to 1",
 				},
 			},
 			bl_crv_rrp = {
@@ -1052,7 +1053,7 @@ return {
 					"On {C:attention}final hand{} of round",
 					"has a {C:green}#2# in #1#{} chance to",
 					"{C:legendary}overscore{}",
-					"otherwise set the mult to {C:red}0"
+					"otherwise set the mult to {C:red}0",
 				},
 			},
 			j_crv_inga = {
@@ -1325,8 +1326,7 @@ return {
 				text = {
 					"{X:mult,C:white}X#1#{} Mult",
 					"increases by {X:mult,C:white}X#2#{} when",
-					"triggered"
-
+					"triggered",
 				},
 			},
 			j_crv_rein = {
@@ -1378,8 +1378,7 @@ return {
 				text = {
 					"{X:chips,C:white}X#1#{} Mult",
 					"increases by {X:chips,C:white}X#2#{} when",
-					"triggered"
-
+					"triggered",
 				},
 			},
 			j_crv_stockmarket = {
@@ -1788,7 +1787,7 @@ return {
 				text = {
 					"Create a {C:attention}Chicot{} for every",
 					"empty joker slot",
-					"when entering a boss blind"
+					"when entering a boss blind",
 				},
 			},
 			j_crv_ketchup = {
@@ -2069,8 +2068,9 @@ return {
 			j_crv_holoface = {
 				name = "Holographic Face",
 				text = {
-					"{C:attention}Face{} cards can be","{C:green}swapped{} to be",
-					"different face cards"
+					"{C:attention}Face{} cards can be",
+					"{C:green}swapped{} to be",
+					"different face cards",
 				},
 			},
 			--GARBSHIT below
@@ -3064,21 +3064,21 @@ return {
 				name = "Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{C:attention} Contracts{}"
+					"{C:attention}#2#{C:attention} Contracts{}",
 				},
 			},
 			p_crv_cbst2 = {
 				name = "Jumbo Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{C:attention} Contracts{}"
+					"{C:attention}#2#{C:attention} Contracts{}",
 				},
 			},
 			p_crv_cbst3 = {
 				name = "Mega Contract Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{C:attention} Contracts{}"
+					"{C:attention}#2#{C:attention} Contracts{}",
 				},
 			},
 			p_crv_bbst = {
@@ -3157,14 +3157,14 @@ return {
 			},
 			crv_overtime = {
 				name = "Overtime",
-                text={
-                    "{C:red}Replace{} this joker after",
+				text = {
+					"{C:red}Replace{} this joker after",
 					"with a card from",
 					"the same rarity",
 					"and remove the sticker after",
-                    "{C:attention}3{} rounds",
-                    "{C:inactive}({C:attention}#1#{C:inactive} remaining)",
-                },
+					"{C:attention}3{} rounds",
+					"{C:inactive}({C:attention}#1#{C:inactive} remaining)",
+				},
 			},
 		},
 		Tag = {
@@ -3184,15 +3184,21 @@ return {
 				},
 			},
 		},
-		Edition={
-            e_crv_sunbleached={
-                name="Sun Bleached",
-                text={
-                    "{C:green}#1# in #2#{} Chance",
-					"to retrigger"
-                },
-            },
-        },
+		Edition = {
+			e_crv_sunbleached = {
+				name = "Sun Bleached",
+				text = {
+					"{C:green}#1# in #2#{} Chance",
+					"to retrigger",
+				},
+			},
+			e_crv_pastel = {
+				name = "Pastel",
+				text = {
+					"{C:mult}+{C:attention}%{C:mult}50{} Mult",
+				},
+			},
+		},
 		Voucher = {
 			v_crv_printerup = {
 				name = "Extra Ink",
@@ -3202,10 +3208,10 @@ return {
 					"{C:dark_edition}Random Edition",
 				},
 			},
-				v_crv_printeruptier = {
-					name = "Hyper Ink",
-					text = { "{C:red}Printers{} will always", "print {C:dark_edition}Negative" },
-				},
+			v_crv_printeruptier = {
+				name = "Hyper Ink",
+				text = { "{C:red}Printers{} will always", "print {C:dark_edition}Negative" },
+			},
 		},
 		Gem = {
 			gem_crv_exp = {
@@ -3258,8 +3264,7 @@ return {
 				text = {
 					"{C:green}1 in 4{} Chance to",
 					"give back any destroyed {C:attention}Joker",
-					"for 3 rounds"
-
+					"for 3 rounds",
 				},
 			},
 			gem_crv_amethyst = {
@@ -3268,7 +3273,6 @@ return {
 					"All {C:attention}Cards{} in shop spawns",
 					"with a {C:dark_edition}Random Edition",
 					"for 3 rounds",
-
 				},
 			},
 		},
@@ -3294,7 +3298,8 @@ return {
 			crv_radioactive = "Radioactive",
 			crv_absolute = "Absolute",
 			crv_continuity = "Continuity",
-			crv_sunbleached = "Sun Bleached"
+			crv_sunbleached = "Sun Bleached",
+			crv_pastel = "Pastel"
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",
@@ -3372,7 +3377,7 @@ return {
 			b_gem_act = "Activated!",
 			crv_enable_gems = "Enable Gems",
 			vars_not_active_yet = "Not Active Yet",
-			vars_not_set_yet = "Not Set Yet"
+			vars_not_set_yet = "Not Set Yet",
 		},
 
 		quips = {

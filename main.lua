@@ -413,7 +413,6 @@ function Blind:crv_after_play() --Taken from cryptid
 	end
 end
 
-
 local unlock1, unlock2, unlock3 = nil, nil, nil
 local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
 function G.FUNCS.evaluate_play(e)
@@ -438,7 +437,6 @@ function G.FUNCS.reroll_shop(e)
 	G.GAME.reroll_before = true
 	rerollold(e)
 	G.GAME.reroll_before = false
-
 end
 
 function Blind:crv_hand_sort()
@@ -504,35 +502,41 @@ if RevosVault.config.superior_enabled then
 
 	local shopcreateold = create_card_for_shop
 	function create_card_for_shop(area)
-		if RevosVault.config.superior_enabled then
-			if pseudorandom("supcreate")  < 1 / 100 then
-				local acard =
-					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+			if RevosVault.config.superior_enabled then
+				if pseudorandom("supcreate") < 1 / 100 then
+					local acard =
+						RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+				end
+				if pseudorandom("supcreate") < 1 / 100 then
+					local acard = RevosVault.shop_card(
+						pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
+						true,
+						"Spectral",
+						true
+					)
+				end
+				if pseudorandom("supcreate") < 1 / 100 then
+					local acard = RevosVault.shop_card(
+						pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet),
+						true,
+						"Planet",
+						true
+					)
+				end
+				if pseudorandom("supcreate") > 0.9 then
+					local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
+				end
 			end
-			if pseudorandom("supcreate") < 1 / 100 then
-				local acard = RevosVault.shop_card(
-					pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
-					true,
-					"Spectral",
-					true
-				)
+			if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then --Doesn't work with Handy's Reroll button (its kinda wierd)
+				if pseudorandom("supcreate") > 0.79 then
+					RevosVault.add_gem()
+				end
 			end
-			if pseudorandom("supcreate") < 1 / 100 then
-				local acard =
-					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
-			end
-			if pseudorandom("supcreate") > 0.9 then
-				local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
-			end
+			return shopcreateold(area)
 		end
-		if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then --Doesn't work with Handy's Reroll button
-			if pseudorandom("supcreate") > 0.79 then
-				RevosVault.add_gem(nil)
-			end
-		end
-		return shopcreateold(area)
 	end
-end
+
+
 
 local arer_ref = add_round_eval_row --thank's to haya for this bit :D
 function add_round_eval_row(config)
@@ -571,11 +575,11 @@ end
 
 local easedolold = ease_dollars
 function ease_dollars(mod, instant)
-		SMODS.calculate_context({
-			crv_easedollars = to_big(mod),
-		})
-		return easedolold(mod, instant)
-	end
+	SMODS.calculate_context({
+		crv_easedollars = to_big(mod),
+	})
+	return easedolold(mod, instant)
+end
 
 RevosVault.C = {
 	SUP = HEX("f7baff"),
@@ -614,8 +618,8 @@ SMODS.Gradient({
 	key = "crv_sunwashed",
 	colours = {
 		HEX("fff760"),
-		HEX("ffd09f")
-	}
+		HEX("ffd09f"),
+	},
 })
 
 local loc_old = loc_colour

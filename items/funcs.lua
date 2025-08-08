@@ -214,10 +214,14 @@ function RevosVault.add_tag(random, ammount, key)
 	end
 end
 
-function RevosVault.random_joker(area)
+
+
+function RevosVault.random_joker(area, exclude_card)
 	local jokers = {}
 	for i = 1, #area do
-		jokers[#jokers + 1] = area[i]
+		if area[i] ~= exclude_card then
+			jokers[#jokers + 1] = area[i]
+		end
 	end
 	local result = pseudorandom_element(jokers, pseudoseed("jud_random_joker"))
 	return result
@@ -897,35 +901,33 @@ function RevosVault.values(card, num, extra, only_extra)
 	end
 end
 
-
 -- Fcked up random bullshit
 function RevosVault.table_check(card)
 	local full_table = {}
-		for k, v in pairs(card.ability) do
-			if
-				k ~= "x_mult"
-				and k ~= "x_chips"
-				and k ~= "order"
-				and v ~= 0
-				and k ~= "h_x_chips" -- ?
-				and k ~= "cry_prob" -- ?
-			then
-				if type(v) == "number" then
-					full_table[#full_table+1] = k
-					full_table[#full_table+1] = v
-				end
+	for k, v in pairs(card.ability) do
+		if
+			k ~= "x_mult"
+			and k ~= "x_chips"
+			and k ~= "order"
+			and v ~= 0
+			and k ~= "h_x_chips" -- ?
+			and k ~= "cry_prob" -- ?
+		then
+			if type(v) == "number" then
+				full_table[#full_table + 1] = k
+				full_table[#full_table + 1] = v
 			end
 		end
+	end
 	if card.ability.extra then
 		if type(card.ability.extra) == "table" then
 			for l, m in pairs(card.ability.extra) do
 				if type(m) == "number" then
-					full_table[#full_table+1] = l
-					full_table[#full_table+1] = m
+					full_table[#full_table + 1] = l
+					full_table[#full_table + 1] = m
 				end
 			end
 		end
 	end
 	return full_table
 end
-
