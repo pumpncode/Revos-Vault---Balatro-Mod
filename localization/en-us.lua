@@ -3339,7 +3339,7 @@ return {
 			k_crv_jackpot = "Jackpot!",
 			k_crv_rain2 = "A new day awaits..",
 			k_scrap = "Scrap",
-			b_scrap_cards = "Scrap",
+			b_scrap_cards = "Scraps",
 			k_enchanceddocuments = "Contract",
 			b_enchanceddocuments_cards = "Contracts",
 			k_corrupt = "Corrupt",
