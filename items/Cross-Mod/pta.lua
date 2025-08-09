@@ -1,24 +1,3 @@
--- Taken from PTA
-local init_ref = init_localization
-function init_localization()
-	init_ref()
-	-- Looks like it
-	for g_k, group in pairs(G.localization) do
-		if g_k == 'descriptions' then
-			for _, set in pairs(group) do
-				for _, center in pairs(set) do
-					center.revos_comment_parsed = {}
-					if center.revos_comment then
-						for _, line in ipairs(center.revos_comment) do
-							center.revos_comment_parsed[#center.revos_comment_parsed + 1] = loc_parse_string(line)
-						end
-					end
-				end
-			end
-		end
-	end
-end
-
 
 	SMODS.Joker({
 		key = "riskprinter",
