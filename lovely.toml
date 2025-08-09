@@ -99,28 +99,6 @@ payload = '''
 '''
 match_indent = true
 
-
-# This part prevents them from being added to the Vouchers tab in run info. (DO NOT question this part i think this will cause a lot of issues in the future)
-[[patches]]
-[patches.pattern]
-target = 'functions/UI_definitions.lua'
-pattern = "keys_used[key][#keys_used[key]+1] = v"
-position = "at"
-payload = '''
-	local should = true
-      for k, m in pairs(G.P_CENTER_POOLS.Gem) do
-        if v.key == m.key then
-			should = false
-			break
-        end
-      end
-	   if should == true then
-		keys_used[key][#keys_used[key]+1] = v
-	   end
-'''
-match_indent = true
-
-
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -152,3 +130,5 @@ if card.ability.set ~= "Gem" then
 		end
 '''
 match_indent = true
+
+

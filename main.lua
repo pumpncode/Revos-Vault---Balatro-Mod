@@ -383,6 +383,20 @@ SMODS.Atlas({
 	py = 50,
 })
 
+SMODS.Atlas({
+	key = "pta",
+	path = "pta.png",
+	px = 71,
+	py = 95
+})
+
+SMODS.Atlas({
+	key = "finity_atlas",
+	path = "finity.png",
+	px = 71,
+	py = 95
+})
+
 local removeold = Card.remove
 function Card:remove()
 	if self.ability.set == "Joker" and self.added_to_deck then
@@ -413,7 +427,6 @@ function Blind:crv_after_play() --Taken from cryptid
 	end
 end
 
-
 local unlock1, unlock2, unlock3 = nil, nil, nil
 local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
 function G.FUNCS.evaluate_play(e)
@@ -438,7 +451,6 @@ function G.FUNCS.reroll_shop(e)
 	G.GAME.reroll_before = true
 	rerollold(e)
 	G.GAME.reroll_before = false
-
 end
 
 function Blind:crv_hand_sort()
@@ -504,36 +516,41 @@ if RevosVault.config.superior_enabled then
 
 	local shopcreateold = create_card_for_shop
 	function create_card_for_shop(area)
-		if RevosVault.config.superior_enabled then
-			if pseudorandom("supcreate")  < 1 / 100 then
-				local acard =
-					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+			if RevosVault.config.superior_enabled then
+				if pseudorandom("supcreate") < 1 / 100 then
+					local acard =
+						RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
+				end
+				if pseudorandom("supcreate") < 1 / 100 then
+					local acard = RevosVault.shop_card(
+						pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
+						true,
+						"Spectral",
+						true
+					)
+				end
+				if pseudorandom("supcreate") < 1 / 100 then
+					local acard = RevosVault.shop_card(
+						pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet),
+						true,
+						"Planet",
+						true
+					)
+				end
+				if pseudorandom("supcreate") > 0.9 then
+					local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
+				end
 			end
-			if pseudorandom("supcreate") < 1 / 100 then
-				local acard = RevosVault.shop_card(
-					pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
-					true,
-					"Spectral",
-					true
-				)
+			if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then --Doesn't work with Handy's Reroll button (its kinda wierd)
+				if pseudorandom("supcreate") > 0.79 then
+					RevosVault.add_gem()
+				end
 			end
-			if pseudorandom("supcreate") < 1 / 100 then
-				local acard =
-					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
-			end
-			if pseudorandom("supcreate") > 0.9 then
-				local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
-			end
+			return shopcreateold(area)
 		end
-		if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then
-			if pseudorandom("supcreate") > 0.79 then
-				local acard = SMODS.add_card({ set = "Gem", area = G.shop_vouchers })
-				create_shop_card_ui(acard)
-			end
-		end
-		return shopcreateold(area)
 	end
-end
+
+
 
 local arer_ref = add_round_eval_row --thank's to haya for this bit :D
 function add_round_eval_row(config)
@@ -572,66 +589,21 @@ end
 
 local easedolold = ease_dollars
 function ease_dollars(mod, instant)
-		SMODS.calculate_context({
-			crv_easedollars = to_big(mod),
-		})
-		return easedolold(mod, instant)
-	end
-
-RevosVault.C = {
-	SUP = HEX("f7baff"),
-	Continuity = HEX("96a0ff"),
-}
-
-SMODS.Gradient({
-	key = "crv_polychrome",
-	colours = {
-		HEX("e81416"),
-		HEX("ffa500"),
-		HEX("faeb36"),
-		HEX("79c314"),
-		HEX("487de7"),
-		HEX("4b369d"),
-		HEX("70369d"),
-	},
-	cycle = 5,
-})
-
-SMODS.Gradient({
-	key = "crv_corrupt",
-	colours = {
-		HEX("8300a4"),
-		HEX("6c0087"),
-		HEX("4c005f"),
-		HEX("5f002b"),
-	},
-	cycle = 5,
-})
-
-SMODS.Gradient({
-	key = "crv_gem",
-	colours = {
-		HEX("000000"),
-		HEX("00e628"),
-		HEX("ff00f9"),
-		HEX("f8dd8c"),
-		HEX("52492e"),
-	},
-	cycle = 5,
-})
-
-local loc_old = loc_colour
-function loc_colour(_c, _default)
-	if not G.ARGS.LOC_COLOURS then
-		loc_old()
-	end
-	G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
-	G.ARGS.LOC_COLOURS.crv_continuity = RevosVault.C.Continuity
-	G.ARGS.LOC_COLOURS.crv_polychrome = SMODS.Gradients["crv_polychrome"]
-	G.ARGS.LOC_COLOURS.crv_gem = SMODS.Gradients["crv_gem"]
-
-	return loc_old(_c, _default)
+	SMODS.calculate_context({
+		crv_easedollars = to_big(mod),
+	})
+	return easedolold(mod, instant)
 end
+
+local rerol_old = G.FUNCS.reroll_shop
+function G.FUNCS.reroll_shop(e)
+	if #SMODS.find_card("j_crv_shop_sign") > 0 then
+		RevosVault.replacecards(G.shop_vouchers.cards)
+		RevosVault.replacecards(G.shop_booster.cards)
+	end
+	rerol_old(e)
+end
+
 
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
@@ -1023,6 +995,7 @@ SMODS.load_file("items/stickers.lua")()
 SMODS.load_file("items/stakes.lua")()
 SMODS.load_file("items/challenge.lua")()
 SMODS.load_file("items/blinds.lua")()
+SMODS.load_file("items/editions.lua")()
 if RevosVault.config.chaos_enabled then
 	SMODS.load_file("items/vault.lua")()
 end
@@ -1130,4 +1103,12 @@ end
 
 if next(SMODS.find_mod("ortalab")) then
 	SMODS.load_file("items/Cross-Mod/ortalab.lua")()
+end
+
+if next(SMODS.find_mod("pta_saka")) then
+	SMODS.load_file("items/Cross-Mod/pta.lua")()
+end
+
+if next(SMODS.find_mod("finity")) then
+	SMODS.load_file("items/Cross-Mod/finity.lua")()
 end

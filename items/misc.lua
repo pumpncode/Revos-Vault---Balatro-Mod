@@ -37,13 +37,88 @@ if SMODS and SMODS.calculate_individual_effect then
 			return true
 		end
 
-		-- Score Mult / Chips
-
-		--in the future cause im lazy rn (i dont fucking need any of these bro)
+		-- Precentage Chips
+		
+		if (key == "p_chips") and amount ~= 0 then
+			if effect.card then
+				juice_card(effect.card)
+			end
+			hand_chips = mod_chips(mult + RevosVault.perc(hand_chips,amount))
+			update_hand_text({ delay = 0 }, { chips = hand_chips, mult = mult })
+			card_eval_status_text(scored_card, "extra", nil, nil, nil, { message = "+%"..amount})
+			return true
+		end
+		
+		-- Yes i don't need these
 
 
 	end
-	for _, v in ipairs({ "p_mult", "P_mult", "perc_mult", "Perc_mult", "f_mult", "F_mult", "Factorial_mult", "factorial_mult"  }) do
+	for _, v in ipairs({ "p_mult", "P_mult", "perc_mult", "Perc_mult", "f_mult", "F_mult", "Factorial_mult", "factorial_mult","p_chips"  }) do
 		table.insert(SMODS.calculation_keys, v)
 	end
+end
+
+
+
+RevosVault.C = {
+	SUP = HEX("f7baff"),
+	Continuity = HEX("96a0ff"),
+}
+
+SMODS.Gradient({
+	key = "crv_polychrome",
+	colours = {
+		HEX("e81416"),
+		HEX("ffa500"),
+		HEX("faeb36"),
+		HEX("79c314"),
+		HEX("487de7"),
+		HEX("4b369d"),
+		HEX("70369d"),
+	},
+	cycle = 5,
+})
+
+SMODS.Gradient({
+	key = "crv_gem",
+	colours = {
+		HEX("60ff68"),
+		HEX("60fff3"),
+		HEX("60a2ff"),
+		HEX("aa60ff"),
+		HEX("ff60e0"),
+		HEX("e4fa63"),
+		HEX("b0ff8c"),
+	},
+	cycle = 5,
+})
+
+SMODS.Gradient({
+	key = "crv_sunwashed",
+	colours = {
+		HEX("fff760"),
+		HEX("ffd09f"),
+	},
+})
+
+SMODS.Gradient({
+	key = "crv_wip",
+	colours = {
+		HEX("000000"),
+		HEX("343434")
+	}
+})
+
+local loc_old = loc_colour
+function loc_colour(_c, _default)
+	if not G.ARGS.LOC_COLOURS then
+		loc_old()
+	end
+	G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
+	G.ARGS.LOC_COLOURS.crv_continuity = RevosVault.C.Continuity
+	G.ARGS.LOC_COLOURS.crv_polychrome = SMODS.Gradients["crv_polychrome"]
+	G.ARGS.LOC_COLOURS.crv_gem = SMODS.Gradients["crv_gem"]
+	G.ARGS.LOC_COLOURS.crv_wip = SMODS.Gradients["crv_wip"]
+
+	return loc_old(_c, _default)
 end

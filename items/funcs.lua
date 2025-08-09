@@ -4,13 +4,62 @@ function RevosVault.check_enhancement(area, enhancement)
 	local blss = 0
 	if area and type(area) == "table" then
 		for _, v in pairs(area) do
-			if SMODS.has_enhancement(v, enhancement) then
-				blss = blss + 1
+			if enhancement then
+				if SMODS.has_enhancement(v, enhancement) then
+					blss = blss + 1
+				end
+			else
+				if v.ability.set == "Enhanced" then
+					blss = blss + 1
+				end
 			end
 		end
 		return blss
 	end
 	return 0
+end
+
+function RevosVault.check_edition(area, edition)
+	local blss = 0
+	if area and type(area) == "table" then
+		for _, v in pairs(area) do
+			if edition then
+				if v.edition and v.edition.key == edition then
+					blss = blss + 1
+				end
+			else
+				if v.edition then
+					blss = blss + 1
+				end
+			end
+		end
+		return blss
+	end
+	return 0
+end
+
+function RevosVault.stencil(area, to_add, _edition)
+	local tab = 0
+	local total = G.jokers.config.card_limit - #G.jokers.cards
+	local num = 0
+	for k, v in pairs(area) do
+		if _edition and v.edition then
+			if v.edition.key == _edition then
+				tab = tab + 1
+			end
+		end
+		if v.config.center.key == to_add then
+			if v.edition then
+				if v.edition.key ~= _edition then
+					tab = tab + 1
+				end
+			else
+				tab = tab + 1
+			end
+		end
+	end
+	num = total + tab
+	return num
 end
 
 function joker_add(jKey)
@@ -82,6 +131,21 @@ function RevosVault.discard(ammount, area)
 			return true
 		end,
 	}))
+end
+
+--what the fuck is this
+function RevosVault.draw_new_hand()
+	local put = 0
+	for i = 1, #G.hand.cards do
+		draw_card(G.hand, G.discard, 1, "up", true)
+		put = put + 1
+	end
+	for i = 1, G.hand.config.card_limit do
+		draw_card(G.deck, G.hand, 1, "up", true)
+	end
+	for i = 1, put do
+		draw_card(G.discard, G.deck, 1, "up", true)
+	end
 end
 
 --Silent discard and play increase (idk if exists)
@@ -214,10 +278,12 @@ function RevosVault.add_tag(random, ammount, key)
 	end
 end
 
-function RevosVault.random_joker(area)
+function RevosVault.random_joker(area, exclude_card)
 	local jokers = {}
 	for i = 1, #area do
-		jokers[#jokers + 1] = area[i]
+		if area[i] ~= exclude_card then
+			jokers[#jokers + 1] = area[i]
+		end
 	end
 	local result = pseudorandom_element(jokers, pseudoseed("jud_random_joker"))
 	return result
@@ -380,7 +446,7 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 				for i = 1, #G.P_CENTER_POOLS.Booster do
 					tab[#tab + 1] = G.P_CENTER_POOLS.Booster[i].key
 				end
-				if area[i] ~= keeporiginal then
+				if area[i] ~= keeporiginal and area[i].ability.set == "Booster" then
 					area[i]:juice_up()
 					area[i]:set_ability(pseudorandom_element(tab))
 				end
@@ -393,7 +459,7 @@ function RevosVault.replacecards(area, replace, bypass_eternal, keep, keeporigin
 				for i = 1, #G.P_CENTER_POOLS.Voucher do
 					tab[#tab + 1] = G.P_CENTER_POOLS.Voucher[i].key
 				end
-				if area[i] ~= keeporiginal then
+				if area[i] ~= keeporiginal and area[i].ability.set == "Voucher" then
 					area[i]:juice_up()
 					area[i]:set_ability(pseudorandom_element(tab))
 				end
@@ -846,7 +912,7 @@ end
 
 function RevosVault.remove_gem(key)
 	local index = RevosVault.index(G.GAME.used_gems, key)
-	table.remove(G.GAME.used_gems,index)
+	table.remove(G.GAME.used_gems, index)
 	for k, v in pairs(G.vouchers.cards) do
 		if v.config.center.key == key then
 			v:start_dissolve(nil, true)
@@ -854,3 +920,76 @@ function RevosVault.remove_gem(key)
 	end
 end
 
+function RevosVault.add_gem(key, set)
+	local acard
+	if key then
+		acard = SMODS.add_card({ key = key, set = "Gem", area = G.shop_vouchers })
+		create_shop_card_ui(acard)
+	else
+		acard = SMODS.add_card({ set = "Gem", area = G.shop_vouchers })
+		create_shop_card_ui(acard)
+	end
+end
+
+--I tried some stuff don't question this part. Is this efficent? probably not.
+function RevosVault.values(card, num, extra, only_extra)
+	if num == 0 then
+		num = 0.1
+	end
+	if not only_extra then
+		for k, v in pairs(card.ability) do
+			if
+				k ~= "x_mult"
+				and k ~= "x_chips"
+				and k ~= "order"
+				and v ~= 0
+				and k ~= "h_x_chips" -- ?
+				and k ~= "cry_prob" -- ?
+			then
+				if type(v) == "number" then
+					card.ability[k] = card.ability[k] * num
+				end
+			end
+		end
+	end
+	if extra and card.ability.extra then
+		if type(card.ability.extra) == "table" then
+			for l, m in pairs(card.ability.extra) do
+				if type(m) == "number" then
+					card.ability.extra[l] = card.ability.extra[l] * num
+				end
+			end
+		end
+	end
+end
+
+-- Fcked up random bullshit
+function RevosVault.table_check(card)
+	local full_table = {}
+	for k, v in pairs(card.ability) do
+		if
+			k ~= "x_mult"
+			and k ~= "x_chips"
+			and k ~= "order"
+			and v ~= 0
+			and k ~= "h_x_chips" -- ?
+			and k ~= "cry_prob" -- ?
+		then
+			if type(v) == "number" then
+				full_table[#full_table + 1] = k
+				full_table[#full_table + 1] = v
+			end
+		end
+	end
+	if card.ability.extra then
+		if type(card.ability.extra) == "table" then
+			for l, m in pairs(card.ability.extra) do
+				if type(m) == "number" then
+					full_table[#full_table + 1] = l
+					full_table[#full_table + 1] = m
+				end
+			end
+		end
+	end
+	return full_table
+end

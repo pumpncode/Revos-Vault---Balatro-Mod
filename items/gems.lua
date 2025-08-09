@@ -1,11 +1,16 @@
 --what the FUCK
 --ok they work now :thumbs_up: (they fucking dont :^hauydtgqh4na ısd)
 
-SMODS.ObjectType({
+SMODS.ObjectType({ -- Do i need this? 
 	key = "Gem",
 })
 
-RevosVault.Gemlist = { --Gemlist to prevent them from appearing in used vouchers
+SMODS.UndiscoveredSprite{ --Doesn't seem to work?
+	key = "Gem",
+	display_size = { w = 50, h = 50 },
+	atlas = "gemss",
+	pos = {x=0,y=3},
+	no_overlay = true
 }
 
 RevosVault.Gem =
@@ -15,9 +20,9 @@ RevosVault.Gem =
 		set = "Gem",
 		unlocked = true,
 		discovered = true,
-		cost = 10,
+		cost = 6,
 		config = {},
-		pools = {
+		pools = {	
 			Gem = true,
 		},
 		set_card_type_badge = function(self, card, badges)
@@ -109,7 +114,7 @@ RevosVault.Gem({
 RevosVault.Gem({
 	key = "ruby",
 	atlas = "gemss",
-	pos = { x = 1, y = 0 },
+	pos = { x = 0, y = 3 },
 	config = {
 		extra = {
 			destroy_time = 0,
@@ -136,7 +141,7 @@ RevosVault.Gem({
 RevosVault.Gem({
 	key = "diamond",
 	atlas = "gemss",
-	pos = { x = 1, y = 0 },
+	pos = { x = 4, y = 0 },
 	config = {
 		extra = {
 			destroy_time = 0,
@@ -171,7 +176,7 @@ RevosVault.Gem({
 RevosVault.Gem({
 	key = "star_sapphire",
 	atlas = "gemss",
-	pos = { x = 1, y = 0},
+	pos = { x = 0, y = 3 },
 	config = {
 		extra = {
 			destroy_time = 0,
@@ -195,10 +200,10 @@ RevosVault.Gem({
 	end,
 })
 
---[[RevosVault.Gem({
+RevosVault.Gem({
 	key = "obsidian",
 	atlas = "gemss",
-	pos = { x = 1, y = 0},
+	pos = { x = 0, y = 3},
 	config = {
 		extra = {
 			destroy_time = 0,
@@ -216,22 +221,13 @@ RevosVault.Gem({
 			end
 		end
 	end,
-	add_to_deck = function(self,card,from_debuff)
-        print("working")
-        card.ability.extra.old_odds = G.GAME.glassodds
-        G.GAME.glassodds = 0
-    end,
-    remove_from_deck = function(self,card,from_debuff)
-        print("properly")
-        G.GAME.glassodds = card.ability.extra.old_odds
-    end,
-})]]
+})
 
 
 RevosVault.Gem({
 	key = "angelite",
 		atlas = "gemss",
-	pos = { x = 1, y = 0 },
+	pos = { x = 0, y = 3 },
 	config = {
 		extra = {
 			destroy_time = 0,
@@ -258,7 +254,40 @@ RevosVault.Gem({
 	end,
 })
 
---[[RevosVault.Gem({
+RevosVault.Gem({
 	key = "amethyst",
-	calculate = function(self, card, context) end,
-})]]
+			atlas = "gemss",
+	pos = { x = 2, y = 0 },
+	config = {
+		extra = {
+			destroy_time = 0,
+			destroy_time_max = 2,
+		},
+	},
+	update = function(self, card, context) 
+	if G.shop_jokers and G.shop_jokers.cards and card.area == G.vouchers then
+		for _, v in pairs(G.shop_jokers.cards) do
+			if not v.edition then
+				v:juice_up()
+				v:set_edition(poll_edition("gem_amethyst", nil, false, true))
+			end
+		end
+	end
+	end,
+	calculate = function(self,card,context)
+		if context.end_of_round and context.main_eval then
+			if card.ability.extra.destroy_time >= card.ability.extra.destroy_time_max then
+				RevosVault.remove_gem(card.config.center.key)
+			else
+				card.ability.extra.destroy_time = card.ability.extra.destroy_time + 1
+			end
+		end
+	end
+})
+
+
+--Ametrine - Played cards change suits 
+
+--Adamite - something something with cards being destroyed
+
+--
