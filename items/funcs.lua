@@ -4,13 +4,56 @@ function RevosVault.check_enhancement(area, enhancement)
 	local blss = 0
 	if area and type(area) == "table" then
 		for _, v in pairs(area) do
-			if SMODS.has_enhancement(v, enhancement) then
-				blss = blss + 1
+			if enhancement then
+				if SMODS.has_enhancement(v, enhancement) then
+					blss = blss + 1
+				end
+			else
+				if v.ability.set == "Enhanced" then
+					blss = blss + 1
+				end
 			end
 		end
 		return blss
 	end
 	return 0
+end
+
+function RevosVault.check_edition(area, edition)
+	local blss = 0
+	if area and type(area) == "table" then
+		for _, v in pairs(area) do
+			if edition then
+				if v.edition and v.edition.key == edition then
+					blss = blss + 1
+				end
+			else
+				if v.edition then
+					blss = blss + 1
+				end
+			end
+		end
+		return blss
+	end
+	return 0
+end
+
+function RevosVault.stencil(area, to_add, _edition)
+	local tab = 0
+	local total = G.jokers.config.card_limit - #G.jokers.cards
+	local num = 0
+	for k, v in pairs(area) do
+		if _edition and v.edition then
+			if v.edition.key == _edition then
+				tab = tab +1
+			end
+		end
+		if v.config.center.key == to_add then
+			tab = tab + 1
+		end
+	end
+	num = total + tab
+	return num
 end
 
 function joker_add(jKey)
@@ -87,16 +130,16 @@ end
 --what the fuck is this
 function RevosVault.draw_new_hand()
 	local put = 0
-		for i = 1, #G.hand.cards do
-			draw_card(G.hand, G.discard, 1, "up", true)
-			put = put + 1
-		end
-		for i = 1, G.hand.config.card_limit do
-			draw_card(G.deck, G.hand, 1, "up", true)
-		end
-		for i = 1, put do
-			draw_card(G.discard, G.deck, 1, "up", true)
-		end
+	for i = 1, #G.hand.cards do
+		draw_card(G.hand, G.discard, 1, "up", true)
+		put = put + 1
+	end
+	for i = 1, G.hand.config.card_limit do
+		draw_card(G.deck, G.hand, 1, "up", true)
+	end
+	for i = 1, put do
+		draw_card(G.discard, G.deck, 1, "up", true)
+	end
 end
 
 --Silent discard and play increase (idk if exists)

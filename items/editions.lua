@@ -27,3 +27,32 @@ SMODS.Shader({
 	key = "sunwashed",
 	path = "sunwashed.fs",
 })
+
+
+SMODS.Edition({
+	key = "pastel",
+	shader = "pastel_shader",
+	config = {
+		odds = 3,
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				(G.GAME.probabilities.normal or 1),
+				self.config.odds,
+			},
+		}
+	end,
+	calculate = function(self, card, context)
+		if (context.main_scoring and context.cardarea == G.play) or context.post_joker then
+			return {
+				p_mult = 50,
+			}
+		end
+	end,
+})
+
+SMODS.Shader({
+	key = "pastel_shader",
+	path = "pastel_shader.fs",
+})

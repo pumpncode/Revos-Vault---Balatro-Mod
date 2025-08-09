@@ -3198,6 +3198,29 @@ return {
 					"{C:mult}+{C:attention}%{C:mult}50{} Mult",
 				},
 			},
+			e_crv_bloom_edition = {
+				name = "Bloom",
+				text = {
+					"{C:chips}+{C:attention}%{C:chips}60{} Chips",
+				},
+			},
+			e_crv_magnetised_edition = {
+				name = "Magnetised",
+				text = {
+					"{X:mult,C:white}X#2#{} Mult for",
+					"each card with an {C:dark_edition}Edition{}",
+					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+				},
+			},
+			e_crv_antichrome_edition = {
+				name = "Antichrome",
+				text = {
+					"{X:mult,C:white}X#2#{} Mult for",
+					"each empty joker slot",
+					"{s:0.8}this edition and stencil excluded",
+					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+				},
+			},
 		},
 		Voucher = {
 			v_crv_printerup = {
@@ -3299,7 +3322,10 @@ return {
 			crv_absolute = "Absolute",
 			crv_continuity = "Continuity",
 			crv_sunbleached = "Sun Bleached",
-			crv_pastel = "Pastel"
+			crv_pastel = "Pastel",
+			crv_bloom_edition = "Bloom",
+			crv_magnetised_edition = "Magnetised",
+			crv_antichrome_edition = "Antichrome"
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",
