@@ -10811,3 +10811,23 @@ SMODS.Joker({
 		return true
 	end,
 })
+
+
+--
+
+local shopframes = {0,1,2,3}
+SMODS.Joker({
+	key = "shop_sign",
+	atlas = "Jokers2",
+	rarity = 4,
+	pos = { x = 0, y = 13 },
+	soul_pos = { x = 1, y = 13 },
+	calculate = function(self, card, context) 
+	end,
+	update = function(self, card, context)
+		local timer = (G.TIMERS.REAL * 4) -- Thank you TOGA (i found it in #modding_dev)
+		local frame_amount = #shopframes
+		local wrapped_value = (math.floor(timer) - 1) % frame_amount + 1
+		card.children.floating_sprite:set_sprite_pos({x = shopframes[wrapped_value], y = 14})
+	end,
+})

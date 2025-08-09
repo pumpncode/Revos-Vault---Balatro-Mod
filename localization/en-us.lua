@@ -2073,6 +2073,15 @@ return {
 					"different face cards",
 				},
 			},
+			j_crv_shop_sign = {
+				name = "The Shop Sign",
+				text = {
+					"{C:green}Rerolling{} the shop",
+					"will also reroll",
+					"the {C:attention}Vouchers{} and",
+					"the {C:attention}Booster Packs",
+				},
+			},
 			--GARBSHIT below
 			j_crv_stamprinter = {
 				name = "Stamp Printer",
@@ -3209,7 +3218,7 @@ return {
 				text = {
 					"{X:mult,C:white}X#2#{} Mult for",
 					"each card with an {C:dark_edition}Edition{}",
-					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
 				},
 			},
 			e_crv_antichrome_edition = {
@@ -3218,7 +3227,7 @@ return {
 					"{X:mult,C:white}X#2#{} Mult for",
 					"each empty joker slot",
 					"{s:0.8}this edition and stencil excluded",
-					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
 				},
 			},
 		},
@@ -3325,7 +3334,7 @@ return {
 			crv_pastel = "Pastel",
 			crv_bloom_edition = "Bloom",
 			crv_magnetised_edition = "Magnetised",
-			crv_antichrome_edition = "Antichrome"
+			crv_antichrome_edition = "Antichrome",
 		},
 		dictionary = {
 			k_crv_pbstg = "Printer Pack",

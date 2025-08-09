@@ -581,59 +581,15 @@ function ease_dollars(mod, instant)
 	return easedolold(mod, instant)
 end
 
-RevosVault.C = {
-	SUP = HEX("f7baff"),
-	Continuity = HEX("96a0ff"),
-}
-
-SMODS.Gradient({
-	key = "crv_polychrome",
-	colours = {
-		HEX("e81416"),
-		HEX("ffa500"),
-		HEX("faeb36"),
-		HEX("79c314"),
-		HEX("487de7"),
-		HEX("4b369d"),
-		HEX("70369d"),
-	},
-	cycle = 5,
-})
-
-SMODS.Gradient({
-	key = "crv_gem",
-	colours = {
-		HEX("60ff68"),
-		HEX("60fff3"),
-		HEX("60a2ff"),
-		HEX("aa60ff"),
-		HEX("ff60e0"),
-		HEX("e4fa63"),
-		HEX("b0ff8c"),
-	},
-	cycle = 5,
-})
-
-SMODS.Gradient({
-	key = "crv_sunwashed",
-	colours = {
-		HEX("fff760"),
-		HEX("ffd09f"),
-	},
-})
-
-local loc_old = loc_colour
-function loc_colour(_c, _default)
-	if not G.ARGS.LOC_COLOURS then
-		loc_old()
+local rerol_old = G.FUNCS.reroll_shop
+function G.FUNCS.reroll_shop(e)
+	if #SMODS.find_card("j_crv_shop_sign") > 0 then
+		RevosVault.replacecards(G.shop_vouchers.cards)
+		RevosVault.replacecards(G.shop_booster.cards)
 	end
-	G.ARGS.LOC_COLOURS.crv_sup = RevosVault.C.SUP
-	G.ARGS.LOC_COLOURS.crv_continuity = RevosVault.C.Continuity
-	G.ARGS.LOC_COLOURS.crv_polychrome = SMODS.Gradients["crv_polychrome"]
-	G.ARGS.LOC_COLOURS.crv_gem = SMODS.Gradients["crv_gem"]
-
-	return loc_old(_c, _default)
+	rerol_old(e)
 end
+
 
 local igo = Game.init_game_object
 Game.init_game_object = function(self)

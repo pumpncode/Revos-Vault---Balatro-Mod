@@ -45,11 +45,17 @@ function RevosVault.stencil(area, to_add, _edition)
 	for k, v in pairs(area) do
 		if _edition and v.edition then
 			if v.edition.key == _edition then
-				tab = tab +1
+				tab = tab + 1
 			end
 		end
 		if v.config.center.key == to_add then
-			tab = tab + 1
+			if v.edition then
+				if v.edition.key ~= _edition then
+					tab = tab + 1
+				end
+			else
+				tab = tab + 1
+			end
 		end
 	end
 	num = total + tab
