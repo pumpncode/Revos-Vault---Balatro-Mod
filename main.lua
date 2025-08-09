@@ -390,6 +390,13 @@ SMODS.Atlas({
 	py = 95
 })
 
+SMODS.Atlas({
+	key = "finity_atlas",
+	path = "finity.png",
+	px = 71,
+	py = 95
+})
+
 local removeold = Card.remove
 function Card:remove()
 	if self.ability.set == "Joker" and self.added_to_deck then
@@ -1100,4 +1107,8 @@ end
 
 if next(SMODS.find_mod("pta_saka")) then
 	SMODS.load_file("items/Cross-Mod/pta.lua")()
+end
+
+if next(SMODS.find_mod("finity")) then
+	SMODS.load_file("items/Cross-Mod/finity.lua")()
 end

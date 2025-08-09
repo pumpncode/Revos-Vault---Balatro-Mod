@@ -2082,6 +2082,10 @@ return {
 					"the {C:attention}Booster Packs",
 				},
 			},
+			j_crv_pay2win = {
+				name = "Pay 2 Win",
+				text = {"Gives {C:mult}Mult{} equal","to your {C:attention}FPS{}","{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"}
+			},
 			--GARBSHIT below
 			j_crv_stamprinter = {
 				name = "Stamp Printer",

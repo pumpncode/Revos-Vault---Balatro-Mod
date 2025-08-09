@@ -10831,3 +10831,24 @@ SMODS.Joker({
 		card.children.floating_sprite:set_sprite_pos({x = shopframes[wrapped_value], y = 14})
 	end,
 })
+
+
+SMODS.Joker({
+	key = "pay2win",
+	atlas = "Jokers2",
+	pos = { x = 1, y = 13 },
+	rarity = 3,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {love.timer.getFPS()},
+		}
+	end,
+	calculate = function(self,card,context)
+		if context.joker_main then
+			return{
+				mult = love.timer.getFPS()
+			}
+		end
+	end,
+})
+

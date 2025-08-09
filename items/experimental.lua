@@ -1,6 +1,6 @@
 SMODS.Rarity({
 	key = "WIP",
-	badge_colour = SMODS.Gradients["crv_wip"]
+	badge_colour = SMODS.Gradients["crv_wip"],
 })
 
 local can_reroll_old = G.FUNCS.can_reroll
@@ -39,4 +39,3 @@ SMODS.Joker({
 		end
 	end,
 })
-
