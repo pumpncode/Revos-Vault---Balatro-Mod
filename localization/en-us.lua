@@ -2344,6 +2344,11 @@ return {
 				name = "Confection Printer",
 				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Zodiac{} Card" },
 			},
+			-- Paya's Terrible Additions here
+			j_crv_riskprinter = {
+				name = "Risky Printer",
+				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Risk{} Card","{S:0.8,C:inactive}(Is this even risky?)" },
+			},
 			--ends here
 		},
 		Tarot = {

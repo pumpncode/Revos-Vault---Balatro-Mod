@@ -383,6 +383,13 @@ SMODS.Atlas({
 	py = 50,
 })
 
+SMODS.Atlas({
+	key = "pta",
+	path = "pta.png",
+	px = 71,
+	py = 95
+})
+
 local removeold = Card.remove
 function Card:remove()
 	if self.ability.set == "Joker" and self.added_to_deck then
@@ -1089,4 +1096,8 @@ end
 
 if next(SMODS.find_mod("ortalab")) then
 	SMODS.load_file("items/Cross-Mod/ortalab.lua")()
+end
+
+if next(SMODS.find_mod("pta_saka")) then
+	SMODS.load_file("items/Cross-Mod/pta.lua")()
 end
