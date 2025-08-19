@@ -179,7 +179,7 @@ SMODS.Sticker({
 		}
 	end,
 	calculate = function(self, card, context)
-	if context.end_of_round then
+		if context.end_of_round then
 			local area = card.area
 			local joker = area.cards
 			local rr = RevosVault.index(G.jokers.cards, card)
@@ -194,7 +194,7 @@ SMODS.Sticker({
 			else
 			end
 		end
-end
+	end,
 })
 
 SMODS.Sticker({
@@ -232,15 +232,15 @@ SMODS.Sticker({
 	},
 	config = {
 		ad = {
-			timer = 3
-		}
+			timer = 3,
+		},
 	},
 	rate = 0.06,
 	needs_enable_flag = true,
-		loc_vars = function(self, info_queue, card)
+	loc_vars = function(self, info_queue, card)
 		return {
-			vars = {self.config.ad.timer},
-		}	
+			vars = { self.config.ad.timer },
+		}
 	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and self.config.ad.timer == 1 then
@@ -248,10 +248,35 @@ SMODS.Sticker({
 			table[#table + 1] = G.jokers.cards[1]
 			RevosVault.replacecards(table, nil, nil, true, nil)
 			card_eval_status_text(card, "extra", nil, nil, nil, { message = "Change!" })
-			SMODS.Stickers["crv_overtime"]:apply(G.jokers.cards[1],false)
+			SMODS.Stickers["crv_overtime"]:apply(G.jokers.cards[1], false)
 			self.config.ad.timer = self.config.ad.timer - 1
 		elseif context.end_of_round and context.main_eval and self.config.ad.timer > 0 then
 			self.config.ad.timer = self.config.ad.timer - 1
+		end
+	end,
+})
+
+SMODS.Sticker({
+	key = "temp",
+	badge_colour = SMODS.Gradients["crv_temp"],
+	atlas = "enh",
+	pos = {
+		x = 5,
+		y = 3,
+	},
+	sets = {
+		Joker = true,
+	},
+	rate = 0.01,
+	needs_enable_flag = true,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and not context.blueprint and context.main_eval then
+			card:start_dissolve()
 		end
 	end,
 })

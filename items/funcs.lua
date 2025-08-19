@@ -993,3 +993,26 @@ function RevosVault.table_check(card)
 	end
 	return full_table
 end
+
+--Surely there is a better way to do this but im too lazy to check it sakdjnsdaskdaslkdagagahjgfah
+function RevosVault.combine_table(areas,w)
+	local full_tab = {}
+	if type(areas) == "table" then
+		for i = 1, #areas do
+			if type(areas[i]) == "table" then
+			for k, v in pairs(areas[i]) do 
+				full_tab[#full_tab+1] = v
+			end
+			else
+				sendWarnMessage(tostring(areas[i]) .. " is not a table","RevosVault")
+			end
+		end
+	else
+		sendWarnMessage(tostring(areas) .. " is not a table","RevosVault")
+	end
+	if #full_tab > 0 then
+		return full_tab
+	elseif #full_tab == 0 and w then
+		sendWarnMessage("Nothing to return!","RevosVault")
+	end 
+end

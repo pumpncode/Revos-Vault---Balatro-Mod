@@ -1112,3 +1112,7 @@ end
 if next(SMODS.find_mod("finity")) then
 	SMODS.load_file("items/Cross-Mod/finity.lua")()
 end
+
+if next(SMODS.find_mod("stacked")) then
+	SMODS.load_file("items/Cross-Mod/stacked.lua")()
+end

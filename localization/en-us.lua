@@ -144,6 +144,13 @@ return {
 					"set the chips to 1",
 				},
 			},
+			bl_crv_theaneye = {
+				name = "The Ancient",
+				text = {
+					"Any card with an edition",
+					"or enhancement is debuffed"
+				},
+			},
 			bl_crv_rrp = {
 				name = "Russian Roulette+",
 				text = {
@@ -2084,7 +2091,11 @@ return {
 			},
 			j_crv_pay2win = {
 				name = "Pay 2 Win",
-				text = {"Gives {C:mult}Mult{} equal","to your {C:attention}FPS{}","{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"}
+				text = {
+					"Gives {C:mult}Mult{} equal",
+					"to your {C:attention}FPS{}",
+					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+				},
 			},
 			--GARBSHIT below
 			j_crv_stamprinter = {
@@ -2351,7 +2362,11 @@ return {
 			-- Paya's Terrible Additions here
 			j_crv_riskprinter = {
 				name = "Risky Printer",
-				text = { "When {C:attention}Blind{} is selected,", "creates a {C:attention}Risk{} Card","{S:0.8,C:inactive}(Is this even risky?)" },
+				text = {
+					"When {C:attention}Blind{} is selected,",
+					"creates a {C:attention}Risk{} Card",
+					"{S:0.8,C:inactive}(Is this even risky?)",
+				},
 			},
 			--ends here
 		},
@@ -3442,6 +3457,16 @@ return {
 			},
 			pnr_crv_pprinter_6 = {
 				"*cheerful printing noises*",
+			},
+		},
+	},
+	ExtraEffects = {
+		create_temp_copy = {
+			name = "Cheap Clone",
+			text = {
+				"When a {C:attention}Blind{} is selected",
+				"{C:green}#1# in #2#{} Chance to create a",
+				"{C:crv_temp}Temporary{C:dark_edition} Negative{} copy of this card",
 			},
 		},
 	},
