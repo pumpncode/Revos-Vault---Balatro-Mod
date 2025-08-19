@@ -397,6 +397,13 @@ SMODS.Atlas({
 	py = 95
 })
 
+SMODS.Atlas({
+	key = "highroller",
+	path = "high.png",
+	px = 71,
+	py = 95
+})
+
 local removeold = Card.remove
 function Card:remove()
 	if self.ability.set == "Joker" and self.added_to_deck then
@@ -1115,4 +1122,8 @@ end
 
 if next(SMODS.find_mod("stacked")) then
 	SMODS.load_file("items/Cross-Mod/stacked.lua")()
+end
+
+if next(SMODS.find_mod("high_roller")) then
+	SMODS.load_file("items/Cross-Mod/highroller.lua")()
 end
