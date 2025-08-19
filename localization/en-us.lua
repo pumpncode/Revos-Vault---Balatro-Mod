@@ -1012,7 +1012,7 @@ return {
 				},
 			},
 			j_crv_btls = {
-				name = "Cubes United",
+				name = "[[BIG SHOT]]",
 				text = {
 					"Has a {C:green}1 in 8{} chance to ",
 					"cause played cards to {C:purple}overscore",
