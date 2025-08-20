@@ -387,14 +387,21 @@ SMODS.Atlas({
 	key = "pta",
 	path = "pta.png",
 	px = 71,
-	py = 95
+	py = 95,
 })
 
 SMODS.Atlas({
 	key = "finity_atlas",
 	path = "finity.png",
 	px = 71,
-	py = 95
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "highroller",
+	path = "high.png",
+	px = 71,
+	py = 95,
 })
 
 local removeold = Card.remove
@@ -516,41 +523,35 @@ if RevosVault.config.superior_enabled then
 
 	local shopcreateold = create_card_for_shop
 	function create_card_for_shop(area)
-			if RevosVault.config.superior_enabled then
-				if pseudorandom("supcreate") < 1 / 100 then
-					local acard =
-						RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
-				end
-				if pseudorandom("supcreate") < 1 / 100 then
-					local acard = RevosVault.shop_card(
-						pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
-						true,
-						"Spectral",
-						true
-					)
-				end
-				if pseudorandom("supcreate") < 1 / 100 then
-					local acard = RevosVault.shop_card(
-						pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet),
-						true,
-						"Planet",
-						true
-					)
-				end
-				if pseudorandom("supcreate") > 0.9 then
-					local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
-				end
+		if RevosVault.config.superior_enabled then
+			if pseudorandom("supcreate") < 1 / 100 then
+				local acard =
+					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorTarot), true, "Tarot", true)
 			end
-			if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then --Doesn't work with Handy's Reroll button (its kinda wierd)
-				if pseudorandom("supcreate") > 0.79 then
-					RevosVault.add_gem()
-				end
+			if pseudorandom("supcreate") < 1 / 100 then
+				local acard = RevosVault.shop_card(
+					pseudorandom_element(G.P_CENTER_POOLS.SuperiorSpectral),
+					true,
+					"Spectral",
+					true
+				)
 			end
-			return shopcreateold(area)
+			if pseudorandom("supcreate") < 1 / 100 then
+				local acard =
+					RevosVault.shop_card(pseudorandom_element(G.P_CENTER_POOLS.SuperiorPlanet), true, "Planet", true)
+			end
+			if pseudorandom("supcreate") > 0.9 then
+				local acard = RevosVault.shop_card("j_crv_supprinter", true, nil, true, "crv_p", true)
+			end
 		end
+		if RevosVault.config.gem_enabled and not G.CONTROLLER.locks.shop_reroll then --Doesn't work with Handy's Reroll button (its kinda wierd)
+			if pseudorandom("supcreate") > 0.79 then
+				RevosVault.add_gem()
+			end
+		end
+		return shopcreateold(area)
 	end
-
-
+end
 
 local arer_ref = add_round_eval_row --thank's to haya for this bit :D
 function add_round_eval_row(config)
@@ -603,7 +604,6 @@ function G.FUNCS.reroll_shop(e)
 	end
 	rerol_old(e)
 end
-
 
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
@@ -1111,4 +1111,12 @@ end
 
 if next(SMODS.find_mod("finity")) then
 	SMODS.load_file("items/Cross-Mod/finity.lua")()
+end
+
+if next(SMODS.find_mod("stacked")) then
+	SMODS.load_file("items/Cross-Mod/stacked.lua")()
+end
+
+if next(SMODS.find_mod("high_roller")) then
+	SMODS.load_file("items/Cross-Mod/highroller.lua")()
 end

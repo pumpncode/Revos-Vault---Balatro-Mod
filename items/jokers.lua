@@ -9961,7 +9961,7 @@ SMODS.Joker({
 		local crv = card.ability.extra
 		if context.joker_main then
 			local fc = 0
-			for k, v in ipairs(G.play.cards) do
+			for k, v in ipairs(context.scoring_hand) do
 				if v:is_face() then
 					fc = fc + 1
 				end

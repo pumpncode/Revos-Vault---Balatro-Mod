@@ -96,6 +96,23 @@ SMODS.Blind({
 })
 
 SMODS.Blind({
+	key = "theaneye",
+	boss = {
+		min = 4,
+		max = 10,
+	},
+	atlas = "blinds",
+	pos = { x = 0, y = 7 },
+	boss_colour = HEX("372c15"),
+	recalc_debuff = function(self, card, from_blind)
+		if card.ability.set == "Enhanced" or card.edition or (card.area == G.hand and card.edition) then
+			return true
+		end
+		return false
+	end,
+})
+
+SMODS.Blind({
 	key = "no",
 	boss = { min = 1, max = 10, showdown = true },
 	atlas = "blinds",
