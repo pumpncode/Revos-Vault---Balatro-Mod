@@ -3199,6 +3199,20 @@ return {
 					"{C:inactive}({C:attention}#1#{C:inactive} remaining)",
 				},
 			},
+			crv_temp = {
+				name = "Temporary",
+				text = {
+					"This card is {C:red}destroyed",
+					"at the end of the round",
+				},
+			},
+			crv_blessed = {
+				name = "Blessed",
+				text = {
+					"Immune to {C:red}destruction",
+					"{C:attention}#2#{} times"
+				},
+			},
 		},
 		Tag = {
 			tag_crv_pst = {
@@ -3354,6 +3368,9 @@ return {
 			crv_radioactive = "Radioactive",
 			crv_absolute = "Absolute",
 			crv_continuity = "Continuity",
+			crv_overtime = "Overtime",
+			crv_temp = "Temporary",
+			crv_blessed = "Blessed",
 			crv_sunbleached = "Sun Bleached",
 			crv_pastel = "Pastel",
 			crv_bloom_edition = "Bloom",

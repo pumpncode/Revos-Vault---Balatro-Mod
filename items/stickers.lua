@@ -161,65 +161,6 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
-	key = "sharpedge",
-	badge_colour = HEX("ff4d4d"),
-	atlas = "enh",
-	pos = {
-		x = 5,
-		y = 3,
-	},
-	sets = {
-		Joker = true,
-	},
-	rate = 0.04,
-	needs_enable_flag = true,
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {},
-		}
-	end,
-	calculate = function(self, card, context)
-		if context.end_of_round then
-			local area = card.area
-			local joker = area.cards
-			local rr = RevosVault.index(G.jokers.cards, card)
-			if joker[rr + 1] and joker[rr - 1] then
-				SMODS.destroy_cards(pseudorandom_element({ joker[rr + 1], joker[rr - 1] }))
-			elseif joker[rr + 1] then
-				ease_dollars(joker[rr + 1].sell_cost)
-				SMODS.destroy_cards(joker[rr + 1])
-			elseif joker[rr - 1] then
-				ease_dollars(joker[rr - 1].sell_cost)
-				SMODS.destroy_cards(joker[rr - 1])
-			else
-			end
-		end
-	end,
-})
-
-SMODS.Sticker({
-	key = "glasssticker",
-	badge_colour = HEX("878787"),
-	atlas = "enh",
-	pos = {
-		x = 2,
-		y = 2,
-	},
-	sets = {
-		Joker = true,
-	},
-	rate = 0.3,
-	needs_enable_flag = true,
-	calculate = function(self, card, context)
-		if context.joker_main then
-			if pseudorandom_element("crv_glass") < G.GAME.probabilities.normal / 4 then
-				SMODS.destroy_cards(card)
-			end
-		end
-	end,
-})
-
-SMODS.Sticker({
 	key = "overtime",
 	badge_colour = HEX("fdffa8"),
 	atlas = "enh",
@@ -245,10 +186,10 @@ SMODS.Sticker({
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and self.config.ad.timer == 1 then
 			local table = {}
-			table[#table + 1] = G.jokers.cards[1]
+			table[#table + 1] = card
 			RevosVault.replacecards(table, nil, nil, true, nil)
 			card_eval_status_text(card, "extra", nil, nil, nil, { message = "Change!" })
-			SMODS.Stickers["crv_overtime"]:apply(G.jokers.cards[1], false)
+			SMODS.Stickers["crv_overtime"]:apply(card, false)
 			self.config.ad.timer = self.config.ad.timer - 1
 		elseif context.end_of_round and context.main_eval and self.config.ad.timer > 0 then
 			self.config.ad.timer = self.config.ad.timer - 1
@@ -280,3 +221,53 @@ SMODS.Sticker({
 		end
 	end,
 })
+
+--[[SMODS.Sticker({ overflow crash
+	key = "blessed",
+	badge_colour = SMODS.Gradients["crv_blessed_g"],
+	atlas = "enh",
+	pos = {
+		x = 6,
+		y = 1,
+	},
+	sets = {
+		Joker = true,
+	},
+	config = {
+		timer = 0,
+		max_timer = 1,
+	},
+	rate = 0.04,
+	needs_enable_flag = true,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { self.config.timer, self.config.max_timer },
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.crv_joker_destroyed and context.crv_destroyedj == card then
+			self.trigger = true
+			print("removing?")
+			if self.trigger then
+				self.trigger = nil
+				if self.config.timer < self.config.max_timer - 1 then
+					print("clone the card")
+					SMODS.Stickers["crv_blessed"]:apply(card, false)
+					local acard = copy_card(card)
+					local area = card.area
+					card:add_to_deck()
+					area:emplace(card)
+					SMODS.calculate_effect({ message = "Blessed!" }, card)
+				else
+					self.config.timer = self.config.timer + 1
+					print("add and clone the card")
+					local acard = copy_card(card)
+					local area = card.area
+					card:add_to_deck()
+					area:emplace(card)
+					SMODS.calculate_effect({ message = "Blessed!" }, card)
+				end
+			end
+		end
+	end,
+})]]
