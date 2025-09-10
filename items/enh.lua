@@ -356,7 +356,7 @@ SMODS.Enhancement({
 	no_suit = true,
 	overrides_base_rank = true,
 	any_suit = false,
-	always_scores = false,
+	always_scores = true,
 	weight = 0,
 	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
@@ -370,7 +370,7 @@ SMODS.Enhancement({
 SMODS.Enhancement({
 	key = "honey",
 	atlas = "enh",
-	pos = { x = 1, y = 2},
+	pos = { x = 1, y = 2 },
 	discovered = true,
 	unlocked = true,
 	replace_base_card = false,
@@ -387,15 +387,86 @@ SMODS.Enhancement({
 		return {
 			vars = {
 				card.ability.extra.dollars,
-
 			},
 		}
 	end,
 	calculate = function(self, card, context, effect)
 		if context.main_scoring and context.cardarea == G.play then
-            return {
-                dollars = card.ability.extra.dollars,
-            }
-        end
-	end
+			return {
+				dollars = card.ability.extra.dollars,
+			}
+		end
+	end,
+})
+
+SMODS.Enhancement({
+	key = "shattered",
+	atlas = "enh",
+	pos = { x = 0, y = 3 },
+	discovered = true,
+	unlocked = true,
+	replace_base_card = true,
+	no_rank = true,
+	no_suit = true,
+	always_scores = true,
+	weight = 0,
+	config = { extra = { x_mult = 2 } },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.x_mult } }
+	end,
+	calculate = function(self, card, context, effect)
+		if context.main_scoring and context.cardarea == G.play then
+			return {
+				x_mult = card.ability.extra.x_mult,
+			}
+		end
+	end,
+})
+
+SMODS.Enhancement({
+	key = "xmultcard",
+	atlas = "enh",
+	pos = { x = 3, y = 3 },
+	discovered = true,
+	unlocked = true,
+	replace_base_card = false,
+	no_rank = false,
+	no_suit = false,
+	always_scores = false,
+	weight = 0,
+	config = { extra = { x_mult = 1.5 } },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.x_mult } }
+	end,
+	calculate = function(self, card, context, effect)
+		if context.main_scoring and context.cardarea == G.play then
+			return {
+				x_mult = card.ability.extra.x_mult,
+			}
+		end
+	end,
+})
+
+SMODS.Enhancement({
+	key = "superiore",
+	atlas = "enh",
+	pos = { x = 4, y = 3 },
+	discovered = true,
+	unlocked = true,
+	replace_base_card = false,
+	no_rank = false,
+	no_suit = false,
+	always_scores = false,
+	weight = 0,
+	config = { extra = { xchips = 1 } },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.x_mult } }
+	end,
+	calculate = function(self, card, context, effect)
+		if context.main_scoring and context.cardarea == G.play then
+			return {
+				xchips = card.base.id * card.ability.extra.xchips / 3,
+			}
+		end
+	end,
 })

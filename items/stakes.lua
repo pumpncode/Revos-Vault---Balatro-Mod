@@ -29,7 +29,7 @@ SMODS.Stake{
 SMODS.Stake{
     key = "haunt",
     atlas = "stakes",
-    colour = HEX("232323"),
+    colour = SMODS.Gradients["crv_temp"],
     pos = {x=1,y=0},
     sticker_atlas = "enh",
     sticker_pos = {x=3,y=1},
@@ -38,19 +38,19 @@ SMODS.Stake{
     unlocked = false,
     prefix_config = { applied_stakes = { mod = false} },
     loc_txt = {
-        name = "Haunted Stake",
-        text = {"{C:attentionAll{} Jokers can become {C:blue}Haunted",
+        name = "Limited Stake",
+        text = {"{C:attentionAll{} Jokers can become {C:crv_temp}Temporary",
                 "{C:inactive,s:0.8}(Card is destroyed at the end of the round)"},
                 sticker = {
-                    name = "Haunted Sticker",
+                    name = "Limited Sticker",
                     text = {"Used this Joker",
-                            "to win on {C:attention}Haunted",
+                            "to win on {C:attention}Limited",
                             "{C:attention}Stake{} difficulty"}
 
                 }
     },
     modifiers = function()
-        G.GAME.modifiers.enable_crv_haunted = true
+        G.GAME.modifiers.enable_crv_temp = true
     end
 }
 
@@ -110,3 +110,86 @@ SMODS.Stake{
         G.GAME.modifiers.enable_crv_absolute = true
     end
 }
+
+SMODS.Stake{
+    key = "contin",
+    atlas = "stakes",
+    pos = {x=4,y=0},
+    colour = HEX("ffe9b5"),
+    sticker_atlas = "enh",
+    sticker_pos = {x=5,y=0},
+    applied_stakes = { "crv_absol" },
+    shiny = true,
+    unlocked = false,
+    prefix_config = { applied_stakes = { mod = false} },
+    loc_txt = {
+        name = "Continuity Stake",
+        text = {"{C:attentionAll{} Jokers can have {C:crv_continuity}Continuity",
+                "{C:inactive,s:0.6}(The card is replaced by another with the same rarity/set)"},
+                sticker = {
+                    name = "Continuity Sticker",
+                    text = {"Used this Joker",
+                            "to win on {C:attention}Continuity",
+                            "{C:attention}Stake{} difficulty"}
+
+                }
+    },
+    modifiers = function()
+        G.GAME.modifiers.enable_crv_continuity = true
+    end
+}
+
+SMODS.Stake{
+    key = "overt",
+    atlas = "stakes",
+    pos = {x=1,y=1},
+    colour = HEX("fdffa8"),
+    sticker_atlas = "enh",
+    sticker_pos = {x=6,y=2},
+    applied_stakes = { "crv_contin" },
+    shiny = true,
+    unlocked = false,
+    prefix_config = { applied_stakes = { mod = false} },
+    loc_txt = {
+        name = "Overtime Stake",
+        text = {"{C:attentionAll{} Jokers can have {C:money}Overtime"},
+                sticker = {
+                    name = "Overtime Sticker",
+                    text = {"Used this Joker",
+                            "to win on {C:attention}Overtime",
+                            "{C:attention}Stake{} difficulty"}
+
+                }
+    },
+    modifiers = function()
+        G.GAME.modifiers.enable_crv_overtime = true
+    end
+}
+
+--[[SMODS.Stake{
+    key = "frag",
+    atlas = "stakes",
+    pos = {x=4,y=0},
+    colour = HEX("ffe9b5"),
+    sticker_atlas = "enh",
+    sticker_pos = {x=5,y=0},
+    applied_stakes = { "crv_absol" },
+    shiny = true,
+    unlocked = false,
+    prefix_config = { applied_stakes = { mod = false} },
+    loc_txt = {
+        name = "Fragile Stake",
+        text = {"{C:attentionAll{} Jokers can have {C:crv_continuity}Fragile",
+                "{C:inactive,s:0.6}(1/4 Chance to get destroyed when triggered/played)"},
+                sticker = {
+                    name = "Transparent Sticker",
+                    text = {"Used this Joker",
+                            "to win on {C:attention}Fragile",
+                            "{C:attention}Stake{} difficulty"}
+
+                }
+    },
+    modifiers = function()
+        G.GAME.modifiers.enable_crv_glasssticker = true
+    end
+}]]

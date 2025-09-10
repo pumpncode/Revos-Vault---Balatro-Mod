@@ -1,13 +1,16 @@
 
-### Latest: Vers 4.2.1a:
+# Revo's Vault
 
-**Revo's Vault**
+Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **175+** jokers and a lot more!
 
-Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **174** jokers, 14 new enhancements, 2 new tarots, 3 new spectral cards, 2 new consumable types with a total of 26 custom consumables, 1 new seal, 3 new tags, 1 new voucher, 9 new booster packs, 4 new stickers, 4 new stakes and 3 new boss blinds!
 
- ![image](https://github.com/user-attachments/assets/d8741aa0-1c39-4234-bd39-1b917c403d02)
+<img width="142" height="190" alt="image" src="https://github.com/user-attachments/assets/5d784f62-9b5d-4d35-b554-2c4605f9728f" />  <img width="142" height="190" alt="image" src="https://github.com/user-attachments/assets/d2e92661-909a-4b29-b652-b77bab3c7106" />  <img width="140" height="187" alt="image" src="https://github.com/user-attachments/assets/ad3074ff-43b9-4b15-8e20-8153312fc83a" />  <img width="141" height="187" alt="image" src="https://github.com/user-attachments/assets/eeda0325-8b1b-4254-beec-7f12aaab1207" />
 
-### **Cross-Mod Content**
+
+
+----
+
+**Cross-Mod Content**
 
 ----
 
@@ -33,7 +36,7 @@ Currently there are 4 New Rarities (Printer, Chaos, Vaulted and Secret), **174**
 
 ----
 
-- And more ;)
+- And arround 30 more!
 
 ------
 
@@ -46,3 +49,4 @@ you can reach out to me from discord (revoo_.) for any suggestions or bug report
 --MilƱMeg4 for great ideas
 
 --BepisFever for button code
+

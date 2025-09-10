@@ -73,17 +73,23 @@ local glprinter = {
 		y = 0,
 	},
 	config = {
-		extra = {},
+		extra = {
+			odds = 4
+		},
 	},
-	loc_vars = function(self, info_queue, center)
-		info_queue[#info_queue + 1] = G.P_CENTERS.c_crv_gldoc
+	loc_vars = function(self, info_queue, card)
+		return{
+			vars = {(G.GAME.probabilities.normal or 1),card.ability.extra.odds}
+		}
 	end,
 
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			local card = create_card("Consumable", G.consumeables, nil, nil, nil, nil, "c_crv_gldoc")
-			card:add_to_deck()
-			G.consumeables:emplace(card)
+		if context.first_hand_drawn then
+			if pseudorandom("ucp") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				RevosVault.printer_apply(nil, nil, "e_cry_glitched", G.jokers)
+			else
+				RevosVault.printer_apply(nil, nil, "e_cry_glitched")
+			end
 		end
 	end,
 	in_pool = function(self, wawa, wawa2)
@@ -94,7 +100,7 @@ local glprinter = {
 	end,
 }
 
-local gldoc = {
+--[[local gldoc = {
 	object_type = "Consumable",
 	key = "gldoc",
 	name = "Glitched Document",
@@ -168,7 +174,7 @@ local gldoc = {
 	draw = function(self, card, layer)
 		card.children.center:draw_shader("cry_glitched", nil, card.ARGS.send_to_shader)
 	end,
-}
+}]]
 
 local printorium = {
 	object_type = "Joker",
@@ -367,7 +373,6 @@ return {
 	items = {
 		mrinter,
 		glprinter,
-		gldoc,
 		printorium,
 		rtprinter,
 		qtprinter,

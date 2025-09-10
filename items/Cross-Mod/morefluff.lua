@@ -27,7 +27,8 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
-			if G.GAME.used_vouchers["v_crv_printerup"] == true then
+			for i = 1, 2 do   --Since John MoreFluff added 45 Degree Rotated Cartomancer i cant create a single one anymore >:(
+if G.GAME.used_vouchers["v_crv_printerup"] == true and pseudorandom("ALLPRINTER") < G.GAME.probabilities.normal / 4  or G.GAME.used_vouchers["v_crv_printeruptier"] == true then
 				SMODS.add_card{
                     set = "Rotarot",
                     edition = "e_negative"
@@ -40,7 +41,8 @@ SMODS.Joker({
 				end
 			end
 		end
-	end,
+	end
+end,
 	in_pool = function(self, wawa, wawa2)
 		return true
 	end,
