@@ -103,7 +103,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     number high = max(tex.r, max(tex.g, tex.b));
 	number delta = high - low;
 
-	number saturation_fac = 1. - max(0., 0.05*(1.1-delta));
+	number saturation_fac = 1. - max(0., 0.05*(2.0-delta));
 
 	vec4 hsl = HSL(vec4(tex.r*saturation_fac, tex.g*saturation_fac, tex.b, tex.a));
 

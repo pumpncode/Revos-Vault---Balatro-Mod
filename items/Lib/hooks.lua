@@ -1,0 +1,857 @@
+local removeold = Card.remove
+function Card:remove()
+	if self.ability.set == "Joker" and self.added_to_deck then
+		if self.area == G.jokers then
+			G.GAME.last_destroyed_joker = self
+			G.GAME.dont_question = G.GAME.last_destroyed_joker.config.center.key
+			SMODS.calculate_context({
+				crv_joker_destroyed = true,
+				crv_destroyedj = self,
+				crv_destroy_area = self.area
+			})
+		end
+	end
+	if self.added_to_deck and self.config.center.key == "j_vprint" then
+		for k, v in pairs(G.jokers.cards) do
+			v.crv_no_trigger = nil
+		end
+	end
+	if self.ability.consumeable and self.added_to_deck then
+		SMODS.calculate_context({
+			crv_cons_destroyed = true,
+			crv_destroyedc = self,
+		})
+	end
+	if self.added_to_deck and self.config.center.key == "j_crv_modicon" and not RevosVault.modicon_sell_lock then
+		if #SMODS.find_card("j_crv_modicon")==1 and G.real_modicon_area and G.real_modicon_area.cards and #G.real_modicon_area.cards>0 then
+			for k, v in pairs(G.real_modicon_area.cards) do
+				RevosVault.clicker_fix = false 
+				v:start_dissolve(nil, true)
+			end
+		end
+	end
+	return removeold(self)
+end
+
+function Blind:crv_after_play() --Taken from cryptid
+	if not self.disabled then
+		local obj = self.config.blind
+		if obj.crv_after_play and type(obj.crv_after_play) == "function" then
+			return obj:crv_after_play()
+		end
+	end
+end
+
+local unlock1, unlock2, unlock3 = nil, nil, nil
+local gfep = G.FUNCS.evaluate_play --Taken from cryptid as well
+function G.FUNCS.evaluate_play(e)
+	G.E_MANAGER:add_event(Event({
+		trigger = "before",
+		delay = 0,
+		func = function()
+			RevosVault.scoring = true
+			SMODS.calculate_context({crv_before = true})
+			return true
+		end
+	}))
+	local R = RevosFunctions
+	gfep(e)
+	if SMODS.is_poker_hand_visible("Five of a Kind") and not unlock1 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supplanetx)
+		unlock1 = true
+	end
+	if SMODS.is_poker_hand_visible("Flush House") and not unlock2 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_supceres)
+		unlock2 = true
+	end
+	if SMODS.is_poker_hand_visible("Flush Five") and not unlock3 then
+		SMODS.insert_pool(G.P_CENTER_POOLS.SuperiorPlanet, G.P_CENTERS.c_crv_superis)
+		unlock3 = true
+	end
+
+	if R.c then R.c = nil hand_chips = 0 end
+	if R.m then R.m = nil mult = 0 end
+
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.3,
+		func = function()
+			G.GAME.blind:crv_after_play()
+			return true
+		end
+	}))
+
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0,
+		func = function()
+			RevosVault.scoring = false
+			return true
+		end
+	}))
+end
+
+local rerollold = G.FUNCS.reroll_shop
+function G.FUNCS.reroll_shop(e)
+	G.GAME.reroll_before = true
+	rerollold(e)
+	G.GAME.reroll_before = false
+end
+
+function Blind:crv_hand_sort()
+	if not self.disabled then
+		local obj = self.config.blind
+		if obj.crv_hand_sort and type(obj.crv_hand_sort) == "function" then
+			return obj:crv_hand_sort()
+		end
+	end
+end
+
+local sorthandold = G.FUNCS.sort_hand_value
+function G.FUNCS.sort_hand_value(e)
+	sorthandold(e)
+	G.GAME.blind:crv_hand_sort()
+end
+
+local sorthandoldsuit = G.FUNCS.sort_hand_suit
+function G.FUNCS.sort_hand_suit(e)
+	sorthandoldsuit(e)
+	G.GAME.blind:crv_hand_sort()
+end
+
+if RevosVault.config.vault_enabled then -- i wont fix this
+	local destroyjoker = Card.remove
+	function Card:remove()
+			--[[if self.added_to_deck and self.ability.set == "Joker" and 30 > G.GAME.vaultspawn then
+				G.GAME.vaultspawn = G.GAME.vaultspawn + 1
+			elseif self.added_to_deck and self.ability.set == "Joker" and G.GAME.vaultspawn >= 30 then
+				G.GAME.vaultspawn = 0
+				play_sound("holo1")
+				SMODS.add_card({
+					set = "Joker",
+					area = G.jokers,
+					rarity = "crv_va",
+				})
+			end]]
+		return destroyjoker(self)
+	end
+end
+
+	SMODS.ObjectType({
+		key = "SuperiorTarot",
+		cards = {},
+	})
+
+	SMODS.ObjectType({
+		key = "SuperiorSpectral",
+		cards = {},
+	})
+
+	SMODS.ObjectType({
+		key = "SuperiorPlanet",
+		cards = {},
+	})
+
+	local shopcreateold = create_card_for_shop
+	function create_card_for_shop(area)
+		if RevosVault.config.gems_enabled then
+			if ((pseudorandom("gem_rate") > G.GAME.gem_rate) and not RevosVault.gem_skip) or RevosVault.guarantee_gem then
+				RevosVault.add_gem()
+			end
+			RevosVault.gem_skip = true
+		end
+
+		--[[if pseudorandom("get_boon") < 1 / 4 then
+			ease_colour(RevosVault.C.BOONS.CURRENT, RevosVault.C.BOONS.HAVE_BOONS)
+			RevosVault.should_spawn_boon = true
+		end]]
+		return shopcreateold(area)
+	end
+
+local arer_ref = add_round_eval_row --thank's to haya for this bit :D
+function add_round_eval_row(config)
+	config.dollars = (((config.dollars or 0) * G.GAME.crv_cashout) / G.GAME.curse_cashout)
+	return arer_ref(config)
+end
+
+local getidold = Card.get_id
+function Card:get_id()
+	if #SMODS.find_card("j_crv_revoo_") > 0 then
+		return 14
+	else
+		return self.base.id
+	end
+end
+
+local getoriginalrankold = Card.get_original_rank
+function Card:get_original_rank()
+	if #SMODS.find_card("j_crv_revoo_") > 0 then
+		return "Ace"
+	else
+		return getoriginalrankold
+	end
+end
+
+local isfaceold = Card.is_face
+function Card:is_face(from_boss)
+	if self.debuff and not from_boss then
+		return
+	end
+	if #SMODS.find_card("j_crv_revoo_") > 0 then
+		return false
+	end
+	return isfaceold(self, from_boss)
+end
+
+local easedolold = ease_dollars
+function ease_dollars(mod, instant)
+	SMODS.calculate_context({
+		crv_easedollars = to_big(mod),
+	})
+	return easedolold(mod, instant)
+end
+
+local rerol_old = G.FUNCS.reroll_shop
+function G.FUNCS.reroll_shop(e)
+	if #SMODS.find_card("j_crv_shop_sign") > 0 then
+		RevosVault.replacecards(G.shop_vouchers.cards)
+		RevosVault.replacecards(G.shop_booster.cards)
+	end
+	rerol_old(e)
+end
+
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+	local ret = igo(self)
+	ret.overtime_rounds = 3
+	ret.mystery_rounds = 3
+	ret.reincarnation = 1
+	ret.henchmans = 0
+	ret.glassodds = 4
+	ret.glassxmult = 2
+	ret.vaultspawn = 0
+	ret.last_destroyed_joker = nil
+	ret.dont_question = nil
+	ret.hangedmanchips = 0
+	ret.SuperiorRates = 0.9
+	ret.superiorRatesPlanet = 0.99
+	ret.dont_fucking_draw = nil
+	ret.crv_cashout = 1
+	ret.used_gems = {}
+	ret.reroll_before = false
+	ret.xinflation = 1
+	ret.curse_cashout = 1
+	ret.gem_rate = 0.70
+
+	ret.souls = 0 -- metaprog soon
+
+	ret.superior_mod = 1
+
+	ret.crv_blacklisted_balance = {
+		"METRICS",
+		"crv_curses",
+		"vouchers",
+		"discard",
+		--[["deck",
+		"hand",
+		"play"]]
+	}
+
+--[[if next(SMODS.find_mod("JoJoMod")) then
+		ret.crv_jojo = true
+	else
+		ret.crv_jojo = false
+	end]]
+	if next(SMODS.find_mod("Talisman")) then
+		ret.talisman = 1
+	else
+		ret.talisman = 0
+	end
+	return ret
+end
+
+SMODS.Enhancement:take_ownership("glass", {
+	config = { Xmult = 2, extra = 4 },
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { card.ability.Xmult, G.GAME.probabilities.normal, G.GAME.glassodds },
+		}
+	end,
+	calculate = function(self, card, context)
+		if not (#SMODS.find_card("gem_crv_obsidian") > 0) then
+			if
+				context.destroy_card
+				and context.cardarea == G.play
+				and context.destroy_card == card
+				and pseudorandom("glass") < G.GAME.probabilities.normal / G.GAME.glassodds
+			then
+				return { remove = true }
+			end
+		end
+	end,
+}, true)
+
+local start_run_old = Game.start_run
+function Game:start_run(args)
+	start_run_old(self, args)
+	if G.jokers and G.jokers.config then
+		G.jokers.config.highlighted_limit = G.jokers.config.highlighted_limit + 1
+	end
+end
+
+
+local add_to_deck_old = Card.add_to_deck
+function Card:add_to_deck(from_debuff)
+local ret = add_to_deck_old(self, from_debuff)
+	if self.config.center.rarity == "crv_p" then
+		check_for_unlock({type = "obtain_printer"})
+	end
+	if self.config.center.rarity == "crv_secret" then
+		check_for_unlock({type = "secretify"})
+	end
+	if self.config.center.key == "j_crv_mycard" then
+		check_for_unlock({type = "revoing_it"})
+	end
+	if self.config.center.rarity == "crv_va" then
+		check_for_unlock({type = "vaulting_it"})
+	end
+	if not self.crv_fake then
+		return ret
+	end
+end
+
+local click_old = Card.click
+function Card:click()
+	local ret = click_old(self)
+
+		if self.config.center.key == "j_crv_clicker" then
+			self.ability.extra["clicks"] = self.ability.extra["clicks"] + 1
+			self.ability.extra["chips"] = self.ability.extra["chips"] + self.ability.extra["chipgain"]
+		end
+		if self.config.center.key == "j_crv_modicon" and (RevosVault.clicker_fix) then
+			local cae = G.real_modicon_area.cards[RevosVault.get_key_pos("j_crv_clicker")].ability.extra
+			cae.clicks = cae.clicks + 1
+			cae.chips = cae.chips + cae.chipgain
+		end
+
+	if RevosVault.printer_deck_selection then
+	if not self.debbuff then
+		RevosVault.printer_deck_selection = false
+
+			if RevosVault.sleeve_applied  and G.GAME and G.GAME.selected_sleeve and G.GAME.selected_sleeve == "sleeve_crv_psleeve" then
+				RevosVault.sleeve_applied = false
+				G.FUNCS:exit_overlay_menu() -- yes
+			else
+				G.FUNCS:exit_overlay_menu()
+			end
+
+			local e = SMODS.add_card({
+				key = self.config.center.key,
+				area = G.jokers,
+			})
+			e:add_sticker("eternal", true)
+			if RevosVault.negative_pdeck then
+				e:set_edition("e_negative", true, true)
+			end
+
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				func = function()
+					save_run()
+					return true
+				end,
+			}))
+		end
+	end
+	return ret
+end
+
+local update_old = Game.update
+function Game:update(dt)
+	update_old(self, dt)
+	if SMODS then
+		for _, area in ipairs(SMODS.get_card_areas("jokers")) do
+			if area and area.cards then
+				for _, _card in ipairs(area.cards) do
+					if _card.debuff and _card.ability.crv_wet then
+						_card.debuff = false
+					end
+					for i = 1, #area.cards do
+						if area.cards[i] and area.cards[i].ability.crv_stable_patch then
+							if area.cards[i-1] then
+								if area.cards[i-1].debuff then
+									area.cards[i-1].debuff = false
+								end
+								if area.cards[i-1].facing == "back" then
+									area.cards[i-1]:flip()
+								end
+							end 
+							if area.cards[i+1] then
+								if area.cards[i+1].debuff then
+									area.cards[i+1].debuff = false
+								end
+								if area.cards[i+1].facing == "back" then
+									area.cards[i+1]:flip()
+								end
+							end 
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+local old_exit_menu = G.FUNCS.exit_overlay_menu
+G.FUNCS.exit_overlay_menu = function()
+	RevosVault.printer_deck_selection = false
+	old_exit_menu()
+end
+
+-- Partner Mod and Printer Deck compat
+
+
+local skip_partner_old = G.FUNCS.skip_partner
+G.FUNCS.skip_partner = function()
+	skip_partner_old()
+	if RevosVault.partner_fix and not RevosVault.flace_fix then
+		G.FUNCS.get_printer_box()
+		RevosVault.partner_fix = false
+	end
+end
+
+local select_partner_old = G.FUNCS.select_partner
+G.FUNCS.select_partner = function()
+	select_partner_old()
+	if RevosVault.partner_fix and not RevosVault.flace_fix then
+		G.FUNCS.get_printer_box()
+		RevosVault.partner_fix = false
+	end
+end
+
+
+-- Flying Aces Mod and Printer Deck compat
+
+local cancel_flace_choice_old = G.FUNCS.cancel_flace_choice
+G.FUNCS.cancel_flace_choice = function()
+	cancel_flace_choice_old()
+	if RevosVault.flace_fix then
+		G.FUNCS.get_printer_box()
+		RevosVault.flace_fix = false
+		if RevosVault.partner_fix then
+			RevosVault.partner_fix = false
+		end
+	end
+end
+
+local select_flace_old = G.FUNCS.select_flace
+G.FUNCS.select_flace = function()
+	select_flace_old()
+	if RevosVault.flace_fix then
+		G.FUNCS.get_printer_box()
+		RevosVault.flace_fix = false
+		if RevosVault.partner_fix then
+			RevosVault.partner_fix = false
+		end
+	end
+end
+
+-- Should mention this to Evgast probably
+
+local blueskill_old = G.FUNCS.blueskill
+function G.FUNCS.blueskill(e)
+	local card = e.config.ref_table
+	if card.config.center.can_use_blue then
+    	blueskill_old(e)
+	end
+end
+
+local redskill_old = G.FUNCS.redskill
+function G.FUNCS.redskill(e) 
+	local card = e.config.ref_table
+   	if card.config.center.can_use_red then
+    	redskill_old(e)
+	end
+end
+
+--
+
+local set_ability_old = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+
+	if G.GAME.modifiers.banana_mayhem then
+		if self and self.ability and self.ability.set == "Joker" then
+			self.bananaified = true
+			local available_bananas = {}
+    		for k, v in pairs(get_current_pool("BananaPool")) do
+        		if G.P_CENTERS[v] then
+            		available_bananas[#available_bananas+1] = v
+        		end
+    		end
+
+    		local banana_key = pseudorandom_element(available_bananas, pseudoseed("BANANA_MAYHEM"))
+    		center = banana_key
+		end
+
+		if self and self.ability and self.ability.set == "Booster" then
+			local banana_packs = {
+				"p_crv_bbst"
+			}
+			if pseudorandom("banana_pack") < 1/10 then banana_packs[#banana_packs+1] = "p_crv_bbst2" end
+			if pseudorandom("banana_pack") < 1/25 then banana_packs[#banana_packs+1] = "p_crv_bbst3" end
+			local banana_pack = pseudorandom_element(banana_packs, pseudoseed("banana_pack"))
+			center = banana_pack
+		end
+	end
+
+	set_ability_old(self, center, initial, delay_sprites)
+
+	G.E_MANAGER:add_event(Event({
+		trigger = "immediate",
+		delay = 0,
+		func = function()
+			if RevosVault.is_an_enhancement(center) and center ~= "c_base" then
+				SMODS.calculate_context({card_enhanced = true, card = self, enhancement = center, area = self.area})
+			end
+			return true
+		end
+	}))
+
+	self.ability.calculate_cavendish = nil
+	self.ability.calculate_gros_michel = nil
+
+	if self and self.ability then
+		self.ability.odds = nil
+	end
+
+	if center == "j_cavendish" then
+		self.ability.calculate_cavendish = true
+		self.ability.x_mult = G.P_CENTERS.j_cavendish.config.extra.Xmult
+		self.ability.odds = 1000
+	end
+
+	if center == "j_gros_michel" then
+		self.ability.calculate_gros_michel = true
+		self.ability.mult = G.P_CENTERS.j_gros_michel.config.extra.mult
+		self.ability.odds = 6
+	end
+end
+
+
+local emplace_old = CardArea.emplace
+function CardArea:emplace(card, location, stay_flipped)
+	emplace_old(self, card, location, stay_flipped)
+	if card and card.config and card.config.center and card.config.center.key and not card.crv_fake then
+		if card.config.center.crv_special then
+			for _, area in pairs(SMODS.get_card_areas("jokers")) do
+				if area and area.cards then
+					for __, cards in pairs(area.cards) do
+						if cards ~= card and cards.config.center.key == card.config.center.key and not cards.crv_fake then
+							SMODS.destroy_cards(cards)
+						end
+					end
+				end
+			end
+		end
+	end
+    if card and card.config and card.config.center and card.config.center.key and (self == G.shop_jokers or self == G.pack_cards or self == G.shop_booster or self == G.shop_vouchers or self == G.consumeables or self == G.jokers or self == G.crv_curses) then
+
+		if self == G.jokers and G.crv_curses then
+			if G.crv_curses.T.y > G.jokers.T.y then
+				G.jokers.T.y = 0
+				G.crv_curses.T.y = -5
+			end
+		end
+
+		if RevosVault.config.superior_enabled and card.ability.set ~= "Joker" then
+			if pseudorandom("supcreate") < 1 / (1000/G.GAME.superior_mod) and card:has_potential() then
+				RevosVault.unleash_potential(card)
+			end
+		end
+	
+		if self ~= G.consumeables and self ~= G.jokers then
+			if self ~= G.pack_cards then
+				if (#SMODS.find_card("j_crv_inflation")>0) then
+					if card and card.cost then
+						card.cost = card.cost * 2
+					end
+				end
+			end
+		end
+		if self ~= G.consumeables and RevoConfig["8_curses_enabled"] and G.crv_curses then
+
+			if card.config.center.rarity == "crv_curse" then
+				G.crv_curses.T.y = 0
+				G.jokers.T.y = -5
+				if card.area and not card.crv_moved_curse and card.area ~= G.crv_curses then
+					card.crv_moved_curse = true
+					RevosVault.move_card(card, G.crv_curses, {add_to_deck = true})
+					G.curse_button.states.visible = true
+					if not RevosVault.ui_disbled("crv_curses_ui") then
+						G.FUNCS.RevosVault_info{menu_type = "crv_curses_ui"}
+					end
+					card.added_to_deck = true
+					check_for_unlock({type = "clovering_it"})
+				end
+
+				card:add_sticker("eternal", true)
+
+				G.E_MANAGER:add_event(Event({
+					trigger = "after",
+					delay = 0.1,
+					func = function()
+						card:set_edition(nil, true, true)
+						RevosVault.remove_all_stickers(card, "eternal")
+						card.sell_cost = 0
+						card.children.price = nil
+						card.children.buy_button = nil
+						card.crv_moved_curse = nil
+						return true
+					end
+				}))
+			end
+		end
+	end
+end
+
+
+local use_consumeable_old = Card.use_consumeable
+function Card:use_consumeable(area, copier)
+	use_consumeable_old(self, area, copier)
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.1,
+		func = function()
+			SMODS.calculate_context({after_consumable = true})
+			if self.config.center.after_use then
+				self.config.center:after_use()
+			end
+			return true
+		end
+	}))
+end
+
+local ease_background_colour_old = ease_background_colour
+function ease_background_colour(args)
+	if not G.GAME.disable_background_colouring then
+		return ease_background_colour_old(args)
+	else
+		RevosVault.colour_args = copy_table(args)
+	end
+end
+
+local start_run_old = Game.start_run 
+function Game:start_run(args)
+	RevosVault.curse_text = localize("crv_curses_button")
+	if (#SMODS.find_card("j_crv_pedro")>0) then
+		G.GAME.disable_background_colouring = nil
+		ease_background_colour{new_colour = darken(G.C.RED, 0.5), special_colour = G.C.ORANGE, contrast = 5}
+		G.GAME.disable_background_colouring = true
+	end
+
+	start_run_old(self, args)
+
+	-- taken from JoyousSpring (N' my goat)
+
+	if RevoConfig["8_curses_enabled"] then
+	self.curse_button = UIBox {
+        definition = {
+            n = G.UIT.ROOT,
+            config = {
+                align = "cm",
+                minw = 1,
+                minh = 0.3,
+                padding = 0.15,
+                r = 0.1,
+                colour = G.C.CLEAR,
+            },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = {
+                        align = "tm",
+                        minw = 2,
+                        padding = 0.1,
+                        r = 0.1,
+                        hover = true,
+                        colour = G.C.L_BLACK,
+                        shadow = true,
+                        button = "crv_curse_area",
+						func = "crv_can_curse_area"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = { align = "bcm", padding = 0 },
+                            nodes = {
+                                {
+                                    n = G.UIT.T,
+                                    config = {
+                                        ref_table = RevosVault,
+										ref_value = "curse_text",
+                                        scale = 0.35,
+                                        colour = G.C.UI.TEXT_LIGHT
+                                    }
+                                }
+                            }
+                        },
+                    }
+                },
+                
+            }
+        },
+        config = {
+            align = "tr",
+            offset = { x = -7.5, y = 0.1 },
+            major = G.ROOM_ATTACH,
+            bond = 'Weak'
+        }
+    }
+	if not G.crv_curses or (G.crv_curses and RevosVault.rarity_in("crv_curse",G.crv_curses.cards)==0) then G.curse_button.states.visible = false end
+    self.HUD:recalculate()
+	end
+end
+
+local end_round_old = end_round
+function end_round()
+	G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.2,
+      func = function()
+            for i = 1, #G.hand.cards do
+				if G.hand.cards[i].ability.calculate_cavendish then
+                	G.hand.cards[i]:calculate_cavendish()
+				end
+				if G.hand.cards[i].ability.calculate_gros_michel then
+                	G.hand.cards[i]:calculate_gros_michel()
+				end
+            end
+		return true
+	end
+	}))
+	return end_round_old()
+end
+
+
+local get_chip_x_mult_old = Card.get_chip_x_mult
+function Card:get_chip_x_mult(context)
+	if self.debuff then return 0 end
+	if self.ability.calculate_cavendish then
+		return G.P_CENTERS.j_cavendish.config.extra.Xmult
+	else
+		return get_chip_x_mult_old(self, context)
+	end
+end
+
+
+local get_chip_mult_old = Card.get_chip_mult
+function Card:get_chip_mult()
+    if self.debuff then return 0 end
+    if self.ability.calculate_gros_michel then
+		return G.P_CENTERS.j_gros_michel.config.extra.mult
+	else
+		return get_chip_mult_old(self)
+	end
+end
+
+
+local toggle_shop_old = G.FUNCS.toggle_shop
+function G.FUNCS.toggle_shop(e)
+	if G.shop and RevosVault.gem_skip then
+		RevosVault.gem_skip = false
+	end
+    toggle_shop_old(e)
+end
+
+
+local remove_from_deck_old = Card.remove_from_deck
+function Card:remove_from_deck(from_debuff)
+	local ret = remove_from_deck_old(self, from_debuff)
+	SMODS.calculate_context({crv_card_removed = true, card = self})
+	if not self.crv_fake then
+		return ret
+	end
+end
+
+--[[local play_from_highlight_old = G.FUNCS.play_cards_from_highlighted
+G.FUNCS.play_cards_from_highlighted = function(e)
+	SMODS.calculate_context({crv_press_play = true})
+	play_from_highlight_old(e)
+end]]
+
+local insert_pool_old = SMODS.insert_pool
+function SMODS.insert_pool(pool, center, replace)
+	if center then
+		return insert_pool_old(pool, center, replace)
+	end
+end
+
+local win_game_old = win_game
+function win_game()
+	local rw = true
+	if not G.GAME.seeded and not G.GAME.challenge and G.jokers and G.jokers.cards and #G.jokers.cards > 0 then
+		for k, v in pairs(G.jokers.cards) do
+			if not v.config.center.mod or (v.config.center.mod and v.config.center.mod.id ~= "RevosVault") then
+				rw = false
+			end
+		end
+		if rw then
+			check_for_unlock({type = "crv_appreciation"})
+		end
+	end
+	return win_game_old()
+end
+
+local check_for_buy_space_old = G.FUNCS.check_for_buy_space
+G.FUNCS.check_for_buy_space = function(card)
+    if card.config.center.always_buyable then
+        return true
+    end
+    return check_for_buy_space_old(card)
+end
+
+
+-- sell sync
+local sell_card_old = Card.sell_card
+function Card:sell_card()
+    if self.config.center.key == "j_crv_modicon" then
+		RevosVault.modicon_sell_lock = true
+		if G.real_modicon_area and G.real_modicon_area.cards and #G.real_modicon_area.cards>0 then
+			for k, v in pairs(G.real_modicon_area.cards) do
+				v.sell_cost = 0
+				v:crv_silent_sell()
+			end
+		end
+	end
+    sell_card_old(self)
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.1,
+		func = function()
+			RevosVault.modicon_sell_lock = false
+			return true
+		end
+	}))
+end
+
+local joker_calc_old = Card.calculate_joker -- preventing joker triggers
+function Card:calculate_joker(context)
+    if self and not self.crv_no_trigger then
+        return joker_calc_old(self, context)
+    end
+end
+
+local score_card_old = SMODS.score_card
+function SMODS.score_card(card, context)
+    if not card.crv_no_trigger then
+        return score_card_old(card, context)
+    end
+end
+
+local calculate_context_old = SMODS.calculate_context
+function SMODS.calculate_context(context, ...)
+    if context.hand_drawn then
+		G.GAME.current_round.crv_drawn_hands = G.GAME.current_round.crv_drawn_hands + 1
+	end
+    return calculate_context_old(context, ...)
+end
